@@ -118,6 +118,55 @@
         </div>
     </div>
 
+    <!-- EDIT CATEGORY MODAL -->
+    <div id="editCategoryModal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeEditCategoryModal()">&times;</button>
+            <h3>Edit Category</h3>
+            <div class="form-group">
+                <label>Category Name</label>
+                <input type="text" id="editCategoryNameInput" placeholder="e.g., Calculus">
+            </div>
+            <div class="form-group">
+                <label>Parent Category (optional)</label>
+                <input type="text" id="editParentCategoryInput">
+                <small>Leave blank for root category</small>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="editCategoryDescInput" placeholder="Optional description"></textarea>
+            </div>
+            <div class="button-group">
+                <button onclick="saveEditedCategory()">Save Changes</button>
+                <button class="secondary" onclick="closeEditCategoryModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT CARD MODAL -->
+    <div id="editCardModal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeEditCardModal()">&times;</button>
+            <h3>Edit Flashcard</h3>
+            <div class="form-group">
+                <label>Front (Question)</label>
+                <textarea id="editCardFrontInput" placeholder="e.g., $\\frac{d}{dx}x^2 = ?$"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Back (Answer)</label>
+                <textarea id="editCardBackInput" placeholder="e.g., $2x$"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="editCardCategoryInput" placeholder="e.g., Math > Calculus">
+            </div>
+            <div class="button-group">
+                <button onclick="saveEditedCard()">Save Changes</button>
+                <button class="secondary" onclick="closeEditCardModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ==================== DATA MANAGEMENT ====================
         class StudyApp {
@@ -574,22 +623,55 @@
                 return;
             }
 
-            container.innerHTML = `
-                <p>Total: ${app.cards.length} cards</p>
-                ${app.cards.map((card, index) => `
-                    <div class="study-card" style="margin-top: 15px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <strong>${card.category}</strong>
-                                <div style="color: #999; font-size: 0.9rem; margin-top: 5px;">
-                                    Reviewed: ${card.timesReviewed}x | Streak: ${card.streak} | Ease: ${card.easeFactor.toFixed(2)}
+            // Group cards by category
+            const cardsByCategory = {};
+            app.cards.forEach(card => {
+                if (!cardsByCategory[card.category]) {
+                    cardsByCategory[card.category] = [];
+                }
+                cardsByCategory[card.category].push(card);
+            });
+
+            let html = `<p>Total: ${app.cards.length} cards</p>`;
+            
+            Object.entries(cardsByCategory).forEach(([categoryName, cards]) => {
+                html += `<div style="margin-bottom: 20px; background: #2d2d2d; padding: 15px; border-radius: 8px; border: 1px solid var(--accent-gray);">`;
+                html += `<h4 style="margin-top: 0; color: var(--accent-gray);">${categoryName} (${cards.length})</h4>`;
+                
+                cards.forEach(card => {
+                    html += `
+                        <div class="study-card" style="margin-bottom: 12px; background: #3a3a3a; padding: 12px; border-radius: 6px; border-left: 3px solid #5a7a8c;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; margin-bottom: 4px;">Q: ${card.front}</div>
+                                    <div style="color: #ccc; margin-bottom: 8px;">A: ${card.back}</div>
+                                    <div style="color: #999; font-size: 0.85rem;">
+                                        Reviews: ${card.timesReviewed}x | Streak: ${card.streak} | Ease: ${card.easeFactor.toFixed(2)}
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 8px; margin-left: 12px;">
+                                    <button onclick="openEditCardModal('${card.id}')" style="background: #5a7a8c; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: var(--text-light); font-size: 0.85em;">Edit</button>
+                                    <button onclick="deleteCardById('${card.id}')" style="background: #8b4545; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: var(--text-light); font-size: 0.85em;">Delete</button>
                                 </div>
                             </div>
-                            <button onclick="deleteCard(${index})" style="background: #8b4545; padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; color: var(--text-light);">Delete</button>
                         </div>
-                    </div>
-                `).join('')}
-            `;
+                    `;
+                });
+                
+                html += `</div>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function deleteCardById(cardId) {
+            const card = app.cards.find(c => c.id === cardId);
+            if (confirm(`Delete card: "${card.front}"?`)) {
+                app.cards = app.cards.filter(c => c.id !== cardId);
+                app.saveData();
+                updateManagedCards();
+                updateDashboard();
+            }
         }
 
         function deleteCard(index) {
@@ -609,31 +691,56 @@
                 return;
             }
 
-            container.innerHTML = `
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="background: #2d2d2d; border-bottom: 2px solid var(--accent-gray);">
-                            <th style="padding: 12px; text-align: left;">Category Name</th>
-                            <th style="padding: 12px; text-align: left;">Parent</th>
-                            <th style="padding: 12px; text-align: left;">Cards</th>
-                            <th style="padding: 12px; text-align: center;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${app.categories.map(cat => `
-                            <tr style="border-bottom: 1px solid var(--accent-gray);">
-                                <td style="padding: 12px;">${cat.name}</td>
-                                <td style="padding: 12px; color: var(--accent-gray);">${cat.parent ? app.categories.find(c => c.id === cat.parent)?.name || 'N/A' : '—'}</td>
-                                <td style="padding: 12px;">${app.cards.filter(c => c.category.toLowerCase().includes(cat.name.toLowerCase())).length}</td>
-                                <td style="padding: 12px; text-align: center;">
-                                    <button onclick="editCategory('${cat.id}')" style="background: #5a7a8c; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer; margin-right: 5px;">Edit</button>
-                                    <button onclick="deleteCategory('${cat.id}')" style="background: #8b4545; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer;">Delete</button>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
+            // Organize by grandparent
+            const rootCategories = app.categories.filter(c => !c.parent);
+            
+            let html = '';
+            
+            rootCategories.forEach(root => {
+                const children = app.categories.filter(c => c.parent === root.id);
+                const rootCards = app.cards.filter(c => c.category === root.id).length;
+                
+                html += `
+                    <div style="margin-bottom: 30px; background: #2d2d2d; padding: 20px; border-radius: 8px; border: 1px solid var(--accent-gray);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="margin: 0;">${root.name} (${rootCards} cards)</h3>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="openEditCategoryModal('${root.id}')" style="background: #5a7a8c; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer;">Edit</button>
+                                <button onclick="deleteCategoryConfirm('${root.id}')" style="background: #8b4545; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer;">Delete</button>
+                            </div>
+                        </div>
+                        
+                        ${children.length > 0 ? `
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--accent-gray);">
+                                <h4 style="margin-top: 0; color: var(--accent-gray);">Subcategories:</h4>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px;">
+                                    ${children.map(child => {
+                                        const grandChildren = app.categories.filter(c => c.parent === child.id);
+                                        const childCards = app.cards.filter(c => c.category === child.id).length;
+                                        return `
+                                            <div style="background: #3a3a3a; padding: 12px; border-radius: 6px; border: 1px solid var(--accent-gray);">
+                                                <div style="font-weight: 600; margin-bottom: 8px;">${child.name} (${childCards} cards)</div>
+                                                ${grandChildren.length > 0 ? `
+                                                    <div style="font-size: 0.85em; color: #999; margin-bottom: 8px;">
+                                                        ${grandChildren.length} sub-category(ies):
+                                                        <br>${grandChildren.map(gc => gc.name).join(', ')}
+                                                    </div>
+                                                ` : ''}
+                                                <div style="display: flex; gap: 6px;">
+                                                    <button onclick="openEditCategoryModal('${child.id}')" style="background: #5a7a8c; padding: 4px 10px; border: none; color: white; border-radius: 3px; cursor: pointer; font-size: 0.85em;">Edit</button>
+                                                    <button onclick="deleteCategoryConfirm('${child.id}')" style="background: #8b4545; padding: 4px 10px; border: none; color: white; border-radius: 3px; cursor: pointer; font-size: 0.85em;">Delete</button>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
         }
 
         function editCategory(categoryId) {
@@ -828,11 +935,151 @@
             }
         }
 
+        // ==================== EDIT CATEGORY FUNCTIONS ====================
+        let currentEditCategoryId = null;
+
+        function openEditCategoryModal(categoryId) {
+            currentEditCategoryId = categoryId;
+            const cat = app.categories.find(c => c.id === categoryId);
+            if (!cat) return;
+
+            document.getElementById('editCategoryNameInput').value = cat.name;
+            document.getElementById('editCategoryDescInput').value = cat.description || '';
+            
+            // Set parent category name
+            if (cat.parent) {
+                const parentCat = app.categories.find(c => c.id === cat.parent);
+                document.getElementById('editParentCategoryInput').value = parentCat ? parentCat.name : '';
+            } else {
+                document.getElementById('editParentCategoryInput').value = '';
+            }
+            
+            document.getElementById('editCategoryModal').classList.add('show');
+        }
+
+        function closeEditCategoryModal() {
+            document.getElementById('editCategoryModal').classList.remove('show');
+            currentEditCategoryId = null;
+        }
+
+        function saveEditedCategory() {
+            if (!currentEditCategoryId) return;
+            
+            const newName = document.getElementById('editCategoryNameInput').value.trim();
+            const newDesc = document.getElementById('editCategoryDescInput').value.trim();
+            const newParentName = document.getElementById('editParentCategoryInput').value.trim();
+            
+            if (!newName) {
+                alert('Category name cannot be empty');
+                return;
+            }
+            
+            const cat = app.categories.find(c => c.id === currentEditCategoryId);
+            if (!cat) return;
+            
+            cat.name = newName;
+            cat.description = newDesc;
+            
+            // Update parent
+            let newParentId = null;
+            if (newParentName) {
+                const parentCat = app.categories.find(c => c.name.toLowerCase() === newParentName.toLowerCase());
+                if (parentCat && parentCat.id !== currentEditCategoryId) {
+                    newParentId = parentCat.id;
+                } else if (!parentCat) {
+                    alert('Parent category not found');
+                    return;
+                }
+            }
+            
+            cat.parent = newParentId;
+            
+            app.saveData();
+            updateCategoryTree();
+            updateCategoriesNav();
+            updateManagedCategories();
+            closeEditCategoryModal();
+            alert('Category updated!');
+        }
+
+        function deleteCategoryConfirm(categoryId) {
+            const cat = app.categories.find(c => c.id === categoryId);
+            const cardCount = app.cards.filter(c => c.category === categoryId).length;
+            
+            if (confirm(`Delete "${cat.name}"? This will also delete ${cardCount} card(s).`)) {
+                deleteCategory(categoryId);
+            }
+        }
+
+        function deleteCategory(categoryId) {
+            app.categories = app.categories.filter(c => c.id !== categoryId);
+            app.cards = app.cards.filter(c => c.category !== categoryId);
+            app.saveData();
+            updateCategoryTree();
+            updateCategoriesNav();
+            updateManagedCategories();
+            alert('Category and associated cards deleted');
+        }
+
+        // ==================== EDIT CARD FUNCTIONS ====================
+        let currentEditCardId = null;
+
+        function openEditCardModal(cardId) {
+            currentEditCardId = cardId;
+            const card = app.cards.find(c => c.id === cardId);
+            if (!card) return;
+
+            document.getElementById('editCardFrontInput').value = card.front;
+            document.getElementById('editCardBackInput').value = card.back;
+            document.getElementById('editCardCategoryInput').value = card.category;
+            
+            document.getElementById('editCardModal').classList.add('show');
+        }
+
+        function closeEditCardModal() {
+            document.getElementById('editCardModal').classList.remove('show');
+            currentEditCardId = null;
+        }
+
+        function saveEditedCard() {
+            if (!currentEditCardId) return;
+            
+            const front = document.getElementById('editCardFrontInput').value.trim();
+            const back = document.getElementById('editCardBackInput').value.trim();
+            const category = document.getElementById('editCardCategoryInput').value.trim();
+            
+            if (!front || !back || !category) {
+                alert('All fields are required');
+                return;
+            }
+            
+            const card = app.cards.find(c => c.id === currentEditCardId);
+            if (!card) return;
+            
+            card.front = front;
+            card.back = back;
+            card.category = category;
+            
+            app.saveData();
+            updateManagedCards();
+            closeEditCardModal();
+            alert('Card updated!');
+        }
+
         // Close modal on outside click
         document.addEventListener('click', (e) => {
-            const modal = document.getElementById('categoryModal');
-            if (e.target === modal) {
+            const categoryModal = document.getElementById('categoryModal');
+            const editCategoryModal = document.getElementById('editCategoryModal');
+            const editCardModal = document.getElementById('editCardModal');
+            
+            if (e.target === categoryModal) {
                 closeCategoryModal();
+            }
+            if (e.target === editCategoryModal) {
+                closeEditCategoryModal();
+            }
+            if (e.target === editCardModal) {
+                closeEditCardModal();
             }
         });
 

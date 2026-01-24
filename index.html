@@ -9,17 +9,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="app-header">
-        <div class="header-content">
-            <h1>📚 Flashcard App</h1>
-            <div class="header-stats">
-                <span id="totalCards">0 cards</span>
-                <span id="totalCategories">0 categories</span>
-            </div>
-        </div>
-    </header>
-
     <!-- MAIN NAVIGATION -->
     <nav class="main-nav">
         <button class="nav-tab active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</button>
@@ -63,8 +52,10 @@
                     <div class="form-container" style="max-width: 600px;">
                         <div class="form-group">
                             <label>Category</label>
-                            <input type="text" id="categoryInput" placeholder="e.g., Math > Calculus">
-                            <small>Enter category path (e.g., Math > Calculus > Derivatives)</small>
+                            <select id="categoryInput" onchange="updateCategoryDropdown()">
+                                <option value="">-- Select a category --</option>
+                            </select>
+                            <small>Choose from existing categories or create a new one in Manage Categories</small>
                         </div>
                         <div class="form-group">
                             <label>Front (Question) - Supports LaTeX</label>
@@ -179,6 +170,41 @@
             <div class="button-group">
                 <button onclick="saveEditedCard()">Save Changes</button>
                 <button class="secondary" onclick="closeEditCardModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STUDY CATEGORY MODAL (Active Recall) -->
+    <div id="studyCategoryModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <button class="close" onclick="closeStudyModal()">&times;</button>
+            <h3 id="studyCategoryTitle">Study Category</h3>
+            
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span id="studyCardCount">Card 1 of 5</span>
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="previousStudyCard()" class="btn secondary">← Previous</button>
+                        <button onclick="nextStudyCard()" class="btn secondary">Next →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Study Display -->
+            <div id="studyCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin-bottom: 20px;" onclick="toggleStudyCardSide()">
+                <div id="studyCardContent" style="text-align: center; width: 100%; font-size: 1.2rem; line-height: 1.8;">
+                    <!-- Content will be inserted here -->
+                </div>
+            </div>
+
+            <div style="text-align: center; color: var(--accent-gray); margin-bottom: 20px; font-size: 0.9rem;">
+                Click card to reveal answer
+            </div>
+
+            <div class="button-group">
+                <button onclick="markStudyCardCorrect()" class="btn" style="background: #4a6a4a;">Got it ✓</button>
+                <button onclick="markStudyCardIncorrect()" class="btn" style="background: #6a4a4a;">Need more ✗</button>
+                <button onclick="closeStudyModal()" class="btn secondary">Exit</button>
             </div>
         </div>
     </div>
@@ -367,7 +393,8 @@
                 if (viewName === 'review') updateReviewCards();
                 if (viewName === 'learn') updateLearnCards();
                 if (viewName === 'manage') updateManagedCards();
-                if (viewName === 'managecategories') updateManagedCategories();
+                if (viewName === 'managecategories') updateManageCategoriesView();
+                if (viewName === 'create') updateCategoryDropdown();
 
                 // Render LaTeX if present
                 if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
@@ -502,7 +529,7 @@
             const container = document.getElementById('reviewContainer');
 
             if (reviewCards.length === 0) {
-                container.innerHTML = '<p>No cards to review. Great job! 🎉</p>';
+                container.innerHTML = '<p>No cards to review. Great job! </p>';
                 return;
             }
 
@@ -834,19 +861,36 @@
                 return;
             }
 
-            navList.innerHTML = app.categories.map(cat => `
-                <div style="padding: 8px; background: ${window.selectedCategory === cat.id ? 'var(--accent-gray)' : '#2d2d2d'}; border-radius: 4px; margin-bottom: 6px; cursor: pointer; transition: all 0.2s; border: 1px solid ${window.selectedCategory === cat.id ? 'var(--text-light)' : 'transparent'};" 
-                     onclick="selectCategory('${cat.id}')"
-                     onmouseover="this.style.background='${window.selectedCategory === cat.id ? 'var(--accent-gray)' : '#3a3a3a'}'"
-                     onmouseout="this.style.background='${window.selectedCategory === cat.id ? 'var(--accent-gray)' : '#2d2d2d'}'">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 0.9rem; color: var(--text-light);">${cat.name}</span>
-                        <span style="font-size: 0.8rem; color: var(--accent-gray); background: #1b1a1a; padding: 2px 6px; border-radius: 3px;">
-                            ${app.cards.filter(c => c.category.toLowerCase().includes(cat.name.toLowerCase())).length}
-                        </span>
+            let html = '';
+            const roots = app.categories.filter(c => !c.parent);
+            
+            function renderCategory(cat, indent = 0) {
+                const cardCount = app.cards.filter(c => c.category === cat.id).length;
+                const isSelected = window.selectedCategory === cat.id;
+                const paddingLeft = indent * 12;
+                
+                html += `
+                    <div style="padding-left: ${paddingLeft}px; margin-bottom: 4px;">
+                        <div style="padding: 8px; background: ${isSelected ? 'var(--accent-gray)' : '#2d2d2d'}; border-radius: 4px; cursor: pointer; transition: all 0.2s; border: 1px solid ${isSelected ? 'var(--text-light)' : 'transparent'};display: flex; justify-content: space-between; align-items: center;"
+                             onmouseover="this.style.background='${isSelected ? 'var(--accent-gray)' : '#3a3a3a'}'"
+                             onmouseout="this.style.background='${isSelected ? 'var(--accent-gray)' : '#2d2d2d'}'">
+                            <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
+                                <span style="font-size: 0.9rem; color: var(--text-light); flex: 1;">${cat.name}</span>
+                                <span style="font-size: 0.75rem; color: var(--accent-gray); background: #1b1a1a; padding: 2px 6px; border-radius: 3px; white-space: nowrap;">
+                                    ${cardCount}
+                                </span>
+                            </div>
+                            <button onclick="startStudyCategory('${cat.id}'); event.stopPropagation();" class="btn" style="padding: 4px 8px; font-size: 0.7rem; background: #4a6a4a; border: none;">Study</button>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+                
+                const children = app.categories.filter(c => c.parent === cat.id);
+                children.forEach(child => renderCategory(child, indent + 1));
+            };
+            
+            roots.forEach(root => renderCategory(root));
+            navList.innerHTML = html;
         }
 
         function selectCategory(categoryId) {
@@ -858,21 +902,30 @@
             updateReviewCards();
             updateLearnCards();
         }
+        
         function createCard() {
             const front = document.getElementById('cardFront').value.trim();
             const back = document.getElementById('cardBack').value.trim();
-            const category = document.getElementById('categoryInput').value.trim();
+            const categoryId = document.getElementById('categoryInput').value.trim();
 
-            if (!front || !back || !category) {
+            if (!front || !back || !categoryId) {
                 alert('Please fill in all fields');
                 return;
             }
 
-            app.createCard(front, back, category);
+            const cat = app.categories.find(c => c.id === categoryId);
+            if (!cat) {
+                alert('Invalid category selected');
+                return;
+            }
+
+            app.createCard(front, back, categoryId);
             clearCardForm();
+            updateCategoryDropdown();
             updateDashboard();
             updateManagedCards();
             alert('Card created successfully!');
+        }
         }
 
         function clearCardForm() {
@@ -932,6 +985,221 @@
             alert('Category created!');
         }
 
+        // ==================== CATEGORY DROPDOWN MANAGEMENT ====================
+        function updateCategoryDropdown() {
+            const select = document.getElementById('categoryInput');
+            if (!select) return;
+            
+            select.innerHTML = '<option value="">-- Select a category --</option>';
+            
+            if (app.categories.length === 0) {
+                return;
+            }
+
+            // Build hierarchical category list
+            function buildCategoryOptions(parentId = null, prefix = '') {
+                const children = app.categories.filter(c => c.parent === parentId);
+                children.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat.id;
+                    option.textContent = prefix + cat.name;
+                    select.appendChild(option);
+                    buildCategoryOptions(cat.id, prefix + '  ');
+                });
+            }
+
+            buildCategoryOptions();
+        }
+
+        // ==================== MANAGE CATEGORIES VIEW ====================
+        function updateManageCategoriesView() {
+            const container = document.getElementById('manageCategoriesContainer');
+            
+            if (app.categories.length === 0) {
+                container.innerHTML = '<p>No categories yet. Create one in the sidebar!</p>';
+                return;
+            }
+
+            let html = '';
+            
+            // Group by root categories
+            const roots = app.categories.filter(c => !c.parent);
+            
+            roots.forEach(root => {
+                const rootCards = app.cards.filter(c => c.category === root.id).length;
+                const children = app.categories.filter(c => c.parent === root.id);
+                
+                html += `
+                    <div class="category-group" style="background: var(--card-bg); border: 1px solid var(--accent-gray); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="margin: 0; color: var(--text-light);">${root.name}</h3>
+                                <small style="color: var(--accent-gray);">${rootCards} cards</small>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="openEditCategoryModal('${root.id}')" class="btn" style="background: #5a7a8c; padding: 8px 12px;">Edit</button>
+                                <button onclick="deleteCategoryConfirm('${root.id}')" class="btn" style="background: #8b4545; padding: 8px 12px;">Delete</button>
+                            </div>
+                        </div>
+                        
+                        ${children.length > 0 ? `
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--accent-gray);">
+                                <h4 style="margin: 0 0 10px 0; color: var(--accent-gray);">Subcategories:</h4>
+                                <div style="display: grid; gap: 10px;">
+                                    ${children.map(child => {
+                                        const childCards = app.cards.filter(c => c.category === child.id).length;
+                                        return `
+                                            <div style="background: #3a3a3a; padding: 12px; border-radius: 6px; border: 1px solid #555; display: flex; justify-content: space-between; align-items: center;">
+                                                <div>
+                                                    <div style="font-weight: 500; color: var(--text-light);">${child.name}</div>
+                                                    <small style="color: var(--accent-gray);">${childCards} cards</small>
+                                                </div>
+                                                <div style="display: flex; gap: 6px;">
+                                                    <button onclick="openEditCategoryModal('${child.id}')" class="btn" style="background: #5a7a8c; padding: 6px 10px; font-size: 0.85rem;">Edit</button>
+                                                    <button onclick="deleteCategoryConfirm('${child.id}')" class="btn" style="background: #8b4545; padding: 6px 10px; font-size: 0.85rem;">Delete</button>
+                                                    <button onclick="viewCategoryCards('${child.id}')" class="btn primary" style="padding: 6px 10px; font-size: 0.85rem;">Cards</button>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function viewCategoryCards(categoryId) {
+            const cat = app.categories.find(c => c.id === categoryId);
+            if (!cat) return;
+            
+            const cards = app.cards.filter(c => c.category === cat.id);
+            const container = document.getElementById('manageCategoriesContainer');
+            
+            let html = `
+                <button onclick="updateManageCategoriesView()" class="btn secondary" style="margin-bottom: 20px;">← Back to Categories</button>
+                <h3>${cat.name} - ${cards.length} cards</h3>
+                <div style="display: grid; gap: 12px;">
+            `;
+            
+            if (cards.length === 0) {
+                html += '<p>No cards in this category yet.</p>';
+            } else {
+                cards.forEach((card, index) => {
+                    html += `
+                        <div style="background: var(--input-bg); border: 1px solid var(--accent-gray); padding: 15px; border-radius: 6px;">
+                            <div style="margin-bottom: 10px;">
+                                <strong>Q: </strong><span>${card.front}</span>
+                            </div>
+                            <div style="color: var(--accent-gray); margin-bottom: 15px;">
+                                <strong>A: </strong><span>${card.back}</span>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="openEditCardModal('${card.id}')" class="btn" style="background: #5a7a8c; padding: 6px 10px; font-size: 0.85rem;">Edit</button>
+                                <button onclick="deleteCardById('${card.id}')" class="btn" style="background: #8b4545; padding: 6px 10px; font-size: 0.85rem;">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // ==================== STUDY MODE (ACTIVE RECALL) ====================
+        let studyState = {
+            categoryId: null,
+            cards: [],
+            currentIndex: 0,
+            isShowingAnswer: false
+        };
+
+        function startStudyCategory(categoryId) {
+            const cat = app.categories.find(c => c.id === categoryId);
+            if (!cat) return;
+            
+            studyState.categoryId = categoryId;
+            studyState.cards = app.cards.filter(c => c.category === cat.id);
+            studyState.currentIndex = 0;
+            studyState.isShowingAnswer = false;
+            
+            if (studyState.cards.length === 0) {
+                alert('No cards in this category!');
+                return;
+            }
+            
+            document.getElementById('studyCategoryTitle').textContent = `Study: ${cat.name}`;
+            document.getElementById('studyCategoryModal').classList.add('show');
+            displayStudyCard();
+        }
+
+        function displayStudyCard() {
+            if (studyState.cards.length === 0) return;
+            
+            const card = studyState.cards[studyState.currentIndex];
+            const content = studyState.isShowingAnswer ? card.back : card.front;
+            
+            document.getElementById('studyCardContent').innerHTML = content;
+            document.getElementById('studyCardCount').textContent = 
+                `Card ${studyState.currentIndex + 1} of ${studyState.cards.length}`;
+            
+            // Update MathJax if needed
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise().catch(err => console.log(err));
+            }
+        }
+
+        function toggleStudyCardSide() {
+            studyState.isShowingAnswer = !studyState.isShowingAnswer;
+            displayStudyCard();
+        }
+
+        function nextStudyCard() {
+            if (studyState.currentIndex < studyState.cards.length - 1) {
+                studyState.currentIndex++;
+                studyState.isShowingAnswer = false;
+                displayStudyCard();
+            }
+        }
+
+        function previousStudyCard() {
+            if (studyState.currentIndex > 0) {
+                studyState.currentIndex--;
+                studyState.isShowingAnswer = false;
+                displayStudyCard();
+            }
+        }
+
+        function markStudyCardCorrect() {
+            const card = studyState.cards[studyState.currentIndex];
+            if (card) {
+                card.timesReviewed = (card.timesReviewed || 0) + 1;
+                card.lastReviewed = new Date().toISOString();
+                card.streak = (card.streak || 0) + 1;
+            }
+            nextStudyCard();
+        }
+
+        function markStudyCardIncorrect() {
+            const card = studyState.cards[studyState.currentIndex];
+            if (card) {
+                card.timesReviewed = (card.timesReviewed || 0) + 1;
+                card.lastReviewed = new Date().toISOString();
+                card.streak = 0;
+            }
+            nextStudyCard();
+        }
+
+        function closeStudyModal() {
+            document.getElementById('studyCategoryModal').classList.remove('show');
+            app.saveData();
+            updateDashboard();
+        }
+
         // ==================== INITIALIZATION ====================
         window.selectedCategory = null;
         
@@ -939,6 +1207,7 @@
             try {
                 // Initial setup
                 updateCategoriesNav();
+                updateCategoryDropdown();
                 updateDashboard();
 
                 if (typeof MathJax !== 'undefined') {

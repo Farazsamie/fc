@@ -7,90 +7,105 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
-        <div class="main-grid">
-            <!-- SIDEBAR -->
-            <div class="sidebar">
-                <h3>Navigation</h3>
-                <button class="nav-btn active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</button>
-                <button class="nav-btn" data-view="create" onclick="switchView('create')">Create Card</button>
-                <button class="nav-btn" data-view="learn" onclick="switchView('learn')">Learn</button>
-                <button class="nav-btn" data-view="review" onclick="switchView('review')">Review Cards</button>
-                <button class="nav-btn" data-view="managecategories" onclick="switchView('managecategories')">Manage Categories</button>
-
-                <hr>
-
-                <h3>Categories</h3>
-                <div id="categoriesNav" style="max-height: 300px; overflow-y: auto; padding-right: 8px;">
-                    <div id="categoriesNavList"></div>
-                </div>
-                <button onclick="openCategoryModal()" style="width: 100%; margin-top: 10px; padding: 10px; background: #2d2d2d; border: 1px solid var(--accent-gray); color: var(--text-light); border-radius: 4px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='var(--accent-gray)'" onmouseout="this.style.background='#2d2d2d'">+ New Category</button>
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="header-content">
+            <h1>📚 Flashcard App</h1>
+            <div class="header-stats">
+                <span id="totalCards">0 cards</span>
+                <span id="totalCategories">0 categories</span>
             </div>
+        </div>
+    </header>
+
+    <!-- MAIN NAVIGATION -->
+    <nav class="main-nav">
+        <button class="nav-tab active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</button>
+        <button class="nav-tab" data-view="create" onclick="switchView('create')">+ Create Card</button>
+        <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Learn</button>
+        <button class="nav-tab" data-view="review" onclick="switchView('review')">Review</button>
+        <button class="nav-tab" data-view="manage" onclick="switchView('manage')">Manage Cards</button>
+        <button class="nav-tab" data-view="managecategories" onclick="switchView('managecategories')">Manage Categories</button>
+    </nav>
+
+    <div class="container">
+        <div class="app-wrapper">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Categories</h3>
+                    <div id="categoriesNav" class="categories-list">
+                        <div id="categoriesNavList"></div>
+                    </div>
+                    <button onclick="openCategoryModal()" class="btn primary" style="width: 100%; margin-top: 10px;">+ New Category</button>
+                </div>
+            </aside>
 
             <!-- MAIN CONTENT -->
-            <div class="main-content">
-                <!-- DASHBOARD -->
+            <main class="main-content">
+                <!-- DASHBOARD VIEW -->
                 <div class="content active" id="dashboard">
                     <h2>Dashboard</h2>
                     <div class="stats-grid" id="dashboardStats"></div>
                     <h3 style="margin-top: 30px;">Quick Actions</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 15px;">
-                        <button onclick="switchView('create')" style="padding: 20px; background: var(--accent-gray);">+ Create Card</button>
-                        <button onclick="switchView('review')" style="padding: 20px; background: var(--accent-gray);">Start Review</button>
-                        <button onclick="switchView('manage')" style="padding: 20px; background: var(--accent-gray);">Manage Cards</button>
+                    <div class="quick-actions">
+                        <button onclick="switchView('create')" class="btn primary">+ Create Card</button>
+                        <button onclick="switchView('review')" class="btn primary">Start Review</button>
+                        <button onclick="switchView('manage')" class="btn primary">Manage Cards</button>
                     </div>
                 </div>
 
-                <!-- CREATE CARD -->
+                <!-- CREATE CARD VIEW -->
                 <div class="content" id="create">
                     <h2>Create Flashcard</h2>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" id="categoryInput" >
-                        <small>Enter category path</small>
-                    </div>
-                    <div class="form-group">
-                        <label>Front (Question) - Supports LaTeX</label>
-                        <textarea id="cardFront" placeholder="e.g., $\frac{d}{dx}x^2 = ?$"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Back (Answer) - Supports LaTeX</label>
-                        <textarea id="cardBack" placeholder="e.g., $2x$"></textarea>
-                    </div>
-                    <div class="button-group">
-                        <button onclick="createCard()">Save Card</button>
-                        <button class="secondary" onclick="clearCardForm()">Clear</button>
+                    <div class="form-container" style="max-width: 600px;">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <input type="text" id="categoryInput" placeholder="e.g., Math > Calculus">
+                            <small>Enter category path (e.g., Math > Calculus > Derivatives)</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Front (Question) - Supports LaTeX</label>
+                            <textarea id="cardFront" placeholder="e.g., $\frac{d}{dx}x^2 = ?$"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Back (Answer) - Supports LaTeX</label>
+                            <textarea id="cardBack" placeholder="e.g., $2x$"></textarea>
+                        </div>
+                        <div class="button-group">
+                            <button onclick="createCard()" class="btn primary">Save Card</button>
+                            <button onclick="clearCardForm()" class="btn secondary">Clear</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- MANAGE CATEGORIES -->
-                <div class="content" id="managecategories">
-                    <h2>Manage Categories</h2>
-                    <div id="manageCategoriesContainer"></div>
-                </div>
-
-                <!-- LEARN CARDS -->
+                <!-- LEARN VIEW -->
                 <div class="content" id="learn">
                     <h2>Learn Flashcards</h2>
-                    <p style="margin-bottom: 15px; color: var(--accent-gray);">Study cards from selected category</p>
+                    <p style="margin-bottom: 20px; color: var(--accent-gray);">Study cards with spaced repetition</p>
                     <div id="learnContainer"></div>
                 </div>
 
-                <!-- REVIEW CARDS -->
+                <!-- REVIEW VIEW -->
                 <div class="content" id="review">
                     <h2>Review Cards</h2>
                     <div id="reviewContainer"></div>
                 </div>
 
-                <!-- MANAGE CARDS -->
+                <!-- MANAGE CARDS VIEW -->
                 <div class="content" id="manage">
                     <h2>Manage Cards</h2>
                     <div id="managedCardsContainer"></div>
                 </div>
-            </div>
+
+                <!-- MANAGE CATEGORIES VIEW -->
+                <div class="content" id="managecategories">
+                    <h2>Manage Categories</h2>
+                    <div id="manageCategoriesContainer"></div>
+                </div>
+            </main>
         </div>
     </div>
 
@@ -331,24 +346,30 @@
         // ==================== UI FUNCTIONS ====================
         function switchView(viewName) {
             try {
+                // Hide all content sections
                 document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+                
+                // Show selected content section
                 const content = document.getElementById(viewName);
                 if (content) {
                     content.classList.add('active');
                 }
 
-                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-                const navBtn = document.querySelector(`[data-view="${viewName}"]`);
+                // Update nav buttons
+                document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+                const navBtn = document.querySelector(`.nav-tab[data-view="${viewName}"]`);
                 if (navBtn) {
                     navBtn.classList.add('active');
                 }
 
+                // Update view-specific content
                 if (viewName === 'dashboard') updateDashboard();
                 if (viewName === 'review') updateReviewCards();
                 if (viewName === 'learn') updateLearnCards();
                 if (viewName === 'manage') updateManagedCards();
                 if (viewName === 'managecategories') updateManagedCategories();
 
+                // Render LaTeX if present
                 if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
                     MathJax.typesetPromise().catch(err => console.log(err));
                 }
@@ -359,22 +380,27 @@
 
         function updateDashboard() {
             const stats = app.getStatistics();
+            
+            // Update header stats
+            document.getElementById('totalCards').textContent = `${stats.totalCards} cards`;
+            document.getElementById('totalCategories').textContent = `${app.categories.length} categories`;
+            
             const html = `
-                <div class="stat-card">
-                    <div class="stat-label">Total Cards</div>
+                <div class="stat-box">
                     <div class="stat-value">${stats.totalCards}</div>
+                    <div class="stat-label">Total Cards</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Ready to Review</div>
+                <div class="stat-box">
                     <div class="stat-value">${stats.cardsToReview}</div>
+                    <div class="stat-label">Ready to Review</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Studied Today</div>
+                <div class="stat-box">
                     <div class="stat-value">${stats.studiedToday}</div>
+                    <div class="stat-label">Studied Today</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Accuracy</div>
+                <div class="stat-box">
                     <div class="stat-value">${stats.averageAccuracy}%</div>
+                    <div class="stat-label">Accuracy</div>
                 </div>
             `;
             document.getElementById('dashboardStats').innerHTML = html;
@@ -911,20 +937,7 @@
         
         function initApp() {
             try {
-                // Setup nav buttons
-                document.querySelectorAll('.nav-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        const view = btn.getAttribute('data-view');
-                        if (view) {
-                            switchView(view);
-                        }
-                    });
-                });
-
                 // Initial setup
-                updateCategoryTree();
                 updateCategoriesNav();
                 updateDashboard();
 

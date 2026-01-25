@@ -210,6 +210,16 @@
     </div>
 
     <script>
+        // Global error handler
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+        });
+        
+        // Unhandled promise rejection
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled rejection:', e.reason);
+        });
+
         // ==================== DATA MANAGEMENT ====================
         class StudyApp {
             constructor() {

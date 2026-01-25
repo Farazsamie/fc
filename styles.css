@@ -1,10 +1,7 @@
-/* ============================================
-   RESET & BASE
-   ============================================ */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; 
 }
 
 /* BASE COLOR VARIABLES */
@@ -18,9 +15,6 @@
     --hover-gray: #444444;    /* hover state */
 }
 
-/* ============================================
-   BODY & GLOBAL
-   ============================================ */
 body {
     font-family: "Trebuchet MS", sans-serif;
     min-height: 100vh;
@@ -59,9 +53,6 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     color: var(--text-light) !important;
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
 .app-header {
     background: var(--card-bg);
     border-bottom: 2px solid var(--accent-gray);
@@ -90,9 +81,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     color: var(--accent-gray);
 }
 
-/* ============================================
-   MAIN NAVIGATION
-   ============================================ */
+
 .main-nav {
     background: var(--dark-bg);
     border-bottom: 1px solid var(--accent-gray);
@@ -131,9 +120,6 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     font-weight: 600;
 }
 
-/* ============================================
-   LAYOUT
-   ============================================ */
 .app-wrapper {
     display: grid;
     grid-template-columns: 280px 1fr;
@@ -143,9 +129,6 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     padding: 2rem;
 }
 
-/* ============================================
-   CARDS & CONTAINERS
-   ============================================ */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--accent-gray);
@@ -201,9 +184,6 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     border-top: 1px solid var(--accent-gray);
 }
 
-/* ============================================
-   FORMS & INPUTS
-   ============================================ */
 .form-container {
     background: var(--card-bg);
     border: 1px solid var(--accent-gray);
@@ -265,9 +245,6 @@ textarea {
     min-height: 100px;
 }
 
-/* ============================================
-   BUTTONS
-   ============================================ */
 .btn,
 button {
     padding: 0.75rem 1.25rem;
@@ -330,9 +307,6 @@ button.danger:hover {
     flex-wrap: wrap;
 }
 
-/* ============================================
-   MODALS
-   ============================================ */
 .modal {
     display: none;
     position: fixed;
@@ -411,9 +385,6 @@ button.danger:hover {
     color: var(--text-light);
 }
 
-/* ============================================
-   CATEGORY DISPLAY
-   ============================================ */
 .category-section {
     background: var(--input-bg);
     border: 1px solid var(--accent-gray);
@@ -444,9 +415,6 @@ button.danger:hover {
     color: var(--accent-gray);
 }
 
-/* ============================================
-   STATS & METRICS
-   ============================================ */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -475,9 +443,6 @@ button.danger:hover {
     text-transform: uppercase;
 }
 
-/* ============================================
-   SEARCH & FILTER
-   ============================================ */
 .search-box {
     display: flex;
     gap: 0.75rem;
@@ -492,9 +457,6 @@ button.danger:hover {
     padding: 0.75rem 1.5rem;
 }
 
-/* ============================================
-   SIDEBAR
-   ============================================ */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -564,9 +526,6 @@ button.danger:hover {
     color: var(--text-light);
 }
 
-/* ============================================
-   MAIN CONTENT
-   ============================================ */
 .main-content {
     flex: 1;
     min-height: 70vh;
@@ -596,9 +555,6 @@ button.danger:hover {
     color: var(--text-light);
 }
 
-/* ============================================
-   QUICK ACTIONS
-   ============================================ */
 .quick-actions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -606,9 +562,6 @@ button.danger:hover {
     margin-top: 1.5rem;
 }
 
-/* ============================================
-   BREADCRUMB
-   ============================================ */
 .breadcrumb {
     display: flex;
     gap: 0.5rem;
@@ -632,9 +585,6 @@ button.danger:hover {
     text-decoration: underline;
 }
 
-/* ============================================
-   ALERTS & MESSAGES
-   ============================================ */
 .alert {
     padding: 1rem;
     border-radius: 6px;
@@ -666,9 +616,6 @@ button.danger:hover {
     color: #a0c0d8;
 }
 
-/* ============================================
-   TABLES
-   ============================================ */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -696,9 +643,6 @@ tbody tr:hover {
     background: var(--input-bg);
 }
 
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
 .text-center {
     text-align: center;
 }
@@ -755,9 +699,6 @@ tbody tr:hover {
 .gap-2 { gap: 1rem; }
 .gap-3 { gap: 1.5rem; }
 
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
 @media (max-width: 1024px) {
     .app-wrapper {
         grid-template-columns: 1fr;
@@ -877,9 +818,6 @@ tbody tr:hover {
     }
 }
 
-/* ============================================
-   SCROLLBAR STYLING
-   ============================================ */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;

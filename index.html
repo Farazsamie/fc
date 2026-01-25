@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- MAIN NAVIGATION -->
     <nav class="main-nav">
         <button class="nav-tab active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</button>
         <button class="nav-tab" data-view="create" onclick="switchView('create')">+ Create Card</button>
@@ -21,7 +20,6 @@
 
     <div class="container">
         <div class="app-wrapper">
-            <!-- SIDEBAR -->
             <aside class="sidebar">
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Categories</h3>
@@ -32,9 +30,8 @@
                 </div>
             </aside>
 
-            <!-- MAIN CONTENT -->
+
             <main class="main-content">
-                <!-- DASHBOARD VIEW -->
                 <div class="content active" id="dashboard">
                     <h2>Dashboard</h2>
                     <div class="stats-grid" id="dashboardStats"></div>
@@ -46,7 +43,6 @@
                     </div>
                 </div>
 
-                <!-- CREATE CARD VIEW -->
                 <div class="content" id="create">
                     <h2>Create Flashcard</h2>
                     <div class="form-container" style="max-width: 600px;">
@@ -72,26 +68,22 @@
                     </div>
                 </div>
 
-                <!-- LEARN VIEW -->
                 <div class="content" id="learn">
                     <h2>Learn Flashcards</h2>
                     <p style="margin-bottom: 20px; color: var(--accent-gray);">Study cards with spaced repetition</p>
                     <div id="learnContainer"></div>
                 </div>
 
-                <!-- REVIEW VIEW -->
                 <div class="content" id="review">
                     <h2>Review Cards</h2>
                     <div id="reviewContainer"></div>
                 </div>
 
-                <!-- MANAGE CARDS VIEW -->
                 <div class="content" id="manage">
                     <h2>Manage Cards</h2>
                     <div id="managedCardsContainer"></div>
                 </div>
 
-                <!-- MANAGE CATEGORIES VIEW -->
                 <div class="content" id="managecategories">
                     <h2>Manage Categories</h2>
                     <div id="manageCategoriesContainer"></div>
@@ -100,7 +92,6 @@
         </div>
     </div>
 
-    <!-- CATEGORY MODAL -->
     <div id="categoryModal" class="modal">
         <div class="modal-content">
             <button class="close" onclick="closeCategoryModal()">&times;</button>
@@ -127,7 +118,6 @@
         </div>
     </div>
 
-    <!-- EDIT CATEGORY MODAL -->
     <div id="editCategoryModal" class="modal">
         <div class="modal-content">
             <button class="close" onclick="closeEditCategoryModal()">&times;</button>
@@ -154,7 +144,6 @@
         </div>
     </div>
 
-    <!-- EDIT CARD MODAL -->
     <div id="editCardModal" class="modal">
         <div class="modal-content">
             <button class="close" onclick="closeEditCardModal()">&times;</button>
@@ -180,7 +169,6 @@
         </div>
     </div>
 
-    <!-- STUDY CATEGORY MODAL (Active Recall) -->
     <div id="studyCategoryModal" class="modal">
         <div class="modal-content" style="max-width: 700px;">
             <button class="close" onclick="closeStudyModal()">&times;</button>
@@ -196,10 +184,8 @@
                 </div>
             </div>
 
-            <!-- Card Study Display -->
             <div id="studyCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin-bottom: 20px;" onclick="toggleStudyCardSide()">
                 <div id="studyCardContent" style="text-align: center; width: 100%; font-size: 1.2rem; line-height: 1.8;">
-                    <!-- Content will be inserted here -->
                 </div>
             </div>
 
@@ -216,7 +202,6 @@
     </div>
 
     <script>
-        // ==================== DATA MANAGEMENT ====================
         class StudyApp {
             constructor() {
                 this.loadData();
@@ -372,10 +357,7 @@
             }
         }
 
-        // ==================== GLOBAL INSTANCE ====================
         const app = new StudyApp();
-
-        // ==================== UI FUNCTIONS ====================
         function switchView(viewName) {
             try {
                 // Hide all content sections
@@ -543,7 +525,7 @@
             
             const displayCard = () => {
                 if (currentIndex >= reviewCards.length) {
-                    container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;">✅ You\'ve completed all cards for review!</p>';
+                    container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;"> All cards completed </p>';
                     return;
                 }
 

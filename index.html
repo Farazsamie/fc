@@ -1368,10 +1368,16 @@
         });
 
         // Run initialization when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp();
+        try {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(initApp, 100);
+                });
+            } else {
+                setTimeout(initApp, 100);
+            }
+        } catch (e) {
+            console.error('Failed to initialize app:', e);
         }
     </script>
 </body>

@@ -920,8 +920,10 @@
             }
 
             app.createCard(front, back, categoryId);
+            app.saveData();
             clearCardForm();
             updateCategoryDropdown();
+            updateCategoriesNav();
             updateDashboard();
             updateManagedCards();
             alert('Card created successfully!');
@@ -970,6 +972,7 @@
             };
 
             app.categories.push(newCategory);
+            app.saveData();
 
             if (newCategory.parent) {
                 const parentCat = app.categories.find(c => c.id === newCategory.parent);
@@ -1205,16 +1208,42 @@
         
         function initApp() {
             try {
+                // Wait for DOM to be fully ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        performInit();
+                    });
+                } else {
+                    performInit();
+                }
+            } catch (e) {
+                console.error('Initialization error:', e);
+            }
+        }
+
+        function performInit() {
+            try {
                 // Initial setup
                 updateCategoriesNav();
                 updateCategoryDropdown();
                 updateDashboard();
+                updateManageCategoriesView();
+
+                // Ensure all buttons are clickable
+                document.querySelectorAll('button').forEach(btn => {
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.cursor = 'pointer';
+                });
 
                 if (typeof MathJax !== 'undefined') {
                     MathJax.contentDocument = document;
                 }
+
+                console.log('App initialized successfully');
+                console.log('Categories:', app.categories.length);
+                console.log('Cards:', app.cards.length);
             } catch (e) {
-                console.error('Initialization error:', e);
+                console.error('Init error:', e);
             }
         }
 

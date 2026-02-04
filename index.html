@@ -13,7 +13,6 @@
         <button class="nav-tab active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</button>
         <button class="nav-tab" data-view="create" onclick="switchView('create')">+ Create Card</button>
         <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Learn</button>
-        <button class="nav-tab" data-view="review" onclick="switchView('review')">Review</button>
         <button class="nav-tab" data-view="manage" onclick="switchView('manage')">Manage Cards</button>
         <button class="nav-tab" data-view="managecategories" onclick="switchView('managecategories')">Manage Categories</button>
     </nav>
@@ -38,7 +37,6 @@
                     <h3 style="margin-top: 30px;">Quick Actions</h3>
                     <div class="quick-actions">
                         <button onclick="switchView('create')" class="btn primary">+ Create Card</button>
-                        <button onclick="switchView('review')" class="btn primary">Start Review</button>
                         <button onclick="switchView('manage')" class="btn primary">Manage Cards</button>
                     </div>
                 </div>
@@ -70,13 +68,8 @@
 
                 <div class="content" id="learn">
                     <h2>Learn Flashcards</h2>
-                    <p style="margin-bottom: 20px; color: var(--accent-gray);">Study cards with spaced repetition</p>
+                    <p style="margin-bottom: 20px; color: var(--accent-gray);">Fill in the missing information and verify your answers</p>
                     <div id="learnContainer"></div>
-                </div>
-
-                <div class="content" id="review">
-                    <h2>Review Cards</h2>
-                    <div id="reviewContainer"></div>
                 </div>
 
                 <div class="content" id="manage">
@@ -378,7 +371,6 @@
 
                 // Update view-specific content
                 if (viewName === 'dashboard') updateDashboard();
-                if (viewName === 'review') updateReviewCards();
                 if (viewName === 'learn') updateLearnCards();
                 if (viewName === 'manage') updateManagedCards();
                 if (viewName === 'managecategories') updateManageCategoriesView();
@@ -404,10 +396,6 @@
                 <div class="stat-box">
                     <div class="stat-value">${stats.totalCards}</div>
                     <div class="stat-label">Total Cards</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">${stats.cardsToReview}</div>
-                    <div class="stat-label">Ready to Review</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-value">${stats.studiedToday}</div>
@@ -502,109 +490,13 @@
             return div;
         }
 
-        function updateReviewCards() {
-            let reviewCards = app.getCardsForReview();
-            
-            if (window.selectedCategory) {
-                const selectedCat = app.categories.find(c => c.id === window.selectedCategory);
-                if (selectedCat) {
-                    reviewCards = reviewCards.filter(card => 
-                        card.category.toLowerCase().includes(selectedCat.name.toLowerCase())
-                    );
-                }
-            }
-            
-            const container = document.getElementById('reviewContainer');
-
-            if (reviewCards.length === 0) {
-                container.innerHTML = '<p>No cards to review. Great job! </p>';
-                return;
-            }
-
-            let currentIndex = 0;
-            
-            const displayCard = () => {
-                if (currentIndex >= reviewCards.length) {
-                    container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;"> All cards completed </p>';
-                    return;
-                }
-
-                const card = reviewCards[currentIndex];
-                const difficultyButtons = [
-                    { level: 1, label: 'Very Hard', color: '#8b4545' },
-                    { level: 2, label: 'Hard', color: '#a05a5a' },
-                    { level: 3, label: 'Medium', color: '#b8860b' },
-                    { level: 4, label: 'Easy', color: '#5d7e5d' },
-                    { level: 5, label: 'Very Easy', color: '#4a7c4e' }
-                ];
-
-                const diffButtonsHtml = difficultyButtons.map(btn => `
-                    <button class="diff-btn" data-difficulty="${btn.level}" style="background: ${btn.color}; padding: 12px; font-size: 0.95rem; font-weight: bold; border: none; cursor: pointer; border-radius: 5px;">
-                        ${btn.level}<br/><span style="font-size: 0.75rem;">${btn.label}</span>
-                    </button>
-                `).join('');
-
-                container.innerHTML = `
-                    <div style="max-width: 700px;">
-                        <p style="color: var(--accent-gray); margin-bottom: 20px;">Card ${currentIndex + 1} of ${reviewCards.length}</p>
-                        <div class="study-card" style="margin-bottom: 20px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                                <h4>Question:</h4>
-                                <button class="edit-btn" data-card-id="${card.id}" data-side="front" style="background: #5a7a8c; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✎ Edit</button>
-                            </div>
-                            <div class="card-front" style="font-size: 1.1rem; margin: 15px 0;">${card.front}</div>
-                            <hr style="border: 1px solid var(--accent-gray); margin: 20px 0;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                                <h4>Answer:</h4>
-                                <button class="edit-btn" data-card-id="${card.id}" data-side="back" style="background: #5a7a8c; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">✎ Edit</button>
-                            </div>
-                            <div class="card-back" style="font-size: 1rem; margin: 15px 0; color: #b0a8a8;">${card.back}</div>
-                        </div>
-                        <p style="color: var(--accent-gray); text-align: center; margin: 20px 0; font-weight: bold;">How difficult was this card?</p>
-                        <div class="difficulty-group" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
-                            ${diffButtonsHtml}
-                        </div>
-                    </div>
-                `;
-
-                // Attach event listeners to difficulty buttons
-                container.querySelectorAll('.diff-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const difficulty = parseInt(this.getAttribute('data-difficulty'));
-                        app.updateCardProgress(card.id, difficulty);
-                        currentIndex++;
-                        displayCard();
-                    });
-                });
-
-                // Attach event listeners to edit buttons
-                container.querySelectorAll('.edit-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const cardId = this.getAttribute('data-card-id');
-                        const side = this.getAttribute('data-side');
-                        editCardContent(cardId, side);
-                        displayCard();
-                    });
-                });
-
-                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                    MathJax.typesetPromise().catch(err => console.log(err));
-                }
-            };
-
-            displayCard();
-        }
-
         function updateLearnCards() {
             let learnCards = app.cards;
             
             if (window.selectedCategory) {
                 const selectedCat = app.categories.find(c => c.id === window.selectedCategory);
                 if (selectedCat) {
-                    learnCards = learnCards.filter(card => 
-                        card.category.toLowerCase().includes(selectedCat.name.toLowerCase())
-                    );
+                    learnCards = learnCards.filter(card => card.category === window.selectedCategory);
                 }
             }
             
@@ -623,18 +515,28 @@
                 }
                 
                 const card = learnCards[currentIndex];
-                let isFlipped = false;
-
+                
+                // Split card content to identify blanks and create question input
+                let questionHtml = card.front.replace(/\*\*\*([^*]+)\*\*\*/g, '<input type="text" class="fill-blank-input" placeholder="Fill in the blank" style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 4px 8px; border-radius: 3px; min-width: 100px; margin: 0 4px;">');
+                
                 container.innerHTML = `
                     <div style="max-width: 600px;">
                         <p style="color: var(--accent-gray); margin-bottom: 15px;">Card ${currentIndex + 1} of ${learnCards.length}</p>
-                        <div class="study-card" style="cursor: pointer; min-height: 250px; display: flex; align-items: center; justify-content: center;" id="learnFlipCard" onclick="document.getElementById('learnFlipCard').classList.toggle('flipped'); const wasFlipped = document.getElementById('learnFlipCard').classList.contains('flipped'); document.getElementById('learnCardContent').innerHTML = wasFlipped ? '${card.back}' : '${card.front}';">
-                            <div id="learnCardContent" style="font-size: 1.1rem; text-align: center;">${card.front}</div>
+                        <div class="study-card" style="min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
+                            <div>
+                                <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">Question:</div>
+                                <div style="font-size: 1.1rem; text-align: center; margin: 20px 0; line-height: 1.8;">
+                                    ${questionHtml}
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--accent-gray);">
+                                <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">Your Answer:</div>
+                                <textarea id="answerInput" placeholder="Write your answer here..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 10px; border-radius: 3px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
+                            </div>
                         </div>
-                        <p style="color: var(--accent-gray); text-align: center; margin-top: 10px; font-size: 0.9rem;">Click card to flip</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-                            <button onclick="previousLearnCard()" style="background: var(--accent-gray); padding: 12px;">← Previous</button>
-                            <button onclick="nextLearnCard()" style="background: var(--accent-gray); padding: 12px;">Next →</button>
+                            <button onclick="previousLearnCard()" style="background: var(--accent-gray); padding: 12px; border: none; border-radius: 4px; color: var(--text-light); cursor: pointer;">← Previous</button>
+                            <button onclick="checkLearnAnswer('${card.id}', '${btoa(card.back)}')" style="background: #5a7a8c; padding: 12px; border: none; border-radius: 4px; color: var(--text-light); cursor: pointer; font-weight: 600;">Check Answer</button>
                         </div>
                     </div>
                 `;
@@ -642,6 +544,32 @@
                 if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
                     setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
                 }
+            };
+
+            window.checkLearnAnswer = (cardId, encodedBack) => {
+                const userAnswer = document.getElementById('answerInput').value.trim();
+                const correctAnswer = atob(encodedBack).toLowerCase();
+                const userAnswerLower = userAnswer.toLowerCase();
+                
+                if (!userAnswer) {
+                    alert('Please fill in your answer');
+                    return;
+                }
+                
+                // Simple matching - can be enhanced with fuzzy matching or alternative answers
+                const isCorrect = userAnswerLower === correctAnswer || userAnswerLower.includes(correctAnswer.split('$')[0].trim()) || correctAnswer.includes(userAnswerLower);
+                
+                if (isCorrect) {
+                    alert('✓ Correct!');
+                    currentIndex++;
+                } else {
+                    const proceedNext = confirm(`✗ Incorrect!\\n\\nYour answer: ${userAnswer}\\n\\nCorrect answer: ${atob(encodedBack)}\\n\\nClick OK to move to next card.`);
+                    if (proceedNext) {
+                        currentIndex++;
+                    }
+                }
+                
+                displayCard();
             };
 
             window.nextLearnCard = () => {
@@ -853,7 +781,6 @@
             const roots = app.categories.filter(c => !c.parent);
             
             function renderCategory(cat, indent = 0) {
-                const cardCount = app.cards.filter(c => c.category === cat.id).length;
                 const children = app.categories.filter(c => c.parent === cat.id);
                 const hasChildren = children.length > 0;
                 const isExpanded = window.expandedCategories && window.expandedCategories[cat.id];
@@ -867,15 +794,13 @@
                                     ${isExpanded ? '▼' : '▶'}
                                 </button>
                             ` : '<div style="width: 20px;"></div>'}
-                            <button onclick="selectAndStudyCategory('${cat.id}')" style="background: #2d2d2d; border: 1px solid transparent; color: var(--text-light); padding: 6px 8px; border-radius: 4px; cursor: pointer; flex: 1; text-align: left; font-size: 0.85rem; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;" onmouseover="this.style.background='#3a3a3a'" onmouseout="this.style.background='#2d2d2d'">
+                            <button onclick="selectCategoryChildren('${cat.id}')" style="background: #2d2d2d; border: 1px solid transparent; color: var(--text-light); padding: 6px 8px; border-radius: 4px; cursor: pointer; flex: 1; text-align: left; font-size: 0.85rem; transition: all 0.2s;" onmouseover="this.style.background='#3a3a3a'" onmouseout="this.style.background='#2d2d2d'">
                                 <span>${cat.name}</span>
-                                <span style="font-size: 0.7rem; color: var(--accent-gray); background: #1b1a1a; padding: 2px 5px; border-radius: 3px; white-space: nowrap;">${cardCount}</span>
                             </button>
                         </div>
                         ${hasChildren && isExpanded ? `
                             <div>
                                 ${children.map(child => {
-                                    const childCardCount = app.cards.filter(c => c.category === child.id).length;
                                     const grandChildren = app.categories.filter(c => c.parent === child.id);
                                     const childIsExpanded = window.expandedCategories && window.expandedCategories[child.id];
                                     const childPaddingLeft = (indent + 1) * 16;
@@ -890,7 +815,7 @@
                                                 ` : '<div style="width: 20px;"></div>'}
                                                 <button onclick="selectAndStudyCategory('${child.id}')" style="background: #3a3a3a; border: 1px solid transparent; color: var(--text-light); padding: 5px 8px; border-radius: 4px; cursor: pointer; flex: 1; text-align: left; font-size: 0.8rem; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;" onmouseover="this.style.background='#4a4a4a'" onmouseout="this.style.background='#3a3a3a'">
                                                     <span>${child.name}</span>
-                                                    <span style="font-size: 0.65rem; color: var(--accent-gray); background: #1b1a1a; padding: 2px 4px; border-radius: 2px; white-space: nowrap;">${childCardCount}</span>
+                                                    <span style="font-size: 0.65rem; color: var(--accent-gray); background: #1b1a1a; padding: 2px 4px; border-radius: 2px; white-space: nowrap;">${app.cards.filter(c => c.category === child.id).length}</span>
                                                 </button>
                                             </div>
                                             ${grandChildren.length > 0 && childIsExpanded ? `
@@ -921,6 +846,10 @@
             
             roots.forEach(root => renderCategory(root));
             navList.innerHTML = html;
+        }
+
+        function selectCategoryChildren(categoryId) {
+            toggleCategoryExpand(categoryId);
         }
 
         function toggleCategoryExpand(categoryId) {

@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FC - Flashcard App</title>
+    <title>FC - Flashcard Prep</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="main-nav">
-        <button class="nav-tab active" data-view="dashboard" onclick="switchView('dashboard')">Dashboard</button>
-        <button class="nav-tab" data-view="create" onclick="switchView('create')">+ Create Card</button>
+        <button class="nav-tab active" data-view="create" onclick="switchView('create')">+ Create Card</button>
         <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Learn</button>
-        <button class="nav-tab" data-view="manage" onclick="switchView('manage')">Manage Cards</button>
-        <button class="nav-tab" data-view="managecategories" onclick="switchView('managecategories')">Manage Categories</button>
+        <button class="nav-tab" data-view="analytics" onclick="switchView('analytics')">Analytics</button>
     </nav>
 
     <div class="container">
@@ -29,28 +27,31 @@
                 </div>
             </aside>
 
-
             <main class="main-content">
-                <div class="content active" id="dashboard">
-                    <h2>Dashboard</h2>
-                    <div class="stats-grid" id="dashboardStats"></div>
-                    <h3 style="margin-top: 30px;">Quick Actions</h3>
-                    <div class="quick-actions">
-                        <button onclick="switchView('create')" class="btn primary">+ Create Card</button>
-                        <button onclick="switchView('manage')" class="btn primary">Manage Cards</button>
-                    </div>
-                </div>
-
-                <div class="content" id="create">
+                <div class="content active" id="create">
                     <h2>Create Flashcard</h2>
                     <div class="form-container" style="max-width: 600px;">
                         <div class="form-group">
-                            <label>Category</label>
-                            <select id="categoryInput" onchange="updateCategoryDropdown()">
-                                <option value="">-- Select a category --</option>
-                            </select>
-                            <small>Choose from existing categories or create a new one in Manage Categories</small>
+                            <label>Parent Category *</label>
+                            <div style="display: flex; gap: 8px; margin-bottom: 5px;">
+                                <select id="parentCategoryInput" onchange="updateSubcategoryDropdown()">
+                                    <option value="">-- Select a parent category --</option>
+                                </select>
+                            </div>
+                            <small>Select or create a parent category</small>
                         </div>
+
+                        <div class="form-group">
+                            <label>Subcategory *</label>
+                            <div style="display: flex; gap: 8px; margin-bottom: 5px;">
+                                <select id="subcategoryInput">
+                                    <option value="">-- Select a subcategory --</option>
+                                </select>
+                                <button onclick="openSubcategoryModal()" class="btn secondary" style="padding: 8px 12px;">+ New</button>
+                            </div>
+                            <small>Select from existing or create a new subcategory</small>
+                        </div>
+
                         <div class="form-group">
                             <label>Front (Question) - Supports LaTeX</label>
                             <textarea id="cardFront" placeholder="e.g., $\frac{d}{dx}x^2 = ?$"></textarea>
@@ -68,71 +69,53 @@
 
                 <div class="content" id="learn">
                     <h2>Learn Flashcards</h2>
-                    <p style="margin-bottom: 20px; color: var(--accent-gray);">Fill in the missing information and verify your answers</p>
+                    <p style="margin-bottom: 20px; color: var(--accent-gray);">Study your cards and practice active recall</p>
                     <div id="learnContainer"></div>
                 </div>
 
-                <div class="content" id="manage">
-                    <h2>Manage Cards</h2>
-                    <div id="managedCardsContainer"></div>
-                </div>
-
-                <div class="content" id="managecategories">
-                    <h2>Manage Categories</h2>
-                    <div id="manageCategoriesContainer"></div>
+                <div class="content" id="analytics">
+                    <h2>Learning Analytics</h2>
+                    <div id="analyticsContainer"></div>
                 </div>
             </main>
         </div>
     </div>
 
+    <!-- Modals -->
     <div id="categoryModal" class="modal">
         <div class="modal-content">
             <button class="close" onclick="closeCategoryModal()">&times;</button>
-            <h3>Create New Category</h3>
-            <div class="form-group">
-                <label>Parent Category (optional)</label>
-                <select id="parentCategoryInput">
-                    <option value="">-- Root Category --</option>
-                </select>
-                <small>Leave blank for root category</small>
-            </div>
+            <h3>Create New Parent Category</h3>
             <div class="form-group">
                 <label>Category Name</label>
-                <input type="text" id="newCategoryName" placeholder="e.g., Calculus">
+                <input type="text" id="newCategoryName" placeholder="e.g., Mathematics">
             </div>
             <div class="form-group">
                 <label>Description</label>
                 <textarea id="newCategoryDesc" placeholder="Optional description"></textarea>
             </div>
             <div class="button-group">
-                <button onclick="createCategory()">Create</button>
+                <button onclick="createCategory()" class="btn primary">Create</button>
                 <button class="secondary" onclick="closeCategoryModal()">Cancel</button>
             </div>
         </div>
     </div>
 
-    <div id="editCategoryModal" class="modal">
+    <div id="subcategoryModal" class="modal">
         <div class="modal-content">
-            <button class="close" onclick="closeEditCategoryModal()">&times;</button>
-            <h3>Edit Category</h3>
+            <button class="close" onclick="closeSubcategoryModal()">&times;</button>
+            <h3>Create New Subcategory</h3>
             <div class="form-group">
-                <label>Category Name</label>
-                <input type="text" id="editCategoryNameInput" placeholder="e.g., Calculus">
-            </div>
-            <div class="form-group">
-                <label>Parent Category (optional)</label>
-                <select id="editParentCategoryInput">
-                    <option value="">-- Root Category --</option>
-                </select>
-                <small>Leave blank for root category</small>
+                <label>Subcategory Name</label>
+                <input type="text" id="newSubcategoryName" placeholder="e.g., Calculus">
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <textarea id="editCategoryDescInput" placeholder="Optional description"></textarea>
+                <textarea id="newSubcategoryDesc" placeholder="Optional description"></textarea>
             </div>
             <div class="button-group">
-                <button onclick="saveEditedCategory()">Save Changes</button>
-                <button class="secondary" onclick="closeEditCategoryModal()">Cancel</button>
+                <button onclick="createSubcategory()" class="btn primary">Create</button>
+                <button class="secondary" onclick="closeSubcategoryModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -149,47 +132,34 @@
                 <label>Back (Answer)</label>
                 <textarea id="editCardBackInput" placeholder="e.g., $2x$"></textarea>
             </div>
-            <div class="form-group">
-                <label>Category</label>
-                <select id="editCardCategoryInput">
-                    <option value="">-- Select a category --</option>
-                </select>
-            </div>
             <div class="button-group">
-                <button onclick="saveEditedCard()">Save Changes</button>
+                <button onclick="saveEditedCard()" class="btn primary">Save Changes</button>
                 <button class="secondary" onclick="closeEditCardModal()">Cancel</button>
             </div>
         </div>
     </div>
 
-    <div id="studyCategoryModal" class="modal">
+    <div id="answerFeedbackModal" class="modal">
         <div class="modal-content" style="max-width: 700px;">
-            <button class="close" onclick="closeStudyModal()">&times;</button>
-            <h3 id="studyCategoryTitle">Study Category</h3>
+            <h3 style="margin-top: 0; text-align: center;">Answer Revealed</h3>
             
-            <div style="margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span id="studyCardCount">Card 1 of 5</span>
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="previousStudyCard()" class="btn secondary">← Previous</button>
-                        <button onclick="nextStudyCard()" class="btn secondary">Next →</button>
-                    </div>
+            <div style="margin-bottom: 20px; padding: 15px; background: #3a3a3a; border-radius: 6px;">
+                <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.9rem;">YOUR ANSWER:</div>
+                <div id="userAnswerDisplay" style="font-size: 1rem; line-height: 1.6; color: #ccc; min-height: 40px;"></div>
+            </div>
+
+            <div id="feedbackCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <div id="feedbackCardContent" style="text-align: center; width: 100%; font-size: 1.2rem; line-height: 1.8;">
                 </div>
             </div>
 
-            <div id="studyCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 300px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin-bottom: 20px;" onclick="toggleStudyCardSide()">
-                <div id="studyCardContent" style="text-align: center; width: 100%; font-size: 1.2rem; line-height: 1.8;">
-                </div>
-            </div>
-
-            <div style="text-align: center; color: var(--accent-gray); margin-bottom: 20px; font-size: 0.9rem;">
-                Click card to reveal answer
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p style="color: var(--accent-gray); font-size: 0.9rem; margin: 0;">Did you get it right?</p>
             </div>
 
             <div class="button-group">
-                <button onclick="markStudyCardCorrect()" class="btn" style="background: #4a6a4a;">Got it ✓</button>
-                <button onclick="markStudyCardIncorrect()" class="btn" style="background: #6a4a4a;">Need more ✗</button>
-                <button onclick="closeStudyModal()" class="btn secondary">Exit</button>
+                <button onclick="window.markCardCorrect()" class="btn" style="background: #4a6a4a; flex: 1; margin-bottom: 8px;">✓ Got It Correct</button>
+                <button onclick="window.markCardWrong()" class="btn" style="background: #6a4a4a; flex: 1;">✗ Got It Wrong</button>
             </div>
         </div>
     </div>
@@ -206,52 +176,41 @@
                     if (stored) {
                         const data = JSON.parse(stored);
                         this.cards = data.cards || [];
-                        this.categories = data.categories || this.createDefaultCategories();
-                        this.progress = data.progress || {};
+                        this.parentCategories = data.parentCategories || this.createDefaultParentCategories();
+                        this.subcategories = data.subcategories || this.createDefaultSubcategories();
+                        this.cardStats = data.cardStats || {};
                     } else {
                         this.cards = [];
-                        this.categories = this.createDefaultCategories();
-                        this.progress = {};
+                        this.parentCategories = this.createDefaultParentCategories();
+                        this.subcategories = this.createDefaultSubcategories();
+                        this.cardStats = {};
                         this.saveData();
                     }
                 } catch (e) {
                     console.log('localStorage not available, using session storage');
                     this.cards = [];
-                    this.categories = this.createDefaultCategories();
-                    this.progress = {};
+                    this.parentCategories = this.createDefaultParentCategories();
+                    this.subcategories = this.createDefaultSubcategories();
+                    this.cardStats = {};
                 }
             }
 
-            createDefaultCategories() {
+            createDefaultParentCategories() {
                 return [
                     {
-                        id: 'cfa-portfolio',
-                        name: 'Chartered Financial Analyst: Portfolio Management',
-                        parent: null,
-                        children: [],
-                        description: 'CFA Level 1 - Portfolio Management'
-                    },
-                    {
-                        id: 'cfa-ethics',
-                        name: 'Chartered Financial Analyst: Ethics',
-                        parent: null,
-                        children: [],
-                        description: 'CFA Level 1 - Ethics'
-                    },
-                    {
-                        id: 'cfa-accounting',
-                        name: 'Chartered Financial Analyst: Financial Reporting',
-                        parent: null,
-                        children: [],
-                        description: 'CFA Level 1 - Financial Reporting'
-                    },
-                    {
-                        id: 'cfa-economics',
-                        name: 'Chartered Financial Analyst: Economics',
-                        parent: null,
-                        children: [],
-                        description: 'CFA Level 1 - Economics'
+                        id: 'cfa-level1',
+                        name: 'CFA Level 1',
+                        description: 'CFA Level 1 - Chartered Financial Analyst',
+                        createdAt: new Date().toISOString()
                     }
+                ];
+            }
+
+            createDefaultSubcategories() {
+                return [
+                    { id: 'cfa-l1-ethics', name: 'Ethics', parent: 'cfa-level1' },
+                    { id: 'cfa-l1-accounting', name: 'Financial Reporting', parent: 'cfa-level1' },
+                    { id: 'cfa-l1-economics', name: 'Economics', parent: 'cfa-level1' }
                 ];
             }
 
@@ -259,8 +218,9 @@
                 try {
                     const data = {
                         cards: this.cards,
-                        categories: this.categories,
-                        progress: this.progress
+                        parentCategories: this.parentCategories,
+                        subcategories: this.subcategories,
+                        cardStats: this.cardStats
                     };
                     localStorage.setItem('studyAppData', JSON.stringify(data));
                 } catch (e) {
@@ -268,55 +228,69 @@
                 }
             }
 
-            createCard(front, back, category) {
+            createCard(front, back, parentCategoryId, subcategoryId) {
                 const card = {
                     id: Date.now() + Math.random(),
                     front,
                     back,
-                    category,
+                    parentCategory: parentCategoryId,
+                    subcategory: subcategoryId,
                     created: new Date().toISOString(),
                     interval: 1,
                     easeFactor: 2.5,
                     nextReview: new Date().toISOString(),
-                    difficulty: 0,
                     timesReviewed: 0,
-                    streak: 0
+                    timesCorrect: 0,
+                    timesWrong: 0,
+                    streak: 0,
+                    lastReviewTime: null
                 };
                 this.cards.push(card);
+                this.cardStats[card.id] = {
+                    attempts: [],
+                    totalTimeMs: 0,
+                    wrongAttempts: []
+                };
                 this.saveData();
                 return card;
             }
 
-            updateCardProgress(cardId, difficulty) {
+            recordAttempt(cardId, isCorrect, timeMs) {
                 const card = this.cards.find(c => c.id === cardId);
                 if (!card) return;
 
-                const today = new Date().toDateString();
-                if (!this.progress[today]) {
-                    this.progress[today] = { studied: 0, correct: 0 };
-                }
-                this.progress[today].studied++;
-                if (difficulty >= 3) {
-                    this.progress[today].correct++;
-                }
-
                 card.timesReviewed++;
-                if (difficulty < 3) {
-                    card.interval = 1;
-                    card.streak = 0;
-                } else {
+                if (isCorrect) {
+                    card.timesCorrect++;
                     card.streak++;
-                    if (card.timesReviewed === 1) {
-                        card.interval = 1;
-                    } else if (card.timesReviewed === 2) {
-                        card.interval = 3;
-                    } else {
-                        card.interval = Math.round(card.interval * card.easeFactor);
-                    }
+                } else {
+                    card.timesWrong++;
+                    card.streak = 0;
+                    if (!this.cardStats[cardId]) this.cardStats[cardId] = { attempts: [], totalTimeMs: 0, wrongAttempts: [] };
+                    this.cardStats[cardId].wrongAttempts.push({
+                        timestamp: new Date().toISOString(),
+                        timeMs
+                    });
                 }
 
-                card.easeFactor = Math.max(1.3, card.easeFactor + 0.1 - (5 - difficulty) * 0.08);
-                card.difficulty = (card.difficulty + difficulty) / 2;
+                card.lastReviewTime = new Date().toISOString();
+
+                if (!this.cardStats[cardId]) this.cardStats[cardId] = { attempts: [], totalTimeMs: 0, wrongAttempts: [] };
+                this.cardStats[cardId].attempts.push({
+                    timestamp: new Date().toISOString(),
+                    isCorrect,
+                    timeMs
+                });
+                this.cardStats[cardId].totalTimeMs += timeMs;
+
+                // Update intervals for spaced repetition
+                if (!isCorrect) {
+                    card.interval = 1;
+                } else {
+                    if (card.timesCorrect === 1) card.interval = 1;
+                    else if (card.timesCorrect === 2) card.interval = 3;
+                    else card.interval = Math.round(card.interval * card.easeFactor);
+                }
 
                 const nextDate = new Date();
                 nextDate.setDate(nextDate.getDate() + card.interval);
@@ -325,58 +299,75 @@
                 this.saveData();
             }
 
-            getCardsForReview() {
-                const now = new Date();
-                return this.cards.filter(c => new Date(c.nextReview) <= now)
-                    .sort((a, b) => a.difficulty - b.difficulty);
-            }
-
-            getStatistics() {
-                const today = new Date().toDateString();
-                const todayProgress = this.progress[today] || { studied: 0, correct: 0 };
-                
-                const cardsWithReviews = this.cards.filter(c => c.timesReviewed > 0);
-                const avgAccuracy = cardsWithReviews.length > 0 
-                    ? (cardsWithReviews.reduce((sum, c) => sum + c.difficulty, 0) / cardsWithReviews.length * 20).toFixed(2)
-                    : 0;
-
-                return {
+            getAnalytics() {
+                const stats = {
                     totalCards: this.cards.length,
-                    cardsToReview: this.getCardsForReview().length,
-                    studiedToday: todayProgress.studied,
-                    correctToday: todayProgress.correct,
-                    averageAccuracy: avgAccuracy
+                    totalAttempts: 0,
+                    totalCorrect: 0,
+                    totalWrong: 0,
+                    averageAccuracy: 0,
+                    mostMissedCards: [],
+                    averageTimePerCard: 0,
+                    cardsNeedingReview: 0
                 };
+
+                let totalTime = 0;
+                const now = new Date();
+
+                this.cards.forEach(card => {
+                    stats.totalAttempts += card.timesReviewed;
+                    stats.totalCorrect += card.timesCorrect;
+                    stats.totalWrong += card.timesWrong;
+
+                    if (new Date(card.nextReview) <= now) {
+                        stats.cardsNeedingReview++;
+                    }
+
+                    if (this.cardStats[card.id]) {
+                        totalTime += this.cardStats[card.id].totalTimeMs;
+                    }
+                });
+
+                if (stats.totalAttempts > 0) {
+                    stats.averageAccuracy = ((stats.totalCorrect / stats.totalAttempts) * 100).toFixed(1);
+                }
+
+                if (this.cards.length > 0) {
+                    stats.averageTimePerCard = (totalTime / this.cards.length / 1000).toFixed(1);
+                }
+
+                // Find most missed cards
+                stats.mostMissedCards = this.cards
+                    .filter(c => c.timesWrong > 0)
+                    .sort((a, b) => b.timesWrong - a.timesWrong)
+                    .slice(0, 5);
+
+                return stats;
             }
         }
 
         const app = new StudyApp();
+        let currentCardId = null;
+        let cardStartTime = null;
+
         function switchView(viewName) {
             try {
-                // Hide all content sections
                 document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-                
-                // Show selected content section
                 const content = document.getElementById(viewName);
                 if (content) {
                     content.classList.add('active');
                 }
 
-                // Update nav buttons
                 document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
                 const navBtn = document.querySelector(`.nav-tab[data-view="${viewName}"]`);
                 if (navBtn) {
                     navBtn.classList.add('active');
                 }
 
-                // Update view-specific content
-                if (viewName === 'dashboard') updateDashboard();
-                if (viewName === 'learn') updateLearnCards();
-                if (viewName === 'manage') updateManagedCards();
-                if (viewName === 'managecategories') updateManageCategoriesView();
-                if (viewName === 'create') updateCategoryDropdown();
+                if (viewName === 'learn') updateLearnView();
+                if (viewName === 'analytics') updateAnalyticsView();
+                if (viewName === 'create') updateParentCategoryDropdown();
 
-                // Render LaTeX if present
                 if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
                     MathJax.typesetPromise().catch(err => console.log(err));
                 }
@@ -385,158 +376,236 @@
             }
         }
 
-        function updateDashboard() {
-            const stats = app.getStatistics();
-            
-            // Update header stats
-            document.getElementById('totalCards').textContent = `${stats.totalCards} cards`;
-            document.getElementById('totalCategories').textContent = `${app.categories.length} categories`;
-            
-            const html = `
-                <div class="stat-box">
-                    <div class="stat-value">${stats.totalCards}</div>
-                    <div class="stat-label">Total Cards</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">${stats.studiedToday}</div>
-                    <div class="stat-label">Studied Today</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value">${stats.averageAccuracy}%</div>
-                    <div class="stat-label">Accuracy</div>
-                </div>
-            `;
-            document.getElementById('dashboardStats').innerHTML = html;
-        }
-
-        function updateCategoryTree() {
-            const tree = document.getElementById('categoryTree');
-            tree.innerHTML = '';
-            const rootCategories = app.categories.filter(c => !c.parent);
-            rootCategories.forEach(cat => {
-                tree.appendChild(createCategoryElement(cat));
+        function updateParentCategoryDropdown() {
+            const select = document.getElementById('parentCategoryInput');
+            select.innerHTML = '<option value="">-- Select a parent category --</option>';
+            app.parentCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id;
+                option.textContent = cat.name;
+                select.appendChild(option);
             });
         }
 
-        function createCategoryElement(category) {
-            const div = document.createElement('div');
-            div.className = 'category-item';
-            div.style.paddingLeft = '0px';
-            
-            const children = app.categories.filter(c => c.parent === category.id);
-            const hasChildren = children.length > 0;
+        function updateSubcategoryDropdown() {
+            const parentId = document.getElementById('parentCategoryInput').value;
+            const subSelect = document.getElementById('subcategoryInput');
+            subSelect.innerHTML = '<option value="">-- Select a subcategory --</option>';
 
-            const label = document.createElement('div');
-            label.style.display = 'flex';
-            label.style.alignItems = 'center';
-            label.style.gap = '5px';
-            label.style.cursor = 'pointer';
-            label.style.userSelect = 'none';
-            
-            if (hasChildren) {
-                const toggle = document.createElement('span');
-                toggle.textContent = '▶';
-                toggle.style.display = 'inline-block';
-                toggle.style.width = '15px';
-                label.appendChild(toggle);
-            } else {
-                const space = document.createElement('span');
-                space.style.display = 'inline-block';
-                space.style.width = '15px';
-                label.appendChild(space);
+            if (!parentId) return;
+
+            const subs = app.subcategories.filter(s => s.parent === parentId);
+            subs.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub.id;
+                option.textContent = sub.name;
+                subSelect.appendChild(option);
+            });
+        }
+
+        function openCategoryModal() {
+            document.getElementById('categoryModal').classList.add('show');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('show');
+            document.getElementById('newCategoryName').value = '';
+            document.getElementById('newCategoryDesc').value = '';
+        }
+
+        function createCategory() {
+            const name = document.getElementById('newCategoryName').value.trim();
+            if (!name) {
+                alert('Please enter a category name');
+                return;
             }
 
-            const name = document.createElement('span');
-            name.textContent = category.name;
-            label.appendChild(name);
+            const id = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            if (app.parentCategories.find(c => c.id === id)) {
+                alert('This category already exists');
+                return;
+            }
 
-            let expanded = false;
-            let subDiv = null;
+            app.parentCategories.push({
+                id,
+                name,
+                description: document.getElementById('newCategoryDesc').value,
+                createdAt: new Date().toISOString()
+            });
 
-            label.addEventListener('click', (e) => {
-                e.stopPropagation();
+            app.saveData();
+            updateCategoriesNav();
+            updateParentCategoryDropdown();
+            closeCategoryModal();
+            alert('Category created!');
+        }
+
+        function openSubcategoryModal() {
+            const parentId = document.getElementById('parentCategoryInput').value;
+            if (!parentId) {
+                alert('Please select a parent category first');
+                return;
+            }
+            document.getElementById('subcategoryModal').classList.add('show');
+        }
+
+        function closeSubcategoryModal() {
+            document.getElementById('subcategoryModal').classList.remove('show');
+            document.getElementById('newSubcategoryName').value = '';
+            document.getElementById('newSubcategoryDesc').value = '';
+        }
+
+        function createSubcategory() {
+            const parentId = document.getElementById('parentCategoryInput').value;
+            const name = document.getElementById('newSubcategoryName').value.trim();
+
+            if (!name) {
+                alert('Please enter a subcategory name');
+                return;
+            }
+
+            const id = parentId + '-' + name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+            app.subcategories.push({
+                id,
+                name,
+                parent: parentId
+            });
+
+            app.saveData();
+            updateSubcategoryDropdown();
+            updateCategoriesNav();
+            document.getElementById('subcategoryInput').value = id;
+            closeSubcategoryModal();
+            alert('Subcategory created!');
+        }
+
+        function createCard() {
+            const front = document.getElementById('cardFront').value.trim();
+            const back = document.getElementById('cardBack').value.trim();
+            const parentId = document.getElementById('parentCategoryInput').value.trim();
+            const subId = document.getElementById('subcategoryInput').value.trim();
+
+            if (!front || !back || !parentId || !subId) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            app.createCard(front, back, parentId, subId);
+            clearCardForm();
+            updateCategoriesNav();
+            alert('Card created successfully!');
+        }
+
+        function clearCardForm() {
+            document.getElementById('cardFront').value = '';
+            document.getElementById('cardBack').value = '';
+            document.getElementById('parentCategoryInput').value = '';
+            document.getElementById('subcategoryInput').value = '';
+        }
+
+        function updateCategoriesNav() {
+            const navList = document.getElementById('categoriesNavList');
+            
+            if (app.parentCategories.length === 0) {
+                navList.innerHTML = '<p style="color: var(--accent-gray); font-size: 0.9rem;">No categories yet</p>';
+                return;
+            }
+
+            let html = '';
+            
+            app.parentCategories.forEach(parent => {
+                const subs = app.subcategories.filter(s => s.parent === parent.id);
+                const parentCards = app.cards.filter(c => c.parentCategory === parent.id).length;
                 
-                // Toggle expansion if has children
-                if (hasChildren && e.target === label.querySelector('span:first-child')) {
-                    expanded = !expanded;
-                    label.querySelector('span').textContent = expanded ? '▼' : '▶';
-                    if (subDiv) {
-                        subDiv.style.display = expanded ? 'block' : 'none';
-                    }
-                } else {
-                    // Select category
-                    document.querySelectorAll('.category-item').forEach(item => {
-                        item.classList.remove('selected');
-                    });
-                    div.classList.add('selected');
-                    window.selectedCategory = category.id;
-                    updateReviewCards();
-                    updateLearnCards();
-                }
+                html += `
+                    <div style="margin-bottom: 12px;">
+                        <div style="background: #2d2d2d; border: 1px solid #555; padding: 10px; border-radius: 4px; margin-bottom: 8px; cursor: pointer;" onclick="selectParentCategory('${parent.id}')">
+                            <div style="font-weight: 600; color: var(--text-light);">${parent.name}</div>
+                            <div style="font-size: 0.8rem; color: var(--accent-gray); margin-top: 2px;">${parentCards} cards</div>
+                        </div>
+                        ${subs.length > 0 ? `
+                            <div style="padding-left: 12px;">
+                                ${subs.map(sub => {
+                                    const subCards = app.cards.filter(c => c.subcategory === sub.id).length;
+                                    return `
+                                        <button onclick="selectSubcategory('${sub.id}')" style="background: #3a3a3a; border: 1px solid #444; padding: 8px 12px; border-radius: 3px; color: var(--text-light); width: 100%; text-align: left; font-size: 0.85rem; margin-bottom: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                            <span>${sub.name}</span>
+                                            <span style="font-size: 0.7rem; background: #1b1a1a; padding: 2px 6px; border-radius: 2px;">${subCards}</span>
+                                        </button>
+                                    `;
+                                }).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
             });
 
-            div.appendChild(label);
-
-            if (hasChildren) {
-                subDiv = document.createElement('div');
-                subDiv.className = 'subcategory';
-                subDiv.style.display = 'none';
-                children.forEach(child => {
-                    subDiv.appendChild(createCategoryElement(child));
-                });
-                div.appendChild(subDiv);
-            }
-
-            return div;
+            navList.innerHTML = html;
         }
 
-        function updateLearnCards() {
-            let learnCards = app.cards;
-            
-            if (window.selectedCategory) {
-                const selectedCat = app.categories.find(c => c.id === window.selectedCategory);
-                if (selectedCat) {
-                    learnCards = learnCards.filter(card => card.category === window.selectedCategory);
-                }
-            }
-            
-            const container = document.getElementById('learnContainer');
+        let selectedSubcategoryId = null;
+        let selectedParentCategoryId = null;
 
-            if (learnCards.length === 0) {
-                container.innerHTML = '<p>No cards in this category. <a href="#" onclick="switchView(\'create\')" style="color: var(--accent-gray);">Create one!</a></p>';
+        function selectSubcategory(subcategoryId) {
+            selectedSubcategoryId = subcategoryId;
+            selectedParentCategoryId = null;
+            updateLearnView();
+        }
+
+        function selectParentCategory(parentId) {
+            selectedParentCategoryId = parentId;
+            selectedSubcategoryId = null;
+            updateLearnView();
+        }
+
+        function updateLearnView() {
+            const container = document.getElementById('learnContainer');
+            let cards = app.cards;
+
+            // Filter by parent or subcategory
+            if (selectedParentCategoryId) {
+                cards = cards.filter(c => c.parentCategory === selectedParentCategoryId);
+            } else if (selectedSubcategoryId) {
+                cards = cards.filter(c => c.subcategory === selectedSubcategoryId);
+            }
+
+            if (cards.length === 0) {
+                container.innerHTML = '<p>No cards to study. <a href="#" onclick="switchView(\'create\')" style="color: #5a7a8c;">Create one!</a></p>';
                 return;
             }
 
             let currentIndex = 0;
             const displayCard = () => {
-                if (currentIndex >= learnCards.length) {
-                    container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;">✅ You\'ve completed all cards in this category!</p>';
+                if (currentIndex >= cards.length) {
+                    container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;">✅ You\'ve completed all cards!</p>';
                     return;
                 }
-                
-                const card = learnCards[currentIndex];
-                
-                // Split card content to identify blanks and create question input
-                let questionHtml = card.front.replace(/\*\*\*([^*]+)\*\*\*/g, '<input type="text" class="fill-blank-input" placeholder="Fill in the blank" style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 4px 8px; border-radius: 3px; min-width: 100px; margin: 0 4px;">');
-                
+
+                const card = cards[currentIndex];
+                currentCardId = card.id;
+                cardStartTime = Date.now();
+
                 container.innerHTML = `
                     <div style="max-width: 600px;">
-                        <p style="color: var(--accent-gray); margin-bottom: 15px;">Card ${currentIndex + 1} of ${learnCards.length}</p>
-                        <div class="study-card" style="min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
+                        <p style="color: var(--accent-gray); margin-bottom: 15px;">Card ${currentIndex + 1} of ${cards.length}</p>
+                        <div class="study-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; margin-bottom: 20px;">
                             <div>
-                                <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">Question:</div>
-                                <div style="font-size: 1.1rem; text-align: center; margin: 20px 0; line-height: 1.8;">
-                                    ${questionHtml}
+                                <div style="color: var(--accent-gray); margin-bottom: 15px; font-size: 0.9rem;">QUESTION:</div>
+                                <div style="font-size: 1.15rem; text-align: center; margin: 20px 0; line-height: 1.8;">
+                                    ${card.front}
                                 </div>
                             </div>
-                            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--accent-gray);">
-                                <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">Your Answer:</div>
-                                <textarea id="answerInput" placeholder="Write your answer here..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 10px; border-radius: 3px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
+                            
+                            <div style="margin-top: 20px;">
+                                <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER (Active Recall):</div>
+                                <textarea id="userAnswerInput" placeholder="Try typing part or all of the answer before revealing..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 60px; resize: vertical; font-size: 0.95rem;"></textarea>
                             </div>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-                            <button onclick="previousLearnCard()" style="background: var(--accent-gray); padding: 12px; border: none; border-radius: 4px; color: var(--text-light); cursor: pointer;">← Previous</button>
-                            <button onclick="checkLearnAnswer('${card.id}', '${btoa(card.back)}')" style="background: #5a7a8c; padding: 12px; border: none; border-radius: 4px; color: var(--text-light); cursor: pointer; font-weight: 600;">Check Answer</button>
+
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <button onclick="window.previousLearnCard()" class="btn secondary" style="flex: 1;">← Previous</button>
+                            <button onclick="window.revealAnswerFunc('${card.id}')" class="btn primary" style="flex: 1;">Reveal Answer</button>
                         </div>
                     </div>
                 `;
@@ -546,29 +615,35 @@
                 }
             };
 
-            window.checkLearnAnswer = (cardId, encodedBack) => {
-                const userAnswer = document.getElementById('answerInput').value.trim();
-                const correctAnswer = atob(encodedBack).toLowerCase();
-                const userAnswerLower = userAnswer.toLowerCase();
-                
-                if (!userAnswer) {
-                    alert('Please fill in your answer');
-                    return;
+            window.revealAnswerFunc = (cardId) => {
+                const card = app.cards.find(c => c.id === cardId);
+                if (!card) return;
+
+                // Get user's typed answer
+                const userAnswer = document.getElementById('userAnswerInput').value || '(You didn\'t write anything)';
+                document.getElementById('userAnswerDisplay').innerHTML = userAnswer;
+
+                document.getElementById('feedbackCardContent').innerHTML = card.back;
+                document.getElementById('answerFeedbackModal').classList.add('show');
+
+                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
                 }
-                
-                // Simple matching - can be enhanced with fuzzy matching or alternative answers
-                const isCorrect = userAnswerLower === correctAnswer || userAnswerLower.includes(correctAnswer.split('$')[0].trim()) || correctAnswer.includes(userAnswerLower);
-                
-                if (isCorrect) {
-                    alert('✓ Correct!');
-                    currentIndex++;
-                } else {
-                    const proceedNext = confirm(`✗ Incorrect!\\n\\nYour answer: ${userAnswer}\\n\\nCorrect answer: ${atob(encodedBack)}\\n\\nClick OK to move to next card.`);
-                    if (proceedNext) {
-                        currentIndex++;
-                    }
-                }
-                
+            };
+
+            window.markCardCorrect = () => {
+                const timeMs = Date.now() - cardStartTime;
+                app.recordAttempt(currentCardId, true, timeMs);
+                document.getElementById('answerFeedbackModal').classList.remove('show');
+                currentIndex++;
+                displayCard();
+            };
+
+            window.markCardWrong = () => {
+                const timeMs = Date.now() - cardStartTime;
+                app.recordAttempt(currentCardId, false, timeMs);
+                document.getElementById('answerFeedbackModal').classList.remove('show');
+                currentIndex++;
                 displayCard();
             };
 
@@ -578,826 +653,124 @@
             };
 
             window.previousLearnCard = () => {
-                currentIndex = Math.max(0, currentIndex - 1);
-                displayCard();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    displayCard();
+                }
             };
 
             displayCard();
         }
 
-        function updateManagedCards() {
-            const container = document.getElementById('managedCardsContainer');
+        function updateAnalyticsView() {
+            const stats = app.getAnalytics();
+            const container = document.getElementById('analyticsContainer');
 
-            if (app.cards.length === 0) {
-                container.innerHTML = '<p>No cards yet. <a href="#" onclick="switchView(\'create\')" style="color: var(--accent-gray);">Create one!</a></p>';
-                return;
-            }
+            let html = `
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.totalCards}</div>
+                        <div class="stat-label">Total Cards</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.totalAttempts}</div>
+                        <div class="stat-label">Total Attempts</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.averageAccuracy}%</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.cardsNeedingReview}</div>
+                        <div class="stat-label">Need Review</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.totalCorrect}</div>
+                        <div class="stat-label">Correct Attempts</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.totalWrong}</div>
+                        <div class="stat-label">Wrong Attempts</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.averageTimePerCard}s</div>
+                        <div class="stat-label">Avg Time per Card</div>
+                    </div>
+                </div>
+            `;
 
-            // Group cards by category
-            const cardsByCategory = {};
-            app.cards.forEach(card => {
-                if (!cardsByCategory[card.category]) {
-                    cardsByCategory[card.category] = [];
-                }
-                cardsByCategory[card.category].push(card);
-            });
+            if (stats.mostMissedCards.length > 0) {
+                html += `
+                    <div style="margin-top: 40px;">
+                        <h3>Cards You Find Difficult (Most Wrong)</h3>
+                        <div style="display: grid; gap: 12px;">
+                `;
 
-            let html = `<p>Total: ${app.cards.length} cards</p>`;
-            
-            Object.entries(cardsByCategory).forEach(([categoryName, cards]) => {
-                html += `<div style="margin-bottom: 20px; background: #2d2d2d; padding: 15px; border-radius: 8px; border: 1px solid var(--accent-gray);">`;
-                html += `<h4 style="margin-top: 0; color: var(--accent-gray);">${categoryName} (${cards.length})</h4>`;
-                
-                cards.forEach(card => {
+                stats.mostMissedCards.forEach(card => {
+                    const accuracy = card.timesReviewed > 0 ? ((card.timesCorrect / card.timesReviewed) * 100).toFixed(1) : 0;
+                    const sub = app.subcategories.find(s => s.id === card.subcategory);
                     html += `
-                        <div class="study-card" style="margin-bottom: 12px; background: #3a3a3a; padding: 12px; border-radius: 6px; border-left: 3px solid #5a7a8c;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border-left: 4px solid #8b4545;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
                                 <div style="flex: 1;">
-                                    <div style="font-weight: 600; margin-bottom: 4px;">Q: ${card.front}</div>
-                                    <div style="color: #ccc; margin-bottom: 8px;">A: ${card.back}</div>
-                                    <div style="color: #999; font-size: 0.85rem;">
-                                        Reviews: ${card.timesReviewed}x | Streak: ${card.streak} | Ease: ${card.easeFactor.toFixed(2)}
+                                    <div style="font-weight: 600; margin-bottom: 5px;">Q: ${card.front}</div>
+                                    <div style="color: #999; font-size: 0.9rem; margin-bottom: 8px;">A: ${card.back}</div>
+                                    <div style="font-size: 0.85rem; color: var(--accent-gray);">
+                                        Wrong: ${card.timesWrong}x | Accuracy: ${accuracy}% | Category: ${sub ? sub.name : 'Unknown'}
                                     </div>
                                 </div>
-                                <div style="display: flex; gap: 8px; margin-left: 12px;">
-                                    <button onclick="openEditCardModal('${card.id}')" style="background: #5a7a8c; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: var(--text-light); font-size: 0.85em;">Edit</button>
-                                    <button onclick="deleteCardById('${card.id}')" style="background: #8b4545; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: var(--text-light); font-size: 0.85em;">Delete</button>
-                                </div>
+                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
                             </div>
                         </div>
                     `;
                 });
-                
-                html += `</div>`;
-            });
 
-            container.innerHTML = html;
-        }
-
-        function deleteCardById(cardId) {
-            const card = app.cards.find(c => c.id === cardId);
-            if (confirm(`Delete card: "${card.front}"?`)) {
-                app.cards = app.cards.filter(c => c.id !== cardId);
-                app.saveData();
-                updateManagedCards();
-                updateDashboard();
-            }
-        }
-
-        function deleteCard(index) {
-            if (confirm('Are you sure you want to delete this card?')) {
-                app.cards.splice(index, 1);
-                app.saveData();
-                updateManagedCards();
-                updateDashboard();
-            }
-        }
-
-        function updateManagedCategories() {
-            const container = document.getElementById('manageCategoriesContainer');
-            
-            if (app.categories.length === 0) {
-                container.innerHTML = '<p>No categories yet. <a href="#" onclick="openCategoryModal()" style="color: var(--accent-gray);">Create one!</a></p>';
-                return;
+                html += `</div></div>`;
             }
 
-            // Organize by grandparent
-            const rootCategories = app.categories.filter(c => !c.parent);
-            
-            let html = '';
-            
-            rootCategories.forEach(root => {
-                const children = app.categories.filter(c => c.parent === root.id);
-                const rootCards = app.cards.filter(c => c.category === root.id).length;
-                
-                html += `
-                    <div style="margin-bottom: 30px; background: #2d2d2d; padding: 20px; border-radius: 8px; border: 1px solid var(--accent-gray);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <h3 style="margin: 0;">${root.name} (${rootCards} cards)</h3>
-                            <div style="display: flex; gap: 8px;">
-                                <button onclick="openEditCategoryModal('${root.id}')" style="background: #5a7a8c; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer;">Edit</button>
-                                <button onclick="deleteCategoryConfirm('${root.id}')" style="background: #8b4545; padding: 6px 12px; border: none; color: white; border-radius: 4px; cursor: pointer;">Delete</button>
-                            </div>
-                        </div>
-                        
-                        ${children.length > 0 ? `
-                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--accent-gray);">
-                                <h4 style="margin-top: 0; color: var(--accent-gray);">Subcategories:</h4>
-                                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px;">
-                                    ${children.map(child => {
-                                        const grandChildren = app.categories.filter(c => c.parent === child.id);
-                                        const childCards = app.cards.filter(c => c.category === child.id).length;
-                                        return `
-                                            <div style="background: #3a3a3a; padding: 12px; border-radius: 6px; border: 1px solid var(--accent-gray);">
-                                                <div style="font-weight: 600; margin-bottom: 8px;">${child.name} (${childCards} cards)</div>
-                                                ${grandChildren.length > 0 ? `
-                                                    <div style="font-size: 0.85em; color: #999; margin-bottom: 8px;">
-                                                        ${grandChildren.length} sub-category(ies):
-                                                        <br>${grandChildren.map(gc => gc.name).join(', ')}
-                                                    </div>
-                                                ` : ''}
-                                                <div style="display: flex; gap: 6px;">
-                                                    <button onclick="openEditCategoryModal('${child.id}')" style="background: #5a7a8c; padding: 4px 10px; border: none; color: white; border-radius: 3px; cursor: pointer; font-size: 0.85em;">Edit</button>
-                                                    <button onclick="deleteCategoryConfirm('${child.id}')" style="background: #8b4545; padding: 4px 10px; border: none; color: white; border-radius: 3px; cursor: pointer; font-size: 0.85em;">Delete</button>
-                                                </div>
-                                            </div>
-                                        `;
-                                    }).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function editCategory(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-            
-            const newName = prompt('Edit category name:', cat.name);
-            if (newName && newName.trim()) {
-                cat.name = newName.trim();
-                app.saveData();
-                updateCategoryTree();
-                updateCategoriesNav();
-                updateManagedCategories();
-                alert('Category updated!');
-            }
-        }
-
-        function deleteCategory(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-            
-            const cardCount = app.cards.filter(c => c.category.toLowerCase().includes(cat.name.toLowerCase())).length;
-            
-            if (confirm(`Delete category "${cat.name}"? This category has ${cardCount} cards.\n\nNote: Cards will not be deleted, just the category.`)) {
-                app.categories = app.categories.filter(c => c.id !== categoryId);
-                app.categories.forEach(c => {
-                    if (c.parent === categoryId) {
-                        c.parent = null;
-                    }
-                    c.children = c.children.filter(child => child !== categoryId);
-                });
-                app.saveData();
-                updateCategoryTree();
-                updateCategoriesNav();
-                updateManagedCategories();
-                alert('Category deleted!');
-            }
-        }
-
-        function editCardContent(cardId, side) {
-            const card = app.cards.find(c => c.id === cardId);
-            if (!card) return;
-
-            const currentText = side === 'front' ? card.front : card.back;
-            const newText = prompt(`Edit ${side === 'front' ? 'Question' : 'Answer'}:`, currentText);
-
-            if (newText !== null && newText.trim()) {
-                if (side === 'front') {
-                    card.front = newText.trim();
-                } else {
-                    card.back = newText.trim();
-                }
-                app.saveData();
-                updateReviewCards();
-                alert(`${side === 'front' ? 'Question' : 'Answer'} updated!`);
-            }
-        }
-
-        function updateCategoriesNav() {
-            const navList = document.getElementById('categoriesNavList');
-            
-            if (app.categories.length === 0) {
-                navList.innerHTML = '<p style="color: var(--accent-gray); font-size: 0.9rem;">No categories yet</p>';
-                return;
-            }
-
-            let html = '';
-            const roots = app.categories.filter(c => !c.parent);
-            
-            function renderCategory(cat, indent = 0) {
-                const children = app.categories.filter(c => c.parent === cat.id);
-                const hasChildren = children.length > 0;
-                const isExpanded = window.expandedCategories && window.expandedCategories[cat.id];
-                const paddingLeft = indent * 16;
-                
-                html += `
-                    <div style="padding-left: ${paddingLeft}px; margin-bottom: 3px;">
-                        <div style="display: flex; gap: 6px; align-items: center;">
-                            ${hasChildren ? `
-                                <button onclick="toggleCategoryExpand('${cat.id}')" style="background: none; border: none; color: var(--accent-gray); padding: 0; width: 20px; text-align: center; cursor: pointer; font-size: 0.9rem;">
-                                    ${isExpanded ? '▼' : '▶'}
-                                </button>
-                            ` : '<div style="width: 20px;"></div>'}
-                            <button onclick="selectCategoryChildren('${cat.id}')" style="background: #2d2d2d; border: 1px solid transparent; color: var(--text-light); padding: 6px 8px; border-radius: 4px; cursor: pointer; flex: 1; text-align: left; font-size: 0.85rem; transition: all 0.2s;" onmouseover="this.style.background='#3a3a3a'" onmouseout="this.style.background='#2d2d2d'">
-                                <span>${cat.name}</span>
-                            </button>
-                        </div>
-                        ${hasChildren && isExpanded ? `
-                            <div>
-                                ${children.map(child => {
-                                    const grandChildren = app.categories.filter(c => c.parent === child.id);
-                                    const childIsExpanded = window.expandedCategories && window.expandedCategories[child.id];
-                                    const childPaddingLeft = (indent + 1) * 16;
-                                    
-                                    let childHtml = `
-                                        <div style="padding-left: ${childPaddingLeft}px; margin-bottom: 3px;">
-                                            <div style="display: flex; gap: 6px; align-items: center;">
-                                                ${grandChildren.length > 0 ? `
-                                                    <button onclick="toggleCategoryExpand('${child.id}')" style="background: none; border: none; color: var(--accent-gray); padding: 0; width: 20px; text-align: center; cursor: pointer; font-size: 0.85rem;">
-                                                        ${childIsExpanded ? '▼' : '▶'}
-                                                    </button>
-                                                ` : '<div style="width: 20px;"></div>'}
-                                                <button onclick="selectAndStudyCategory('${child.id}')" style="background: #3a3a3a; border: 1px solid transparent; color: var(--text-light); padding: 5px 8px; border-radius: 4px; cursor: pointer; flex: 1; text-align: left; font-size: 0.8rem; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;" onmouseover="this.style.background='#4a4a4a'" onmouseout="this.style.background='#3a3a3a'">
-                                                    <span>${child.name}</span>
-                                                    <span style="font-size: 0.65rem; color: var(--accent-gray); background: #1b1a1a; padding: 2px 4px; border-radius: 2px; white-space: nowrap;">${app.cards.filter(c => c.category === child.id).length}</span>
-                                                </button>
-                                            </div>
-                                            ${grandChildren.length > 0 && childIsExpanded ? `
-                                                <div>
-                                                    ${grandChildren.map(grand => {
-                                                        const grandCardCount = app.cards.filter(c => c.category === grand.id).length;
-                                                        const grandPaddingLeft = (indent + 2) * 16;
-                                                        return `
-                                                            <div style="padding-left: ${grandPaddingLeft}px; margin-bottom: 2px;">
-                                                                <button onclick="selectAndStudyCategory('${grand.id}')" style="background: #2d2d2d; border: 1px solid transparent; color: var(--text-light); padding: 4px 6px; border-radius: 3px; cursor: pointer; width: 100%; text-align: left; font-size: 0.75rem; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;" onmouseover="this.style.background='#3a3a3a'" onmouseout="this.style.background='#2d2d2d'">
-                                                            <span>${grand.name}</span>
-                                                            <span style="font-size: 0.6rem; color: var(--accent-gray); background: #1b1a1a; padding: 1px 3px; border-radius: 2px; white-space: nowrap;">${grandCardCount}</span>
-                                                        </button>
-                                                            </div>
-                                                        `;
-                                                    }).join('')}
-                                                </div>
-                                            ` : ''}
-                                        </div>
-                                    `;
-                                    return childHtml;
-                                }).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            };
-            
-            roots.forEach(root => renderCategory(root));
-            navList.innerHTML = html;
-        }
-
-        function selectCategoryChildren(categoryId) {
-            toggleCategoryExpand(categoryId);
-        }
-
-        function toggleCategoryExpand(categoryId) {
-            if (!window.expandedCategories) {
-                window.expandedCategories = {};
-            }
-            window.expandedCategories[categoryId] = !window.expandedCategories[categoryId];
-            updateCategoriesNav();
-        }
-
-        function selectAndStudyCategory(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-            
-            window.selectedCategory = categoryId;
-            const cards = app.cards.filter(c => c.category === cat.id);
-            
-            if (cards.length === 0) {
-                alert('No flashcards in this category yet!');
-                return;
-            }
-            
-            startStudyCategory(categoryId);
-        }
-
-        function selectCategory(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-
-            window.selectedCategory = categoryId;
-            updateCategoriesNav();
-            updateReviewCards();
-            updateLearnCards();
-        }
-        
-        function createCard() {
-            const front = document.getElementById('cardFront').value.trim();
-            const back = document.getElementById('cardBack').value.trim();
-            const categoryId = document.getElementById('categoryInput').value.trim();
-
-            if (!front || !back || !categoryId) {
-                alert('Please fill in all fields');
-                return;
-            }
-
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) {
-                alert('Invalid category selected');
-                return;
-            }
-
-            app.createCard(front, back, categoryId);
-            app.saveData();
-            clearCardForm();
-            updateCategoryDropdown();
-            updateCategoriesNav();
-            updateDashboard();
-            updateManagedCards();
-            alert('Card created successfully!');
-        }
-
-        function clearCardForm() {
-            document.getElementById('cardFront').value = '';
-            document.getElementById('cardBack').value = '';
-            document.getElementById('categoryInput').value = '';
-        }
-
-        function openCategoryModal() {
-            // Populate parent category dropdown
-            const select = document.getElementById('parentCategoryInput');
-            select.innerHTML = '<option value="">-- Root Category --</option>';
-            
-            function buildCategoryOptions(parentId = null, prefix = '') {
-                const children = app.categories.filter(c => c.parent === parentId);
-                children.forEach(cat => {
-                    const option = document.createElement('option');
-                    option.value = cat.id;
-                    option.textContent = prefix + cat.name;
-                    select.appendChild(option);
-                    buildCategoryOptions(cat.id, prefix + '  ');
-                });
-            }
-            
-            buildCategoryOptions();
-            
-            document.getElementById('categoryModal').classList.add('show');
-        }
-
-        function closeCategoryModal() {
-            document.getElementById('categoryModal').classList.remove('show');
-            document.getElementById('parentCategoryInput').value = '';
-            document.getElementById('newCategoryName').value = '';
-            document.getElementById('newCategoryDesc').value = '';
-        }
-
-        function createCategory() {
-            const name = document.getElementById('newCategoryName').value.trim();
-            const parentId = document.getElementById('parentCategoryInput').value;
-
-            if (!name) {
-                alert('Please enter a category name');
-                return;
-            }
-
-            const categoryId = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-
-            if (app.categories.find(c => c.id === categoryId)) {
-                alert('This category already exists');
-                return;
-            }
-
-            const newCategory = {
-                id: categoryId,
-                name: name,
-                parent: parentId || null,
-                children: [],
-                description: document.getElementById('newCategoryDesc').value
-            };
-
-            app.categories.push(newCategory);
-
-            if (newCategory.parent) {
-                const parentCat = app.categories.find(c => c.id === newCategory.parent);
-                if (parentCat && !parentCat.children.includes(categoryId)) {
-                    parentCat.children.push(categoryId);
-                }
-            }
-
-            app.saveData();
-            updateCategoryTree();
-            updateCategoriesNav();
-            updateCategoryDropdown();
-            updateManagedCategories();
-            closeCategoryModal();
-            alert('Category created!');
-        }
-
-        // ==================== CATEGORY DROPDOWN MANAGEMENT ====================
-        function updateCategoryDropdown() {
-            const select = document.getElementById('categoryInput');
-            if (!select) return;
-            
-            select.innerHTML = '<option value="">-- Select a category --</option>';
-            
-            if (app.categories.length === 0) {
-                return;
-            }
-
-            // Build hierarchical category list
-            function buildCategoryOptions(parentId = null, prefix = '') {
-                const children = app.categories.filter(c => c.parent === parentId);
-                children.forEach(cat => {
-                    const option = document.createElement('option');
-                    option.value = cat.id;
-                    option.textContent = prefix + cat.name;
-                    select.appendChild(option);
-                    buildCategoryOptions(cat.id, prefix + '  ');
-                });
-            }
-
-            buildCategoryOptions();
-        }
-
-        // ==================== MANAGE CATEGORIES VIEW ====================
-        function updateManageCategoriesView() {
-            const container = document.getElementById('manageCategoriesContainer');
-            
-            if (app.categories.length === 0) {
-                container.innerHTML = '<p>No categories yet. Create one in the sidebar!</p>';
-                return;
-            }
-
-            let html = '<div style="max-width: 100%;">';
-            const roots = app.categories.filter(c => !c.parent);
-            
-            function renderManageCategory(cat, indent = 0) {
-                const cardCount = app.cards.filter(c => c.category === cat.id).length;
-                const children = app.categories.filter(c => c.parent === cat.id);
-                const hasChildren = children.length > 0;
-                const isExpanded = window.expandedManageCategories && window.expandedManageCategories[cat.id];
-                const paddingLeft = indent * 20;
-                
-                html += `
-                    <div style="padding-left: ${paddingLeft}px; margin-bottom: 8px;">
-                        <div style="background: ${indent === 0 ? 'var(--card-bg)' : '#3a3a3a'}; border: 1px solid var(--accent-gray); padding: 12px; border-radius: 6px; display: flex; gap: 8px; align-items: center;">
-                            ${hasChildren ? `
-                                <button onclick="toggleManageCategoryExpand('${cat.id}')" style="background: none; border: none; color: var(--accent-gray); padding: 0; width: 24px; text-align: center; cursor: pointer; font-size: 1rem; flex-shrink: 0;">
-                                    ${isExpanded ? '▼' : '▶'}
-                                </button>
-                            ` : '<div style="width: 24px;"></div>'}
-                            
-                            <div style="flex: 1;">
-                                <div style="font-weight: ${indent === 0 ? '600' : '500'}; color: var(--text-light); font-size: ${indent === 0 ? '0.95rem' : '0.9rem'};">
-                                    ${cat.name}
-                                </div>
-                                <div style="font-size: 0.75rem; color: var(--accent-gray); margin-top: 2px;">
-                                    ${cardCount} card${cardCount !== 1 ? 's' : ''}
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; gap: 6px; flex-shrink: 0;">
-                                <button onclick="openEditCategoryModal('${cat.id}')" class="btn" style="background: #5a7a8c; padding: 6px 10px; font-size: 0.8rem; border: none; cursor: pointer;">Edit</button>
-                                <button onclick="deleteCategoryConfirm('${cat.id}')" class="btn" style="background: #8b4545; padding: 6px 10px; font-size: 0.8rem; border: none; cursor: pointer;">Delete</button>
-                            </div>
-                        </div>
-                        
-                        ${hasChildren && isExpanded ? `
-                            <div style="margin-top: 8px;">
-                                ${children.map(child => {
-                                    const grandChildren = app.categories.filter(c => c.parent === child.id);
-                                    const childCardCount = app.cards.filter(c => c.category === child.id).length;
-                                    const childIsExpanded = window.expandedManageCategories && window.expandedManageCategories[child.id];
-                                    const childPaddingLeft = (indent + 1) * 20;
-                                    
-                                    let childHtml = `
-                                        <div style="padding-left: ${childPaddingLeft}px; margin-bottom: 6px;">
-                                            <div style="background: #3a3a3a; border: 1px solid #555; padding: 10px; border-radius: 5px; display: flex; gap: 8px; align-items: center;">
-                                                ${grandChildren.length > 0 ? `
-                                                    <button onclick="toggleManageCategoryExpand('${child.id}')" style="background: none; border: none; color: var(--accent-gray); padding: 0; width: 20px; text-align: center; cursor: pointer; font-size: 0.9rem; flex-shrink: 0;">
-                                                        ${childIsExpanded ? '▼' : '▶'}
-                                                    </button>
-                                                ` : '<div style="width: 20px;"></div>'}
-                                                
-                                                <div style="flex: 1;">
-                                                    <div style="font-weight: 500; color: var(--text-light); font-size: 0.9rem;">
-                                                        ${child.name}
-                                                    </div>
-                                                    <div style="font-size: 0.7rem; color: var(--accent-gray); margin-top: 2px;">
-                                                        ${childCardCount} card${childCardCount !== 1 ? 's' : ''}
-                                                    </div>
-                                                </div>
-                                                
-                                                <div style="display: flex; gap: 4px; flex-shrink: 0;">
-                                                    <button onclick="openEditCategoryModal('${child.id}')" class="btn" style="background: #5a7a8c; padding: 5px 8px; font-size: 0.75rem; border: none; cursor: pointer;">Edit</button>
-                                                    <button onclick="deleteCategoryConfirm('${child.id}')" class="btn" style="background: #8b4545; padding: 5px 8px; font-size: 0.75rem; border: none; cursor: pointer;">Delete</button>
-                                                </div>
-                                            </div>
-                                            
-                                            ${grandChildren.length > 0 && childIsExpanded ? `
-                                                <div style="margin-top: 6px;">
-                                                    ${grandChildren.map(grand => {
-                                                        const grandCardCount = app.cards.filter(c => c.category === grand.id).length;
-                                                        const grandPaddingLeft = (indent + 2) * 20;
-                                                        return `
-                                                            <div style="padding-left: ${grandPaddingLeft}px; margin-bottom: 4px;">
-                                                                <div style="background: #2d2d2d; border: 1px solid #444; padding: 8px; border-radius: 4px; display: flex; gap: 8px; align-items: center;">
-                                                                    <div style="flex: 1;">
-                                                                        <div style="font-weight: 400; color: var(--text-light); font-size: 0.85rem;">
-                                                                            ${grand.name}
-                                                                        </div>
-                                                                        <div style="font-size: 0.65rem; color: var(--accent-gray); margin-top: 1px;">
-                                                                            ${grandCardCount} card${grandCardCount !== 1 ? 's' : ''}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div style="display: flex; gap: 4px; flex-shrink: 0;">
-                                                                        <button onclick="openEditCategoryModal('${grand.id}')" class="btn" style="background: #5a7a8c; padding: 4px 6px; font-size: 0.7rem; border: none; cursor: pointer;">Edit</button>
-                                                                        <button onclick="deleteCategoryConfirm('${grand.id}')" class="btn" style="background: #8b4545; padding: 4px 6px; font-size: 0.7rem; border: none; cursor: pointer;">Delete</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        `;
-                                                    }).join('')}
-                                                </div>
-                                            ` : ''}
-                                        </div>
-                                    `;
-                                    return childHtml;
-                                }).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            };
-            
-            roots.forEach(root => renderManageCategory(root));
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function toggleManageCategoryExpand(categoryId) {
-            if (!window.expandedManageCategories) {
-                window.expandedManageCategories = {};
-            }
-            window.expandedManageCategories[categoryId] = !window.expandedManageCategories[categoryId];
-            updateManageCategoriesView();
-        }
-
-        function viewCategoryCards(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-            
-            const cards = app.cards.filter(c => c.category === cat.id);
-            const container = document.getElementById('manageCategoriesContainer');
-            
-            let html = `
-                <button onclick="updateManageCategoriesView()" class="btn secondary" style="margin-bottom: 20px;">← Back to Categories</button>
-                <h3>${cat.name} - ${cards.length} cards</h3>
-                <div style="display: grid; gap: 12px;">
+            // Show all cards with edit/delete options
+            html += `
+                <div style="margin-top: 40px;">
+                    <h3>All Cards</h3>
+                    <div style="display: grid; gap: 12px;">
             `;
-            
-            if (cards.length === 0) {
-                html += '<p>No cards in this category yet.</p>';
-            } else {
-                cards.forEach((card, index) => {
-                    html += `
-                        <div style="background: var(--input-bg); border: 1px solid var(--accent-gray); padding: 15px; border-radius: 6px;">
-                            <div style="margin-bottom: 10px;">
-                                <strong>Q: </strong><span>${card.front}</span>
+
+            app.cards.forEach(card => {
+                const accuracy = card.timesReviewed > 0 ? ((card.timesCorrect / card.timesReviewed) * 100).toFixed(1) : 0;
+                const sub = app.subcategories.find(s => s.id === card.subcategory);
+                
+                html += `
+                    <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border-left: 4px solid ${card.timesWrong > 2 ? '#8b4545' : '#4a6a4a'};">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 5px;">Q: ${card.front}</div>
+                                <div style="color: #999; font-size: 0.9rem; margin-bottom: 8px;">A: ${card.back}</div>
+                                <div style="font-size: 0.85rem; color: var(--accent-gray);">
+                                    Reviewed: ${card.timesReviewed}x | Correct: ${card.timesCorrect}x | Wrong: ${card.timesWrong}x | Accuracy: ${accuracy}%
+                                </div>
                             </div>
-                            <div style="color: var(--accent-gray); margin-bottom: 15px;">
-                                <strong>A: </strong><span>${card.back}</span>
-                            </div>
-                            <div style="display: flex; gap: 8px;">
-                                <button onclick="openEditCardModal('${card.id}')" class="btn" style="background: #5a7a8c; padding: 6px 10px; font-size: 0.85rem;">Edit</button>
-                                <button onclick="deleteCardById('${card.id}')" class="btn" style="background: #8b4545; padding: 6px 10px; font-size: 0.85rem;">Delete</button>
+                            <div style="display: flex; gap: 8px; white-space: nowrap;">
+                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                <button onclick="deleteCard('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
                             </div>
                         </div>
-                    `;
-                });
-            }
-            
-            html += '</div>';
+                    </div>
+                `;
+            });
+
+            html += `</div></div>`;
             container.innerHTML = html;
         }
 
-        // ==================== STUDY MODE (ACTIVE RECALL) ====================
-        let studyState = {
-            categoryId: null,
-            cards: [],
-            currentIndex: 0,
-            isShowingAnswer: false
-        };
-
-        function startStudyCategory(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-            
-            studyState.categoryId = categoryId;
-            studyState.cards = app.cards.filter(c => c.category === cat.id);
-            studyState.currentIndex = 0;
-            studyState.isShowingAnswer = false;
-            
-            if (studyState.cards.length === 0) {
-                alert('No cards in this category!');
-                return;
-            }
-            
-            document.getElementById('studyCategoryTitle').textContent = `Study: ${cat.name}`;
-            document.getElementById('studyCategoryModal').classList.add('show');
-            displayStudyCard();
-        }
-
-        function displayStudyCard() {
-            if (studyState.cards.length === 0) return;
-            
-            const card = studyState.cards[studyState.currentIndex];
-            const content = studyState.isShowingAnswer ? card.back : card.front;
-            
-            document.getElementById('studyCardContent').innerHTML = content;
-            document.getElementById('studyCardCount').textContent = 
-                `Card ${studyState.currentIndex + 1} of ${studyState.cards.length}`;
-            
-            // Update MathJax if needed
-            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                MathJax.typesetPromise().catch(err => console.log(err));
-            }
-        }
-
-        function toggleStudyCardSide() {
-            studyState.isShowingAnswer = !studyState.isShowingAnswer;
-            displayStudyCard();
-        }
-
-        function nextStudyCard() {
-            if (studyState.currentIndex < studyState.cards.length - 1) {
-                studyState.currentIndex++;
-                studyState.isShowingAnswer = false;
-                displayStudyCard();
-            }
-        }
-
-        function previousStudyCard() {
-            if (studyState.currentIndex > 0) {
-                studyState.currentIndex--;
-                studyState.isShowingAnswer = false;
-                displayStudyCard();
-            }
-        }
-
-        function markStudyCardCorrect() {
-            const card = studyState.cards[studyState.currentIndex];
-            if (card) {
-                card.timesReviewed = (card.timesReviewed || 0) + 1;
-                card.lastReviewed = new Date().toISOString();
-                card.streak = (card.streak || 0) + 1;
-            }
-            nextStudyCard();
-        }
-
-        function markStudyCardIncorrect() {
-            const card = studyState.cards[studyState.currentIndex];
-            if (card) {
-                card.timesReviewed = (card.timesReviewed || 0) + 1;
-                card.lastReviewed = new Date().toISOString();
-                card.streak = 0;
-            }
-            nextStudyCard();
-        }
-
-        function closeStudyModal() {
-            document.getElementById('studyCategoryModal').classList.remove('show');
-            app.saveData();
-            updateDashboard();
-        }
-
-        // ==================== INITIALIZATION ====================
-        window.selectedCategory = null;
-        window.expandedCategories = {};
-        window.expandedManageCategories = {};
-        
-        function initApp() {
-            try {
-                // Initial setup
-                updateCategoriesNav();
-                updateCategoryDropdown();
-                updateDashboard();
-
-                if (typeof MathJax !== 'undefined') {
-                    MathJax.contentDocument = document;
-                }
-            } catch (e) {
-                console.error('Initialization error:', e);
-            }
-        }
-
-        // ==================== EDIT CATEGORY FUNCTIONS ====================
-        let currentEditCategoryId = null;
-
-        function openEditCategoryModal(categoryId) {
-            currentEditCategoryId = categoryId;
-            const cat = app.categories.find(c => c.id === categoryId);
-            if (!cat) return;
-
-            document.getElementById('editCategoryNameInput').value = cat.name;
-            document.getElementById('editCategoryDescInput').value = cat.description || '';
-            
-            // Populate parent category dropdown
-            const select = document.getElementById('editParentCategoryInput');
-            select.innerHTML = '<option value="">-- Root Category --</option>';
-            
-            function buildCategoryOptions(parentId = null, prefix = '') {
-                const children = app.categories.filter(c => c.parent === parentId && c.id !== categoryId);
-                children.forEach(child => {
-                    const option = document.createElement('option');
-                    option.value = child.id;
-                    option.textContent = prefix + child.name;
-                    select.appendChild(option);
-                    buildCategoryOptions(child.id, prefix + '  ');
-                });
-            }
-            
-            buildCategoryOptions();
-            select.value = cat.parent || '';
-            
-            document.getElementById('editCategoryModal').classList.add('show');
-        }
-
-        function closeEditCategoryModal() {
-            document.getElementById('editCategoryModal').classList.remove('show');
-            currentEditCategoryId = null;
-        }
-
-        function saveEditedCategory() {
-            if (!currentEditCategoryId) return;
-            
-            const newName = document.getElementById('editCategoryNameInput').value.trim();
-            const newDesc = document.getElementById('editCategoryDescInput').value.trim();
-            const newParentId = document.getElementById('editParentCategoryInput').value || null;
-            
-            if (!newName) {
-                alert('Category name cannot be empty');
-                return;
-            }
-            
-            const cat = app.categories.find(c => c.id === currentEditCategoryId);
-            if (!cat) return;
-            
-            cat.name = newName;
-            cat.description = newDesc;
-            cat.parent = newParentId;
-            
-            app.saveData();
-            updateCategoryTree();
-            updateCategoriesNav();
-            updateCategoryDropdown();
-            updateManagedCategories();
-            closeEditCategoryModal();
-            alert('Category updated!');
-        }
-
-        function deleteCategoryConfirm(categoryId) {
-            const cat = app.categories.find(c => c.id === categoryId);
-            const cardCount = app.cards.filter(c => c.category === categoryId).length;
-            
-            if (confirm(`Delete "${cat.name}"? This will also delete ${cardCount} card(s).`)) {
-                deleteCategory(categoryId);
-            }
-        }
-
-        function deleteCategory(categoryId) {
-            app.categories = app.categories.filter(c => c.id !== categoryId);
-            app.cards = app.cards.filter(c => c.category !== categoryId);
-            app.saveData();
-            updateCategoryTree();
-            updateCategoriesNav();
-            updateManagedCategories();
-            alert('Category and associated cards deleted');
-        }
-
-        // ==================== EDIT CARD FUNCTIONS ====================
         let currentEditCardId = null;
 
-        function openEditCardModal(cardId) {
+        function editCard(cardId) {
             currentEditCardId = cardId;
             const card = app.cards.find(c => c.id === cardId);
             if (!card) return;
 
             document.getElementById('editCardFrontInput').value = card.front;
             document.getElementById('editCardBackInput').value = card.back;
-            
-            // Populate category dropdown
-            const select = document.getElementById('editCardCategoryInput');
-            select.innerHTML = '<option value="">-- Select a category --</option>';
-            
-            function buildCategoryOptions(parentId = null, prefix = '') {
-                const children = app.categories.filter(c => c.parent === parentId);
-                children.forEach(cat => {
-                    const option = document.createElement('option');
-                    option.value = cat.id;
-                    option.textContent = prefix + cat.name;
-                    select.appendChild(option);
-                    buildCategoryOptions(cat.id, prefix + '  ');
-                });
-            }
-            
-            buildCategoryOptions();
-            select.value = card.category;
-            
             document.getElementById('editCardModal').classList.add('show');
         }
 
@@ -1408,57 +781,70 @@
 
         function saveEditedCard() {
             if (!currentEditCardId) return;
-            
+
             const front = document.getElementById('editCardFrontInput').value.trim();
             const back = document.getElementById('editCardBackInput').value.trim();
-            const category = document.getElementById('editCardCategoryInput').value.trim();
-            
-            if (!front || !back || !category) {
-                alert('All fields are required');
+
+            if (!front || !back) {
+                alert('Please fill in both fields');
                 return;
             }
-            
+
             const card = app.cards.find(c => c.id === currentEditCardId);
-            if (!card) return;
-            
-            card.front = front;
-            card.back = back;
-            card.category = category;
-            
-            app.saveData();
-            updateManagedCards();
-            closeEditCardModal();
-            alert('Card updated!');
+            if (card) {
+                card.front = front;
+                card.back = back;
+                app.saveData();
+                closeEditCardModal();
+                updateAnalyticsView();
+                alert('Card updated!');
+            }
         }
 
-        // Close modal on outside click
+        function deleteCard(cardId) {
+            if (confirm('Delete this card?')) {
+                app.cards = app.cards.filter(c => c.id !== cardId);
+                delete app.cardStats[cardId];
+                app.saveData();
+                updateAnalyticsView();
+                updateCategoriesNav();
+            }
+        }
+
         document.addEventListener('click', (e) => {
-            const categoryModal = document.getElementById('categoryModal');
-            const editCategoryModal = document.getElementById('editCategoryModal');
-            const editCardModal = document.getElementById('editCardModal');
-            
-            if (e.target === categoryModal) {
+            if (e.target.id === 'categoryModal') {
                 closeCategoryModal();
             }
-            if (e.target === editCategoryModal) {
-                closeEditCategoryModal();
+            if (e.target.id === 'subcategoryModal') {
+                closeSubcategoryModal();
             }
-            if (e.target === editCardModal) {
+            if (e.target.id === 'editCardModal') {
                 closeEditCardModal();
+            }
+            if (e.target.id === 'answerFeedbackModal') {
+                document.getElementById('answerFeedbackModal').classList.remove('show');
             }
         });
 
-        // Run initialization when DOM is ready
-        try {
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => {
-                    setTimeout(initApp, 100);
-                });
-            } else {
-                setTimeout(initApp, 100);
+        function initApp() {
+            try {
+                updateCategoriesNav();
+                updateParentCategoryDropdown();
+
+                if (typeof MathJax !== 'undefined') {
+                    MathJax.contentDocument = document;
+                }
+            } catch (e) {
+                console.error('Initialization error:', e);
             }
-        } catch (e) {
-            console.error('Failed to initialize app:', e);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(initApp, 100);
+            });
+        } else {
+            setTimeout(initApp, 100);
         }
     </script>
 </body>

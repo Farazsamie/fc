@@ -8,6 +8,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <nav class="main-nav">
         <button class="nav-tab active" data-view="create" onclick="switchView('create')">+ Create Card</button>
@@ -37,7 +38,7 @@
                                 <select id="parentCategoryInput" onchange="updateSubcategoryDropdown()">
                                     <option value="">-- Select a parent category --</option>
                                 </select>
-                                <button onclick="window.openParentCategoryModal()" class="btn secondary" style="padding: 8px 12px;">+ New</button>
+                                <button onclick="openParentCategoryModal()" class="btn secondary" style="padding: 8px 12px;">+ New</button>
                             </div>
                             <small>Select or create a parent category</small>
                         </div>
@@ -97,7 +98,7 @@
             </div>
             <div class="button-group">
                 <button onclick="createCategory()" class="btn primary">Create</button>
-                <button class="secondary" onclick="closeCategoryModal()">Cancel</button>
+                <button onclick="closeCategoryModal()" class="btn secondary">Cancel</button>
             </div>
         </div>
     </div>
@@ -116,7 +117,7 @@
             </div>
             <div class="button-group">
                 <button onclick="createSubcategory()" class="btn primary">Create</button>
-                <button class="secondary" onclick="closeSubcategoryModal()">Cancel</button>
+                <button onclick="closeSubcategoryModal()" class="btn secondary">Cancel</button>
             </div>
         </div>
     </div>
@@ -135,7 +136,7 @@
             </div>
             <div class="button-group">
                 <button onclick="saveEditedCard()" class="btn primary">Save Changes</button>
-                <button class="secondary" onclick="closeEditCardModal()">Cancel</button>
+                <button onclick="closeEditCardModal()" class="btn secondary">Cancel</button>
             </div>
         </div>
     </div>
@@ -159,8 +160,8 @@
             </div>
 
             <div class="button-group">
-                <button onclick="window.markCardCorrect()" class="btn" style="background: #4a6a4a; flex: 1; margin-bottom: 8px;">✓ Got It Correct</button>
-                <button onclick="window.markCardWrong()" class="btn" style="background: #6a4a4a; flex: 1;">✗ Got It Wrong</button>
+                <button onclick="markCardCorrect()" class="btn" style="background: #4a6a4a; flex: 1; margin-bottom: 8px;">✓ Got It Correct</button>
+                <button onclick="markCardWrong()" class="btn" style="background: #6a4a4a; flex: 1;">✗ Got It Wrong</button>
             </div>
         </div>
     </div>
@@ -300,6 +301,21 @@
                 this.saveData();
             }
 
+            deleteCard(cardId) {
+                this.cards = this.cards.filter(c => c.id !== cardId);
+                delete this.cardStats[cardId];
+                this.saveData();
+            }
+
+            updateCard(cardId, front, back) {
+                const card = this.cards.find(c => c.id === cardId);
+                if (card) {
+                    card.front = front;
+                    card.back = back;
+                    this.saveData();
+                }
+            }
+
             getAnalytics() {
                 const stats = {
                     totalCards: this.cards.length,
@@ -350,6 +366,10 @@
         const app = new StudyApp();
         let currentCardId = null;
         let cardStartTime = null;
+        let selectedSubcategoryId = null;
+        let selectedParentCategoryId = null;
+        let currentCardIndexForLearn = 0;
+        let cardsForLearn = [];
 
         function switchView(viewName) {
             try {
@@ -549,21 +569,16 @@
             navList.innerHTML = html;
         }
 
-        let selectedSubcategoryId = null;
-        let selectedParentCategoryId = null;
-        let currentCardIndexForLearn = 0;
-        let cardsForLearn = [];
-
         function selectSubcategory(subcategoryId) {
             selectedSubcategoryId = subcategoryId;
             selectedParentCategoryId = null;
-            updateLearnView();
+            switchView('learn');
         }
 
         function selectParentCategory(parentId) {
             selectedParentCategoryId = parentId;
             selectedSubcategoryId = null;
-            updateLearnView();
+            switchView('learn');
         }
 
         function displayCurrentCard() {
@@ -595,8 +610,8 @@
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <button onclick="window.previousLearnCardFunc()" class="btn secondary" style="flex: 1;">← Previous</button>
-                        <button onclick="window.revealAnswerFunc('${card.id}')" class="btn primary" style="flex: 1;">Reveal Answer</button>
+                        <button onclick="previousLearnCard()" class="btn secondary" style="flex: 1;">← Previous</button>
+                        <button onclick="revealAnswer()" class="btn primary" style="flex: 1;">Reveal Answer</button>
                     </div>
                 </div>
             `;
@@ -606,47 +621,49 @@
             }
         }
 
-        window.revealAnswerFunc = (cardId) => {
-            const card = app.cards.find(c => c.id === cardId);
+        function revealAnswer() {
+            const card = app.cards.find(c => c.id === currentCardId);
             if (!card) {
-                console.log('Card not found:', cardId);
+                console.log('Card not found:', currentCardId);
                 return;
             }
 
             // Get user's typed answer
-            const userAnswer = document.getElementById('userAnswerInput').value || '(You didn\'t write anything)';
-            document.getElementById('userAnswerDisplay').innerHTML = userAnswer;
-
+            const userAnswerEl = document.getElementById('userAnswerInput');
+            const userAnswer = userAnswerEl ? userAnswerEl.value : '';
+            const displayAnswer = userAnswer || '(You didn\'t write anything)';
+            
+            document.getElementById('userAnswerDisplay').innerHTML = displayAnswer;
             document.getElementById('feedbackCardContent').innerHTML = card.back;
             document.getElementById('answerFeedbackModal').classList.add('show');
 
             if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
                 setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
             }
-        };
+        }
 
-        window.markCardCorrect = () => {
+        function markCardCorrect() {
             const timeMs = Date.now() - cardStartTime;
             app.recordAttempt(currentCardId, true, timeMs);
             document.getElementById('answerFeedbackModal').classList.remove('show');
             currentCardIndexForLearn++;
             displayCurrentCard();
-        };
+        }
 
-        window.markCardWrong = () => {
+        function markCardWrong() {
             const timeMs = Date.now() - cardStartTime;
             app.recordAttempt(currentCardId, false, timeMs);
             document.getElementById('answerFeedbackModal').classList.remove('show');
             currentCardIndexForLearn++;
             displayCurrentCard();
-        };
+        }
 
-        window.previousLearnCardFunc = () => {
+        function previousLearnCard() {
             if (currentCardIndexForLearn > 0) {
                 currentCardIndexForLearn--;
                 displayCurrentCard();
             }
-        };
+        }
 
         function updateLearnView() {
             const container = document.getElementById('learnContainer');
@@ -726,7 +743,7 @@
                                         Wrong: ${card.timesWrong}x | Accuracy: ${accuracy}% | Category: ${sub ? sub.name : 'Unknown'}
                                     </div>
                                 </div>
-                                <button onclick="window.editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
                             </div>
                         </div>
                     `;
@@ -757,8 +774,8 @@
                                 </div>
                             </div>
                             <div style="display: flex; gap: 8px; white-space: nowrap;">
-                                <button onclick="window.editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
-                                <button onclick="window.deleteCard('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
+                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                <button onclick="deleteCard('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -797,22 +814,15 @@
                 return;
             }
 
-            const card = app.cards.find(c => c.id === currentEditCardId);
-            if (card) {
-                card.front = front;
-                card.back = back;
-                app.saveData();
-                closeEditCardModal();
-                updateAnalyticsView();
-                alert('Card updated!');
-            }
+            app.updateCard(currentEditCardId, front, back);
+            closeEditCardModal();
+            updateAnalyticsView();
+            alert('Card updated!');
         }
 
         function deleteCard(cardId) {
             if (confirm('Delete this card?')) {
-                app.cards = app.cards.filter(c => c.id !== cardId);
-                delete app.cardStats[cardId];
-                app.saveData();
+                app.deleteCard(cardId);
                 updateAnalyticsView();
                 updateCategoriesNav();
             }

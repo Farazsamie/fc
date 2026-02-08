@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FC - Flashcard Prep</title>
+    <title>FC</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="styles.css">
@@ -11,8 +11,8 @@
 
 <body>
     <nav class="main-nav">
-        <button class="nav-tab active" data-view="create" onclick="switchView('create')">+ Create Card</button>
-        <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Learn</button>
+        <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Active Recall</button>
+        <button class="nav-tab active" data-view="create" onclick="switchView('create')">Create Card</button>
         <button class="nav-tab" data-view="analytics" onclick="switchView('analytics')">Analytics</button>
     </nav>
 
@@ -30,7 +30,7 @@
 
             <main class="main-content">
                 <div class="content active" id="create">
-                    <h2>Create Flashcard</h2>
+                    <h2>Flashcard Creation</h2>
                     <div class="form-container" style="max-width: 600px;">
                         <div class="form-group">
                             <label>Parent Category *</label>
@@ -55,11 +55,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Front (Question) - Supports LaTeX</label>
+                            <label>Front (Question)</label>
                             <textarea id="cardFront" placeholder="e.g., $\frac{d}{dx}x^2 = ?$"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Back (Answer) - Supports LaTeX</label>
+                            <label>Back (Answer)</label>
                             <textarea id="cardBack" placeholder="e.g., $2x$"></textarea>
                         </div>
                         <div class="button-group">
@@ -71,7 +71,6 @@
 
                 <div class="content" id="learn">
                     <h2>Learn Flashcards</h2>
-                    <p style="margin-bottom: 20px; color: var(--accent-gray);">Study your cards and practice active recall</p>
                     <div id="learnContainer"></div>
                 </div>
 
@@ -127,11 +126,11 @@
             <button class="close" onclick="closeEditCardModal()">&times;</button>
             <h3>Edit Flashcard</h3>
             <div class="form-group">
-                <label>Front (Question)</label>
+                <label>Question</label>
                 <textarea id="editCardFrontInput" placeholder="e.g., $\\frac{d}{dx}x^2 = ?$"></textarea>
             </div>
             <div class="form-group">
-                <label>Back (Answer)</label>
+                <label>Answer</label>
                 <textarea id="editCardBackInput" placeholder="e.g., $2x$"></textarea>
             </div>
             <div class="button-group">
@@ -143,10 +142,10 @@
 
     <div id="answerFeedbackModal" class="modal">
         <div class="modal-content" style="max-width: 700px;">
-            <h3 style="margin-top: 0; text-align: center;">Answer Revealed</h3>
+            <h3 style="margin-top: 0; text-align: center;">Answer</h3>
             
             <div style="margin-bottom: 20px; padding: 15px; background: #3a3a3a; border-radius: 6px;">
-                <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.9rem;">YOUR ANSWER:</div>
+                <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.9rem;">Inserted Answer:</div>
                 <div id="userAnswerDisplay" style="font-size: 1rem; line-height: 1.6; color: #ccc; min-height: 40px;"></div>
             </div>
 
@@ -156,12 +155,12 @@
             </div>
 
             <div style="text-align: center; margin-bottom: 20px;">
-                <p style="color: var(--accent-gray); font-size: 0.9rem; margin: 0;">Did you get it right?</p>
+                <p style="color: var(--accent-gray); font-size: 0.9rem; margin: 0;"> Confidence Level</p>
             </div>
 
             <div class="button-group">
-                <button onclick="markCardCorrect()" class="btn" style="background: #4a6a4a; flex: 1; margin-bottom: 8px;">✓ Got It Correct</button>
-                <button onclick="markCardWrong()" class="btn" style="background: #6a4a4a; flex: 1;">✗ Got It Wrong</button>
+                <button onclick="markCardCorrect()" class="btn" style="background: #90ff90; flex: 1; margin-bottom: 8px;"> Correct</button>
+                <button onclick="markCardWrong()" class="btn" style="background: #690a0a; flex: 1;"> Incorrect</button>
             </div>
         </div>
     </div>
@@ -584,7 +583,7 @@
         function displayCurrentCard() {
             const container = document.getElementById('learnContainer');
             if (currentCardIndexForLearn >= cardsForLearn.length) {
-                container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;">✅ You\'ve completed all cards!</p>';
+                container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;"> </p>';
                 return;
             }
 
@@ -604,7 +603,7 @@
                         </div>
                         
                         <div style="margin-top: 20px;">
-                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER (Active Recall):</div>
+                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">ANSWER:</div>
                             <textarea id="userAnswerInput" placeholder="Try typing part or all of the answer before revealing..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 60px; resize: vertical; font-size: 0.95rem;"></textarea>
                         </div>
                     </div>

@@ -30,7 +30,6 @@
 
             <main class="main-content">
                 <div class="content active" id="create">
-                    <h2>Flashcard Creation</h2>
                     <div class="form-container" style="max-width: 600px;">
                         <div class="form-group">
                             <label>Parent Category *</label>
@@ -47,7 +46,7 @@
                             <label>Subcategory *</label>
                             <div style="display: flex; gap: 8px; margin-bottom: 5px;">
                                 <select id="subcategoryInput">
-                                    <option value="">-- Select a subcategory --</option>
+                                    <option value=""> - Select a subcategory - </option>
                                 </select>
                                 <button onclick="openSubcategoryModal()" class="btn secondary" style="padding: 8px 12px;">+ New</button>
                             </div>
@@ -159,8 +158,8 @@
             </div>
 
             <div class="button-group">
-                <button onclick="markCardCorrect()" class="btn" style="background: #90ff90; flex: 1; margin-bottom: 8px;"> Correct</button>
-                <button onclick="markCardWrong()" class="btn" style="background: #690a0a; flex: 1;"> Incorrect</button>
+                <button onclick="markCardCorrect()" class="btn" style="background: #383838; flex: 1; margin-bottom: 8px;"> Correct</button>
+                <button onclick="markCardWrong()" class="btn" style="background: #383838; flex: 1;"> Incorrect</button>
             </div>
         </div>
     </div>
@@ -398,7 +397,7 @@
 
         function updateParentCategoryDropdown() {
             const select = document.getElementById('parentCategoryInput');
-            select.innerHTML = '<option value="">-- Select a parent category --</option>';
+            select.innerHTML = '<option value="">- Select a parent category - </option>';
             app.parentCategories.forEach(cat => {
                 const option = document.createElement('option');
                 option.value = cat.id;
@@ -410,7 +409,7 @@
         function updateSubcategoryDropdown() {
             const parentId = document.getElementById('parentCategoryInput').value;
             const subSelect = document.getElementById('subcategoryInput');
-            subSelect.innerHTML = '<option value="">-- Select a subcategory --</option>';
+            subSelect.innerHTML = '<option value=""> - Select a subcategory - </option>';
 
             if (!parentId) return;
 

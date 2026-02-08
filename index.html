@@ -37,6 +37,7 @@
                                 <select id="parentCategoryInput" onchange="updateSubcategoryDropdown()">
                                     <option value="">-- Select a parent category --</option>
                                 </select>
+                                <button onclick="window.openParentCategoryModal()" class="btn secondary" style="padding: 8px 12px;">+ New</button>
                             </div>
                             <small>Select or create a parent category</small>
                         </div>
@@ -407,6 +408,10 @@
             document.getElementById('categoryModal').classList.add('show');
         }
 
+        function openParentCategoryModal() {
+            document.getElementById('categoryModal').classList.add('show');
+        }
+
         function closeCategoryModal() {
             document.getElementById('categoryModal').classList.remove('show');
             document.getElementById('newCategoryName').value = '';
@@ -546,6 +551,8 @@
 
         let selectedSubcategoryId = null;
         let selectedParentCategoryId = null;
+        let currentCardIndexForLearn = 0;
+        let cardsForLearn = [];
 
         function selectSubcategory(subcategoryId) {
             selectedSubcategoryId = subcategoryId;
@@ -558,6 +565,88 @@
             selectedSubcategoryId = null;
             updateLearnView();
         }
+
+        function displayCurrentCard() {
+            const container = document.getElementById('learnContainer');
+            if (currentCardIndexForLearn >= cardsForLearn.length) {
+                container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;">✅ You\'ve completed all cards!</p>';
+                return;
+            }
+
+            const card = cardsForLearn[currentCardIndexForLearn];
+            currentCardId = card.id;
+            cardStartTime = Date.now();
+
+            container.innerHTML = `
+                <div style="max-width: 600px;">
+                    <p style="color: var(--accent-gray); margin-bottom: 15px;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
+                    <div class="study-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; margin-bottom: 20px;">
+                        <div>
+                            <div style="color: var(--accent-gray); margin-bottom: 15px; font-size: 0.9rem;">QUESTION:</div>
+                            <div style="font-size: 1.15rem; text-align: center; margin: 20px 0; line-height: 1.8;">
+                                ${card.front}
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER (Active Recall):</div>
+                            <textarea id="userAnswerInput" placeholder="Try typing part or all of the answer before revealing..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 60px; resize: vertical; font-size: 0.95rem;"></textarea>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <button onclick="window.previousLearnCardFunc()" class="btn secondary" style="flex: 1;">← Previous</button>
+                        <button onclick="window.revealAnswerFunc('${card.id}')" class="btn primary" style="flex: 1;">Reveal Answer</button>
+                    </div>
+                </div>
+            `;
+
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
+            }
+        }
+
+        window.revealAnswerFunc = (cardId) => {
+            const card = app.cards.find(c => c.id === cardId);
+            if (!card) {
+                console.log('Card not found:', cardId);
+                return;
+            }
+
+            // Get user's typed answer
+            const userAnswer = document.getElementById('userAnswerInput').value || '(You didn\'t write anything)';
+            document.getElementById('userAnswerDisplay').innerHTML = userAnswer;
+
+            document.getElementById('feedbackCardContent').innerHTML = card.back;
+            document.getElementById('answerFeedbackModal').classList.add('show');
+
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
+            }
+        };
+
+        window.markCardCorrect = () => {
+            const timeMs = Date.now() - cardStartTime;
+            app.recordAttempt(currentCardId, true, timeMs);
+            document.getElementById('answerFeedbackModal').classList.remove('show');
+            currentCardIndexForLearn++;
+            displayCurrentCard();
+        };
+
+        window.markCardWrong = () => {
+            const timeMs = Date.now() - cardStartTime;
+            app.recordAttempt(currentCardId, false, timeMs);
+            document.getElementById('answerFeedbackModal').classList.remove('show');
+            currentCardIndexForLearn++;
+            displayCurrentCard();
+        };
+
+        window.previousLearnCardFunc = () => {
+            if (currentCardIndexForLearn > 0) {
+                currentCardIndexForLearn--;
+                displayCurrentCard();
+            }
+        };
 
         function updateLearnView() {
             const container = document.getElementById('learnContainer');
@@ -575,91 +664,9 @@
                 return;
             }
 
-            let currentIndex = 0;
-            const displayCard = () => {
-                if (currentIndex >= cards.length) {
-                    container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;">✅ You\'ve completed all cards!</p>';
-                    return;
-                }
-
-                const card = cards[currentIndex];
-                currentCardId = card.id;
-                cardStartTime = Date.now();
-
-                container.innerHTML = `
-                    <div style="max-width: 600px;">
-                        <p style="color: var(--accent-gray); margin-bottom: 15px;">Card ${currentIndex + 1} of ${cards.length}</p>
-                        <div class="study-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; margin-bottom: 20px;">
-                            <div>
-                                <div style="color: var(--accent-gray); margin-bottom: 15px; font-size: 0.9rem;">QUESTION:</div>
-                                <div style="font-size: 1.15rem; text-align: center; margin: 20px 0; line-height: 1.8;">
-                                    ${card.front}
-                                </div>
-                            </div>
-                            
-                            <div style="margin-top: 20px;">
-                                <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER (Active Recall):</div>
-                                <textarea id="userAnswerInput" placeholder="Try typing part or all of the answer before revealing..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 60px; resize: vertical; font-size: 0.95rem;"></textarea>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <button onclick="window.previousLearnCard()" class="btn secondary" style="flex: 1;">← Previous</button>
-                            <button onclick="window.revealAnswerFunc('${card.id}')" class="btn primary" style="flex: 1;">Reveal Answer</button>
-                        </div>
-                    </div>
-                `;
-
-                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                    setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
-                }
-            };
-
-            window.revealAnswerFunc = (cardId) => {
-                const card = app.cards.find(c => c.id === cardId);
-                if (!card) return;
-
-                // Get user's typed answer
-                const userAnswer = document.getElementById('userAnswerInput').value || '(You didn\'t write anything)';
-                document.getElementById('userAnswerDisplay').innerHTML = userAnswer;
-
-                document.getElementById('feedbackCardContent').innerHTML = card.back;
-                document.getElementById('answerFeedbackModal').classList.add('show');
-
-                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                    setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
-                }
-            };
-
-            window.markCardCorrect = () => {
-                const timeMs = Date.now() - cardStartTime;
-                app.recordAttempt(currentCardId, true, timeMs);
-                document.getElementById('answerFeedbackModal').classList.remove('show');
-                currentIndex++;
-                displayCard();
-            };
-
-            window.markCardWrong = () => {
-                const timeMs = Date.now() - cardStartTime;
-                app.recordAttempt(currentCardId, false, timeMs);
-                document.getElementById('answerFeedbackModal').classList.remove('show');
-                currentIndex++;
-                displayCard();
-            };
-
-            window.nextLearnCard = () => {
-                currentIndex++;
-                displayCard();
-            };
-
-            window.previousLearnCard = () => {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    displayCard();
-                }
-            };
-
-            displayCard();
+            cardsForLearn = cards;
+            currentCardIndexForLearn = 0;
+            displayCurrentCard();
         }
 
         function updateAnalyticsView() {
@@ -719,7 +726,7 @@
                                         Wrong: ${card.timesWrong}x | Accuracy: ${accuracy}% | Category: ${sub ? sub.name : 'Unknown'}
                                     </div>
                                 </div>
-                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                <button onclick="window.editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
                             </div>
                         </div>
                     `;
@@ -750,8 +757,8 @@
                                 </div>
                             </div>
                             <div style="display: flex; gap: 8px; white-space: nowrap;">
-                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
-                                <button onclick="deleteCard('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
+                                <button onclick="window.editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                <button onclick="window.deleteCard('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
                             </div>
                         </div>
                     </div>

@@ -595,7 +595,7 @@ button.danger:hover {
 .alert.success {
     background: rgba(76, 110, 76, 0.2);
     border-color: #6a9a6a;
-    color: #a0d0a0;
+    color: #60c360;
 }
 
 .alert.error {

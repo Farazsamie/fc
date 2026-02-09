@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
+
 <body>
     <nav class="main-nav">
         <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Active Recall</button>
@@ -69,7 +70,18 @@
                 </div>
 
                 <div class="content" id="learn">
-                    <h2>Learn Flashcards</h2>
+                    <div style="margin-bottom: 20px;">
+                        <h2>Active Recall Study</h2>
+                        <p style="color: var(--accent-gray); margin-top: 5px;">Use active recall to strengthen your memory</p>
+                    </div>
+                    
+                    <!-- Study Mode Selector -->
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px; max-width: 600px;">
+                        <button onclick="setStudyMode('all')" id="modeAll" class="btn secondary" style="flex: 1;">All Cards</button>
+                        <button onclick="setStudyMode('new')" id="modeNew" class="btn secondary" style="flex: 1;">New Only</button>
+                        <button onclick="setStudyMode('wrong')" id="modeWrong" class="btn secondary" style="flex: 1;">Missed Cards</button>
+                    </div>
+
                     <div id="learnContainer"></div>
                 </div>
 
@@ -141,11 +153,11 @@
 
     <div id="answerFeedbackModal" class="modal">
         <div class="modal-content" style="max-width: 700px;">
-            <h3 style="margin-top: 0; text-align: center;">Answer</h3>
+            <h3 style="margin-top: 0; text-align: center;">Answer Revealed</h3>
             
             <div style="margin-bottom: 20px; padding: 15px; background: #3a3a3a; border-radius: 6px;">
-                <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.9rem;">Inserted Answer:</div>
-                <div id="userAnswerDisplay" style="font-size: 1rem; line-height: 1.6; color: #ccc; min-height: 40px;"></div>
+                <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.9rem;">YOUR ANSWER:</div>
+                <div id="userAnswerDisplay" style="font-size: 1rem; line-height: 1.6; color: #ccc; min-height: 40px; white-space: pre-wrap;"></div>
             </div>
 
             <div id="feedbackCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
@@ -154,12 +166,14 @@
             </div>
 
             <div style="text-align: center; margin-bottom: 20px;">
-                <p style="color: var(--accent-gray); font-size: 0.9rem; margin: 0;"> Confidence Level</p>
+                <p style="color: var(--accent-gray); font-size: 0.9rem; margin: 0;">Rate your confidence</p>
             </div>
 
-            <div class="button-group">
-                <button onclick="markCardCorrect()" class="btn" style="background: #383838; flex: 1; margin-bottom: 8px;"> Correct</button>
-                <button onclick="markCardWrong()" class="btn" style="background: #383838; flex: 1;"> Incorrect</button>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button onclick="markCardConfidence(3)" class="btn" style="background: #4a6a4a; padding: 14px;">✓ Perfect - I knew it completely</button>
+                <button onclick="markCardConfidence(2)" class="btn" style="background: #5a6a5a; padding: 14px;">~ Good - Got it mostly right</button>
+                <button onclick="markCardConfidence(1)" class="btn" style="background: #6a5a4a; padding: 14px;">? Partial - Vaguely remembered</button>
+                <button onclick="markCardConfidence(0)" class="btn" style="background: #6a4a4a; padding: 14px;">✗ Wrong - Need to review</button>
             </div>
         </div>
     </div>
@@ -243,21 +257,25 @@
                     timesCorrect: 0,
                     timesWrong: 0,
                     streak: 0,
-                    lastReviewTime: null
+                    lastReviewTime: null,
+                    confidenceLevel: 0
                 };
                 this.cards.push(card);
                 this.cardStats[card.id] = {
                     attempts: [],
                     totalTimeMs: 0,
-                    wrongAttempts: []
+                    wrongAttempts: [],
+                    confidenceHistory: []
                 };
                 this.saveData();
                 return card;
             }
 
-            recordAttempt(cardId, isCorrect, timeMs) {
+            recordAttempt(cardId, confidence, timeMs) {
                 const card = this.cards.find(c => c.id === cardId);
                 if (!card) return;
+
+                const isCorrect = confidence >= 2; // 2 or 3 = correct, 0 or 1 = wrong
 
                 card.timesReviewed++;
                 if (isCorrect) {
@@ -266,30 +284,43 @@
                 } else {
                     card.timesWrong++;
                     card.streak = 0;
-                    if (!this.cardStats[cardId]) this.cardStats[cardId] = { attempts: [], totalTimeMs: 0, wrongAttempts: [] };
+                    if (!this.cardStats[cardId]) this.cardStats[cardId] = { attempts: [], totalTimeMs: 0, wrongAttempts: [], confidenceHistory: [] };
                     this.cardStats[cardId].wrongAttempts.push({
                         timestamp: new Date().toISOString(),
-                        timeMs
+                        timeMs,
+                        confidence
                     });
                 }
 
+                card.confidenceLevel = confidence;
                 card.lastReviewTime = new Date().toISOString();
 
-                if (!this.cardStats[cardId]) this.cardStats[cardId] = { attempts: [], totalTimeMs: 0, wrongAttempts: [] };
+                if (!this.cardStats[cardId]) this.cardStats[cardId] = { attempts: [], totalTimeMs: 0, wrongAttempts: [], confidenceHistory: [] };
                 this.cardStats[cardId].attempts.push({
                     timestamp: new Date().toISOString(),
                     isCorrect,
-                    timeMs
+                    timeMs,
+                    confidence
                 });
+                this.cardStats[cardId].confidenceHistory.push(confidence);
                 this.cardStats[cardId].totalTimeMs += timeMs;
 
-                // Update intervals for spaced repetition
-                if (!isCorrect) {
+                // Spaced repetition algorithm based on confidence
+                if (confidence === 0) {
                     card.interval = 1;
-                } else {
+                    card.easeFactor = Math.max(1.3, card.easeFactor - 0.2);
+                } else if (confidence === 1) {
+                    card.interval = 1;
+                    card.easeFactor = Math.max(1.3, card.easeFactor - 0.15);
+                } else if (confidence === 2) {
                     if (card.timesCorrect === 1) card.interval = 1;
                     else if (card.timesCorrect === 2) card.interval = 3;
                     else card.interval = Math.round(card.interval * card.easeFactor);
+                } else if (confidence === 3) {
+                    if (card.timesCorrect === 1) card.interval = 3;
+                    else if (card.timesCorrect === 2) card.interval = 7;
+                    else card.interval = Math.round(card.interval * card.easeFactor * 1.3);
+                    card.easeFactor = Math.min(2.5, card.easeFactor + 0.1);
                 }
 
                 const nextDate = new Date();
@@ -316,26 +347,37 @@
 
             getAnalytics() {
                 const stats = {
-                    totalCards: this.cards.length,
                     totalAttempts: 0,
                     totalCorrect: 0,
                     totalWrong: 0,
                     averageAccuracy: 0,
                     mostMissedCards: [],
                     averageTimePerCard: 0,
-                    cardsNeedingReview: 0
+                    averageConfidence: 0,
+                    masteredCards: 0,
+                    strugglingCards: 0
                 };
 
                 let totalTime = 0;
-                const now = new Date();
+                let totalConfidence = 0;
+                let cardsWithReviews = 0;
 
                 this.cards.forEach(card => {
                     stats.totalAttempts += card.timesReviewed;
                     stats.totalCorrect += card.timesCorrect;
                     stats.totalWrong += card.timesWrong;
 
-                    if (new Date(card.nextReview) <= now) {
-                        stats.cardsNeedingReview++;
+                    if (card.timesReviewed > 0) {
+                        cardsWithReviews++;
+                        totalConfidence += card.confidenceLevel;
+                    }
+
+                    if (card.streak >= 3 && card.confidenceLevel === 3) {
+                        stats.masteredCards++;
+                    }
+
+                    if (card.timesWrong > card.timesCorrect && card.timesReviewed > 2) {
+                        stats.strugglingCards++;
                     }
 
                     if (this.cardStats[card.id]) {
@@ -347,17 +389,44 @@
                     stats.averageAccuracy = ((stats.totalCorrect / stats.totalAttempts) * 100).toFixed(1);
                 }
 
-                if (this.cards.length > 0) {
-                    stats.averageTimePerCard = (totalTime / this.cards.length / 1000).toFixed(1);
+                if (cardsWithReviews > 0) {
+                    stats.averageConfidence = (totalConfidence / cardsWithReviews).toFixed(2);
+                    stats.averageTimePerCard = (totalTime / cardsWithReviews / 1000).toFixed(1);
                 }
 
                 // Find most missed cards
                 stats.mostMissedCards = this.cards
                     .filter(c => c.timesWrong > 0)
-                    .sort((a, b) => b.timesWrong - a.timesWrong)
-                    .slice(0, 5);
+                    .sort((a, b) => {
+                        const aRatio = a.timesWrong / (a.timesReviewed || 1);
+                        const bRatio = b.timesWrong / (b.timesReviewed || 1);
+                        return bRatio - aRatio;
+                    })
+                    .slice(0, 10);
 
                 return stats;
+            }
+
+            getCardsByMode(mode, filterCategory = null) {
+                let cards = this.cards;
+
+                // Apply category filter
+                if (filterCategory) {
+                    if (filterCategory.type === 'parent') {
+                        cards = cards.filter(c => c.parentCategory === filterCategory.id);
+                    } else if (filterCategory.type === 'sub') {
+                        cards = cards.filter(c => c.subcategory === filterCategory.id);
+                    }
+                }
+
+                // Apply mode filter
+                if (mode === 'new') {
+                    return cards.filter(c => c.timesReviewed === 0);
+                } else if (mode === 'wrong') {
+                    return cards.filter(c => c.timesWrong > 0);
+                } else {
+                    return cards;
+                }
             }
         }
 
@@ -368,6 +437,26 @@
         let selectedParentCategoryId = null;
         let currentCardIndexForLearn = 0;
         let cardsForLearn = [];
+        let currentStudyMode = 'all';
+        let shownCardIds = new Set();
+
+        function setStudyMode(mode) {
+            currentStudyMode = mode;
+            
+            // Update button styles
+            document.querySelectorAll('#modeAll, #modeNew, #modeWrong').forEach(btn => {
+                btn.style.background = '#3a3a3a';
+                btn.style.borderColor = '#444';
+            });
+            
+            const activeBtn = document.getElementById('mode' + mode.charAt(0).toUpperCase() + mode.slice(1));
+            if (activeBtn) {
+                activeBtn.style.background = '#5a7a8c';
+                activeBtn.style.borderColor = '#5a7a8c';
+            }
+            
+            updateLearnView();
+        }
 
         function switchView(viewName) {
             try {
@@ -383,7 +472,10 @@
                     navBtn.classList.add('active');
                 }
 
-                if (viewName === 'learn') updateLearnView();
+                if (viewName === 'learn') {
+                    updateLearnView();
+                    setStudyMode('all');
+                }
                 if (viewName === 'analytics') updateAnalyticsView();
                 if (viewName === 'create') updateParentCategoryDropdown();
 
@@ -581,18 +673,56 @@
 
         function displayCurrentCard() {
             const container = document.getElementById('learnContainer');
+            
             if (currentCardIndexForLearn >= cardsForLearn.length) {
-                container.innerHTML = '<p style="color: var(--accent-gray); font-size: 1.2rem; margin-top: 20px;"> </p>';
+                // When done, loop back to cards you got wrong
+                const wrongCards = cardsForLearn.filter(c => c.timesWrong > 0 && !shownCardIds.has(c.id + '_repeat'));
+                
+                if (wrongCards.length > 0) {
+                    container.innerHTML = `
+                        <div style="max-width: 600px; text-align: center; padding: 40px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 20px;">🎯 Review Session</div>
+                            <p style="color: var(--accent-gray); margin-bottom: 30px;">
+                                You've completed all cards! Let's review the ${wrongCards.length} card${wrongCards.length > 1 ? 's' : ''} you found challenging.
+                            </p>
+                            <button onclick="reviewWrongCards()" class="btn primary" style="padding: 15px 30px; font-size: 1rem;">
+                                Review Challenging Cards
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div style="max-width: 600px; text-align: center; padding: 40px;">
+                            <div style="font-size: 2rem; margin-bottom: 20px;">✅</div>
+                            <div style="font-size: 1.3rem; margin-bottom: 15px;">Excellent Work!</div>
+                            <p style="color: var(--accent-gray);">You've mastered all cards in this session.</p>
+                        </div>
+                    `;
+                }
                 return;
             }
 
             const card = cardsForLearn[currentCardIndexForLearn];
             currentCardId = card.id;
             cardStartTime = Date.now();
+            shownCardIds.add(card.id);
+
+            const progressPercent = ((currentCardIndexForLearn) / cardsForLearn.length * 100).toFixed(0);
 
             container.innerHTML = `
                 <div style="max-width: 600px;">
-                    <p style="color: var(--accent-gray); margin-bottom: 15px;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
+                        <div style="color: var(--accent-gray); font-size: 0.9rem;">
+                            ${card.streak > 0 ? `🔥 Streak: ${card.streak}` : ''}
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div style="width: 100%; height: 6px; background: #3a3a3a; border-radius: 3px; margin-bottom: 20px; overflow: hidden;">
+                        <div style="width: ${progressPercent}%; height: 100%; background: linear-gradient(90deg, #5a7a8c, #4a6a7c); transition: width 0.3s;"></div>
+                    </div>
+
                     <div class="study-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; margin-bottom: 20px;">
                         <div>
                             <div style="color: var(--accent-gray); margin-bottom: 15px; font-size: 0.9rem;">QUESTION:</div>
@@ -602,14 +732,22 @@
                         </div>
                         
                         <div style="margin-top: 20px;">
-                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">ANSWER:</div>
-                            <textarea id="userAnswerInput" placeholder="Try typing part or all of the answer before revealing..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 60px; resize: vertical; font-size: 0.95rem;"></textarea>
+                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER (Think or type before revealing):</div>
+                            <textarea id="userAnswerInput" placeholder="Type your answer here to practice active recall..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
                         </div>
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <button onclick="previousLearnCard()" class="btn secondary" style="flex: 1;">← Previous</button>
-                        <button onclick="revealAnswer()" class="btn primary" style="flex: 1;">Reveal Answer</button>
+                        <button onclick="previousLearnCard()" class="btn secondary" style="flex: 1;" ${currentCardIndexForLearn === 0 ? 'disabled' : ''}>← Previous</button>
+                        <button onclick="revealAnswer()" class="btn primary" style="flex: 2;">Show Answer</button>
+                        <button onclick="skipCard()" class="btn secondary" style="flex: 1;">Skip →</button>
+                    </div>
+
+                    <!-- Study Tips -->
+                    <div style="margin-top: 20px; padding: 12px; background: #2d2d2d; border-radius: 4px; border-left: 3px solid #5a7a8c;">
+                        <div style="font-size: 0.85rem; color: var(--accent-gray);">
+                            💡 <strong>Active Recall Tip:</strong> Try to recall the answer from memory before revealing it. This strengthens neural pathways.
+                        </div>
                     </div>
                 </div>
             `;
@@ -619,6 +757,19 @@
             }
         }
 
+        function reviewWrongCards() {
+            const wrongCards = cardsForLearn.filter(c => c.timesWrong > 0);
+            cardsForLearn = wrongCards;
+            currentCardIndexForLearn = 0;
+            shownCardIds.clear();
+            displayCurrentCard();
+        }
+
+        function skipCard() {
+            currentCardIndexForLearn++;
+            displayCurrentCard();
+        }
+
         function revealAnswer() {
             const card = app.cards.find(c => c.id === currentCardId);
             if (!card) {
@@ -626,12 +777,11 @@
                 return;
             }
 
-            // Get user's typed answer
             const userAnswerEl = document.getElementById('userAnswerInput');
             const userAnswer = userAnswerEl ? userAnswerEl.value : '';
-            const displayAnswer = userAnswer || '(You didn\'t write anything)';
+            const displayAnswer = userAnswer || '(No answer provided)';
             
-            document.getElementById('userAnswerDisplay').innerHTML = displayAnswer;
+            document.getElementById('userAnswerDisplay').textContent = displayAnswer;
             document.getElementById('feedbackCardContent').innerHTML = card.back;
             document.getElementById('answerFeedbackModal').classList.add('show');
 
@@ -640,20 +790,20 @@
             }
         }
 
-        function markCardCorrect() {
+        function markCardConfidence(confidence) {
             const timeMs = Date.now() - cardStartTime;
-            app.recordAttempt(currentCardId, true, timeMs);
+            app.recordAttempt(currentCardId, confidence, timeMs);
             document.getElementById('answerFeedbackModal').classList.remove('show');
             currentCardIndexForLearn++;
             displayCurrentCard();
         }
 
+        function markCardCorrect() {
+            markCardConfidence(3);
+        }
+
         function markCardWrong() {
-            const timeMs = Date.now() - cardStartTime;
-            app.recordAttempt(currentCardId, false, timeMs);
-            document.getElementById('answerFeedbackModal').classList.remove('show');
-            currentCardIndexForLearn++;
-            displayCurrentCard();
+            markCardConfidence(0);
         }
 
         function previousLearnCard() {
@@ -665,22 +815,34 @@
 
         function updateLearnView() {
             const container = document.getElementById('learnContainer');
-            let cards = app.cards;
-
-            // Filter by parent or subcategory
+            
+            let filterCategory = null;
             if (selectedParentCategoryId) {
-                cards = cards.filter(c => c.parentCategory === selectedParentCategoryId);
+                filterCategory = { type: 'parent', id: selectedParentCategoryId };
             } else if (selectedSubcategoryId) {
-                cards = cards.filter(c => c.subcategory === selectedSubcategoryId);
+                filterCategory = { type: 'sub', id: selectedSubcategoryId };
             }
 
+            let cards = app.getCardsByMode(currentStudyMode, filterCategory);
+
             if (cards.length === 0) {
-                container.innerHTML = '<p>No cards to study. <a href="#" onclick="switchView(\'create\')" style="color: #5a7a8c;">Create one!</a></p>';
+                let message = 'No cards available.';
+                if (currentStudyMode === 'new') {
+                    message = 'No new cards to study. Try "All Cards" mode.';
+                } else if (currentStudyMode === 'wrong') {
+                    message = 'No missed cards! Great job! Try "All Cards" mode.';
+                }
+                
+                container.innerHTML = `<p>${message} <a href="#" onclick="switchView('create')" style="color: #5a7a8c;">Create one!</a></p>`;
                 return;
             }
 
+            // Shuffle cards for better learning
+            cards = cards.sort(() => Math.random() - 0.5);
+
             cardsForLearn = cards;
             currentCardIndexForLearn = 0;
+            shownCardIds.clear();
             displayCurrentCard();
         }
 
@@ -691,28 +853,32 @@
             let html = `
                 <div class="stats-grid">
                     <div class="stat-box">
-                        <div class="stat-value">${stats.totalCards}</div>
-                        <div class="stat-label">Total Cards</div>
-                    </div>
-                    <div class="stat-box">
                         <div class="stat-value">${stats.totalAttempts}</div>
-                        <div class="stat-label">Total Attempts</div>
+                        <div class="stat-label">Total Study Sessions</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value">${stats.averageAccuracy}%</div>
-                        <div class="stat-label">Accuracy Rate</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">${stats.cardsNeedingReview}</div>
-                        <div class="stat-label">Need Review</div>
+                        <div class="stat-label">Overall Accuracy</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value">${stats.totalCorrect}</div>
-                        <div class="stat-label">Correct Attempts</div>
+                        <div class="stat-label">Correct Answers</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value">${stats.totalWrong}</div>
-                        <div class="stat-label">Wrong Attempts</div>
+                        <div class="stat-label">Incorrect Answers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.masteredCards}</div>
+                        <div class="stat-label">Mastered Cards</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.strugglingCards}</div>
+                        <div class="stat-label">Need More Practice</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.averageConfidence}</div>
+                        <div class="stat-label">Avg Confidence (0-3)</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value">${stats.averageTimePerCard}s</div>
@@ -724,63 +890,49 @@
             if (stats.mostMissedCards.length > 0) {
                 html += `
                     <div style="margin-top: 40px;">
-                        <h3>Cards You Find Difficult (Most Wrong)</h3>
+                        <h3 style="margin-bottom: 20px;">📚 Cards Needing Review</h3>
                         <div style="display: grid; gap: 12px;">
                 `;
 
                 stats.mostMissedCards.forEach(card => {
                     const accuracy = card.timesReviewed > 0 ? ((card.timesCorrect / card.timesReviewed) * 100).toFixed(1) : 0;
                     const sub = app.subcategories.find(s => s.id === card.subcategory);
+                    const confidenceEmoji = ['❌', '⚠️', '✓', '✅'][card.confidenceLevel] || '—';
+                    
                     html += `
-                        <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border-left: 4px solid #8b4545;">
+                        <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border-left: 4px solid ${accuracy < 50 ? '#8b4545' : accuracy < 75 ? '#8b7545' : '#4a6a4a'};">
                             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
                                 <div style="flex: 1;">
                                     <div style="font-weight: 600; margin-bottom: 5px;">Q: ${card.front}</div>
                                     <div style="color: #999; font-size: 0.9rem; margin-bottom: 8px;">A: ${card.back}</div>
-                                    <div style="font-size: 0.85rem; color: var(--accent-gray);">
-                                        Wrong: ${card.timesWrong}x | Accuracy: ${accuracy}% | Category: ${sub ? sub.name : 'Unknown'}
+                                    <div style="font-size: 0.85rem; color: var(--accent-gray); display: flex; gap: 15px; flex-wrap: wrap;">
+                                        <span>❌ Wrong: ${card.timesWrong}x</span>
+                                        <span>✅ Correct: ${card.timesCorrect}x</span>
+                                        <span>📊 Accuracy: ${accuracy}%</span>
+                                        <span>${confidenceEmoji} Last: ${['Wrong', 'Partial', 'Good', 'Perfect'][card.confidenceLevel] || 'N/A'}</span>
+                                        <span>📁 ${sub ? sub.name : 'Unknown'}</span>
                                     </div>
                                 </div>
-                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                <div style="display: flex; gap: 8px; white-space: nowrap; margin-left: 15px;">
+                                    <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                                    <button onclick="deleteCardFromAnalytics('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
+                                </div>
                             </div>
                         </div>
                     `;
                 });
 
                 html += `</div></div>`;
-            }
-
-            // Show all cards with edit/delete options
-            html += `
-                <div style="margin-top: 40px;">
-                    <h3>All Cards</h3>
-                    <div style="display: grid; gap: 12px;">
-            `;
-
-            app.cards.forEach(card => {
-                const accuracy = card.timesReviewed > 0 ? ((card.timesCorrect / card.timesReviewed) * 100).toFixed(1) : 0;
-                const sub = app.subcategories.find(s => s.id === card.subcategory);
-                
+            } else {
                 html += `
-                    <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border-left: 4px solid ${card.timesWrong > 2 ? '#8b4545' : '#4a6a4a'};">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; margin-bottom: 5px;">Q: ${card.front}</div>
-                                <div style="color: #999; font-size: 0.9rem; margin-bottom: 8px;">A: ${card.back}</div>
-                                <div style="font-size: 0.85rem; color: var(--accent-gray);">
-                                    Reviewed: ${card.timesReviewed}x | Correct: ${card.timesCorrect}x | Wrong: ${card.timesWrong}x | Accuracy: ${accuracy}%
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 8px; white-space: nowrap;">
-                                <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
-                                <button onclick="deleteCard('${card.id}')" class="btn" style="background: #6a4a4a; padding: 6px 12px; font-size: 0.85rem; border: none; cursor: pointer;">Delete</button>
-                            </div>
-                        </div>
+                    <div style="margin-top: 40px; text-align: center; padding: 40px; background: var(--card-bg); border-radius: 8px;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎉</div>
+                        <h3>Perfect Performance!</h3>
+                        <p style="color: var(--accent-gray); margin-top: 10px;">You haven't missed any cards yet. Keep up the great work!</p>
                     </div>
                 `;
-            });
+            }
 
-            html += `</div></div>`;
             container.innerHTML = html;
         }
 
@@ -819,7 +971,15 @@
         }
 
         function deleteCard(cardId) {
-            if (confirm('Delete this card?')) {
+            if (confirm('Delete this card permanently?')) {
+                app.deleteCard(cardId);
+                updateAnalyticsView();
+                updateCategoriesNav();
+            }
+        }
+
+        function deleteCardFromAnalytics(cardId) {
+            if (confirm('Delete this card? This action cannot be undone.')) {
                 app.deleteCard(cardId);
                 updateAnalyticsView();
                 updateCategoriesNav();
@@ -838,6 +998,22 @@
             }
             if (e.target.id === 'answerFeedbackModal') {
                 document.getElementById('answerFeedbackModal').classList.remove('show');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('answerFeedbackModal');
+            if (modal.classList.contains('show')) {
+                if (e.key === '1') markCardConfidence(0);
+                else if (e.key === '2') markCardConfidence(1);
+                else if (e.key === '3') markCardConfidence(2);
+                else if (e.key === '4') markCardConfidence(3);
+            } else if (document.querySelector('.content.active')?.id === 'learn') {
+                if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    revealAnswer();
+                }
             }
         });
 

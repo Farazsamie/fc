@@ -51,7 +51,6 @@
                                 </select>
                                 <button onclick="openSubcategoryModal()" class="btn secondary" style="padding: 8px 12px;">+ New</button>
                             </div>
-                            <small>Select from existing or create a new subcategory</small>
                         </div>
 
                         <div class="form-group">
@@ -70,10 +69,6 @@
                 </div>
 
                 <div class="content" id="learn">
-                    <div style="margin-bottom: 20px;">
-                        <h2>Active Recall Study</h2>
-                        <p style="color: var(--accent-gray); margin-top: 5px;">Use active recall to strengthen your memory</p>
-                    </div>
                     
                     <!-- Study Mode Selector -->
                     <div style="display: flex; gap: 10px; margin-bottom: 20px; max-width: 600px;">
@@ -153,27 +148,23 @@
 
     <div id="answerFeedbackModal" class="modal">
         <div class="modal-content" style="max-width: 700px;">
-            <h3 style="margin-top: 0; text-align: center;">Answer Revealed</h3>
+            <h3 style="margin-top: 0; text-align: left;">Answer Revealed</h3>
             
             <div style="margin-bottom: 20px; padding: 15px; background: #3a3a3a; border-radius: 6px;">
                 <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.9rem;">YOUR ANSWER:</div>
                 <div id="userAnswerDisplay" style="font-size: 1rem; line-height: 1.6; color: #ccc; min-height: 40px; white-space: pre-wrap;"></div>
             </div>
 
-            <div id="feedbackCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                <div id="feedbackCardContent" style="text-align: center; width: 100%; font-size: 1.2rem; line-height: 1.8;">
+            <div id="feedbackCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 40px; border-radius: 8px; min-height: 200px; display: flex; align-items: left; justify-content: left; margin-bottom: 20px;">
+                <div id="feedbackCardContent" style="text-align: left; width: 100%; font-size: 1.2rem; line-height: 1.8;">
                 </div>
             </div>
 
-            <div style="text-align: center; margin-bottom: 20px;">
-                <p style="color: var(--accent-gray); font-size: 0.9rem; margin: 0;">Rate your confidence</p>
-            </div>
-
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button onclick="markCardConfidence(3)" class="btn" style="background: #4a6a4a; padding: 14px;">✓ Perfect - I knew it completely</button>
-                <button onclick="markCardConfidence(2)" class="btn" style="background: #5a6a5a; padding: 14px;">~ Good - Got it mostly right</button>
-                <button onclick="markCardConfidence(1)" class="btn" style="background: #6a5a4a; padding: 14px;">? Partial - Vaguely remembered</button>
-                <button onclick="markCardConfidence(0)" class="btn" style="background: #6a4a4a; padding: 14px;">✗ Wrong - Need to review</button>
+                <button onclick="markCardConfidence(3)" class="btn" style="background: #1d1c1c; padding: 14px;"> Perfect </button>
+                <button onclick="markCardConfidence(2)" class="btn" style="background: #1d1c1c; padding: 14px;"> Good </button>
+                <button onclick="markCardConfidence(1)" class="btn" style="background: #1d1c1c; padding: 14px;"> Partial </button>
+                <button onclick="markCardConfidence(0)" class="btn" style="background: #1d1c1c; padding: 14px;"> Wrong </button>
             </div>
         </div>
     </div>
@@ -644,7 +635,7 @@
                                 ${subs.map(sub => {
                                     const subCards = app.cards.filter(c => c.subcategory === sub.id).length;
                                     return `
-                                        <button onclick="selectSubcategory('${sub.id}')" style="background: #3a3a3a; border: 1px solid #444; padding: 8px 12px; border-radius: 3px; color: var(--text-light); width: 100%; text-align: left; font-size: 0.85rem; margin-bottom: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                        <button onclick="selectSubcategory('${sub.id}')" style="background: #3a3a3a; border: 1px solid #444; padding: 8px 12px; border-radius: 3px; color: var(--text-light); width: 100%; text-align: left; font-size: 0.85rem; margin-bottom: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: left;">
                                             <span>${sub.name}</span>
                                             <span style="font-size: 0.7rem; background: #1b1a1a; padding: 2px 6px; border-radius: 2px;">${subCards}</span>
                                         </button>
@@ -680,8 +671,8 @@
                 
                 if (wrongCards.length > 0) {
                     container.innerHTML = `
-                        <div style="max-width: 600px; text-align: center; padding: 40px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 20px;">🎯 Review Session</div>
+                        <div style="max-width: 600px; text-align: left; padding: 40px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 20px;"> Review Session</div>
                             <p style="color: var(--accent-gray); margin-bottom: 30px;">
                                 You've completed all cards! Let's review the ${wrongCards.length} card${wrongCards.length > 1 ? 's' : ''} you found challenging.
                             </p>
@@ -692,8 +683,8 @@
                     `;
                 } else {
                     container.innerHTML = `
-                        <div style="max-width: 600px; text-align: center; padding: 40px;">
-                            <div style="font-size: 2rem; margin-bottom: 20px;">✅</div>
+                        <div style="max-width: 600px; text-align: left; padding: 40px;">
+                            <div style="font-size: 2rem; margin-bottom: 20px;"> </div>
                             <div style="font-size: 1.3rem; margin-bottom: 15px;">Excellent Work!</div>
                             <p style="color: var(--accent-gray);">You've mastered all cards in this session.</p>
                         </div>
@@ -711,10 +702,10 @@
 
             container.innerHTML = `
                 <div style="max-width: 600px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: left; margin-bottom: 15px;">
                         <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
                         <div style="color: var(--accent-gray); font-size: 0.9rem;">
-                            ${card.streak > 0 ? `🔥 Streak: ${card.streak}` : ''}
+                            ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
                         </div>
                     </div>
                     
@@ -726,14 +717,14 @@
                     <div class="study-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; margin-bottom: 20px;">
                         <div>
                             <div style="color: var(--accent-gray); margin-bottom: 15px; font-size: 0.9rem;">QUESTION:</div>
-                            <div style="font-size: 1.15rem; text-align: center; margin: 20px 0; line-height: 1.8;">
+                            <div style="font-size: 1.15rem; text-align: left; margin: 20px 0; line-height: 1.8;">
                                 ${card.front}
                             </div>
                         </div>
                         
                         <div style="margin-top: 20px;">
-                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER (Think or type before revealing):</div>
-                            <textarea id="userAnswerInput" placeholder="Type your answer here to practice active recall..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
+                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">INSERTED ANSWER:</div>
+                            <textarea id="userAnswerInput" placeholder="Type Answer Here.." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
                         </div>
                     </div>
 
@@ -741,13 +732,6 @@
                         <button onclick="previousLearnCard()" class="btn secondary" style="flex: 1;" ${currentCardIndexForLearn === 0 ? 'disabled' : ''}>← Previous</button>
                         <button onclick="revealAnswer()" class="btn primary" style="flex: 2;">Show Answer</button>
                         <button onclick="skipCard()" class="btn secondary" style="flex: 1;">Skip →</button>
-                    </div>
-
-                    <!-- Study Tips -->
-                    <div style="margin-top: 20px; padding: 12px; background: #2d2d2d; border-radius: 4px; border-left: 3px solid #5a7a8c;">
-                        <div style="font-size: 0.85rem; color: var(--accent-gray);">
-                            💡 <strong>Active Recall Tip:</strong> Try to recall the answer from memory before revealing it. This strengthens neural pathways.
-                        </div>
                     </div>
                 </div>
             `;
@@ -897,7 +881,6 @@
                 stats.mostMissedCards.forEach(card => {
                     const accuracy = card.timesReviewed > 0 ? ((card.timesCorrect / card.timesReviewed) * 100).toFixed(1) : 0;
                     const sub = app.subcategories.find(s => s.id === card.subcategory);
-                    const confidenceEmoji = ['❌', '⚠️', '✓', '✅'][card.confidenceLevel] || '—';
                     
                     html += `
                         <div style="background: var(--card-bg); padding: 15px; border-radius: 6px; border-left: 4px solid ${accuracy < 50 ? '#8b4545' : accuracy < 75 ? '#8b7545' : '#4a6a4a'};">
@@ -906,9 +889,9 @@
                                     <div style="font-weight: 600; margin-bottom: 5px;">Q: ${card.front}</div>
                                     <div style="color: #999; font-size: 0.9rem; margin-bottom: 8px;">A: ${card.back}</div>
                                     <div style="font-size: 0.85rem; color: var(--accent-gray); display: flex; gap: 15px; flex-wrap: wrap;">
-                                        <span>❌ Wrong: ${card.timesWrong}x</span>
-                                        <span>✅ Correct: ${card.timesCorrect}x</span>
-                                        <span>📊 Accuracy: ${accuracy}%</span>
+                                        <span> Wrong: ${card.timesWrong}x</span>
+                                        <span> Correct: ${card.timesCorrect}x</span>
+                                        <span> Accuracy: ${accuracy}%</span>
                                         <span>${confidenceEmoji} Last: ${['Wrong', 'Partial', 'Good', 'Perfect'][card.confidenceLevel] || 'N/A'}</span>
                                         <span>📁 ${sub ? sub.name : 'Unknown'}</span>
                                     </div>
@@ -925,8 +908,7 @@
                 html += `</div></div>`;
             } else {
                 html += `
-                    <div style="margin-top: 40px; text-align: center; padding: 40px; background: var(--card-bg); border-radius: 8px;">
-                        <div style="font-size: 3rem; margin-bottom: 15px;">🎉</div>
+                    <div style="margin-top: 40px; text-align: left; padding: 40px; background: var(--card-bg); border-radius: 8px;">
                         <h3>Perfect Performance!</h3>
                         <p style="color: var(--accent-gray); margin-top: 10px;">You haven't missed any cards yet. Keep up the great work!</p>
                     </div>

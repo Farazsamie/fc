@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FC</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEnvironments: true,
+                packages: ['base', 'ams', 'noerrors', 'noundefined', 'mathtools']
+            },
+            svg: { fontCache: 'global' },
+            startup: {
+                pageReady: () => {
+                    return MathJax.typesetPromise();
+                }
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -32,6 +48,15 @@
             <main class="main-content">
                 <div class="content active" id="create">
                     <div class="form-container" style="max-width: 600px;">
+                        <div style="background: #2d2d2d; border-left: 4px solid #5a7a8c; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
+                            <div style="font-weight: 600; margin-bottom: 8px;">📝 Content Tips:</div>
+                            <ul style="margin: 8px 0; padding-left: 20px; font-size: 0.9rem; color: var(--accent-gray);">
+                                <li><strong>Math:</strong> Inline with <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">$E=mc^2$</code> or display <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">$$x^2$$</code></li>
+                                <li><strong>Multiple Choice:</strong> Use HTML <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">&lt;ol&gt;&lt;li&gt;A&lt;/li&gt;&lt;/ol&gt;</code> or LaTeX <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">$$\begin{align}A. & \text{ option}\end{align}$$</code></li>
+                                <li><strong>Fractions:</strong> <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">$\frac{numerator}{denominator}$</code></li>
+                                <li><strong>Line Breaks in Math:</strong> Use <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">\\</code> in align/array environments or plain text lines</li>
+                            </ul>
+                        </div>
                         <div class="form-group">
                             <label>Parent Category *</label>
                             <div style="display: flex; gap: 8px; margin-bottom: 5px;">
@@ -55,11 +80,11 @@
 
                         <div class="form-group">
                             <label>Front (Question)</label>
-                            <textarea id="cardFront" placeholder="Use LaTeX: $\frac{d}{dx}x^2 = ?$ or write \newline in math mode for new lines"></textarea>
+                            <textarea id="cardFront" placeholder="Math: $2x+3$ or $$x^2=4$$. Lists: Use HTML <ol><li>A - option</li></ol> or align: $$\begin{align}A. & \text{ option}\\B. & \text{ option}\end{align}$$"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Back (Answer)</label>
-                            <textarea id="cardBack" placeholder="Use LaTeX: $2x$ or $$x^2 + y^2 = r^2$$"></textarea>
+                            <textarea id="cardBack" placeholder="Inline math: $E=mc^2$. Display: $$\frac{a}{b}$$. HTML lists and text work too!"></textarea>
                         </div>
                         <div class="button-group">
                             <button onclick="createCard()" class="btn primary">Save Card</button>
@@ -133,11 +158,11 @@
             <h3>Edit Flashcard</h3>
             <div class="form-group">
                 <label>Question</label>
-                <textarea id="editCardFrontInput" placeholder="Use LaTeX: $expression$ or $$display math$$"></textarea>
+                <textarea id="editCardFrontInput" placeholder="Math: $2x$ or $$x^2$$. HTML: <ol><li>A</li><li>B</li></ol>. Align: $$\begin{align}A. & \text{ option}\end{align}$$"></textarea>
             </div>
             <div class="form-group">
                 <label>Answer</label>
-                <textarea id="editCardBackInput" placeholder="Use LaTeX: $expression$ or $$display math$$"></textarea>
+                <textarea id="editCardBackInput" placeholder="Inline: $E=mc^2$. Display: $$\frac{a}{b}$$. Mix LaTeX math with HTML!"></textarea>
             </div>
             <div class="button-group">
                 <button onclick="saveEditedCard()" class="btn primary">Save Changes</button>

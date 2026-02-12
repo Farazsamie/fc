@@ -161,10 +161,10 @@
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button onclick="markCardConfidence(3)" class="btn" style="background: #1d1c1c; padding: 14px;"> Perfect </button>
-                <button onclick="markCardConfidence(2)" class="btn" style="background: #1d1c1c; padding: 14px;"> Good </button>
-                <button onclick="markCardConfidence(1)" class="btn" style="background: #1d1c1c; padding: 14px;"> Partial </button>
-                <button onclick="markCardConfidence(0)" class="btn" style="background: #1d1c1c; padding: 14px;"> Wrong </button>
+                <button onclick="markCardConfidence(3)" class="btn" style="background: #1d1c1c; padding: 14px;">✓ Perfect </button>
+                <button onclick="markCardConfidence(2)" class="btn" style="background: #1d1c1c; padding: 14px;">✓ Good </button>
+                <button onclick="markCardConfidence(1)" class="btn" style="background: #1d1c1c; padding: 14px;">~ Partial </button>
+                <button onclick="markCardConfidence(0)" class="btn" style="background: #1d1c1c; padding: 14px;">✗ Wrong </button>
             </div>
         </div>
     </div>
@@ -679,7 +679,7 @@
                 if (wrongCards.length > 0) {
                     container.innerHTML = `
                         <div style="max-width: 600px; text-align: left; padding: 40px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 20px;"> Review Session</div>
+                            <div style="font-size: 1.5rem; margin-bottom: 20px;">📚 Review Session</div>
                             <p style="color: var(--accent-gray); margin-bottom: 30px;">
                                 You've completed all cards! Let's review the ${wrongCards.length} card${wrongCards.length > 1 ? 's' : ''} you found challenging.
                             </p>
@@ -691,7 +691,7 @@
                 } else {
                     container.innerHTML = `
                         <div style="max-width: 600px; text-align: left; padding: 40px;">
-                            <div style="font-size: 2rem; margin-bottom: 20px;"> </div>
+                            <div style="font-size: 2rem; margin-bottom: 20px;">🎉</div>
                             <div style="font-size: 1.3rem; margin-bottom: 15px;">Excellent Work!</div>
                             <p style="color: var(--accent-gray);">You've mastered all cards in this session.</p>
                         </div>
@@ -713,9 +713,9 @@
                         <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
                         <div style="display: flex; gap: 10px; align-items: center;">
                             <div style="color: var(--accent-gray); font-size: 0.9rem;">
-                                ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
+                                ${card.streak > 0 ? `🔥 Streak: ${card.streak}` : ''}
                             </div>
-                            <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                            <button onclick="editCardFromLearn('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
                             <button onclick="deleteCardFromLearn('${card.id}')" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem;">Delete</button>
                         </div>
                     </div>
@@ -729,8 +729,8 @@
                         </div>
                         
                         <div style="margin-top: 20px;">
-                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">INSERTED ANSWER:</div>
-                            <textarea id="userAnswerInput" placeholder="Type Answer Here.." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
+                            <div style="color: var(--accent-gray); margin-bottom: 10px; font-size: 0.9rem;">YOUR ANSWER:</div>
+                            <textarea id="userAnswerInput" placeholder="Type your answer here..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 80px; resize: vertical; font-size: 0.95rem;"></textarea>
                         </div>
                     </div>
 
@@ -895,9 +895,9 @@
                                     <div style="font-weight: 600; margin-bottom: 5px;">Q: ${card.front}</div>
                                     <div style="color: #999; font-size: 0.9rem; margin-bottom: 8px;">A: ${card.back}</div>
                                     <div style="font-size: 0.85rem; color: var(--accent-gray); display: flex; gap: 15px; flex-wrap: wrap;">
-                                        <span> Wrong: ${card.timesWrong}x</span>
-                                        <span> Correct: ${card.timesCorrect}x</span>
-                                        <span> Accuracy: ${accuracy}%</span>
+                                        <span>❌ Wrong: ${card.timesWrong}x</span>
+                                        <span>✅ Correct: ${card.timesCorrect}x</span>
+                                        <span>📊 Accuracy: ${accuracy}%</span>
                                         <span>Last: ${['Wrong', 'Partial', 'Good', 'Perfect'][card.confidenceLevel] || 'N/A'}</span>
                                         <span>📁 ${sub ? sub.name : 'Unknown'}</span>
                                     </div>
@@ -915,7 +915,7 @@
             } else {
                 html += `
                     <div style="margin-top: 40px; text-align: left; padding: 40px; background: var(--card-bg); border-radius: 8px;">
-                        <h3>Perfect Performance!</h3>
+                        <h3>🎯 Perfect Performance!</h3>
                         <p style="color: var(--accent-gray); margin-top: 10px;">You haven't missed any cards yet. Keep up the great work!</p>
                     </div>
                 `;
@@ -936,6 +936,11 @@
             document.getElementById('editCardModal').classList.add('show');
         }
 
+        function editCardFromLearn(cardId) {
+            // Same as editCard but we'll know context
+            editCard(cardId);
+        }
+
         function closeEditCardModal() {
             document.getElementById('editCardModal').classList.remove('show');
             currentEditCardId = null;
@@ -952,21 +957,33 @@
                 return;
             }
 
-            const cardIdBeforeEdit = currentEditCardId;
             app.updateCard(currentEditCardId, front, back);
+            
+            // Update the card in the cardsForLearn array
+            const cardIndex = cardsForLearn.findIndex(c => c.id === currentEditCardId);
+            if (cardIndex !== -1) {
+                const updatedCard = app.cards.find(c => c.id === currentEditCardId);
+                if (updatedCard) {
+                    cardsForLearn[cardIndex] = updatedCard;
+                }
+            }
+            
             closeEditCardModal();
             
-            // Refresh the current card display to show updated content
-            const card = app.cards.find(c => c.id === cardIdBeforeEdit);
-            if (card) {
-                // Update the current card in the display
-                document.getElementById('editCardFrontInput').value = '';
-                document.getElementById('editCardBackInput').value = '';
+            // Check if we're in the learn view
+            const learnView = document.getElementById('learn');
+            if (learnView && learnView.classList.contains('active')) {
+                // Refresh the current card display
                 displayCurrentCard();
             }
             
-            updateAnalyticsView();
-            alert('Card updated!');
+            // Also update analytics if that's the active view
+            const analyticsView = document.getElementById('analytics');
+            if (analyticsView && analyticsView.classList.contains('active')) {
+                updateAnalyticsView();
+            }
+            
+            alert('Card updated successfully!');
         }
 
         function deleteCard(cardId) {
@@ -978,26 +995,27 @@
         }
 
         function deleteCardFromLearn(cardId) {
-            if (confirm('Delete this card permanently?')) {
+            if (confirm('Are you sure you want to delete this card? This action cannot be undone.')) {
                 app.deleteCard(cardId);
                 updateCategoriesNav();
                 
-                // Rebuild cards list and adjust index
-                const filterCategory = selectedParentCategoryId 
-                    ? { type: 'parent', id: selectedParentCategoryId }
-                    : selectedSubcategoryId 
-                    ? { type: 'sub', id: selectedSubcategoryId }
-                    : null;
+                // Remove the card from the current study session
+                cardsForLearn = cardsForLearn.filter(c => c.id !== cardId);
                 
-                const updatedCards = app.getCardsByMode(currentStudyMode, filterCategory);
-                cardsForLearn = updatedCards;
-                
-                // Adjust current index if necessary
-                if (currentCardIndexForLearn >= cardsForLearn.length) {
-                    currentCardIndexForLearn = Math.max(0, cardsForLearn.length - 1);
+                // Adjust the current index if needed
+                if (currentCardIndexForLearn >= cardsForLearn.length && cardsForLearn.length > 0) {
+                    currentCardIndexForLearn = cardsForLearn.length - 1;
                 }
                 
-                displayCurrentCard();
+                // Refresh the display
+                if (cardsForLearn.length > 0) {
+                    displayCurrentCard();
+                } else {
+                    // No cards left, show empty state
+                    updateLearnView();
+                }
+                
+                alert('Card deleted successfully!');
             }
         }
 

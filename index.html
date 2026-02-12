@@ -55,11 +55,11 @@
 
                         <div class="form-group">
                             <label>Front (Question)</label>
-                            <textarea id="cardFront" placeholder="e.g., $\frac{d}{dx}x^2 = ?$"></textarea>
+                            <textarea id="cardFront" placeholder="Use LaTeX: $\frac{d}{dx}x^2 = ?$ or write \newline in math mode for new lines"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Back (Answer)</label>
-                            <textarea id="cardBack" placeholder="e.g., $2x$"></textarea>
+                            <textarea id="cardBack" placeholder="Use LaTeX: $2x$ or $$x^2 + y^2 = r^2$$"></textarea>
                         </div>
                         <div class="button-group">
                             <button onclick="createCard()" class="btn primary">Save Card</button>
@@ -133,11 +133,11 @@
             <h3>Edit Flashcard</h3>
             <div class="form-group">
                 <label>Question</label>
-                <textarea id="editCardFrontInput" placeholder="e.g., $\\frac{d}{dx}x^2 = ?$"></textarea>
+                <textarea id="editCardFrontInput" placeholder="Use LaTeX: $expression$ or $$display math$$"></textarea>
             </div>
             <div class="form-group">
                 <label>Answer</label>
-                <textarea id="editCardBackInput" placeholder="e.g., $2x$"></textarea>
+                <textarea id="editCardBackInput" placeholder="Use LaTeX: $expression$ or $$display math$$"></textarea>
             </div>
             <div class="button-group">
                 <button onclick="saveEditedCard()" class="btn primary">Save Changes</button>
@@ -479,9 +479,11 @@
                 if (viewName === 'analytics') updateAnalyticsView();
                 if (viewName === 'create') updateParentCategoryDropdown();
 
-                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                    MathJax.typesetPromise().catch(err => console.log(err));
-                }
+                setTimeout(() => {
+                    if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                        MathJax.typesetPromise().catch(err => console.log(err));
+                    }
+                }, 50);
             } catch (e) {
                 console.error('Error switching view:', e);
             }
@@ -722,7 +724,7 @@
                     <div class="study-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; padding: 30px; margin-bottom: 20px;">
                         <div>
                             <div style="color: var(--accent-gray); margin-bottom: 15px; font-size: 0.9rem;">QUESTION:</div>
-                            <div style="font-size: 1.15rem; text-align: left; margin: 20px 0; line-height: 1.8;">
+                            <div id="cardFrontContent" style="font-size: 1.15rem; text-align: left; margin: 20px 0; line-height: 1.8;">
                                 ${card.front}
                             </div>
                         </div>
@@ -763,11 +765,12 @@
                         deleteCardFromLearn(card.id);
                     });
                 }
-            }, 50);
 
-            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
-            }
+                // Render LaTeX
+                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    MathJax.typesetPromise().catch(err => console.log(err));
+                }
+            }, 50);
         }
 
         function reviewWrongCards() {
@@ -798,9 +801,11 @@
             document.getElementById('feedbackCardContent').innerHTML = card.back;
             document.getElementById('answerFeedbackModal').classList.add('show');
 
-            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
-                setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
-            }
+            setTimeout(() => {
+                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    MathJax.typesetPromise().catch(err => console.log(err));
+                }
+            }, 50);
         }
 
         function markCardConfidence(confidence) {
@@ -936,6 +941,11 @@
             }
 
             container.innerHTML = html;
+            
+            // Render LaTeX in analytics view
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
+            }
         }
 
         let currentEditCardId = null;

@@ -898,7 +898,7 @@
                                         <span> Wrong: ${card.timesWrong}x</span>
                                         <span> Correct: ${card.timesCorrect}x</span>
                                         <span> Accuracy: ${accuracy}%</span>
-                                        <span>${confidenceEmoji} Last: ${['Wrong', 'Partial', 'Good', 'Perfect'][card.confidenceLevel] || 'N/A'}</span>
+                                        <span>Last: ${['Wrong', 'Partial', 'Good', 'Perfect'][card.confidenceLevel] || 'N/A'}</span>
                                         <span>📁 ${sub ? sub.name : 'Unknown'}</span>
                                     </div>
                                 </div>
@@ -952,10 +952,20 @@
                 return;
             }
 
+            const cardIdBeforeEdit = currentEditCardId;
             app.updateCard(currentEditCardId, front, back);
             closeEditCardModal();
+            
+            // Refresh the current card display to show updated content
+            const card = app.cards.find(c => c.id === cardIdBeforeEdit);
+            if (card) {
+                // Update the current card in the display
+                document.getElementById('editCardFrontInput').value = '';
+                document.getElementById('editCardBackInput').value = '';
+                displayCurrentCard();
+            }
+            
             updateAnalyticsView();
-            updateLearnView();
             alert('Card updated!');
         }
 
@@ -971,7 +981,23 @@
             if (confirm('Delete this card permanently?')) {
                 app.deleteCard(cardId);
                 updateCategoriesNav();
-                updateLearnView();
+                
+                // Rebuild cards list and adjust index
+                const filterCategory = selectedParentCategoryId 
+                    ? { type: 'parent', id: selectedParentCategoryId }
+                    : selectedSubcategoryId 
+                    ? { type: 'sub', id: selectedSubcategoryId }
+                    : null;
+                
+                const updatedCards = app.getCardsByMode(currentStudyMode, filterCategory);
+                cardsForLearn = updatedCards;
+                
+                // Adjust current index if necessary
+                if (currentCardIndexForLearn >= cardsForLearn.length) {
+                    currentCardIndexForLearn = Math.max(0, cardsForLearn.length - 1);
+                }
+                
+                displayCurrentCard();
             }
         }
 

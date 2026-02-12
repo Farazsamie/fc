@@ -709,10 +709,14 @@
 
             container.innerHTML = `
                 <div style="max-width: 600px;">
-                    <div style="display: flex; justify-content: space-between; align-items: left; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                         <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
-                        <div style="color: var(--accent-gray); font-size: 0.9rem;">
-                            ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <div style="color: var(--accent-gray); font-size: 0.9rem;">
+                                ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
+                            </div>
+                            <button onclick="editCard('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+                            <button onclick="deleteCardFromLearn('${card.id}')" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem;">Delete</button>
                         </div>
                     </div>
 
@@ -951,6 +955,7 @@
             app.updateCard(currentEditCardId, front, back);
             closeEditCardModal();
             updateAnalyticsView();
+            updateLearnView();
             alert('Card updated!');
         }
 
@@ -959,6 +964,14 @@
                 app.deleteCard(cardId);
                 updateAnalyticsView();
                 updateCategoriesNav();
+            }
+        }
+
+        function deleteCardFromLearn(cardId) {
+            if (confirm('Delete this card permanently?')) {
+                app.deleteCard(cardId);
+                updateCategoriesNav();
+                updateLearnView();
             }
         }
 

@@ -707,7 +707,7 @@
                 if (wrongCards.length > 0) {
                     container.innerHTML = `
                         <div style="max-width: 600px; text-align: left; padding: 40px;">
-                            <div style="font-size: 1.5rem; margin-bottom: 20px;">📚 Review Session</div>
+                            <div style="font-size: 1.5rem; margin-bottom: 20px;"> Review Session</div>
                             <p style="color: var(--accent-gray); margin-bottom: 30px;">
                                 You've completed all cards! Let's review the ${wrongCards.length} card${wrongCards.length > 1 ? 's' : ''} you found challenging.
                             </p>
@@ -719,7 +719,7 @@
                 } else {
                     container.innerHTML = `
                         <div style="max-width: 600px; text-align: left; padding: 40px;">
-                            <div style="font-size: 2rem; margin-bottom: 20px;">🎉</div>
+                            <div style="font-size: 2rem; margin-bottom: 20px;"> </div>
                             <div style="font-size: 1.3rem; margin-bottom: 15px;">Excellent Work!</div>
                             <p style="color: var(--accent-gray);">You've mastered all cards in this session.</p>
                         </div>
@@ -739,7 +739,7 @@
                         <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
                         <div style="display: flex; gap: 10px; align-items: center;">
                             <div style="color: var(--accent-gray); font-size: 0.9rem;">
-                                ${card.streak > 0 ? `🔥 Streak: ${card.streak}` : ''}
+                                ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
                             </div>
                             <button id="editBtn_${card.id}" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Edit</button>
                             <button id="deleteBtn_${card.id}" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Delete</button>
@@ -939,11 +939,11 @@
                                     <div style="font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">Q: ${card.front}</div>
                                     <div style="color: #999; font-size: 0.85rem; margin-bottom: 8px; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">A: ${card.back}</div>
                                     <div style="font-size: 0.8rem; color: var(--accent-gray); display: flex; gap: 10px; flex-wrap: wrap;">
-                                        <span>❌ Wrong: ${card.timesWrong}x</span>
-                                        <span>✅ Correct: ${card.timesCorrect}x</span>
-                                        <span>📊 Accuracy: ${accuracy}%</span>
+                                        <span> Wrong: ${card.timesWrong}x</span>
+                                        <span> Correct: ${card.timesCorrect}x</span>
+                                        <span> Accuracy: ${accuracy}%</span>
                                         <span>Last: ${['Wrong', 'Partial', 'Good', 'Perfect'][card.confidenceLevel] || 'N/A'}</span>
-                                        <span>📁 ${sub ? sub.name : 'Unknown'}</span>
+                                        <span> ${sub ? sub.name : 'Unknown'}</span>
                                     </div>
                                 </div>
                                 <div style="display: flex; gap: 8px; white-space: nowrap; flex-shrink: 0;">

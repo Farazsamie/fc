@@ -178,12 +178,14 @@
             loadData() {
                 try {
                     const stored = localStorage.getItem('studyAppData');
+                    console.log('Loading data from localStorage:', stored ? 'Found' : 'Not found');
                     if (stored) {
                         const data = JSON.parse(stored);
                         this.cards = data.cards || [];
                         this.parentCategories = data.parentCategories || this.createDefaultParentCategories();
                         this.subcategories = data.subcategories || this.createDefaultSubcategories();
                         this.cardStats = data.cardStats || {};
+                        console.log('Loaded cards:', this.cards.length);
                     } else {
                         this.cards = [];
                         this.parentCategories = this.createDefaultParentCategories();
@@ -192,7 +194,7 @@
                         this.saveData();
                     }
                 } catch (e) {
-                    console.log('localStorage not available, using session storage');
+                    console.error('Error loading from localStorage:', e);
                     this.cards = [];
                     this.parentCategories = this.createDefaultParentCategories();
                     this.subcategories = this.createDefaultSubcategories();
@@ -235,8 +237,9 @@
                         cardStats: this.cardStats
                     };
                     localStorage.setItem('studyAppData', JSON.stringify(data));
+                    console.log('Data saved to localStorage. Total cards:', this.cards.length);
                 } catch (e) {
-                    console.log('Could not save to localStorage');
+                    console.error('Could not save to localStorage:', e);
                 }
             }
 
@@ -273,7 +276,7 @@
                 const card = this.cards.find(c => c.id === cardId);
                 if (!card) return;
 
-                const isCorrect = confidence >= 2; // 2 or 3 = correct, 0 or 1 = wrong
+                const isCorrect = confidence >= 2;
 
                 card.timesReviewed++;
                 if (isCorrect) {
@@ -303,7 +306,6 @@
                 this.cardStats[cardId].confidenceHistory.push(confidence);
                 this.cardStats[cardId].totalTimeMs += timeMs;
 
-                // Spaced repetition algorithm based on confidence
                 if (confidence === 0) {
                     card.interval = 1;
                     card.easeFactor = Math.max(1.3, card.easeFactor - 0.2);
@@ -329,17 +331,21 @@
             }
 
             deleteCard(cardId) {
+                console.log('Deleting card:', cardId);
                 this.cards = this.cards.filter(c => c.id !== cardId);
                 delete this.cardStats[cardId];
                 this.saveData();
+                console.log('Card deleted. Remaining cards:', this.cards.length);
             }
 
             updateCard(cardId, front, back) {
+                console.log('Updating card:', cardId);
                 const card = this.cards.find(c => c.id === cardId);
                 if (card) {
                     card.front = front;
                     card.back = back;
                     this.saveData();
+                    console.log('Card updated successfully');
                 }
             }
 
@@ -392,7 +398,6 @@
                     stats.averageTimePerCard = (totalTime / cardsWithReviews / 1000).toFixed(1);
                 }
 
-                // Find most missed cards
                 stats.mostMissedCards = this.cards
                     .filter(c => c.timesWrong > 0)
                     .sort((a, b) => {
@@ -408,7 +413,6 @@
             getCardsByMode(mode, filterCategory = null) {
                 let cards = this.cards;
 
-                // Apply category filter
                 if (filterCategory) {
                     if (filterCategory.type === 'parent') {
                         cards = cards.filter(c => c.parentCategory === filterCategory.id);
@@ -417,7 +421,6 @@
                     }
                 }
 
-                // Apply mode filter
                 if (mode === 'new') {
                     return cards.filter(c => c.timesReviewed === 0);
                 } else if (mode === 'wrong') {
@@ -441,7 +444,6 @@
         function setStudyMode(mode) {
             currentStudyMode = mode;
             
-            // Update button styles
             document.querySelectorAll('#modeAll, #modeNew, #modeWrong').forEach(btn => {
                 btn.style.background = '#3a3a3a';
                 btn.style.borderColor = '#444';
@@ -673,7 +675,6 @@
             const container = document.getElementById('learnContainer');
             
             if (currentCardIndexForLearn >= cardsForLearn.length) {
-                // When done, loop back to cards you got wrong
                 const wrongCards = cardsForLearn.filter(c => c.timesWrong > 0 && !shownCardIds.has(c.id + '_repeat'));
                 
                 if (wrongCards.length > 0) {
@@ -705,8 +706,6 @@
             cardStartTime = Date.now();
             shownCardIds.add(card.id);
 
-            const progressPercent = ((currentCardIndexForLearn) / cardsForLearn.length * 100).toFixed(0);
-
             container.innerHTML = `
                 <div style="max-width: 600px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -715,8 +714,8 @@
                             <div style="color: var(--accent-gray); font-size: 0.9rem;">
                                 ${card.streak > 0 ? `🔥 Streak: ${card.streak}` : ''}
                             </div>
-                            <button onclick="editCardFromLearn('${card.id}')" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
-                            <button onclick="deleteCardFromLearn('${card.id}')" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem;">Delete</button>
+                            <button id="editBtn_${card.id}" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Edit</button>
+                            <button id="deleteBtn_${card.id}" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Delete</button>
                         </div>
                     </div>
 
@@ -741,6 +740,30 @@
                     </div>
                 </div>
             `;
+
+            // Add event listeners after creating the buttons
+            setTimeout(() => {
+                const editBtn = document.getElementById(`editBtn_${card.id}`);
+                const deleteBtn = document.getElementById(`deleteBtn_${card.id}`);
+                
+                if (editBtn) {
+                    editBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Edit button clicked for card:', card.id);
+                        editCardFromLearn(card.id);
+                    });
+                }
+                
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Delete button clicked for card:', card.id);
+                        deleteCardFromLearn(card.id);
+                    });
+                }
+            }, 50);
 
             if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
                 setTimeout(() => MathJax.typesetPromise().catch(err => console.log(err)), 100);
@@ -788,14 +811,6 @@
             displayCurrentCard();
         }
 
-        function markCardCorrect() {
-            markCardConfidence(3);
-        }
-
-        function markCardWrong() {
-            markCardConfidence(0);
-        }
-
         function previousLearnCard() {
             if (currentCardIndexForLearn > 0) {
                 currentCardIndexForLearn--;
@@ -827,7 +842,6 @@
                 return;
             }
 
-            // Shuffle cards for better learning
             cards = cards.sort(() => Math.random() - 0.5);
 
             cardsForLearn = cards;
@@ -927,9 +941,13 @@
         let currentEditCardId = null;
 
         function editCard(cardId) {
+            console.log('editCard called with ID:', cardId);
             currentEditCardId = cardId;
             const card = app.cards.find(c => c.id === cardId);
-            if (!card) return;
+            if (!card) {
+                console.error('Card not found:', cardId);
+                return;
+            }
 
             document.getElementById('editCardFrontInput').value = card.front;
             document.getElementById('editCardBackInput').value = card.back;
@@ -937,7 +955,7 @@
         }
 
         function editCardFromLearn(cardId) {
-            // Same as editCard but we'll know context
+            console.log('editCardFromLearn called with ID:', cardId);
             editCard(cardId);
         }
 
@@ -959,7 +977,6 @@
 
             app.updateCard(currentEditCardId, front, back);
             
-            // Update the card in the cardsForLearn array
             const cardIndex = cardsForLearn.findIndex(c => c.id === currentEditCardId);
             if (cardIndex !== -1) {
                 const updatedCard = app.cards.find(c => c.id === currentEditCardId);
@@ -970,14 +987,11 @@
             
             closeEditCardModal();
             
-            // Check if we're in the learn view
             const learnView = document.getElementById('learn');
             if (learnView && learnView.classList.contains('active')) {
-                // Refresh the current card display
                 displayCurrentCard();
             }
             
-            // Also update analytics if that's the active view
             const analyticsView = document.getElementById('analytics');
             if (analyticsView && analyticsView.classList.contains('active')) {
                 updateAnalyticsView();
@@ -986,32 +1000,21 @@
             alert('Card updated successfully!');
         }
 
-        function deleteCard(cardId) {
-            if (confirm('Delete this card permanently?')) {
-                app.deleteCard(cardId);
-                updateAnalyticsView();
-                updateCategoriesNav();
-            }
-        }
-
         function deleteCardFromLearn(cardId) {
+            console.log('deleteCardFromLearn called with ID:', cardId);
             if (confirm('Are you sure you want to delete this card? This action cannot be undone.')) {
                 app.deleteCard(cardId);
                 updateCategoriesNav();
                 
-                // Remove the card from the current study session
                 cardsForLearn = cardsForLearn.filter(c => c.id !== cardId);
                 
-                // Adjust the current index if needed
                 if (currentCardIndexForLearn >= cardsForLearn.length && cardsForLearn.length > 0) {
                     currentCardIndexForLearn = cardsForLearn.length - 1;
                 }
                 
-                // Refresh the display
                 if (cardsForLearn.length > 0) {
                     displayCurrentCard();
                 } else {
-                    // No cards left, show empty state
                     updateLearnView();
                 }
                 
@@ -1042,7 +1045,6 @@
             }
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             const modal = document.getElementById('answerFeedbackModal');
             if (modal.classList.contains('show')) {
@@ -1060,12 +1062,14 @@
 
         function initApp() {
             try {
+                console.log('Initializing app...');
                 updateCategoriesNav();
                 updateParentCategoryDropdown();
 
                 if (typeof MathJax !== 'undefined') {
                     MathJax.contentDocument = document;
                 }
+                console.log('App initialized successfully');
             } catch (e) {
                 console.error('Initialization error:', e);
             }

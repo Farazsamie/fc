@@ -180,8 +180,8 @@
                 <div id="userAnswerDisplay" style="font-size: 1rem; line-height: 1.6; color: #ccc; min-height: 40px; white-space: pre-wrap;"></div>
             </div>
 
-            <div id="feedbackCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 25px; border-radius: 8px; min-height: 150px; max-height: 400px; display: flex; align-items: flex-start; justify-content: flex-start; margin-bottom: 20px; overflow-y: auto;">
-                <div id="feedbackCardContent" style="text-align: left; width: 100%; font-size: 0.95rem; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">
+            <div id="feedbackCardContainer" style="background: var(--input-bg); border: 2px solid var(--accent-gray); padding: 25px; border-radius: 8px; min-height: 350px; max-height: 500px; display: flex; align-items: flex-start; justify-content: flex-start; margin-bottom: 20px; overflow-y: auto;">
+                <div id="feedbackCardContent" style="text-align: left; width: 100%; font-size: 0.9rem; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">
                 </div>
             </div>
 
@@ -746,16 +746,16 @@
                         </div>
                     </div>
 
-                    <div class="study-card" style="min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; padding: 25px; margin-bottom: 20px; overflow-y: auto;">
-                        <div style="overflow-y: auto; max-height: 150px;">
-                            <div style="color: var(--accent-gray); margin-bottom: 12px; font-size: 0.85rem; font-weight: 600;">QUESTION:</div>
-                            <div id="cardFrontContent" style="font-size: 0.95rem; text-align: left; margin: 10px 0; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">
+                    <div class="study-card" style="min-height: 450px; display: flex; flex-direction: column; justify-content: space-between; padding: 25px; margin-bottom: 20px; overflow-y: auto;">
+                        <div style="overflow-y: auto; max-height: 250px;">
+                            <div style="color: var(--accent-gray); margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Question:</div>
+                            <div id="cardFrontContent" style="font-size: 0.9rem; text-align: left; margin: 10px 0; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">
                                 ${card.front}
                             </div>
                         </div>
                         
                         <div style="margin-top: 15px;">
-                            <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.85rem; font-weight: 600;">YOUR ANSWER:</div>
+                            <div style="color: var(--accent-gray); margin-bottom: 8px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Your Answer:</div>
                             <textarea id="userAnswerInput" placeholder="Type your answer here..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 70px; max-height: 120px; resize: vertical; font-size: 0.9rem;"></textarea>
                         </div>
                     </div>

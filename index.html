@@ -24,14 +24,15 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
+    <script src="cloud-sync.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 
 <body>
     <nav class="main-nav">
-        <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Active Recall</button>
-        <button class="nav-tab active" data-view="create" onclick="switchView('create')">Create Card</button>
+        <button class="nav-tab active" data-view="learn" onclick="switchView('learn')">Active Recall</button>
+        <button class="nav-tab" data-view="create" onclick="switchView('create')">Create Card</button>
         <button class="nav-tab" data-view="analytics" onclick="switchView('analytics')">Analytics</button>
         <button class="nav-tab" onclick="openSettingsModal()" style="margin-left: auto;">⚙️ Settings</button>
     </nav>
@@ -49,7 +50,7 @@
             </aside>
 
             <main class="main-content">
-                <div class="content active" id="create">
+                <div class="content" id="create">
                     <div class="form-container" style="max-width: 600px;">
                         <div style="background: #2d2d2d; border-left: 4px solid #5a7a8c; padding: 15px; margin-bottom: 20px; border-radius: 4px;">
                             <div style="font-weight: 600; margin-bottom: 8px;">📝 Content Tips:</div>
@@ -147,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="content" id="learn">
+                <div class="content active" id="learn">
                     
                     <!-- Study Mode Selector -->
                     <div style="display: flex; gap: 10px; margin-bottom: 20px; max-width: 600px;">
@@ -256,30 +257,37 @@
             <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
                 <div style="font-weight: 600; margin-bottom: 10px;">☁️ Cloud Sync (Optional)</div>
                 <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
-                    Enable cloud sync to access your flashcards across all devices. Data is stored securely in the cloud.
+                    Enable cloud sync to automatically save your flashcards across all devices. Set up a backend service to enable this feature.
                 </p>
                 
                 <div id="cloudSyncStatus" style="margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
                     <div style="color: var(--accent-gray); font-size: 0.85rem;">Status: <span id="syncStatusText">Not Connected</span></div>
                 </div>
                 
-                <button onclick="toggleCloudSync()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Enable Cloud Sync</button>
+                <button onclick="toggleCloudSyncConfig()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Configure Cloud Sync</button>
                 
-                <div id="firebaseSetup" style="display: none;">
+                <div id="cloudSyncSetup" style="display: none;">
                     <div class="form-group" style="margin-bottom: 10px;">
-                        <label style="font-size: 0.9rem;">Firebase API Key</label>
-                        <input type="text" id="firebaseApiKey" placeholder="Your Firebase API Key" style="font-size: 0.85rem;">
+                        <label style="font-size: 0.9rem;">Backend URL</label>
+                        <input type="text" id="backendUrl" placeholder="https://your-backend.com" style="font-size: 0.85rem;">
+                        <small style="color: var(--accent-gray);">Example: https://api.flashcards.app</small>
                     </div>
                     <div class="form-group" style="margin-bottom: 10px;">
-                        <label style="font-size: 0.9rem;">Database URL</label>
-                        <input type="text" id="firebaseDbUrl" placeholder="https://your-project.firebaseio.com" style="font-size: 0.85rem;">
+                        <label style="font-size: 0.9rem;">API Key</label>
+                        <input type="password" id="backendApiKey" placeholder="Your API key for the backend service" style="font-size: 0.85rem;">
                     </div>
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label style="font-size: 0.9rem;">Project ID</label>
-                        <input type="text" id="firebaseProjectId" placeholder="Your Project ID" style="font-size: 0.85rem;">
+                    <button onclick="saveCloudSyncConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Save Configuration</button>
+                    <button onclick="testCloudSyncConnection()" class="btn secondary" style="width: 100%; margin-bottom: 8px;">Test Connection</button>
+                    <button onclick="disableCloudSync()" class="btn" style="background: #6a4a4a; width: 100%;">Disable Cloud Sync</button>
+                </div>
+
+                <div id="cloudSyncStatus2" style="margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px; display: none;">
+                    <div style="color: var(--accent-gray); font-size: 0.85rem;">
+                        <strong>User ID:</strong> <span id="displayUserId" style="font-family: monospace; font-size: 0.8rem;"></span>
                     </div>
-                    <button onclick="saveFirebaseConfig()" class="btn primary" style="width: 100%; margin-bottom: 10px;">Save Configuration</button>
-                    <button onclick="testFirebaseConnection()" class="btn secondary" style="width: 100%;">Test Connection</button>
+                    <div style="color: var(--accent-gray); font-size: 0.85rem; margin-top: 5px;">
+                        <strong>Last Sync:</strong> <span id="lastSyncTime">Never</span>
+                    </div>
                 </div>
             </div>
 
@@ -299,181 +307,126 @@
 
     <script>
         let currentCardType = 'qa';
-        let firebaseConnected = false;
-        let firebaseDb = null;
-        let currentUserId = null;
-
-        // Initialize Firebase
-        function initializeFirebase() {
-            const config = JSON.parse(localStorage.getItem('firebaseConfig') || 'null');
-            if (!config) return;
-
-            try {
-                const firebaseConfig = {
-                    apiKey: config.apiKey,
-                    projectId: config.projectId,
-                    databaseURL: config.databaseUrl,
-                    appId: "1:1:web:1"
-                };
-
-                firebase.initializeApp(firebaseConfig, 'studyApp');
-                firebaseDb = firebase.database(firebase.app('studyApp'));
-                
-                // Generate or retrieve user ID
-                let userId = localStorage.getItem('userId');
-                if (!userId) {
-                    userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                    localStorage.setItem('userId', userId);
-                }
-                currentUserId = userId;
-                firebaseConnected = true;
-                updateSyncStatus();
-            } catch (e) {
-                console.error('Firebase initialization failed:', e);
-                firebaseConnected = false;
-            }
-        }
-
-        function updateSyncStatus() {
-            const statusText = document.getElementById('syncStatusText');
-            if (statusText) {
-                if (firebaseConnected) {
-                    statusText.textContent = '✓ Connected';
-                    statusText.style.color = '#4a7c4a';
-                } else {
-                    statusText.textContent = '✗ Not Connected';
-                    statusText.style.color = '#8b4545';
-                }
-            }
-        }
-
-        async function syncToCloud() {
-            if (!firebaseConnected || !firebaseDb) return;
-
-            try {
-                const data = {
-                    cards: app.cards,
-                    parentCategories: app.parentCategories,
-                    subcategories: app.subcategories,
-                    cardStats: app.cardStats,
-                    lastSync: new Date().toISOString()
-                };
-
-                await firebaseDb.ref('users/' + currentUserId + '/data').set(data);
-                console.log('Data synced to cloud successfully');
-            } catch (e) {
-                console.error('Error syncing to cloud:', e);
-            }
-        }
-
-        async function syncFromCloud() {
-            if (!firebaseConnected || !firebaseDb) return;
-
-            try {
-                const snapshot = await firebaseDb.ref('users/' + currentUserId + '/data').get();
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    app.cards = data.cards || [];
-                    app.parentCategories = data.parentCategories || app.createDefaultParentCategories();
-                    app.subcategories = data.subcategories || app.createDefaultSubcategories();
-                    app.cardStats = data.cardStats || {};
-                    app.saveData();
-                    console.log('Data synced from cloud successfully');
-                    return true;
-                }
-            } catch (e) {
-                console.error('Error syncing from cloud:', e);
-            }
-            return false;
-        }
 
         function openSettingsModal() {
             document.getElementById('settingsModal').classList.add('show');
-            updateSyncStatus();
+            updateCloudSyncUI();
         }
 
         function closeSettingsModal() {
             document.getElementById('settingsModal').classList.remove('show');
         }
 
-        function toggleCloudSync() {
-            const setupDiv = document.getElementById('firebaseSetup');
-            const btn = document.getElementById('cloudSyncBtn');
-            
-            if (setupDiv.style.display === 'none') {
-                setupDiv.style.display = 'block';
-                btn.textContent = 'Cancel';
+        function updateCloudSyncUI() {
+            if (cloudSync && cloudSync.syncEnabled) {
+                document.getElementById('cloudSyncSetup').style.display = 'block';
+                document.getElementById('cloudSyncStatus2').style.display = 'block';
+                document.getElementById('cloudSyncBtn').textContent = 'Update Configuration';
+                document.getElementById('displayUserId').textContent = cloudSync.userId;
+                document.getElementById('lastSyncTime').textContent = cloudSync.getStatus().lastSync || 'Never';
             } else {
-                setupDiv.style.display = 'none';
-                btn.textContent = 'Enable Cloud Sync';
+                document.getElementById('cloudSyncSetup').style.display = 'none';
+                document.getElementById('cloudSyncStatus2').style.display = 'none';
+                document.getElementById('cloudSyncBtn').textContent = 'Configure Cloud Sync';
             }
         }
 
-        function saveFirebaseConfig() {
-            const apiKey = document.getElementById('firebaseApiKey').value.trim();
-            const dbUrl = document.getElementById('firebaseDbUrl').value.trim();
-            const projectId = document.getElementById('firebaseProjectId').value.trim();
+        function toggleCloudSyncConfig() {
+            const setupDiv = document.getElementById('cloudSyncSetup');
+            if (setupDiv.style.display === 'none') {
+                setupDiv.style.display = 'block';
+                // Load existing config if any
+                if (cloudSync && cloudSync.backendUrl) {
+                    document.getElementById('backendUrl').value = cloudSync.backendUrl;
+                    document.getElementById('backendApiKey').value = cloudSync.apiKey;
+                }
+            } else {
+                setupDiv.style.display = 'none';
+            }
+        }
 
-            if (!apiKey || !dbUrl || !projectId) {
-                alert('Please fill in all Firebase configuration fields');
+        function saveCloudSyncConfig() {
+            const backendUrl = document.getElementById('backendUrl').value.trim();
+            const apiKey = document.getElementById('backendApiKey').value.trim();
+
+            if (!backendUrl || !apiKey) {
+                alert('Please fill in both Backend URL and API Key');
                 return;
             }
 
-            const config = { apiKey, databaseUrl: dbUrl, projectId };
-            localStorage.setItem('firebaseConfig', JSON.stringify(config));
-            alert('Firebase configuration saved! Please refresh the page to activate cloud sync.');
+            if (cloudSync) {
+                cloudSync.enableSync(backendUrl, apiKey);
+                alert('✓ Cloud sync configuration saved! Your data will now sync automatically.');
+                updateCloudSyncUI();
+            }
         }
 
-        async function testFirebaseConnection() {
+        async function testCloudSyncConnection() {
+            const backendUrl = document.getElementById('backendUrl').value.trim();
+            const apiKey = document.getElementById('backendApiKey').value.trim();
+
+            if (!backendUrl || !apiKey) {
+                alert('Please fill in both Backend URL and API Key');
+                return;
+            }
+
             const btn = event.target;
             const originalText = btn.textContent;
             btn.textContent = 'Testing...';
             btn.disabled = true;
 
             try {
-                const apiKey = document.getElementById('firebaseApiKey').value.trim();
-                const dbUrl = document.getElementById('firebaseDbUrl').value.trim();
-                const projectId = document.getElementById('firebaseProjectId').value.trim();
+                const response = await fetch(backendUrl + '/api/sync?userId=test', {
+                    method: 'GET',
+                    headers: {
+                        'X-API-Key': apiKey
+                    }
+                });
 
-                if (!apiKey || !dbUrl || !projectId) {
-                    alert('Please fill in all configuration fields first');
-                    return;
+                if (response.ok) {
+                    alert('✓ Connection successful! Backend is reachable.');
+                } else {
+                    alert('✗ Connection failed: Server returned ' + response.status);
                 }
-
-                const firebaseConfig = { apiKey, projectId, databaseURL: dbUrl, appId: "1:1:web:1" };
-                const testApp = firebase.initializeApp(firebaseConfig, 'testApp');
-                const testDb = firebase.database(testApp);
-                
-                await testDb.ref('test').set({ timestamp: new Date().toISOString() });
-                await testDb.ref('test').remove();
-                
-                firebase.app('testApp').delete();
-                alert('✓ Connection successful! Your Firebase configuration is valid.');
             } catch (e) {
-                alert('✗ Connection failed: ' + e.message);
+                alert('✗ Connection failed: ' + e.message + '\n\nMake sure your Backend URL is correct and the server is running.');
             } finally {
                 btn.textContent = originalText;
                 btn.disabled = false;
             }
         }
 
-        function exportData() {
-            const data = {
-                cards: app.cards,
-                parentCategories: app.parentCategories,
-                subcategories: app.subcategories,
-                cardStats: app.cardStats,
-                exportDate: new Date().toISOString()
-            };
+        function disableCloudSync() {
+            if (confirm('Disable cloud sync? Your local data will be preserved.')) {
+                if (cloudSync) {
+                    cloudSync.disableSync();
+                }
+                updateCloudSyncUI();
+                alert('Cloud sync disabled');
+            }
+        }
 
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'flashcards_backup_' + new Date().toISOString().split('T')[0] + '.json';
-            link.click();
-            URL.revokeObjectURL(url);
+        function exportData() {
+            if (cloudSync) {
+                cloudSync.exportFullBackup();
+            } else {
+                const data = {
+                    cards: app.cards,
+                    parentCategories: app.parentCategories,
+                    subcategories: app.subcategories,
+                    cardStats: app.cardStats,
+                    exportDate: new Date().toISOString()
+                };
+
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'flashcards_backup_' + new Date().toISOString().split('T')[0] + '.json';
+                link.click();
+                URL.revokeObjectURL(url);
+            }
             alert('Data exported successfully!');
         }
 
@@ -594,10 +547,15 @@
                         subcategories: this.subcategories,
                         cardStats: this.cardStats
                     };
-                    localStorage.setItem('studyAppData', JSON.stringify(data));
-                    console.log('Data saved to localStorage. Total cards:', this.cards.length);
+                    // Use cloudSync if available, otherwise use localStorage directly
+                    if (typeof cloudSync !== 'undefined' && cloudSync) {
+                        cloudSync.saveLocally(data);
+                    } else {
+                        localStorage.setItem('studyAppData', JSON.stringify(data));
+                    }
+                    console.log('Data saved. Total cards:', this.cards.length);
                 } catch (e) {
-                    console.error('Could not save to localStorage:', e);
+                    console.error('Could not save data:', e);
                 }
             }
 
@@ -636,12 +594,6 @@
                     confidenceHistory: []
                 };
                 this.saveData();
-                
-                // Sync to cloud if connected
-                if (firebaseConnected) {
-                    syncToCloud();
-                }
-
                 return card;
             }
 
@@ -701,11 +653,6 @@
                 card.nextReview = nextDate.toISOString();
 
                 this.saveData();
-                
-                // Sync to cloud if connected
-                if (firebaseConnected) {
-                    syncToCloud();
-                }
             }
 
             deleteCard(cardId) {
@@ -713,12 +660,6 @@
                 this.cards = this.cards.filter(c => c.id !== cardId);
                 delete this.cardStats[cardId];
                 this.saveData();
-                
-                // Sync to cloud if connected
-                if (firebaseConnected) {
-                    syncToCloud();
-                }
-                
                 console.log('Card deleted. Remaining cards:', this.cards.length);
             }
 
@@ -1057,19 +998,28 @@
             app.parentCategories.forEach(parent => {
                 const subs = app.subcategories.filter(s => s.parent === parent.id);
                 const parentCards = app.cards.filter(c => c.parentCategory === parent.id).length;
+                const expandedKey = 'category_expanded_' + parent.id;
+                const isExpanded = localStorage.getItem(expandedKey) !== 'false';
                 
                 html += `
                     <div style="margin-bottom: 12px;">
-                        <div style="background: #2d2d2d; border: 1px solid #555; padding: 10px; border-radius: 4px; margin-bottom: 8px; cursor: pointer;" onclick="selectParentCategory('${parent.id}')">
-                            <div style="font-weight: 600; color: var(--text-light);">${parent.name}</div>
-                            <div style="font-size: 0.8rem; color: var(--accent-gray); margin-top: 2px;">${parentCards} cards</div>
+                        <div style="background: #2d2d2d; border: 1px solid #555; padding: 10px; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            ${subs.length > 0 ? `
+                                <button onclick="toggleCategoryExpanded('${parent.id}')" style="background: none; border: none; color: var(--text-light); cursor: pointer; padding: 0; font-size: 0.9rem; width: 20px; text-align: center;">
+                                    ${isExpanded ? '▼' : '▶'}
+                                </button>
+                            ` : `<div style="width: 20px;"></div>`}
+                            <div style="flex: 1; cursor: pointer;" onclick="selectParentCategory('${parent.id}')">
+                                <div style="font-weight: 600; color: var(--text-light);">${parent.name}</div>
+                                <div style="font-size: 0.8rem; color: var(--accent-gray); margin-top: 2px;">${parentCards} cards</div>
+                            </div>
                         </div>
                         ${subs.length > 0 ? `
-                            <div style="padding-left: 12px;">
+                            <div style="padding-left: 12px; ${isExpanded ? '' : 'display: none;'}" class="category-subs-${parent.id}">
                                 ${subs.map(sub => {
                                     const subCards = app.cards.filter(c => c.subcategory === sub.id).length;
                                     return `
-                                        <button onclick="selectSubcategory('${sub.id}')" style="background: #3a3a3a; border: 1px solid #444; padding: 8px 12px; border-radius: 3px; color: var(--text-light); width: 100%; text-align: left; font-size: 0.85rem; margin-bottom: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: left;">
+                                        <button onclick="selectSubcategory('${sub.id}')" style="background: #3a3a3a; border: 1px solid #444; padding: 8px 12px; border-radius: 3px; color: var(--text-light); width: 100%; text-align: left; font-size: 0.85rem; margin-bottom: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
                                             <span>${sub.name}</span>
                                             <span style="font-size: 0.7rem; background: #1b1a1a; padding: 2px 6px; border-radius: 2px;">${subCards}</span>
                                         </button>
@@ -1082,6 +1032,13 @@
             });
 
             navList.innerHTML = html;
+        }
+
+        function toggleCategoryExpanded(parentId) {
+            const expandedKey = 'category_expanded_' + parentId;
+            const isExpanded = localStorage.getItem(expandedKey) !== 'false';
+            localStorage.setItem(expandedKey, isExpanded ? 'false' : 'true');
+            updateCategoriesNav();
         }
 
         function selectSubcategory(subcategoryId) {
@@ -1606,7 +1563,6 @@
         function initApp() {
             try {
                 console.log('Initializing app...');
-                initializeFirebase();
                 updateCategoriesNav();
                 updateParentCategoryDropdown();
 

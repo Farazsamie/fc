@@ -22,6 +22,8 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -31,6 +33,7 @@
         <button class="nav-tab" data-view="learn" onclick="switchView('learn')">Active Recall</button>
         <button class="nav-tab active" data-view="create" onclick="switchView('create')">Create Card</button>
         <button class="nav-tab" data-view="analytics" onclick="switchView('analytics')">Analytics</button>
+        <button class="nav-tab" onclick="openSettingsModal()" style="margin-left: auto;">⚙️ Settings</button>
     </nav>
 
     <div class="container">
@@ -57,6 +60,15 @@
                                 <li><strong>Line Breaks in Math:</strong> Use <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 2px;">\\</code> in align/array environments or plain text lines</li>
                             </ul>
                         </div>
+                        
+                        <div class="form-group">
+                            <label>Card Type *</label>
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                <button onclick="setCardType('qa')" id="cardTypeQA" class="btn primary" style="flex: 1; padding: 10px;">Question & Answer</button>
+                                <button onclick="setCardType('mc')" id="cardTypeMC" class="btn secondary" style="flex: 1; padding: 10px;">Multiple Choice</button>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Parent Category *</label>
                             <div style="display: flex; gap: 8px; margin-bottom: 5px;">
@@ -78,14 +90,56 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Front (Question)</label>
-                            <textarea id="cardFront" placeholder="Math: $2x+3$ or $$x^2=4$$. Lists: Use HTML <ol><li>A - option</li></ol> or align: $$\begin{align}A. & \text{ option}\\B. & \text{ option}\end{align}$$"></textarea>
+                        <!-- Q&A Card Type -->
+                        <div id="qaCardType">
+                            <div class="form-group">
+                                <label>Front (Question)</label>
+                                <textarea id="cardFront" placeholder="Math: $2x+3$ or $$x^2=4$$. Lists: Use HTML <ol><li>A - option</li></ol> or align: $$\begin{align}A. & \text{ option}\\B. & \text{ option}\end{align}$$"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Back (Answer)</label>
+                                <textarea id="cardBack" placeholder="Inline math: $E=mc^2$. Display: $$\frac{a}{b}$$. HTML lists and text work too!"></textarea>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Back (Answer)</label>
-                            <textarea id="cardBack" placeholder="Inline math: $E=mc^2$. Display: $$\frac{a}{b}$$. HTML lists and text work too!"></textarea>
+
+                        <!-- Multiple Choice Card Type -->
+                        <div id="mcCardType" style="display: none;">
+                            <div class="form-group">
+                                <label>Question</label>
+                                <textarea id="mcQuestion" placeholder="Enter the question..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Option A</label>
+                                <input type="text" id="mcOptionA" placeholder="First option">
+                            </div>
+                            <div class="form-group">
+                                <label>Option B</label>
+                                <input type="text" id="mcOptionB" placeholder="Second option">
+                            </div>
+                            <div class="form-group">
+                                <label>Option C</label>
+                                <input type="text" id="mcOptionC" placeholder="Third option">
+                            </div>
+                            <div class="form-group">
+                                <label>Option D</label>
+                                <input type="text" id="mcOptionD" placeholder="Fourth option">
+                            </div>
+                            <div class="form-group">
+                                <label>Correct Answer *</label>
+                                <select id="mcCorrectAnswer">
+                                    <option value="">-- Select correct answer --</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Explanation (Optional)</label>
+                                <textarea id="mcExplanation" placeholder="Explain why this is the correct answer..."></textarea>
+                            </div>
                         </div>
+
                         <div class="button-group">
                             <button onclick="createCard()" class="btn primary">Save Card</button>
                             <button onclick="clearCardForm()" class="btn secondary">Clear</button>
@@ -194,7 +248,286 @@
         </div>
     </div>
 
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeSettingsModal()">&times;</button>
+            <h3>Settings</h3>
+            
+            <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
+                <div style="font-weight: 600; margin-bottom: 10px;">☁️ Cloud Sync (Optional)</div>
+                <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
+                    Enable cloud sync to access your flashcards across all devices. Data is stored securely in the cloud.
+                </p>
+                
+                <div id="cloudSyncStatus" style="margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
+                    <div style="color: var(--accent-gray); font-size: 0.85rem;">Status: <span id="syncStatusText">Not Connected</span></div>
+                </div>
+                
+                <button onclick="toggleCloudSync()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Enable Cloud Sync</button>
+                
+                <div id="firebaseSetup" style="display: none;">
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label style="font-size: 0.9rem;">Firebase API Key</label>
+                        <input type="text" id="firebaseApiKey" placeholder="Your Firebase API Key" style="font-size: 0.85rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label style="font-size: 0.9rem;">Database URL</label>
+                        <input type="text" id="firebaseDbUrl" placeholder="https://your-project.firebaseio.com" style="font-size: 0.85rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label style="font-size: 0.9rem;">Project ID</label>
+                        <input type="text" id="firebaseProjectId" placeholder="Your Project ID" style="font-size: 0.85rem;">
+                    </div>
+                    <button onclick="saveFirebaseConfig()" class="btn primary" style="width: 100%; margin-bottom: 10px;">Save Configuration</button>
+                    <button onclick="testFirebaseConnection()" class="btn secondary" style="width: 100%;">Test Connection</button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
+                <div style="font-weight: 600; margin-bottom: 10px;">📥 Data Management</div>
+                <button onclick="exportData()" class="btn secondary" style="width: 100%; margin-bottom: 8px;">Export Data (JSON)</button>
+                <button onclick="importDataPrompt()" class="btn secondary" style="width: 100%;">Import Data (JSON)</button>
+            </div>
+
+            <div class="button-group">
+                <button onclick="closeSettingsModal()" class="btn primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importData(event)">
+
     <script>
+        let currentCardType = 'qa';
+        let firebaseConnected = false;
+        let firebaseDb = null;
+        let currentUserId = null;
+
+        // Initialize Firebase
+        function initializeFirebase() {
+            const config = JSON.parse(localStorage.getItem('firebaseConfig') || 'null');
+            if (!config) return;
+
+            try {
+                const firebaseConfig = {
+                    apiKey: config.apiKey,
+                    projectId: config.projectId,
+                    databaseURL: config.databaseUrl,
+                    appId: "1:1:web:1"
+                };
+
+                firebase.initializeApp(firebaseConfig, 'studyApp');
+                firebaseDb = firebase.database(firebase.app('studyApp'));
+                
+                // Generate or retrieve user ID
+                let userId = localStorage.getItem('userId');
+                if (!userId) {
+                    userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem('userId', userId);
+                }
+                currentUserId = userId;
+                firebaseConnected = true;
+                updateSyncStatus();
+            } catch (e) {
+                console.error('Firebase initialization failed:', e);
+                firebaseConnected = false;
+            }
+        }
+
+        function updateSyncStatus() {
+            const statusText = document.getElementById('syncStatusText');
+            if (statusText) {
+                if (firebaseConnected) {
+                    statusText.textContent = '✓ Connected';
+                    statusText.style.color = '#4a7c4a';
+                } else {
+                    statusText.textContent = '✗ Not Connected';
+                    statusText.style.color = '#8b4545';
+                }
+            }
+        }
+
+        async function syncToCloud() {
+            if (!firebaseConnected || !firebaseDb) return;
+
+            try {
+                const data = {
+                    cards: app.cards,
+                    parentCategories: app.parentCategories,
+                    subcategories: app.subcategories,
+                    cardStats: app.cardStats,
+                    lastSync: new Date().toISOString()
+                };
+
+                await firebaseDb.ref('users/' + currentUserId + '/data').set(data);
+                console.log('Data synced to cloud successfully');
+            } catch (e) {
+                console.error('Error syncing to cloud:', e);
+            }
+        }
+
+        async function syncFromCloud() {
+            if (!firebaseConnected || !firebaseDb) return;
+
+            try {
+                const snapshot = await firebaseDb.ref('users/' + currentUserId + '/data').get();
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    app.cards = data.cards || [];
+                    app.parentCategories = data.parentCategories || app.createDefaultParentCategories();
+                    app.subcategories = data.subcategories || app.createDefaultSubcategories();
+                    app.cardStats = data.cardStats || {};
+                    app.saveData();
+                    console.log('Data synced from cloud successfully');
+                    return true;
+                }
+            } catch (e) {
+                console.error('Error syncing from cloud:', e);
+            }
+            return false;
+        }
+
+        function openSettingsModal() {
+            document.getElementById('settingsModal').classList.add('show');
+            updateSyncStatus();
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.remove('show');
+        }
+
+        function toggleCloudSync() {
+            const setupDiv = document.getElementById('firebaseSetup');
+            const btn = document.getElementById('cloudSyncBtn');
+            
+            if (setupDiv.style.display === 'none') {
+                setupDiv.style.display = 'block';
+                btn.textContent = 'Cancel';
+            } else {
+                setupDiv.style.display = 'none';
+                btn.textContent = 'Enable Cloud Sync';
+            }
+        }
+
+        function saveFirebaseConfig() {
+            const apiKey = document.getElementById('firebaseApiKey').value.trim();
+            const dbUrl = document.getElementById('firebaseDbUrl').value.trim();
+            const projectId = document.getElementById('firebaseProjectId').value.trim();
+
+            if (!apiKey || !dbUrl || !projectId) {
+                alert('Please fill in all Firebase configuration fields');
+                return;
+            }
+
+            const config = { apiKey, databaseUrl: dbUrl, projectId };
+            localStorage.setItem('firebaseConfig', JSON.stringify(config));
+            alert('Firebase configuration saved! Please refresh the page to activate cloud sync.');
+        }
+
+        async function testFirebaseConnection() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Testing...';
+            btn.disabled = true;
+
+            try {
+                const apiKey = document.getElementById('firebaseApiKey').value.trim();
+                const dbUrl = document.getElementById('firebaseDbUrl').value.trim();
+                const projectId = document.getElementById('firebaseProjectId').value.trim();
+
+                if (!apiKey || !dbUrl || !projectId) {
+                    alert('Please fill in all configuration fields first');
+                    return;
+                }
+
+                const firebaseConfig = { apiKey, projectId, databaseURL: dbUrl, appId: "1:1:web:1" };
+                const testApp = firebase.initializeApp(firebaseConfig, 'testApp');
+                const testDb = firebase.database(testApp);
+                
+                await testDb.ref('test').set({ timestamp: new Date().toISOString() });
+                await testDb.ref('test').remove();
+                
+                firebase.app('testApp').delete();
+                alert('✓ Connection successful! Your Firebase configuration is valid.');
+            } catch (e) {
+                alert('✗ Connection failed: ' + e.message);
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function exportData() {
+            const data = {
+                cards: app.cards,
+                parentCategories: app.parentCategories,
+                subcategories: app.subcategories,
+                cardStats: app.cardStats,
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'flashcards_backup_' + new Date().toISOString().split('T')[0] + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            alert('Data exported successfully!');
+        }
+
+        function importDataPrompt() {
+            document.getElementById('importFileInput').click();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (confirm('This will replace all your current data. Continue?')) {
+                        app.cards = data.cards || [];
+                        app.parentCategories = data.parentCategories || app.createDefaultParentCategories();
+                        app.subcategories = data.subcategories || app.createDefaultSubcategories();
+                        app.cardStats = data.cardStats || {};
+                        app.saveData();
+                        updateCategoriesNav();
+                        alert('Data imported successfully!');
+                    }
+                } catch (e) {
+                    alert('Error importing data: Invalid JSON file');
+                    console.error(e);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function setCardType(type) {
+            currentCardType = type;
+            const qaDiv = document.getElementById('qaCardType');
+            const mcDiv = document.getElementById('mcCardType');
+            const qaBtn = document.getElementById('cardTypeQA');
+            const mcBtn = document.getElementById('cardTypeMC');
+
+            if (type === 'qa') {
+                qaDiv.style.display = 'block';
+                mcDiv.style.display = 'none';
+                qaBtn.style.background = '#5a7a8c';
+                mcBtn.style.background = '#3a3a3a';
+            } else {
+                qaDiv.style.display = 'none';
+                mcDiv.style.display = 'block';
+                qaBtn.style.background = '#3a3a3a';
+                mcBtn.style.background = '#5a7a8c';
+            }
+        }
+
         class StudyApp {
             constructor() {
                 this.loadData();
@@ -268,9 +601,10 @@
                 }
             }
 
-            createCard(front, back, parentCategoryId, subcategoryId) {
+            createCard(front, back, parentCategoryId, subcategoryId, type = 'qa', options = null) {
                 const card = {
                     id: Date.now() + Math.random(),
+                    type: type,
                     front,
                     back,
                     parentCategory: parentCategoryId,
@@ -286,6 +620,14 @@
                     lastReviewTime: null,
                     confidenceLevel: 0
                 };
+
+                // For multiple choice cards, store options
+                if (type === 'mc' && options) {
+                    card.options = options.options;
+                    card.correctAnswer = options.correctAnswer;
+                    card.explanation = options.explanation;
+                }
+
                 this.cards.push(card);
                 this.cardStats[card.id] = {
                     attempts: [],
@@ -294,6 +636,12 @@
                     confidenceHistory: []
                 };
                 this.saveData();
+                
+                // Sync to cloud if connected
+                if (firebaseConnected) {
+                    syncToCloud();
+                }
+
                 return card;
             }
 
@@ -353,6 +701,11 @@
                 card.nextReview = nextDate.toISOString();
 
                 this.saveData();
+                
+                // Sync to cloud if connected
+                if (firebaseConnected) {
+                    syncToCloud();
+                }
             }
 
             deleteCard(cardId) {
@@ -360,6 +713,12 @@
                 this.cards = this.cards.filter(c => c.id !== cardId);
                 delete this.cardStats[cardId];
                 this.saveData();
+                
+                // Sync to cloud if connected
+                if (firebaseConnected) {
+                    syncToCloud();
+                }
+                
                 console.log('Card deleted. Remaining cards:', this.cards.length);
             }
 
@@ -465,6 +824,7 @@
         let cardsForLearn = [];
         let currentStudyMode = 'all';
         let shownCardIds = new Set();
+        let currentMCAnswer = null;
 
         function setStudyMode(mode) {
             currentStudyMode = mode;
@@ -623,17 +983,47 @@
         }
 
         function createCard() {
-            const front = document.getElementById('cardFront').value.trim();
-            const back = document.getElementById('cardBack').value.trim();
             const parentId = document.getElementById('parentCategoryInput').value.trim();
             const subId = document.getElementById('subcategoryInput').value.trim();
 
-            if (!front || !back || !parentId || !subId) {
-                alert('Please fill in all fields');
+            if (!parentId || !subId) {
+                alert('Please fill in all required fields');
                 return;
             }
 
-            app.createCard(front, back, parentId, subId);
+            if (currentCardType === 'qa') {
+                const front = document.getElementById('cardFront').value.trim();
+                const back = document.getElementById('cardBack').value.trim();
+
+                if (!front || !back) {
+                    alert('Please fill in question and answer fields');
+                    return;
+                }
+
+                app.createCard(front, back, parentId, subId, 'qa');
+            } else if (currentCardType === 'mc') {
+                const question = document.getElementById('mcQuestion').value.trim();
+                const optionA = document.getElementById('mcOptionA').value.trim();
+                const optionB = document.getElementById('mcOptionB').value.trim();
+                const optionC = document.getElementById('mcOptionC').value.trim();
+                const optionD = document.getElementById('mcOptionD').value.trim();
+                const correctAnswer = document.getElementById('mcCorrectAnswer').value.trim();
+                const explanation = document.getElementById('mcExplanation').value.trim();
+
+                if (!question || !optionA || !optionB || !optionC || !optionD || !correctAnswer) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                const options = {
+                    options: [optionA, optionB, optionC, optionD],
+                    correctAnswer: correctAnswer,
+                    explanation: explanation
+                };
+
+                app.createCard(question, 'Multiple Choice Card', parentId, subId, 'mc', options);
+            }
+
             clearCardForm();
             updateCategoriesNav();
             alert('Card created successfully!');
@@ -642,8 +1032,16 @@
         function clearCardForm() {
             document.getElementById('cardFront').value = '';
             document.getElementById('cardBack').value = '';
+            document.getElementById('mcQuestion').value = '';
+            document.getElementById('mcOptionA').value = '';
+            document.getElementById('mcOptionB').value = '';
+            document.getElementById('mcOptionC').value = '';
+            document.getElementById('mcOptionD').value = '';
+            document.getElementById('mcCorrectAnswer').value = '';
+            document.getElementById('mcExplanation').value = '';
             document.getElementById('parentCategoryInput').value = '';
             document.getElementById('subcategoryInput').value = '';
+            setCardType('qa');
         }
 
         function updateCategoriesNav() {
@@ -733,19 +1131,36 @@
             cardStartTime = Date.now();
             shownCardIds.add(card.id);
 
-            container.innerHTML = `
-                <div style="max-width: 600px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <div style="color: var(--accent-gray); font-size: 0.9rem;">
-                                ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
+            let cardContent = '';
+
+            if (card.type === 'mc') {
+                // Multiple choice card
+                const options = card.options || [];
+                const correctAnswer = card.correctAnswer || 'A';
+                cardContent = `
+                    <div class="study-card" style="min-height: 450px; display: flex; flex-direction: column; justify-content: space-between; padding: 25px; margin-bottom: 20px; overflow-y: auto;">
+                        <div style="overflow-y: auto; max-height: 250px;">
+                            <div style="color: var(--accent-gray); margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Question:</div>
+                            <div id="cardFrontContent" style="font-size: 0.9rem; text-align: left; margin: 10px 0; line-height: 1.6; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">
+                                ${card.front}
                             </div>
-                            <button id="editBtn_${card.id}" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Edit</button>
-                            <button id="deleteBtn_${card.id}" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Delete</button>
+                        </div>
+                        
+                        <div style="margin-top: 15px;">
+                            <div style="color: var(--accent-gray); margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Select your answer:</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                ${['A', 'B', 'C', 'D'].map((letter, idx) => `
+                                    <button onclick="selectMCAnswer('${letter}')" id="mcOption_${letter}" style="background: #3a3a3a; border: 2px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; text-align: left; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;">
+                                        <strong>${letter}.</strong> ${options[idx] || ''}
+                                    </button>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
-
+                `;
+            } else {
+                // Regular Q&A card
+                cardContent = `
                     <div class="study-card" style="min-height: 450px; display: flex; flex-direction: column; justify-content: space-between; padding: 25px; margin-bottom: 20px; overflow-y: auto;">
                         <div style="overflow-y: auto; max-height: 250px;">
                             <div style="color: var(--accent-gray); margin-bottom: 12px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Question:</div>
@@ -759,6 +1174,23 @@
                             <textarea id="userAnswerInput" placeholder="Type your answer here..." style="background: #3a3a3a; border: 1px solid #5a7a8c; color: var(--text-light); padding: 12px; border-radius: 4px; width: 100%; min-height: 70px; max-height: 120px; resize: vertical; font-size: 0.9rem;"></textarea>
                         </div>
                     </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div style="max-width: 600px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <p style="color: var(--accent-gray); margin: 0;">Card ${currentCardIndexForLearn + 1} of ${cardsForLearn.length}</p>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <div style="color: var(--accent-gray); font-size: 0.9rem;">
+                                ${card.streak > 0 ? ` Streak: ${card.streak}` : ''}
+                            </div>
+                            <button id="editBtn_${card.id}" class="btn secondary" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Edit</button>
+                            <button id="deleteBtn_${card.id}" class="btn danger" style="padding: 6px 12px; font-size: 0.85rem; position: relative; z-index: 10;">Delete</button>
+                        </div>
+                    </div>
+
+                    ${cardContent}
 
                     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                         <button onclick="previousLearnCard()" class="btn secondary" style="flex: 1;" ${currentCardIndexForLearn === 0 ? 'disabled' : ''}>← Previous</button>
@@ -798,6 +1230,25 @@
             }, 50);
         }
 
+        function selectMCAnswer(letter) {
+            // Store the selected answer globally
+            currentMCAnswer = letter;
+            
+            // Highlight selected option
+            ['A', 'B', 'C', 'D'].forEach(l => {
+                const btn = document.getElementById('mcOption_' + l);
+                if (btn) {
+                    if (l === letter) {
+                        btn.style.borderColor = '#5a7a8c';
+                        btn.style.background = '#2d2d2d';
+                    } else {
+                        btn.style.borderColor = '#5a7a8c';
+                        btn.style.background = '#3a3a3a';
+                    }
+                }
+            });
+        }
+
         function reviewWrongCards() {
             const wrongCards = cardsForLearn.filter(c => c.timesWrong > 0);
             cardsForLearn = wrongCards;
@@ -807,6 +1258,7 @@
         }
 
         function skipCard() {
+            currentMCAnswer = null;
             currentCardIndexForLearn++;
             displayCurrentCard();
         }
@@ -819,11 +1271,46 @@
             }
 
             const userAnswerEl = document.getElementById('userAnswerInput');
-            const userAnswer = userAnswerEl ? userAnswerEl.value : '';
-            const displayAnswer = userAnswer || '(No answer provided)';
+            let displayAnswer = '';
+
+            if (card.type === 'mc') {
+                if (currentMCAnswer) {
+                    const answerIdx = currentMCAnswer.charCodeAt(0) - 65;
+                    displayAnswer = currentMCAnswer + '. ' + card.options[answerIdx];
+                } else {
+                    displayAnswer = '(No answer selected)';
+                }
+            } else {
+                displayAnswer = userAnswerEl ? userAnswerEl.value : '(No answer provided)';
+            }
             
             document.getElementById('userAnswerDisplay').textContent = displayAnswer;
-            document.getElementById('feedbackCardContent').innerHTML = card.back;
+            
+            // Build feedback content
+            let feedbackContent = '';
+            if (card.type === 'mc') {
+                const correctIdx = card.correctAnswer.charCodeAt(0) - 65;
+                feedbackContent = `
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: 600; margin-bottom: 10px; color: #5a7a8c;">Correct Answer:</div>
+                        <div style="background: #2d2d2d; padding: 10px; border-radius: 4px; border-left: 4px solid #4a7c4a; margin-bottom: 10px;">
+                            <strong>${card.correctAnswer}.</strong> ${card.options[correctIdx]}
+                        </div>
+                    </div>
+                    ${card.explanation ? `
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 10px;">Explanation:</div>
+                            <div style="background: #2d2d2d; padding: 10px; border-radius: 4px;">
+                                ${card.explanation}
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+            } else {
+                feedbackContent = card.back;
+            }
+
+            document.getElementById('feedbackCardContent').innerHTML = feedbackContent;
             document.getElementById('answerFeedbackModal').classList.add('show');
 
             setTimeout(() => {
@@ -837,12 +1324,14 @@
             const timeMs = Date.now() - cardStartTime;
             app.recordAttempt(currentCardId, confidence, timeMs);
             document.getElementById('answerFeedbackModal').classList.remove('show');
+            currentMCAnswer = null;
             currentCardIndexForLearn++;
             displayCurrentCard();
         }
 
         function previousLearnCard() {
             if (currentCardIndexForLearn > 0) {
+                currentMCAnswer = null;
                 currentCardIndexForLearn--;
                 displayCurrentCard();
             }
@@ -1078,6 +1567,9 @@
             if (e.target.id === 'answerFeedbackModal') {
                 document.getElementById('answerFeedbackModal').classList.remove('show');
             }
+            if (e.target.id === 'settingsModal') {
+                closeSettingsModal();
+            }
         });
 
         document.addEventListener('keydown', (e) => {
@@ -1114,6 +1606,7 @@
         function initApp() {
             try {
                 console.log('Initializing app...');
+                initializeFirebase();
                 updateCategoriesNav();
                 updateParentCategoryDropdown();
 

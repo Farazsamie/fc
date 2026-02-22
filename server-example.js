@@ -13,7 +13,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const API_KEY = process.env.API_KEY || 'your-secret-api-key-here';
+const API_KEY = process.env.API_KEY || 'your-api-key';
 
 // In-memory database (replace with real database in production)
 const dataStore = {};

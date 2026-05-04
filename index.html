@@ -24,7 +24,8 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
-    <script src="cloud-sync.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="cloud-sync-firebase.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -257,28 +258,34 @@
             <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
                 <div style="font-weight: 600; margin-bottom: 10px;">☁️ Cloud Sync (Optional)</div>
                 <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
-                    Enable cloud sync to automatically save your flashcards across all devices. Set up a backend service to enable this feature.
+                    Enable cloud sync to automatically save your flashcards across all devices using Firebase (FREE).
                 </p>
                 
                 <div id="cloudSyncStatus" style="margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
                     <div style="color: var(--accent-gray); font-size: 0.85rem;">Status: <span id="syncStatusText">Not Connected</span></div>
                 </div>
                 
-                <button onclick="toggleCloudSyncConfig()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Configure Cloud Sync</button>
+                <button onclick="toggleFirebaseSetup()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Configure Firebase Cloud Sync</button>
                 
-                <div id="cloudSyncSetup" style="display: none;">
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label style="font-size: 0.9rem;">Backend URL</label>
-                        <input type="text" id="backendUrl" placeholder="https://your-backend.com" style="font-size: 0.85rem;">
-                        <small style="color: var(--accent-gray);">Example: https://api.flashcards.app</small>
+                <div id="firebaseSetup" style="display: none;">
+                    <div style="background: #1a1a1a; padding: 12px; border-radius: 4px; margin-bottom: 10px; font-size: 0.8rem; color: var(--accent-gray);">
+                        <strong>Setup Instructions:</strong>
+                        <ol style="margin: 8px 0; padding-left: 20px;">
+                            <li>Go to <a href="https://console.firebase.google.com" target="_blank" style="color: #5a7a8c;">Firebase Console</a></li>
+                            <li>Create project → Enable Realtime Database & Anonymous Auth</li>
+                            <li>Copy your Project ID from Project Settings</li>
+                            <li>Paste it below</li>
+                        </ol>
                     </div>
+                    
                     <div class="form-group" style="margin-bottom: 10px;">
-                        <label style="font-size: 0.9rem;">API Key</label>
-                        <input type="password" id="backendApiKey" placeholder="Your API key for the backend service" style="font-size: 0.85rem;">
+                        <label style="font-size: 0.9rem;">Firebase Project ID</label>
+                        <input type="text" id="firebaseProjectId" placeholder="my-flashcards" style="font-size: 0.85rem;">
+                        <small style="color: var(--accent-gray);">Find this in Firebase Console → Project Settings</small>
                     </div>
-                    <button onclick="saveCloudSyncConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Save Configuration</button>
-                    <button onclick="testCloudSyncConnection()" class="btn secondary" style="width: 100%; margin-bottom: 8px;">Test Connection</button>
-                    <button onclick="disableCloudSync()" class="btn" style="background: #6a4a4a; width: 100%;">Disable Cloud Sync</button>
+                    
+                    <button onclick="initializeFirebaseFromConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Initialize Cloud Sync</button>
+                    <button onclick="disableCloudSyncFirebase()" class="btn" style="background: #6a4a4a; width: 100%;">Disable Cloud Sync</button>
                 </div>
 
                 <div id="cloudSyncStatus2" style="margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px; display: none;">
@@ -288,6 +295,7 @@
                     <div style="color: var(--accent-gray); font-size: 0.85rem; margin-top: 5px;">
                         <strong>Last Sync:</strong> <span id="lastSyncTime">Never</span>
                     </div>
+                    <button onclick="cloudSync.forceSync()" class="btn secondary" style="width: 100%; margin-top: 10px;">Sync Now</button>
                 </div>
             </div>
 
@@ -310,98 +318,77 @@
 
         function openSettingsModal() {
             document.getElementById('settingsModal').classList.add('show');
-            updateCloudSyncUI();
+            updateFirebaseCloudSyncUI();
         }
 
         function closeSettingsModal() {
             document.getElementById('settingsModal').classList.remove('show');
         }
 
-        function updateCloudSyncUI() {
-            if (cloudSync && cloudSync.syncEnabled) {
-                document.getElementById('cloudSyncSetup').style.display = 'block';
+        function updateFirebaseCloudSyncUI() {
+            if (cloudSync && cloudSync.firebaseConfigured) {
+                document.getElementById('firebaseSetup').style.display = 'none';
                 document.getElementById('cloudSyncStatus2').style.display = 'block';
-                document.getElementById('cloudSyncBtn').textContent = 'Update Configuration';
+                document.getElementById('cloudSyncBtn').textContent = 'Update Cloud Sync';
                 document.getElementById('displayUserId').textContent = cloudSync.userId;
                 document.getElementById('lastSyncTime').textContent = cloudSync.getStatus().lastSync || 'Never';
             } else {
-                document.getElementById('cloudSyncSetup').style.display = 'none';
+                document.getElementById('firebaseSetup').style.display = 'none';
                 document.getElementById('cloudSyncStatus2').style.display = 'none';
-                document.getElementById('cloudSyncBtn').textContent = 'Configure Cloud Sync';
+                document.getElementById('cloudSyncBtn').textContent = 'Configure Firebase Cloud Sync';
             }
         }
 
-        function toggleCloudSyncConfig() {
-            const setupDiv = document.getElementById('cloudSyncSetup');
+        function toggleFirebaseSetup() {
+            const setupDiv = document.getElementById('firebaseSetup');
             if (setupDiv.style.display === 'none') {
                 setupDiv.style.display = 'block';
-                // Load existing config if any
-                if (cloudSync && cloudSync.backendUrl) {
-                    document.getElementById('backendUrl').value = cloudSync.backendUrl;
-                    document.getElementById('backendApiKey').value = cloudSync.apiKey;
-                }
             } else {
                 setupDiv.style.display = 'none';
             }
         }
 
-        function saveCloudSyncConfig() {
-            const backendUrl = document.getElementById('backendUrl').value.trim();
-            const apiKey = document.getElementById('backendApiKey').value.trim();
-
-            if (!backendUrl || !apiKey) {
-                alert('Please fill in both Backend URL and API Key');
+        async function initializeFirebaseFromConfig() {
+            const projectId = document.getElementById('firebaseProjectId').value.trim();
+            
+            if (!projectId) {
+                alert('Please enter your Firebase Project ID');
                 return;
             }
-
-            if (cloudSync) {
-                cloudSync.enableSync(backendUrl, apiKey);
-                alert('✓ Cloud sync configuration saved! Your data will now sync automatically.');
-                updateCloudSyncUI();
-            }
-        }
-
-        async function testCloudSyncConnection() {
-            const backendUrl = document.getElementById('backendUrl').value.trim();
-            const apiKey = document.getElementById('backendApiKey').value.trim();
-
-            if (!backendUrl || !apiKey) {
-                alert('Please fill in both Backend URL and API Key');
-                return;
-            }
-
+            
             const btn = event.target;
             const originalText = btn.textContent;
-            btn.textContent = 'Testing...';
+            btn.textContent = 'Initializing...';
             btn.disabled = true;
-
-            try {
-                const response = await fetch(backendUrl + '/api/sync?userId=test', {
-                    method: 'GET',
-                    headers: {
-                        'X-API-Key': apiKey
-                    }
-                });
-
-                if (response.ok) {
-                    alert('✓ Connection successful! Backend is reachable.');
-                } else {
-                    alert('✗ Connection failed: Server returned ' + response.status);
-                }
-            } catch (e) {
-                alert('✗ Connection failed: ' + e.message + '\n\nMake sure your Backend URL is correct and the server is running.');
-            } finally {
-                btn.textContent = originalText;
-                btn.disabled = false;
+            
+            const config = {
+                apiKey: "AIzaSyANJI4QHCEVhKCc3qM3NZzOk3mRfq_d1p8",
+                authDomain: projectId + ".firebaseapp.com",
+                databaseURL: "https://" + projectId + "-default-rtdb.firebaseio.com",
+                projectId: projectId,
+                storageBucket: projectId + ".appspot.com",
+                messagingSenderId: "",
+                appId: ""
+            };
+            
+            const success = await cloudSync.initializeFirebase(config);
+            
+            if (success) {
+                await cloudSync.forceSync();
+                alert('✓ Cloud sync enabled! Your data will now sync across devices.');
+                updateFirebaseCloudSyncUI();
             }
+            
+            btn.textContent = originalText;
+            btn.disabled = false;
         }
 
-        function disableCloudSync() {
+        function disableCloudSyncFirebase() {
             if (confirm('Disable cloud sync? Your local data will be preserved.')) {
                 if (cloudSync) {
                     cloudSync.disableSync();
                 }
-                updateCloudSyncUI();
+                updateFirebaseCloudSyncUI();
                 alert('Cloud sync disabled');
             }
         }

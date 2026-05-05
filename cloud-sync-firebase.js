@@ -1,19 +1,35 @@
 /**
- * Firebase Cloud Sync Module for Flashcard App
- * Uses Google Firebase Realtime Database (FREE)
- * No backend server needed!
+ * ========================================
+ * FIREBASE CLOUD SYNC MODULE
+ * ========================================
+ * 
+ * Syncs flashcards across all devices using Firebase Realtime Database
+ * - Automatic sync every 30 seconds
+ * - Works offline (syncs when online)
+ * - 100% FREE (Firebase free tier)
+ * 
+ * SETUP:
+ * 1. Go to https://console.firebase.google.com/
+ * 2. Create project → Enable Realtime Database → Enable Anonymous Auth
+ * 3. Copy Project ID from Project Settings
+ * 4. Enter Project ID in app Settings → "Configure Firebase Cloud Sync"
+ * 5. Done! Your flashcards now sync across all devices
+ * ========================================
  */
 
 class FirebaseCloudSync {
     constructor() {
+        // Create unique user ID for this device
         this.userId = this.getOrCreateUserId();
-        this.syncInterval = 30000; // Sync every 30 seconds
+        
+        // Sync settings
+        this.syncInterval = 30000; // Auto-sync every 30 seconds
         this.lastSyncTime = 0;
         this.isSyncing = false;
         this.firebaseConfigured = false;
         this.db = null;
         
-        // Load saved config from localStorage
+        // Try to load previously saved Firebase config
         const savedConfig = localStorage.getItem('firebaseConfig');
         if (savedConfig) {
             this.firebaseConfig = JSON.parse(savedConfig);
@@ -23,9 +39,14 @@ class FirebaseCloudSync {
         this.initSync();
     }
 
+    /**
+     * Create a unique ID for this device/user
+     * Allows identifying which device made changes
+     */
     getOrCreateUserId() {
         let userId = localStorage.getItem('userId');
         if (!userId) {
+            // Generate unique ID: timestamp + random string
             userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
             localStorage.setItem('userId', userId);
         }
@@ -33,55 +54,71 @@ class FirebaseCloudSync {
     }
 
     /**
-     * Initialize Firebase with config
+     * Initialize Firebase with project configuration
+     * Called when user enters their Firebase Project ID in Settings
      */
     async initializeFirebase(config) {
         try {
-            // Initialize Firebase
+            // Initialize Firebase app
             const app = firebase.initializeApp(config);
+            // Get reference to Realtime Database
             this.db = firebase.database(app);
             this.firebaseConfig = config;
             this.firebaseConfigured = true;
             
-            // Save config to localStorage
+            // Save config so it persists across page reloads
             localStorage.setItem('firebaseConfig', JSON.stringify(config));
             
             console.log('✓ Firebase initialized successfully');
+            console.log('✓ Flashcards will now sync across all devices');
             return true;
         } catch (error) {
             console.error('Firebase initialization error:', error);
-            alert('Error: ' + error.message);
+            alert('Error setting up Firebase: ' + error.message);
             return false;
         }
     }
 
+    /**
+     * Start the auto-sync process
+     * - Syncs on page load
+     * - Syncs every 30 seconds
+     * - Syncs when tab becomes visible (user returns to app)
+     */
     initSync() {
-        // Sync on page load if Firebase is configured
+        // Sync on page load if Firebase is already configured
         if (this.firebaseConfigured && this.db) {
             this.syncFromCloud();
         }
 
-        // Auto-sync periodically
+        // Auto-sync periodically (every 30 seconds)
         setInterval(() => {
             if (this.firebaseConfigured && this.db && !this.isSyncing) {
                 this.syncToCloud();
             }
         }, this.syncInterval);
 
-        // Sync on page visibility change
+        // Sync when user returns to the app tab
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden && this.firebaseConfigured && this.db) {
                 this.syncFromCloud();
             }
         });
 
-        console.log('Cloud Sync initialized. UserId:', this.userId);
+        console.log('✓ Sync system initialized. Device ID:', this.userId);
     }
 
     /**
-     * Sync data to Firebase
+     * Upload local flashcard data to Firebase
+     * Called automatically every 30 seconds
+     * 
+     * Flow:
+     * 1. Get local data from browser storage
+     * 2. Send to Firebase under this user's ID
+     * 3. Mark as synced if successful
      */
     async syncToCloud() {
+        // Don't sync if Firebase not configured or already syncing
         if (!this.firebaseConfigured || !this.db || this.isSyncing) {
             return;
         }
@@ -89,26 +126,30 @@ class FirebaseCloudSync {
         this.isSyncing = true;
 
         try {
+            // Get all flashcard data from local storage
             const localData = localStorage.getItem('studyAppData');
             if (!localData) {
+                // No data to sync
                 this.isSyncing = false;
                 return;
             }
 
+            // Prepare data package to send to Firebase
             const data = {
                 userId: this.userId,
                 timestamp: new Date().toISOString(),
                 data: JSON.parse(localData)
             };
 
-            // Save to Firebase under user's ID
+            // Upload to Firebase at path: users/{userId}
             await this.db.ref('users/' + this.userId).set(data);
             
+            // Record successful sync time
             localStorage.setItem('lastCloudSync', new Date().toISOString());
-            console.log('✓ Synced to Firebase successfully');
+            console.log('✓ Uploaded to Firebase');
             this.updateSyncStatus(true);
         } catch (e) {
-            console.error('Error syncing to Firebase:', e);
+            console.error('Error uploading to Firebase:', e);
             this.updateSyncStatus(false);
         } finally {
             this.isSyncing = false;
@@ -116,30 +157,40 @@ class FirebaseCloudSync {
     }
 
     /**
-     * Sync data from Firebase
+     * Download flashcard data from Firebase
+     * Called when app starts and every 30 seconds
+     * 
+     * Flow:
+     * 1. Check Firebase for newer data
+     * 2. Compare timestamps with local data
+     * 3. Use cloud data if it's newer
+     * 4. Reload app with updated data
      */
     async syncFromCloud() {
+        // Don't sync if Firebase not configured
         if (!this.firebaseConfigured || !this.db) {
             return;
         }
 
         try {
+            // Fetch data from Firebase for this user
             const snapshot = await this.db.ref('users/' + this.userId).once('value');
             const result = snapshot.val();
             
             if (result && result.data) {
+                // Compare cloud timestamp with local timestamp
                 const cloudTimestamp = new Date(result.timestamp).getTime();
                 const localDataStr = localStorage.getItem('studyAppData');
                 const localTimestamp = localDataStr ? new Date(localStorage.getItem('lastLocalSave')).getTime() : 0;
 
-                // Use cloud data if it's newer
+                // Use cloud data if it's newer than local data
                 if (cloudTimestamp > localTimestamp) {
                     localStorage.setItem('studyAppData', JSON.stringify(result.data));
                     localStorage.setItem('lastCloudSync', new Date().toISOString());
-                    console.log('✓ Synced from Firebase successfully');
+                    console.log('✓ Downloaded from Firebase');
                     this.updateSyncStatus(true);
                     
-                    // Reload the app if it's already initialized
+                    // Reload the app with new data
                     if (typeof app !== 'undefined') {
                         app.loadData();
                         updateCategoriesNav();
@@ -147,13 +198,13 @@ class FirebaseCloudSync {
                 }
             }
         } catch (e) {
-            console.error('Error syncing from Firebase:', e);
+            console.error('Error downloading from Firebase:', e);
             this.updateSyncStatus(false);
         }
     }
 
     /**
-     * Update sync status UI
+     * Update the UI sync status indicator (shows Connected/Not Connected)
      */
     updateSyncStatus(success) {
         const statusEl = document.getElementById('syncStatusText');
@@ -169,7 +220,8 @@ class FirebaseCloudSync {
     }
 
     /**
-     * Get sync status info
+     * Get current sync status information
+     * Used to display in Settings
      */
     getStatus() {
         return {
@@ -182,72 +234,30 @@ class FirebaseCloudSync {
     }
 
     /**
-     * Force immediate sync
+     * Manually trigger a full sync (upload + download)
+     * Called when user clicks "Sync Now" button in Settings
      */
     async forceSync() {
-        console.log('Force syncing...');
+        console.log('⏳ Manual sync triggered...');
         await this.syncFromCloud();
         await this.syncToCloud();
     }
 
     /**
-     * Export data as JSON with full metadata
-     */
-    exportFullBackup() {
-        const localData = localStorage.getItem('studyAppData');
-        const backup = {
-            version: '1.0',
-            exportDate: new Date().toISOString(),
-            userId: this.userId,
-            syncStatus: this.getStatus(),
-            data: localData ? JSON.parse(localData) : null
-        };
-
-        const dataStr = JSON.stringify(backup, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        const url = URL.createObjectURL(dataBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'flashcards_backup_' + new Date().toISOString().split('T')[0] + '.json';
-        link.click();
-        URL.revokeObjectURL(url);
-    }
-
-    /**
-     * Restore from backup
-     */
-    restoreFromBackup(jsonData) {
-        try {
-            const backup = JSON.parse(jsonData);
-            if (backup.data) {
-                localStorage.setItem('studyAppData', JSON.stringify(backup.data));
-                localStorage.setItem('lastLocalSave', new Date().toISOString());
-                console.log('✓ Backup restored successfully');
-
-                // Reload app if initialized
-                if (typeof app !== 'undefined') {
-                    app.loadData();
-                    updateCategoriesNav();
-                }
-                return true;
-            }
-        } catch (e) {
-            console.error('Error restoring backup:', e);
-        }
-        return false;
-    }
-
-    /**
      * Disable Firebase sync
+     * User data remains locally - can be re-enabled anytime
      */
     disableSync() {
         this.firebaseConfigured = false;
         localStorage.removeItem('firebaseConfig');
-        console.log('Firebase sync disabled');
+        console.log('Cloud sync disabled');
     }
 }
 
-// Initialize Firebase Cloud Sync on page load
+/**
+ * Initialize Firebase Cloud Sync on page load
+ * This runs automatically when the page opens
+ */
 let cloudSync = null;
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {

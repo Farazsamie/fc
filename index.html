@@ -1,4 +1,36 @@
 <!DOCTYPE html>
+<!--
+  ========================================
+  FLASHCARD APP WITH FIREBASE CLOUD SYNC
+  ========================================
+  
+  FEATURES:
+  - Create & study flashcards
+  - Auto-syncs across all devices (laptop, phone, tablet)
+  - Works offline, syncs when online
+  - Completely free (Firebase)
+  
+  QUICK SETUP:
+  1. Click Settings ⚙️ (top right)
+  2. Click "Configure Firebase Sync"
+  3. Go to https://console.firebase.google.com/
+  4. Create project → Enable Realtime Database → Enable Anonymous Auth
+  5. Copy Project ID from Project Settings
+  6. Paste it in the app
+  7. Done! Your flashcards now sync across all devices
+  
+  FIREBASE SYNC:
+  - Syncs automatically every 30 seconds
+  - When you create/edit a card, it uploads to Firebase
+  - Other devices download changes automatically
+  - Completely secure - only you can access your data
+  
+  FILES:
+  - index.html: Main app (you are here)
+  - cloud-sync-firebase.js: Firebase integration (see for detailed comments)
+  - styles.css: Styling
+  ========================================
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -256,24 +288,25 @@
             <h3>Settings</h3>
             
             <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
-                <div style="font-weight: 600; margin-bottom: 10px;">☁️ Cloud Sync (Optional)</div>
+                <div style="font-weight: 600; margin-bottom: 10px;">☁️ Firebase Cloud Sync</div>
                 <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
-                    Enable cloud sync to automatically save your flashcards across all devices using Firebase (FREE).
+                    Sync your flashcards across all devices (phone, laptop, tablet) automatically.
                 </p>
                 
                 <div id="cloudSyncStatus" style="margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
                     <div style="color: var(--accent-gray); font-size: 0.85rem;">Status: <span id="syncStatusText">Not Connected</span></div>
                 </div>
                 
-                <button onclick="toggleFirebaseSetup()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Configure Firebase Cloud Sync</button>
+                <button onclick="toggleFirebaseSetup()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Configure Firebase Sync</button>
                 
                 <div id="firebaseSetup" style="display: none;">
                     <div style="background: #1a1a1a; padding: 12px; border-radius: 4px; margin-bottom: 10px; font-size: 0.8rem; color: var(--accent-gray);">
-                        <strong>Setup Instructions:</strong>
+                        <strong>Setup (5 min):</strong>
                         <ol style="margin: 8px 0; padding-left: 20px;">
                             <li>Go to <a href="https://console.firebase.google.com" target="_blank" style="color: #5a7a8c;">Firebase Console</a></li>
-                            <li>Create project → Enable Realtime Database & Anonymous Auth</li>
-                            <li>Copy your Project ID from Project Settings</li>
+                            <li>Create project → Enable Realtime Database (test mode)</li>
+                            <li>Enable Anonymous Authentication</li>
+                            <li>Copy Project ID from Project Settings</li>
                             <li>Paste it below</li>
                         </ol>
                     </div>
@@ -281,16 +314,16 @@
                     <div class="form-group" style="margin-bottom: 10px;">
                         <label style="font-size: 0.9rem;">Firebase Project ID</label>
                         <input type="text" id="firebaseProjectId" placeholder="my-flashcards" style="font-size: 0.85rem;">
-                        <small style="color: var(--accent-gray);">Find this in Firebase Console → Project Settings</small>
+                        <small style="color: var(--accent-gray);">Example: my-flashcards (from Firebase Console Project Settings)</small>
                     </div>
                     
-                    <button onclick="initializeFirebaseFromConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Initialize Cloud Sync</button>
+                    <button onclick="initializeFirebaseFromConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Enable Cloud Sync</button>
                     <button onclick="disableCloudSyncFirebase()" class="btn" style="background: #6a4a4a; width: 100%;">Disable Cloud Sync</button>
                 </div>
 
                 <div id="cloudSyncStatus2" style="margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px; display: none;">
                     <div style="color: var(--accent-gray); font-size: 0.85rem;">
-                        <strong>User ID:</strong> <span id="displayUserId" style="font-family: monospace; font-size: 0.8rem;"></span>
+                        <strong>Device ID:</strong> <span id="displayUserId" style="font-family: monospace; font-size: 0.8rem;"></span>
                     </div>
                     <div style="color: var(--accent-gray); font-size: 0.85rem; margin-top: 5px;">
                         <strong>Last Sync:</strong> <span id="lastSyncTime">Never</span>
@@ -299,19 +332,11 @@
                 </div>
             </div>
 
-            <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
-                <div style="font-weight: 600; margin-bottom: 10px;">📥 Data Management</div>
-                <button onclick="exportData()" class="btn secondary" style="width: 100%; margin-bottom: 8px;">Export Data (JSON)</button>
-                <button onclick="importDataPrompt()" class="btn secondary" style="width: 100%;">Import Data (JSON)</button>
-            </div>
-
             <div class="button-group">
                 <button onclick="closeSettingsModal()" class="btn primary">Close</button>
             </div>
         </div>
     </div>
-
-    <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importData(event)">
 
     <script>
         let currentCardType = 'qa';
@@ -329,13 +354,13 @@
             if (cloudSync && cloudSync.firebaseConfigured) {
                 document.getElementById('firebaseSetup').style.display = 'none';
                 document.getElementById('cloudSyncStatus2').style.display = 'block';
-                document.getElementById('cloudSyncBtn').textContent = 'Update Cloud Sync';
+                document.getElementById('cloudSyncBtn').textContent = 'Update Configuration';
                 document.getElementById('displayUserId').textContent = cloudSync.userId;
                 document.getElementById('lastSyncTime').textContent = cloudSync.getStatus().lastSync || 'Never';
             } else {
                 document.getElementById('firebaseSetup').style.display = 'none';
                 document.getElementById('cloudSyncStatus2').style.display = 'none';
-                document.getElementById('cloudSyncBtn').textContent = 'Configure Firebase Cloud Sync';
+                document.getElementById('cloudSyncBtn').textContent = 'Configure Firebase Sync';
             }
         }
 
@@ -391,61 +416,6 @@
                 updateFirebaseCloudSyncUI();
                 alert('Cloud sync disabled');
             }
-        }
-
-        function exportData() {
-            if (cloudSync) {
-                cloudSync.exportFullBackup();
-            } else {
-                const data = {
-                    cards: app.cards,
-                    parentCategories: app.parentCategories,
-                    subcategories: app.subcategories,
-                    cardStats: app.cardStats,
-                    exportDate: new Date().toISOString()
-                };
-
-                const dataStr = JSON.stringify(data, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'flashcards_backup_' + new Date().toISOString().split('T')[0] + '.json';
-                link.click();
-                URL.revokeObjectURL(url);
-            }
-            alert('Data exported successfully!');
-        }
-
-        function importDataPrompt() {
-            document.getElementById('importFileInput').click();
-        }
-
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    
-                    if (confirm('This will replace all your current data. Continue?')) {
-                        app.cards = data.cards || [];
-                        app.parentCategories = data.parentCategories || app.createDefaultParentCategories();
-                        app.subcategories = data.subcategories || app.createDefaultSubcategories();
-                        app.cardStats = data.cardStats || {};
-                        app.saveData();
-                        updateCategoriesNav();
-                        alert('Data imported successfully!');
-                    }
-                } catch (e) {
-                    alert('Error importing data: Invalid JSON file');
-                    console.error(e);
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
         }
 
         function setCardType(type) {
@@ -534,12 +504,9 @@
                         subcategories: this.subcategories,
                         cardStats: this.cardStats
                     };
-                    // Use cloudSync if available, otherwise use localStorage directly
-                    if (typeof cloudSync !== 'undefined' && cloudSync) {
-                        cloudSync.saveLocally(data);
-                    } else {
-                        localStorage.setItem('studyAppData', JSON.stringify(data));
-                    }
+                    // Save to localStorage - Firebase cloud sync will automatically upload this
+                    localStorage.setItem('studyAppData', JSON.stringify(data));
+                    localStorage.setItem('lastLocalSave', new Date().toISOString());
                     console.log('Data saved. Total cards:', this.cards.length);
                 } catch (e) {
                     console.error('Could not save data:', e);

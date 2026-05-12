@@ -1,0 +1,165 @@
+CLOUD SYNC SETUP INSTRUCTIONS
+==============================
+
+The flashcard app now has 3 storage options:
+
+1. LOCAL STORAGE ONLY (Default - No Setup Needed)
+   - Data saved in your browser only
+   - No cloud sync
+   - Works on one device/browser only
+
+2. WITH CLOUD SYNC (Recommended for Multi-Device)
+   - Automatic sync to a backend server
+   - Data accessible from any device
+   - Supports thousands of flashcards
+
+3. EXPORT/IMPORT BACKUP (Always Available)
+   - Export: Download all data as JSON
+   - Import: Restore from JSON file
+   - Works with any storage method
+
+
+QUICK START: Enable Cloud Sync
+==============================
+
+Step 1: Set Up a Backend Server
+   Option A: Use the supplied server-example.js
+   Option B: Use a free cloud service
+   
+   For server-example.js (Local/VPS):
+   - Install Node.js
+   - npm install express cors body-parser
+   - node server.js
+   - Server runs on http://localhost:3000
+   - API Key: your-secret-api-key-here (change in production)
+
+   For Free Cloud Services:
+   - Render.com (Node.js hosting)
+   - Railway.app (Node.js hosting)
+   - Heroku (free tier removed, use Railway/Render)
+   - Vercel (serverless functions)
+
+
+Step 2: Configure Cloud Sync in App
+   - Click ⚙️ Settings button (top-right)
+   - Click "Configure Cloud Sync"
+   - Enter Backend URL: http://localhost:3000 (or your server)
+   - Enter API Key: your-secret-api-key-here
+   - Click "Save Configuration"
+   - Click "Test Connection" to verify
+
+
+Step 3: Done!
+   Your data now syncs automatically:
+   - Every time you save a card
+   - Every 30 seconds (if changes exist)
+   - When you switch to another tab and back
+
+
+DATA MANAGEMENT
+===============
+
+Export Backup:
+   Settings → Data Management → Export Data (JSON)
+   - Saves a backup file to your computer
+   - Do this weekly!
+
+Import Backup:
+   Settings → Data Management → Import Data (JSON)
+   - Restores from a backup file
+   - Replaces all current data
+
+
+BACKEND SERVER OPTIONS
+======================
+
+1. Self-Hosted (Recommended for Privacy)
+   - Use server-example.js on your own VPS
+   - Add your own database (MongoDB, PostgreSQL, etc.)
+   - Complete control over data
+
+2. Railway.app (Easiest Free Option)
+   - Connect GitHub repo with server-example.js
+   - Deploy with 1 click
+   - Free tier: $5/month credit
+   - Good for up to 10,000+ flashcards
+
+3. Render.com (Good Free Tier)
+   - Similar to Railway
+   - Free tier available
+   - Deploy from GitHub
+
+4. Supabase (Database + API)
+   - PostgreSQL database
+   - Free tier: 500KB storage (plenty for flashcards)
+   - Already has authentication
+   - Requires modifying server code
+
+
+TROUBLESHOOTING
+===============
+
+"Connection failed" error:
+   - Check Backend URL is correct
+   - Check API Key matches
+   - Make sure server is running
+   - Check firewall isn't blocking port
+
+Data not syncing:
+   - Refresh the page
+   - Check browser console (F12) for errors
+   - Test connection in Settings
+   - Make sure you saved a card (triggers sync)
+
+Lost data:
+   - Import from backup: Settings → Import Data
+   - Check cloud server has your data: GET /api/sync?userId=YOUR_ID
+
+"Quota exceeded" error:
+   - Export your data as backup
+   - Clear browser storage
+   - This only happens with thousands of cards
+
+
+PRODUCTION SETUP
+===============
+
+For production deployment:
+
+1. Set up a real database (MongoDB, PostgreSQL)
+2. Use HTTPS (not HTTP)
+3. Set strong API keys
+4. Add rate limiting
+5. Consider Vercel serverless functions or AWS Lambda
+6. Back up your database regularly
+7. Monitor server performance
+
+
+SAMPLE API CALLS
+================
+
+Test connection from terminal:
+   curl -H "X-API-Key: your-api-key" http://localhost:3000/health
+
+Get user data:
+   curl -H "X-API-Key: your-api-key" "http://localhost:3000/api/sync?userId=user123"
+
+Save user data:
+   curl -X POST -H "X-API-Key: your-api-key" \
+     -H "Content-Type: application/json" \
+     -d '{"userId":"user123","data":{...}}' \
+     http://localhost:3000/api/sync
+
+
+NEED HELP?
+==========
+
+Local storage working but cloud sync won't connect?
+   - Make sure backend URL is accessible (test in browser)
+   - Check API key is correct
+   - Look at server logs for errors
+
+Still having issues?
+   - Use Export/Import for backup for now
+   - Or stick with local storage
+   - Deploy backend to free tier service (Railway/Render)

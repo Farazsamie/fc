@@ -88,20 +88,29 @@ class FirebaseCloudSync {
     initSync() {
         // Sync on page load if Firebase is already configured
         if (this.firebaseConfigured && this.db) {
-            this.syncFromCloud();
+            console.log('📱 Firebase configured - syncing data...');
+            this.syncFromCloud().catch(err => console.error('Initial sync error:', err));
         }
 
-        // Auto-sync periodically (every 30 seconds)
+        // Auto-sync periodically (every 20 seconds - more frequent for better experience)
         setInterval(() => {
             if (this.firebaseConfigured && this.db && !this.isSyncing) {
-                this.syncToCloud();
+                this.syncToCloud().catch(err => console.error('Auto sync error:', err));
             }
-        }, this.syncInterval);
+        }, 20000); // Changed from 30000 to 20000 for faster sync
+        
+        // Download changes from cloud every 25 seconds
+        setInterval(() => {
+            if (this.firebaseConfigured && this.db && !this.isSyncing) {
+                this.syncFromCloud().catch(err => console.error('Auto sync download error:', err));
+            }
+        }, 25000);
 
         // Sync when user returns to the app tab
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden && this.firebaseConfigured && this.db) {
-                this.syncFromCloud();
+                console.log('📱 App tab became visible - syncing...');
+                this.syncFromCloud().catch(err => console.error('Visibility sync error:', err));
             }
         });
 
@@ -110,7 +119,7 @@ class FirebaseCloudSync {
 
     /**
      * Upload local flashcard data to Firebase
-     * Called automatically every 30 seconds
+     * Called automatically every 20 seconds
      * 
      * Flow:
      * 1. Get local data from browser storage
@@ -146,10 +155,11 @@ class FirebaseCloudSync {
             
             // Record successful sync time
             localStorage.setItem('lastCloudSync', new Date().toISOString());
-            console.log('✓ Uploaded to Firebase');
+            console.log('✓ Uploaded to Firebase at', new Date().toLocaleTimeString());
             this.updateSyncStatus(true);
         } catch (e) {
-            console.error('Error uploading to Firebase:', e);
+            console.error('❌ Error uploading to Firebase:', e);
+            console.error('Check that: 1) Firebase Project ID is correct, 2) Realtime Database is enabled, 3) You have internet connection');
             this.updateSyncStatus(false);
         } finally {
             this.isSyncing = false;
@@ -183,17 +193,34 @@ class FirebaseCloudSync {
                 const localDataStr = localStorage.getItem('studyAppData');
                 const localTimestamp = localDataStr ? new Date(localStorage.getItem('lastLocalSave')).getTime() : 0;
 
-                // Use cloud data if it's newer than local data
-                if (cloudTimestamp > localTimestamp) {
+                // Use cloud data if it's newer than local data (or if no local data exists)
+                if (cloudTimestamp >= localTimestamp) {
                     localStorage.setItem('studyAppData', JSON.stringify(result.data));
                     localStorage.setItem('lastCloudSync', new Date().toISOString());
-                    console.log('✓ Downloaded from Firebase');
+                    console.log('✓ Downloaded from Firebase - syncing to all views');
                     this.updateSyncStatus(true);
                     
-                    // Reload the app with new data
-                    if (typeof app !== 'undefined') {
+                    // Reload the app with new data and refresh all views
+                    if (typeof app !== 'undefined' && app) {
                         app.loadData();
-                        updateCategoriesNav();
+                        
+                        // Update all UI elements
+                        if (typeof updateCategoriesNav === 'function') {
+                            updateCategoriesNav();
+                        }
+                        
+                        // Refresh the current view being displayed
+                        const currentView = document.querySelector('.content.active');
+                        if (currentView && currentView.id === 'learn') {
+                            if (typeof updateLearnView === 'function') {
+                                updateLearnView();
+                            }
+                        }
+                        
+                        // If MathJax is available, reprocess equations
+                        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                            MathJax.typesetPromise().catch(err => console.log(err));
+                        }
                     }
                 }
             }
@@ -236,11 +263,35 @@ class FirebaseCloudSync {
     /**
      * Manually trigger a full sync (upload + download)
      * Called when user clicks "Sync Now" button in Settings
+     * Shows immediate feedback to user
      */
     async forceSync() {
         console.log('⏳ Manual sync triggered...');
-        await this.syncFromCloud();
-        await this.syncToCloud();
+        const statusEl = document.getElementById('syncStatusText');
+        const originalText = statusEl ? statusEl.textContent : '';
+        
+        try {
+            if (statusEl) statusEl.textContent = '⏳ Syncing...';
+            
+            // Download first to get latest data
+            await this.syncFromCloud();
+            // Then upload any local changes
+            await this.syncToCloud();
+            
+            if (statusEl) {
+                statusEl.textContent = '✓ Synced!';
+                statusEl.style.color = '#4a7c4a';
+                setTimeout(() => {
+                    statusEl.textContent = originalText;
+                }, 2000);
+            }
+        } catch (error) {
+            console.error('Sync error:', error);
+            if (statusEl) {
+                statusEl.textContent = '! Sync failed';
+                statusEl.style.color = '#8b7545';
+            }
+        }
     }
 
     /**

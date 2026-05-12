@@ -383,7 +383,7 @@
             
             const btn = event.target;
             const originalText = btn.textContent;
-            btn.textContent = 'Initializing...';
+            btn.textContent = 'Connecting...';
             btn.disabled = true;
             
             const config = {
@@ -396,16 +396,37 @@
                 appId: ""
             };
             
-            const success = await cloudSync.initializeFirebase(config);
-            
-            if (success) {
-                await cloudSync.forceSync();
-                alert('✓ Cloud sync enabled! Your data will now sync across devices.');
-                updateFirebaseCloudSyncUI();
+            try {
+                const success = await cloudSync.initializeFirebase(config);
+                
+                if (success) {
+                    console.log('📱 Firebase initialized - downloading your flashcards...');
+                    
+                    // Wait a bit for Firebase to be ready
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    
+                    // Force sync - download data from cloud first
+                    await cloudSync.syncFromCloud();
+                    
+                    // Then upload any local changes
+                    await cloudSync.syncToCloud();
+                    
+                    alert('✓ Cloud sync enabled! Your flashcards are now synced.');
+                    
+                    // Close the setup form and show status
+                    setTimeout(() => {
+                        updateFirebaseCloudSyncUI();
+                    }, 500);
+                } else {
+                    alert('✗ Failed to initialize Firebase. Check your Project ID and try again.');
+                }
+            } catch (error) {
+                console.error('Firebase initialization error:', error);
+                alert('✗ Error: ' + error.message);
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
             }
-            
-            btn.textContent = originalText;
-            btn.disabled = false;
         }
 
         function disableCloudSyncFirebase() {

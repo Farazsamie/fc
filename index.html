@@ -301,20 +301,8 @@
                 
                 <div id="firebaseSetup" style="display: none;">
                     <div style="background: #1a1a1a; padding: 12px; border-radius: 4px; margin-bottom: 10px; font-size: 0.8rem; color: var(--accent-gray);">
-                        <strong>Setup (5 min):</strong>
-                        <ol style="margin: 8px 0; padding-left: 20px;">
-                            <li>Go to <a href="https://console.firebase.google.com" target="_blank" style="color: #5a7a8c;">Firebase Console</a></li>
-                            <li>Create project → Enable Realtime Database (test mode)</li>
-                            <li>Enable Anonymous Authentication</li>
-                            <li>Copy Project ID from Project Settings</li>
-                            <li>Paste it below</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="form-group" style="margin-bottom: 10px;">
-                        <label style="font-size: 0.9rem;">Firebase Project ID</label>
-                        <input type="text" id="firebaseProjectId" placeholder="my-flashcards" style="font-size: 0.85rem;">
-                        <small style="color: var(--accent-gray);">Example: my-flashcards (from Firebase Console Project Settings)</small>
+                        <strong>Firebase is configured! 🎉</strong>
+                        <p style="margin: 8px 0;">Your flashcards will now sync across all your devices automatically.</p>
                     </div>
                     
                     <button onclick="initializeFirebaseFromConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Enable Cloud Sync</button>
@@ -374,26 +362,19 @@
         }
 
         async function initializeFirebaseFromConfig() {
-            const projectId = document.getElementById('firebaseProjectId').value.trim();
-            
-            if (!projectId) {
-                alert('Please enter your Firebase Project ID');
-                return;
-            }
-            
             const btn = event.target;
             const originalText = btn.textContent;
             btn.textContent = 'Connecting...';
             btn.disabled = true;
             
             const config = {
-                apiKey: "AIzaSyANJI4QHCEVhKCc3qM3NZzOk3mRfq_d1p8",
-                authDomain: projectId + ".firebaseapp.com",
-                databaseURL: "https://" + projectId + "-default-rtdb.firebaseio.com",
-                projectId: projectId,
-                storageBucket: projectId + ".appspot.com",
-                messagingSenderId: "",
-                appId: ""
+                apiKey: "AIzaSyBNZWhWZXCcR0EIVVtH1Xm9Vzy2erLjufU",
+                authDomain: "flashcards-37cf8.firebaseapp.com",
+                databaseURL: "https://flashcards-37cf8-default-rtdb.firebaseio.com",
+                projectId: "flashcards-37cf8",
+                storageBucket: "flashcards-37cf8.firebasestorage.app",
+                messagingSenderId: "920840061727",
+                appId: "1:920840061727:web:5b80ccb189e42267dfa62a"
             };
             
             try {

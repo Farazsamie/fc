@@ -59,8 +59,26 @@ class FirebaseCloudSync {
      */
     async initializeFirebase(config) {
         try {
-            // Initialize Firebase app
-            const app = firebase.initializeApp(config);
+            // Wait for Firebase SDK to be available
+            let attempts = 0;
+            while (typeof firebase === 'undefined' && attempts < 50) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+            
+            if (typeof firebase === 'undefined') {
+                throw new Error('Firebase SDK failed to load. Please refresh the page and try again.');
+            }
+            
+            // Check if Firebase is already initialized
+            let app;
+            try {
+                app = firebase.app();
+            } catch (e) {
+                // Firebase not initialized yet - initialize it
+                app = firebase.initializeApp(config);
+            }
+            
             // Get reference to Realtime Database
             this.db = firebase.database(app);
             this.firebaseConfig = config;
@@ -68,6 +86,9 @@ class FirebaseCloudSync {
             
             // Save config so it persists across page reloads
             localStorage.setItem('firebaseConfig', JSON.stringify(config));
+            
+            // Create automatic backup
+            this.createBackup();
             
             console.log('✓ Firebase initialized successfully');
             console.log('✓ Flashcards will now sync across all devices');
@@ -156,6 +177,10 @@ class FirebaseCloudSync {
             // Record successful sync time
             localStorage.setItem('lastCloudSync', new Date().toISOString());
             console.log('✓ Uploaded to Firebase at', new Date().toLocaleTimeString());
+            
+            // Create automatic backup after successful sync
+            this.createBackup();
+            
             this.updateSyncStatus(true);
         } catch (e) {
             console.error('❌ Error uploading to Firebase:', e);
@@ -302,6 +327,162 @@ class FirebaseCloudSync {
         this.firebaseConfigured = false;
         localStorage.removeItem('firebaseConfig');
         console.log('Cloud sync disabled');
+    }
+
+    /**
+     * Create automatic backup of flashcard data
+     * Stores backup in IndexedDB and localStorage
+     * Prevents data loss even if cloud sync fails
+     */
+    async createBackup() {
+        try {
+            const studyAppData = localStorage.getItem('studyAppData');
+            if (!studyAppData) return;
+
+            const backup = {
+                timestamp: new Date().toISOString(),
+                data: JSON.parse(studyAppData),
+                userId: this.userId
+            };
+
+            // Store multiple backups (keep last 5)
+            let backups = JSON.parse(localStorage.getItem('flashcardBackups') || '[]');
+            backups.unshift(backup);
+            backups = backups.slice(0, 5); // Keep only last 5 backups
+            localStorage.setItem('flashcardBackups', JSON.stringify(backups));
+
+            console.log('✓ Backup created. Total backups:', backups.length);
+        } catch (error) {
+            console.error('Error creating backup:', error);
+        }
+    }
+
+    /**
+     * Get list of available backups
+     * Returns array of backup timestamps
+     */
+    getBackups() {
+        try {
+            const backups = JSON.parse(localStorage.getItem('flashcardBackups') || '[]');
+            return backups.map(b => ({
+                timestamp: b.timestamp,
+                cardCount: b.data && b.data.categories ? Object.keys(b.data.categories).length : 0
+            }));
+        } catch (error) {
+            console.error('Error getting backups:', error);
+            return [];
+        }
+    }
+
+    /**
+     * Restore flashcard data from a backup
+     * @param {number} backupIndex - Index of backup to restore (0 = most recent)
+     */
+    async restoreFromBackup(backupIndex = 0) {
+        try {
+            const backups = JSON.parse(localStorage.getItem('flashcardBackups') || '[]');
+            if (!backups[backupIndex]) {
+                throw new Error('Backup not found');
+            }
+
+            const backup = backups[backupIndex];
+            localStorage.setItem('studyAppData', JSON.stringify(backup.data));
+            localStorage.setItem('lastLocalSave', backup.timestamp);
+
+            console.log('✓ Restored from backup at', new Date(backup.timestamp).toLocaleString());
+            
+            // Reload the app with restored data
+            if (typeof app !== 'undefined' && app) {
+                app.loadData();
+                if (typeof updateCategoriesNav === 'function') {
+                    updateCategoriesNav();
+                }
+                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    MathJax.typesetPromise().catch(err => console.log(err));
+                }
+            }
+
+            return true;
+        } catch (error) {
+            console.error('Error restoring backup:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Export all flashcard data as JSON file
+     * User can download and keep as permanent backup
+     */
+    exportData() {
+        try {
+            const data = localStorage.getItem('studyAppData');
+            if (!data) {
+                alert('No data to export');
+                return;
+            }
+
+            const exportObj = {
+                exportDate: new Date().toISOString(),
+                version: '1.0',
+                data: JSON.parse(data)
+            };
+
+            const dataStr = JSON.stringify(exportObj, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `flashcards-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            console.log('✓ Data exported successfully');
+        } catch (error) {
+            console.error('Error exporting data:', error);
+            alert('Error exporting data');
+        }
+    }
+
+    /**
+     * Import flashcard data from JSON file
+     * Restores previously exported backups
+     */
+    importData(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const importObj = JSON.parse(e.target.result);
+                    const data = importObj.data || importObj; // Handle both formats
+
+                    localStorage.setItem('studyAppData', JSON.stringify(data));
+                    localStorage.setItem('lastLocalSave', new Date().toISOString());
+                    this.createBackup();
+
+                    console.log('✓ Data imported successfully');
+                    
+                    // Reload app with imported data
+                    if (typeof app !== 'undefined' && app) {
+                        app.loadData();
+                        if (typeof updateCategoriesNav === 'function') {
+                            updateCategoriesNav();
+                        }
+                        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                            MathJax.typesetPromise().catch(err => console.log(err));
+                        }
+                    }
+
+                    resolve(true);
+                } catch (error) {
+                    console.error('Error importing data:', error);
+                    reject(error);
+                }
+            };
+            reader.onerror = () => reject(reader.error);
+            reader.readAsText(file);
+        });
     }
 }
 

@@ -1,36 +1,4 @@
 <!DOCTYPE html>
-<!--
-  ========================================
-  FLASHCARD APP WITH FIREBASE CLOUD SYNC
-  ========================================
-  
-  FEATURES:
-  - Create & study flashcards
-  - Auto-syncs across all devices (laptop, phone, tablet)
-  - Works offline, syncs when online
-  - Completely free (Firebase)
-  
-  QUICK SETUP:
-  1. Click Settings ⚙️ (top right)
-  2. Click "Configure Firebase Sync"
-  3. Go to https://console.firebase.google.com/
-  4. Create project → Enable Realtime Database → Enable Anonymous Auth
-  5. Copy Project ID from Project Settings
-  6. Paste it in the app
-  7. Done! Your flashcards now sync across all devices
-  
-  FIREBASE SYNC:
-  - Syncs automatically every 30 seconds
-  - When you create/edit a card, it uploads to Firebase
-  - Other devices download changes automatically
-  - Completely secure - only you can access your data
-  
-  FILES:
-  - index.html: Main app (you are here)
-  - cloud-sync-firebase.js: Firebase integration (see for detailed comments)
-  - styles.css: Styling
-  ========================================
--->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -278,73 +246,6 @@
                 <button onclick="markCardConfidence(2)" class="btn" style="background: #1d1c1c; padding: 14px;">✓ Good </button>
                 <button onclick="markCardConfidence(1)" class="btn" style="background: #1d1c1c; padding: 14px;">~ Partial </button>
                 <button onclick="markCardConfidence(0)" class="btn" style="background: #1d1c1c; padding: 14px;">✗ Wrong </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <button class="close" onclick="closeSettingsModal()">&times;</button>
-            <h3>Settings</h3>
-            
-            <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
-                <div style="font-weight: 600; margin-bottom: 10px;">☁️ Firebase Cloud Sync</div>
-                <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
-                    Sync your flashcards across all devices (phone, laptop, tablet) automatically.
-                </p>
-                
-                <div id="cloudSyncStatus" style="margin-bottom: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
-                    <div style="color: var(--accent-gray); font-size: 0.85rem;">Status: <span id="syncStatusText">Not Connected</span></div>
-                </div>
-                
-                <button onclick="toggleFirebaseSetup()" id="cloudSyncBtn" class="btn primary" style="width: 100%; margin-bottom: 10px;">Configure Firebase Sync</button>
-                
-                <div id="firebaseSetup" style="display: none;">
-                    <div style="background: #1a1a1a; padding: 12px; border-radius: 4px; margin-bottom: 10px; font-size: 0.8rem; color: var(--accent-gray);">
-                        <strong>Firebase is configured! 🎉</strong>
-                        <p style="margin: 8px 0;">Your flashcards will now sync across all your devices automatically.</p>
-                    </div>
-                    
-                    <button onclick="initializeFirebaseFromConfig()" class="btn primary" style="width: 100%; margin-bottom: 8px;">Enable Cloud Sync</button>
-                    <button onclick="disableCloudSyncFirebase()" class="btn" style="background: #6a4a4a; width: 100%;">Disable Cloud Sync</button>
-                </div>
-
-                <div id="cloudSyncStatus2" style="margin-top: 15px; padding: 10px; background: #1a1a1a; border-radius: 4px; display: none;">
-                    <div style="color: var(--accent-gray); font-size: 0.85rem;">
-                        <strong>Device ID:</strong> <span id="displayUserId" style="font-family: monospace; font-size: 0.8rem;"></span>
-                    </div>
-                    <div style="color: var(--accent-gray); font-size: 0.85rem; margin-top: 5px;">
-                        <strong>Last Sync:</strong> <span id="lastSyncTime">Never</span>
-                    </div>
-                    <button onclick="cloudSync.forceSync()" class="btn secondary" style="width: 100%; margin-top: 10px;">Sync Now</button>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
-                <div style="font-weight: 600; margin-bottom: 10px;">💾 Data Backup & Recovery</div>
-                <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
-                    Automatic backups are created whenever you sync. You can also export all your data as a backup file.
-                </p>
-
-                <div style="margin-bottom: 10px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
-                    <div style="color: var(--accent-gray); font-size: 0.85rem; margin-bottom: 8px;">
-                        <strong>Recent Backups:</strong> <span id="backupCount" style="color: #5a7a8c;">Loading...</span>
-                    </div>
-                    <select id="backupSelect" style="width: 100%; padding: 6px; background: #3a3a3a; color: #fff; border: 1px solid #555; border-radius: 3px; margin-bottom: 8px;">
-                        <option>No backups available</option>
-                    </select>
-                    <button onclick="restoreSelectedBackup()" class="btn secondary" style="width: 100%; margin-bottom: 8px;">Restore Selected Backup</button>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                    <button onclick="exportFlashcards()" class="btn primary" style="font-size: 0.9rem;">📥 Export Data</button>
-                    <button onclick="document.getElementById('importFile').click()" class="btn primary" style="font-size: 0.9rem;">📤 Import Data</button>
-                </div>
-                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importFlashcards(event)">
-            </div>
-
-            <div class="button-group">
-                <button onclick="closeSettingsModal()" class="btn primary">Close</button>
             </div>
         </div>
     </div>

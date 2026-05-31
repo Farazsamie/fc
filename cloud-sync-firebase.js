@@ -59,24 +59,40 @@ class FirebaseCloudSync {
      */
     async initializeFirebase(config) {
         try {
-            // Wait for Firebase SDK to be available
+            // Wait for Firebase SDK to be available (with longer timeout)
             let attempts = 0;
-            while (typeof firebase === 'undefined' && attempts < 50) {
+            const maxAttempts = 100; // 10 seconds max wait
+            
+            while (typeof firebase === 'undefined' && attempts < maxAttempts) {
                 await new Promise(resolve => setTimeout(resolve, 100));
                 attempts++;
+                if (attempts % 10 === 0) {
+                    console.log(`Waiting for Firebase SDK... attempt ${attempts}/${maxAttempts}`);
+                }
             }
             
             if (typeof firebase === 'undefined') {
-                throw new Error('Firebase SDK failed to load. Please refresh the page and try again.');
+                throw new Error('Firebase SDK failed to load after 10 seconds. Try refreshing the page.');
             }
+            
+            console.log(`✓ Firebase SDK detected after ${attempts * 100}ms`);
+            
+            // Small delay to ensure SDK is fully initialized
+            await new Promise(resolve => setTimeout(resolve, 500));
             
             // Check if Firebase is already initialized
             let app;
             try {
                 app = firebase.app();
+                console.log('✓ Firebase app already initialized');
             } catch (e) {
                 // Firebase not initialized yet - initialize it
+                console.log('Initializing Firebase app with config:', {
+                    projectId: config.projectId,
+                    authDomain: config.authDomain
+                });
                 app = firebase.initializeApp(config);
+                console.log('✓ Firebase app initialized');
             }
             
             // Get reference to Realtime Database
@@ -86,15 +102,23 @@ class FirebaseCloudSync {
             
             // Save config so it persists across page reloads
             localStorage.setItem('firebaseConfig', JSON.stringify(config));
+            localStorage.setItem('firebaseInitTime', new Date().toISOString());
             
             // Create automatic backup
             this.createBackup();
+            
+            // Test connection to Firebase
+            console.log('Testing Firebase connection...');
+            const testRef = this.db.ref('_connectionTest');
+            await testRef.once('value');
+            console.log('✓ Firebase connection successful');
             
             console.log('✓ Firebase initialized successfully');
             console.log('✓ Flashcards will now sync across all devices');
             return true;
         } catch (error) {
             console.error('Firebase initialization error:', error);
+            console.error('Full error details:', error.message, error.code);
             alert('Error setting up Firebase: ' + error.message);
             return false;
         }
@@ -491,10 +515,38 @@ class FirebaseCloudSync {
  * This runs automatically when the page opens
  */
 let cloudSync = null;
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        cloudSync = new FirebaseCloudSync();
-    });
-} else {
+
+function initializeCloudSync() {
+    console.log('Initializing CloudSync...');
     cloudSync = new FirebaseCloudSync();
+    console.log('✓ CloudSync instance created');
+}
+
+// Wait for Firebase SDK to be available before creating CloudSync
+if (typeof firebase !== 'undefined') {
+    console.log('Firebase SDK already loaded');
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeCloudSync);
+    } else {
+        initializeCloudSync();
+    }
+} else {
+    console.log('Waiting for Firebase SDK to load...');
+    // Firebase not loaded yet, wait for it
+    let attempts = 0;
+    const checkFirebase = setInterval(() => {
+        attempts++;
+        if (typeof firebase !== 'undefined') {
+            clearInterval(checkFirebase);
+            console.log(`✓ Firebase SDK loaded after ${attempts * 100}ms`);
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeCloudSync);
+            } else {
+                initializeCloudSync();
+            }
+        } else if (attempts > 100) {
+            clearInterval(checkFirebase);
+            console.error('Firebase SDK failed to load after 10 seconds');
+        }
+    }, 100);
 }

@@ -422,83 +422,48 @@
         }
 
         async function initializeFirebaseFromConfig() {
-            console.log('📋 initializeFirebaseFromConfig called');
-            
-            // Wait for cloudSync to be initialized
-            let attempts = 0;
-            const maxAttempts = 100; // 10 seconds
-            
-            console.log('⏳ Checking CloudSync status...');
-            console.log('cloudSync:', cloudSync ? 'defined' : 'undefined');
-            console.log('window.cloudSyncReady:', window.cloudSyncReady || 'not set');
-            
-            while (!cloudSync && attempts < maxAttempts) {
-                console.log(`Waiting for CloudSync... (${attempts + 1}/${maxAttempts})`);
-                await new Promise(resolve => setTimeout(resolve, 100));
-                attempts++;
-            }
-            
-            if (!cloudSync) {
-                console.error('✗ CloudSync failed to initialize');
-                console.error('Possible causes:');
-                console.error('1. Firebase SDK did not load');
-                console.error('2. Browser console shows JavaScript errors');
-                console.error('3. Network connectivity issues');
-                alert('✗ Failed to load cloud sync. Please:\n1. Refresh the page\n2. Check your internet connection\n3. Open Developer Console (F12) to see errors');
+            // Check if CloudSync is ready
+            if (!cloudSync || !window.cloudSyncReady) {
+                alert('App still loading. Wait a moment and try again.');
                 return;
             }
             
-            console.log('✓ CloudSync is ready');
-            
             const btn = event.target;
-            const originalText = btn.textContent;
             btn.textContent = 'Connecting...';
             btn.disabled = true;
             
-            const config = {
-                apiKey: "AIzaSyBNZWhWZXCcR0EIVVtH1Xm9Vzy2erLjufU",
-                authDomain: "flashcards-37cf8.firebaseapp.com",
-                databaseURL: "https://flashcards-37cf8-default-rtdb.firebaseio.com",
-                projectId: "flashcards-37cf8",
-                storageBucket: "flashcards-37cf8.firebasestorage.app",
-                messagingSenderId: "920840061727",
-                appId: "1:920840061727:web:5b80ccb189e42267dfa62a"
-            };
-            
             try {
-                console.log('🔐 Starting Firebase initialization with config...');
+                console.log('Starting Firebase setup...');
+                const config = {
+                    apiKey: "AIzaSyBNZWhWZXCcR0EIVVtH1Xm9Vzy2erLjufU",
+                    authDomain: "flashcards-37cf8.firebaseapp.com",
+                    databaseURL: "https://flashcards-37cf8-default-rtdb.firebaseio.com",
+                    projectId: "flashcards-37cf8",
+                    storageBucket: "flashcards-37cf8.firebasestorage.app",
+                    messagingSenderId: "920840061727",
+                    appId: "1:920840061727:web:5b80ccb189e42267dfa62a"
+                };
+                
                 const success = await cloudSync.initializeFirebase(config);
                 
                 if (success) {
-                    console.log('✓ Firebase initialized successfully');
-                    console.log('📱 Downloading your flashcards...');
-                    
-                    // Wait a bit for Firebase to be ready
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    
-                    // Force sync - download data from cloud first
-                    console.log('⬇️ Syncing from cloud...');
+                    await new Promise(resolve => setTimeout(resolve, 500));
                     await cloudSync.syncFromCloud();
-                    
-                    // Then upload any local changes
-                    console.log('⬆️ Syncing to cloud...');
                     await cloudSync.syncToCloud();
                     
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                    alert('✓ Cloud sync enabled! Your flashcards are now synced.');
-                    
-                    // Close the setup form and show status
-                    setTimeout(() => {
-                        updateFirebaseCloudSyncUI();
-                    }, 500);
+                    alert('✓ Cloud sync enabled!');
+                    updateFirebaseCloudSyncUI();
                 } else {
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                    alert('✗ Failed to initialize Firebase.\n\nPlease check:\n1. Internet connection\n2. Browser console (F12) for detailed errors');
+                    alert('✗ Failed to enable cloud sync');
                 }
             } catch (error) {
-                console.error('Firebase initialization error:', error);
+                console.error('Error:', error);
+                alert('✗ Error: ' + error.message);
+            } finally {
+                btn.textContent = 'Enable Cloud Sync';
+                btn.disabled = false;
+            }
+        }
                 alert('✗ Error: ' + error.message);
             } finally {
                 btn.textContent = originalText;

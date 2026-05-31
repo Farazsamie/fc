@@ -517,36 +517,59 @@ class FirebaseCloudSync {
 let cloudSync = null;
 
 function initializeCloudSync() {
-    console.log('Initializing CloudSync...');
-    cloudSync = new FirebaseCloudSync();
-    console.log('✓ CloudSync instance created');
+    try {
+        console.log('🔷 Initializing CloudSync instance...');
+        cloudSync = new FirebaseCloudSync();
+        console.log('✓ CloudSync instance created successfully');
+        window.cloudSyncReady = true;
+        // Dispatch a custom event to notify the page
+        window.dispatchEvent(new Event('cloudSyncReady'));
+    } catch (error) {
+        console.error('✗ Error creating CloudSync instance:', error);
+        window.cloudSyncReady = false;
+    }
 }
+
+// Log current state
+console.log('📝 cloud-sync-firebase.js loaded');
+console.log('Current Firebase status:', typeof firebase !== 'undefined' ? '✓ Available' : '✗ Not yet available');
 
 // Wait for Firebase SDK to be available before creating CloudSync
 if (typeof firebase !== 'undefined') {
-    console.log('Firebase SDK already loaded');
+    console.log('✓ Firebase SDK already loaded - initializing CloudSync now');
     if (document.readyState === 'loading') {
+        console.log('⏳ DOM still loading - waiting for DOMContentLoaded');
         document.addEventListener('DOMContentLoaded', initializeCloudSync);
     } else {
+        console.log('✓ DOM ready - initializing CloudSync immediately');
         initializeCloudSync();
     }
 } else {
-    console.log('Waiting for Firebase SDK to load...');
-    // Firebase not loaded yet, wait for it
+    console.log('⏳ Firebase SDK not loaded yet - polling for availability...');
+    // Firebase not loaded yet, wait for it with logging
     let attempts = 0;
+    const maxAttempts = 150; // 15 seconds timeout
+    
     const checkFirebase = setInterval(() => {
         attempts++;
+        
         if (typeof firebase !== 'undefined') {
             clearInterval(checkFirebase);
-            console.log(`✓ Firebase SDK loaded after ${attempts * 100}ms`);
+            console.log(`✓ Firebase SDK detected after ${attempts * 100}ms`);
             if (document.readyState === 'loading') {
+                console.log('⏳ DOM still loading - waiting for DOMContentLoaded');
                 document.addEventListener('DOMContentLoaded', initializeCloudSync);
             } else {
+                console.log('✓ DOM ready - initializing CloudSync immediately');
                 initializeCloudSync();
             }
-        } else if (attempts > 100) {
+        } else if (attempts >= maxAttempts) {
             clearInterval(checkFirebase);
-            console.error('Firebase SDK failed to load after 10 seconds');
+            console.error('✗ Firebase SDK failed to load after 15 seconds');
+            console.error('⚠️ Cloud sync will not be available');
+            window.cloudSyncReady = false;
+        } else if (attempts % 20 === 0) {
+            console.log(`⏳ Still waiting for Firebase SDK... (${attempts * 100}ms elapsed)`);
         }
     }, 100);
 }

@@ -287,15 +287,6 @@
             <button class="close" onclick="closeSettingsModal()">&times;</button>
             <h3>Settings</h3>
             
-            <!-- Diagnostic Status -->
-            <div style="margin-bottom: 15px; padding: 12px; background: #1a1a1a; border-left: 3px solid #5a7a8c; border-radius: 4px; font-size: 0.85rem;">
-                <strong>System Status:</strong>
-                <div style="margin-top: 8px; color: var(--accent-gray);">
-                    <div>Firebase SDK: <span id="diagFirebaseStatus" style="color: #8b7545;">⏳ Checking...</span></div>
-                    <div>Cloud Sync: <span id="diagCloudSyncStatus" style="color: #8b7545;">⏳ Checking...</span></div>
-                </div>
-            </div>
-            
             <div style="margin-bottom: 20px; padding: 15px; background: #2d2d2d; border-radius: 4px;">
                 <div style="font-weight: 600; margin-bottom: 10px;">☁️ Firebase Cloud Sync</div>
                 <p style="color: var(--accent-gray); font-size: 0.9rem; margin-bottom: 15px;">
@@ -365,33 +356,6 @@
             document.getElementById('settingsModal').classList.add('show');
             updateFirebaseCloudSyncUI();
             updateBackupUI();
-            updateDiagnosticStatus();
-        }
-
-        function updateDiagnosticStatus() {
-            const firebaseStatus = document.getElementById('diagFirebaseStatus');
-            const cloudSyncStatus = document.getElementById('diagCloudSyncStatus');
-            
-            // Check Firebase
-            if (typeof firebase !== 'undefined') {
-                firebaseStatus.textContent = '✓ Loaded';
-                firebaseStatus.style.color = '#4a7c4a';
-            } else {
-                firebaseStatus.textContent = '✗ Not loaded';
-                firebaseStatus.style.color = '#8b4545';
-            }
-            
-            // Check CloudSync
-            if (cloudSync && window.cloudSyncReady) {
-                cloudSyncStatus.textContent = '✓ Ready';
-                cloudSyncStatus.style.color = '#4a7c4a';
-            } else if (cloudSync) {
-                cloudSyncStatus.textContent = '⚠️ Initializing';
-                cloudSyncStatus.style.color = '#8b7545';
-            } else {
-                cloudSyncStatus.textContent = '✗ Not initialized';
-                cloudSyncStatus.style.color = '#8b4545';
-            }
         }
 
         function closeSettingsModal() {
@@ -422,9 +386,8 @@
         }
 
         async function initializeFirebaseFromConfig() {
-            // Check if CloudSync is ready
-            if (!cloudSync || !window.cloudSyncReady) {
-                alert('App still loading. Wait a moment and try again.');
+            if (!cloudSync) {
+                alert('Please wait for the app to load, then try again.');
                 return;
             }
             
@@ -433,7 +396,6 @@
             btn.disabled = true;
             
             try {
-                console.log('Starting Firebase setup...');
                 const config = {
                     apiKey: "AIzaSyBNZWhWZXCcR0EIVVtH1Xm9Vzy2erLjufU",
                     authDomain: "flashcards-37cf8.firebaseapp.com",

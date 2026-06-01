@@ -1,4 +1,4 @@
-import { flashcardData } from './data.js';
+import { flashcardData, parentCategories, subcategories } from './data.js';
 
 // State management
 let currentCardIndex = 0;
@@ -170,4 +170,4 @@ if (document.readyState === 'loading') {
 }
 
 // Export for use in other scripts
-export { flashcardData, currentCardIndex, filteredCards };
+export { flashcardData, currentCardIndex, filteredCards, parentCategories, subcategories };

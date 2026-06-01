@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcard App</title>
+    <title>Fizlet</title>
     <script>
         MathJax = {
             tex: {
@@ -24,11 +24,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="main-nav">
-        <button class="nav-tab active" data-view="learn">Flashcards</button>
-        <h1 style="flex: 1; text-align: center; margin: 0; font-size: 1.5rem;">📚 Flashcard Study</h1>
-    </nav>
-
     <div class="container">
         <div class="app-wrapper">
             <aside class="sidebar">
@@ -73,7 +68,7 @@
                             position: relative;
                             transform-style: preserve-3d;
                         ">
-                            <div style="position: absolute; top: 20px; right: 20px; color: var(--accent-gray); font-size: 0.85rem;">Click to flip</div>
+                            <div style="position: absolute; top: 20px; right: 20px; color: var(--accent-gray); font-size: 0.85rem;" id="flipHint">Click to flip</div>
                             <div id="cardFront" style="font-size: 1.3rem; font-weight: 500; line-height: 1.8;">Loading...</div>
                             <div id="cardBack" style="
                                 display: none;
@@ -83,6 +78,11 @@
                                 margin-top: 20px;
                                 padding-top: 20px;
                                 border-top: 2px solid var(--accent-gray);
+                            "></div>
+                            <div id="cardOptions" style="
+                                display: none;
+                                width: 100%;
+                                margin-top: 20px;
                             "></div>
                         </div>
 
@@ -101,7 +101,7 @@
                                 border-color: #8b4545;
                                 flex: 1;
                                 min-width: 150px;
-                            ">✗ Incorrect</button>
+                            "> Incorrect</button>
                             <button id="markCorrectBtn" class="btn primary" onclick="markCorrect()" style="
                                 padding: 14px 20px;
                                 border-radius: 12px;
@@ -111,7 +111,7 @@
                                 font-weight: 600;
                                 flex: 1;
                                 min-width: 150px;
-                            ">✓ Correct</button>
+                            "> Correct</button>
                         </div>
 
                         <!-- Stats -->
@@ -142,7 +142,11 @@
 
     <!-- Import and run the app -->
     <script type="module">
-        import { flashcardData, currentCardIndex, filteredCards } from './fs.js';
+        import { flashcardData, currentCardIndex, filteredCards, parentCategories, subcategories } from './fs.js';
+
+        // Make categories available globally
+        window.parentCategories = parentCategories;
+        window.subcategories = subcategories;
 
         // Make functions available globally
         window.previousCard = previousCard;
@@ -177,28 +181,23 @@
             updateStats();
         }
 
-        // Populate categories
+        // Populate categories from parentCategories array
         function populateCategories() {
-            const categories = [...new Set(flashcardData.map(card => card.category))];
             categorySelect.innerHTML = '<option value="">-- All Categories --</option>' +
-                categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+                parentCategories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
         }
 
         // Update subcategories
         function updateSubcategoryDropdown() {
             const selectedCategory = categorySelect.value;
-            let subcategories = [];
+            let availableSubcategories = [];
             
             if (selectedCategory) {
-                subcategories = [...new Set(
-                    flashcardData
-                        .filter(card => card.category === selectedCategory)
-                        .map(card => card.subcategory)
-                )];
+                availableSubcategories = subcategories.filter(sub => sub.parentId === selectedCategory);
             }
             
             subcategorySelect.innerHTML = '<option value="">-- All Subcategories --</option>' +
-                subcategories.map(subcat => `<option value="${subcat}">${subcat}</option>`).join('');
+                availableSubcategories.map(subcat => `<option value="${subcat.id}">${subcat.name}</option>`).join('');
             
             loadCards();
         }
@@ -209,8 +208,8 @@
             const selectedSubcategory = subcategorySelect.value;
             
             cardsToStudy = flashcardData.filter(card => {
-                if (selectedCategory && card.category !== selectedCategory) return false;
-                if (selectedSubcategory && card.subcategory !== selectedSubcategory) return false;
+                if (selectedCategory && card.categoryId !== selectedCategory) return false;
+                if (selectedSubcategory && card.subcategoryId !== selectedSubcategory) return false;
                 return true;
             });
             
@@ -224,15 +223,51 @@
             if (cardsToStudy.length === 0) {
                 cardFront.textContent = 'No cards available';
                 cardBack.textContent = '';
+                document.getElementById('cardOptions').innerHTML = '';
                 prevBtn.disabled = true;
                 nextBtn.disabled = true;
                 return;
             }
             
             const card = cardsToStudy[currentIndex];
+            const cardOptions = document.getElementById('cardOptions');
+            const flipHint = document.getElementById('flipHint');
+            
             cardFront.innerHTML = card.front;
             cardBack.innerHTML = card.back;
-            cardBack.style.display = 'none';
+            
+            // Handle different card types
+            if (card.type === 'multiple-choice') {
+                flipHint.style.display = 'none';
+                cardBack.style.display = 'none';
+                cardElement.style.cursor = 'default';
+                
+                // Display multiple choice options
+                cardOptions.innerHTML = card.options.map((option, index) => `
+                    <button class="option-btn" style="
+                        display: block;
+                        width: 100%;
+                        padding: 12px;
+                        margin: 8px 0;
+                        background: var(--card-bg);
+                        border: 2px solid var(--accent-gray);
+                        border-radius: 8px;
+                        color: #fff;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        text-align: left;
+                        transition: all 0.3s ease;
+                    " onclick="selectOption(${index}, ${card.correctAnswer})">${option}</button>
+                `).join('');
+                cardOptions.style.display = 'block';
+            } else {
+                // Traditional flashcard
+                flipHint.style.display = 'block';
+                cardOptions.style.display = 'none';
+                cardBack.style.display = 'none';
+                cardElement.style.cursor = 'pointer';
+            }
+            
             isFlipped = false;
             
             // Re-render MathJax
@@ -242,6 +277,36 @@
             
             updateButtonStates();
             updateCardCounter();
+        }
+        
+        // Handle multiple choice selection
+        function selectOption(selectedIndex, correctIndex) {
+            const card = cardsToStudy[currentIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            buttons.forEach((btn, idx) => {
+                if (idx === correctIndex) {
+                    btn.style.borderColor = '#00d4ff';
+                    btn.style.borderWidth = '3px';
+                    btn.style.backgroundColor = 'rgba(0, 212, 255, 0.1)';
+                } else if (idx === selectedIndex && selectedIndex !== correctIndex) {
+                    btn.style.borderColor = '#ff6b6b';
+                    btn.style.borderWidth = '3px';
+                    btn.style.backgroundColor = 'rgba(255, 107, 107, 0.1)';
+                }
+                btn.disabled = true;
+            });
+            
+            // Show the answer/explanation
+            const cardOptions = document.getElementById('cardOptions');
+            cardOptions.innerHTML += `<div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid var(--accent-gray); color: #00d4ff; font-size: 0.95rem;">${card.back}</div>`;
+            
+            // Mark as correct or incorrect
+            if (selectedIndex === correctIndex) {
+                card.correctAnswers++;
+            } else {
+                card.incorrectAnswers++;
+            }
         }
 
         // Update button states
@@ -257,6 +322,10 @@
 
         // Flip card
         function flipCard() {
+            const card = cardsToStudy[currentIndex];
+            // Only allow flipping for traditional flashcard type
+            if (card.type !== 'flashcard') return;
+            
             isFlipped = !isFlipped;
             if (isFlipped) {
                 cardFront.style.display = 'none';
@@ -328,7 +397,6 @@
         <button class="nav-tab active" data-view="learn" onclick="switchView('learn')">Active Recall</button>
         <button class="nav-tab" data-view="create" onclick="switchView('create')">Create Card</button>
         <button class="nav-tab" data-view="analytics" onclick="switchView('analytics')">Analytics</button>
-        <button class="nav-tab" onclick="openSettingsModal()" style="margin-left: auto;">Settings</button>
     </nav>
 
     <div class="container">
@@ -546,16 +614,6 @@
     <script>
         let currentCardType = 'qa';
 
-        function openSettingsModal() {
-            document.getElementById('settingsModal').classList.add('show');
-            updateFirebaseCloudSyncUI();
-            updateBackupUI();
-        }
-
-        function closeSettingsModal() {
-            document.getElementById('settingsModal').classList.remove('show');
-        }
-
         function updateFirebaseCloudSyncUI() {
             if (cloudSync && cloudSync.firebaseConfigured) {
                 document.getElementById('firebaseSetup').style.display = 'none';
@@ -736,51 +794,27 @@
                     if (stored) {
                         const data = JSON.parse(stored);
                         this.cards = data.cards || [];
-                        this.parentCategories = data.parentCategories || this.createDefaultParentCategories();
-                        this.subcategories = data.subcategories || this.createDefaultSubcategories();
+                        this.parentCategories = data.parentCategories || window.parentCategories;
+                        this.subcategories = data.subcategories || window.subcategories;
                         this.cardStats = data.cardStats || {};
                         console.log('Loaded cards:', this.cards.length);
                     } else {
                         this.cards = [];
-                        this.parentCategories = this.createDefaultParentCategories();
-                        this.subcategories = this.createDefaultSubcategories();
+                        this.parentCategories = window.parentCategories;
+                        this.subcategories = window.subcategories;
                         this.cardStats = {};
                         this.saveData();
                     }
                 } catch (e) {
                     console.error('Error loading from localStorage:', e);
                     this.cards = [];
-                    this.parentCategories = this.createDefaultParentCategories();
-                    this.subcategories = this.createDefaultSubcategories();
+                    this.parentCategories = window.parentCategories;
+                    this.subcategories = window.subcategories;
                     this.cardStats = {};
                 }
             }
 
-            createDefaultParentCategories() {
-                return [
-                    {
-                        id: 'cfa-level1',
-                        name: 'CFA Level 1',
-                        description: 'CFA Level 1 - Chartered Financial Analyst',
-                        createdAt: new Date().toISOString()
-                    }
-                ];
-            }
 
-            createDefaultSubcategories() {
-                return [
-                    { id: 'cfa-l1-ethics', name: 'Ethical and Professional Standards', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-quantitative-methods', name: 'Quantitative Methods', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-economics', name: 'Economics', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-financial-statement', name: 'Financial Statement Analysis', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-corporate-issuers', name: 'Corporate Issuers', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-equity-investments', name: 'Equity Investments', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-fixed-income', name: 'Fixed Income', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-derivatives', name: 'Derivatives', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-alternative-investments', name: 'Alternative Investments', parent: 'cfa-level1' },
-                    { id: 'cfa-l1-portfolio-management', name: 'Portfolio Management', parent: 'cfa-level1' }
-                ];
-            }
 
             saveData() {
                 try {
@@ -1645,7 +1679,7 @@
             } else {
                 html += `
                     <div style="margin-top: 40px; text-align: left; padding: 40px; background: var(--card-bg); border-radius: 8px;">
-                        <h3>🎯 Perfect Performance!</h3>
+                        <h3> Performance</h3>
                         <p style="color: var(--accent-gray); margin-top: 10px;">You haven't missed any cards yet. Keep up the great work!</p>
                     </div>
                 `;
@@ -1763,9 +1797,6 @@
             }
             if (e.target.id === 'answerFeedbackModal') {
                 document.getElementById('answerFeedbackModal').classList.remove('show');
-            }
-            if (e.target.id === 'settingsModal') {
-                closeSettingsModal();
             }
         });
 

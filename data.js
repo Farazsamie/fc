@@ -1,84 +1,83 @@
+// Parent Categories
+const parentCategories = [
+  {
+    id: 'cfa-level1',
+    name: 'CFA Level 1',
+    description: 'CFA Level 1 - Chartered Financial Analyst',
+    createdAt: new Date().toISOString()
+  }
+];
+
+// Subcategories
+const subcategories = [
+  { id: 'cfa-l1-ethics', name: 'Ethical and Professional Standards', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-quantitative-methods', name: 'Quantitative Methods', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-economics', name: 'Economics', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-financial-statement', name: 'Financial Statement Analysis', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-corporate-issuers', name: 'Corporate Issuers', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-equity-investments', name: 'Equity Investments', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-fixed-income', name: 'Fixed Income', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-derivatives', name: 'Derivatives', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-alternative-investments', name: 'Alternative Investments', parentId: 'cfa-level1' },
+  { id: 'cfa-l1-portfolio-management', name: 'Portfolio Management', parentId: 'cfa-level1' }
+];
+
+// Flashcards - each includes category, subcategory, and type
 const flashcardData = [
   {
     id: 1,
-    category: "Mathematics",
-    subcategory: "Algebra",
-    front: "What is the solution to 2x + 3 = 7?",
-    back: "x = 2",
-    type: "qa",
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "What is the primary responsibility of CFA charterholders?",
+    back: "To act with integrity and in the best interest of clients",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
   {
     id: 2,
-    category: "Mathematics",
-    subcategory: "Algebra",
-    front: "Solve: $x^2 - 5x + 6 = 0$",
-    back: "x = 2 or x = 3",
-    type: "qa",
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-quantitative-methods',
+    type: 'multiple-choice',
+    front: "What is the mean of the following dataset: 2, 4, 6, 8, 10?",
+    options: ['4', '5', '6', '7'],
+    correctAnswer: 2, // Index of correct option
+    back: "The mean is 6: (2+4+6+8+10)/5 = 30/5 = 6",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
   {
     id: 3,
-    category: "Mathematics",
-    subcategory: "Calculus",
-    front: "What is the derivative of $f(x) = 3x^2 + 2x$?",
-    back: "$f'(x) = 6x + 2$",
-    type: "qa",
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-economics',
+    type: 'flashcard',
+    front: "Define GDP",
+    back: "Gross Domestic Product - the total monetary value of all finished goods and services produced within a country in a specific time period",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
   {
     id: 4,
-    category: "Science",
-    subcategory: "Biology",
-    front: "What is the powerhouse of the cell?",
-    back: "The mitochondria",
-    type: "qa",
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-financial-statement',
+    type: 'multiple-choice',
+    front: "Which financial statement shows a company's financial position at a specific point in time?",
+    options: ['Income Statement', 'Balance Sheet', 'Cash Flow Statement', 'Statement of Changes in Equity'],
+    correctAnswer: 1, // Index of correct option
+    back: "The Balance Sheet (or Statement of Financial Position) shows assets, liabilities, and equity at a specific date",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
   {
     id: 5,
-    category: "Science",
-    subcategory: "Physics",
-    front: "What is Newton's first law of motion?",
-    back: "An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force.",
-    type: "qa",
-    correctAnswers: 0,
-    incorrectAnswers: 0
-  },
-  {
-    id: 6,
-    category: "History",
-    subcategory: "World War II",
-    front: "In what year did World War II end?",
-    back: "1945",
-    type: "qa",
-    correctAnswers: 0,
-    incorrectAnswers: 0
-  },
-  {
-    id: 7,
-    category: "History",
-    subcategory: "Ancient Rome",
-    front: "Who was the first Roman Emperor?",
-    back: "Augustus (Octavian)",
-    type: "qa",
-    correctAnswers: 0,
-    incorrectAnswers: 0
-  },
-  {
-    id: 8,
-    category: "Literature",
-    subcategory: "Shakespeare",
-    front: "Who wrote 'Romeo and Juliet'?",
-    back: "William Shakespeare",
-    type: "qa",
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-quantitative-methods',
+    type: 'flashcard',
+    front: "Solve: $x^2 - 5x + 6 = 0$",
+    back: "x = 2 or x = 3",
     correctAnswers: 0,
     incorrectAnswers: 0
   }
 ];
 
-export { flashcardData };
+export { flashcardData, parentCategories, subcategories };

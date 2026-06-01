@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FC</title>
+    <title>Flashcard App</title>
     <script>
         MathJax = {
             tex: {
@@ -21,13 +21,306 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
-    <!-- Firebase SDK loaded - cloud sync will initialize after -->
-    <script defer src="cloud-sync-firebase.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+<body>
+    <nav class="main-nav">
+        <button class="nav-tab active" data-view="learn">Flashcards</button>
+        <h1 style="flex: 1; text-align: center; margin: 0; font-size: 1.5rem;">📚 Flashcard Study</h1>
+    </nav>
+
+    <div class="container">
+        <div class="app-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Filter by Category</h3>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="parentCategoryInput" onchange="updateSubcategoryDropdown()" style="width: 100%;">
+                            <option value="">-- All Categories --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subcategory</label>
+                        <select id="subcategoryInput" onchange="loadCards()" style="width: 100%;">
+                            <option value="">-- All Subcategories --</option>
+                        </select>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <div class="content active" id="learn">
+                    <!-- Card Display -->
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div id="cardCounter" style="text-align: center; margin-bottom: 20px; color: var(--accent-gray);">Card 1 of 0</div>
+                        
+                        <!-- Flashcard -->
+                        <div class="flashcard" id="cardElement" style="
+                            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+                            border: 2px solid var(--accent-gray);
+                            border-radius: 20px;
+                            padding: 60px 40px;
+                            min-height: 300px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                            cursor: pointer;
+                            margin-bottom: 30px;
+                            transition: all 0.6s ease;
+                            position: relative;
+                            transform-style: preserve-3d;
+                        ">
+                            <div style="position: absolute; top: 20px; right: 20px; color: var(--accent-gray); font-size: 0.85rem;">Click to flip</div>
+                            <div id="cardFront" style="font-size: 1.3rem; font-weight: 500; line-height: 1.8;">Loading...</div>
+                            <div id="cardBack" style="
+                                display: none;
+                                font-size: 1.1rem;
+                                line-height: 1.8;
+                                color: #00d4ff;
+                                margin-top: 20px;
+                                padding-top: 20px;
+                                border-top: 2px solid var(--accent-gray);
+                            "></div>
+                        </div>
+
+                        <!-- Control Buttons -->
+                        <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center;">
+                            <button id="prevBtn" class="btn secondary" onclick="previousCard()" style="padding: 12px 24px; border-radius: 12px;">← Previous</button>
+                            <button id="nextBtn" class="btn secondary" onclick="nextCard()" style="padding: 12px 24px; border-radius: 12px;">Next →</button>
+                        </div>
+
+                        <!-- Assessment Buttons -->
+                        <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;">
+                            <button id="markIncorrectBtn" class="btn danger" onclick="markIncorrect()" style="
+                                padding: 14px 20px;
+                                border-radius: 12px;
+                                background: #5a3d3d;
+                                border-color: #8b4545;
+                                flex: 1;
+                                min-width: 150px;
+                            ">✗ Incorrect</button>
+                            <button id="markCorrectBtn" class="btn primary" onclick="markCorrect()" style="
+                                padding: 14px 20px;
+                                border-radius: 12px;
+                                background: var(--primary-color);
+                                border-color: var(--primary-color);
+                                color: #000;
+                                font-weight: 600;
+                                flex: 1;
+                                min-width: 150px;
+                            ">✓ Correct</button>
+                        </div>
+
+                        <!-- Stats -->
+                        <div style="
+                            background: var(--card-bg);
+                            border: 1px solid var(--accent-gray);
+                            border-radius: 16px;
+                            padding: 20px;
+                            text-align: center;
+                            color: var(--accent-gray);
+                        ">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div>
+                                    <div style="font-size: 0.9rem; margin-bottom: 5px;">Correct</div>
+                                    <div id="statsCorrect" style="font-size: 1.8rem; color: #00d4ff; font-weight: bold;">0</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.9rem; margin-bottom: 5px;">Incorrect</div>
+                                    <div id="statsIncorrect" style="font-size: 1.8rem; color: #ff6b6b; font-weight: bold;">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Import and run the app -->
+    <script type="module">
+        import { flashcardData, currentCardIndex, filteredCards } from './fs.js';
+
+        // Make functions available globally
+        window.previousCard = previousCard;
+        window.nextCard = nextCard;
+        window.markCorrect = markCorrect;
+        window.markIncorrect = markIncorrect;
+        window.loadCards = loadCards;
+        window.updateSubcategoryDropdown = updateSubcategoryDropdown;
+
+        // State
+        let currentIndex = 0;
+        let cardsToStudy = [];
+        let isFlipped = false;
+
+        // DOM elements
+        const cardFront = document.getElementById('cardFront');
+        const cardBack = document.getElementById('cardBack');
+        const cardElement = document.getElementById('cardElement');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const categorySelect = document.getElementById('parentCategoryInput');
+        const subcategorySelect = document.getElementById('subcategoryInput');
+        const statsCorrect = document.getElementById('statsCorrect');
+        const statsIncorrect = document.getElementById('statsIncorrect');
+        const cardCounter = document.getElementById('cardCounter');
+
+        // Initialize app
+        function init() {
+            populateCategories();
+            loadCards();
+            setupFlipListener();
+            updateStats();
+        }
+
+        // Populate categories
+        function populateCategories() {
+            const categories = [...new Set(flashcardData.map(card => card.category))];
+            categorySelect.innerHTML = '<option value="">-- All Categories --</option>' +
+                categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        }
+
+        // Update subcategories
+        function updateSubcategoryDropdown() {
+            const selectedCategory = categorySelect.value;
+            let subcategories = [];
+            
+            if (selectedCategory) {
+                subcategories = [...new Set(
+                    flashcardData
+                        .filter(card => card.category === selectedCategory)
+                        .map(card => card.subcategory)
+                )];
+            }
+            
+            subcategorySelect.innerHTML = '<option value="">-- All Subcategories --</option>' +
+                subcategories.map(subcat => `<option value="${subcat}">${subcat}</option>`).join('');
+            
+            loadCards();
+        }
+
+        // Load cards based on filters
+        function loadCards() {
+            const selectedCategory = categorySelect.value;
+            const selectedSubcategory = subcategorySelect.value;
+            
+            cardsToStudy = flashcardData.filter(card => {
+                if (selectedCategory && card.category !== selectedCategory) return false;
+                if (selectedSubcategory && card.subcategory !== selectedSubcategory) return false;
+                return true;
+            });
+            
+            currentIndex = 0;
+            isFlipped = false;
+            displayCard();
+        }
+
+        // Display current card
+        function displayCard() {
+            if (cardsToStudy.length === 0) {
+                cardFront.textContent = 'No cards available';
+                cardBack.textContent = '';
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                return;
+            }
+            
+            const card = cardsToStudy[currentIndex];
+            cardFront.innerHTML = card.front;
+            cardBack.innerHTML = card.back;
+            cardBack.style.display = 'none';
+            isFlipped = false;
+            
+            // Re-render MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise().catch(err => console.log('MathJax error:', err));
+            }
+            
+            updateButtonStates();
+            updateCardCounter();
+        }
+
+        // Update button states
+        function updateButtonStates() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === cardsToStudy.length - 1;
+        }
+
+        // Update card counter
+        function updateCardCounter() {
+            cardCounter.textContent = `Card ${currentIndex + 1} of ${cardsToStudy.length}`;
+        }
+
+        // Flip card
+        function flipCard() {
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                cardFront.style.display = 'none';
+                cardBack.style.display = 'block';
+            } else {
+                cardFront.style.display = 'block';
+                cardBack.style.display = 'none';
+            }
+        }
+
+        // Navigation
+        function previousCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayCard();
+            }
+        }
+
+        function nextCard() {
+            if (currentIndex < cardsToStudy.length - 1) {
+                currentIndex++;
+                displayCard();
+            }
+        }
+
+        // Mark card
+        function markCorrect() {
+            const card = cardsToStudy[currentIndex];
+            const originalCard = flashcardData.find(c => c.id === card.id);
+            if (originalCard) {
+                originalCard.correctAnswers++;
+            }
+            updateStats();
+            nextCard();
+        }
+
+        function markIncorrect() {
+            const card = cardsToStudy[currentIndex];
+            const originalCard = flashcardData.find(c => c.id === card.id);
+            if (originalCard) {
+                originalCard.incorrectAnswers++;
+            }
+            updateStats();
+            nextCard();
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalCorrect = flashcardData.reduce((sum, card) => sum + card.correctAnswers, 0);
+            const totalIncorrect = flashcardData.reduce((sum, card) => sum + card.incorrectAnswers, 0);
+            statsCorrect.textContent = totalCorrect;
+            statsIncorrect.textContent = totalIncorrect;
+        }
+
+        // Setup flip listener
+        function setupFlipListener() {
+            cardElement.addEventListener('click', flipCard);
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
 
 
 <body>

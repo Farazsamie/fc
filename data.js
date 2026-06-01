@@ -1,11 +1,84 @@
-const data = [
-
-    {
-        itemName: "Implications of ForEx Volatility on Liquidity Risk Management",
-        itemDescription: "Category: Academia Research Analysis",
-        itemCopy: "This paper examines how foreign exchange volatility affects corporate liquidity management across 33 publicly traded U.S. companies from 2009 to 2025. Using Monte Carlo stress testing and panel regression methods, the study fundamentally finds that when liquidity is measured through simulated shortfall probability under currency stress, FX exposure is significantly, with effects amplified among highly leveraged firms. Specifically, the interaction between FX exposure and financial leverage increases the probability of distress. This sug- gests that multinational corporations with high debt burdens are vulnerable to currency shocks. Funda- mentally, these findings highlight the importance of hedging strategies and effective cash management in maintaining financial stability during periods of fluctuating exchange rate volatility. ", 
-        itemLink: "images/RP5P.pdf"
-    }
+const flashcardData = [
+  {
+    id: 1,
+    category: "Mathematics",
+    subcategory: "Algebra",
+    front: "What is the solution to 2x + 3 = 7?",
+    back: "x = 2",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 2,
+    category: "Mathematics",
+    subcategory: "Algebra",
+    front: "Solve: $x^2 - 5x + 6 = 0$",
+    back: "x = 2 or x = 3",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 3,
+    category: "Mathematics",
+    subcategory: "Calculus",
+    front: "What is the derivative of $f(x) = 3x^2 + 2x$?",
+    back: "$f'(x) = 6x + 2$",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 4,
+    category: "Science",
+    subcategory: "Biology",
+    front: "What is the powerhouse of the cell?",
+    back: "The mitochondria",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 5,
+    category: "Science",
+    subcategory: "Physics",
+    front: "What is Newton's first law of motion?",
+    back: "An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force.",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 6,
+    category: "History",
+    subcategory: "World War II",
+    front: "In what year did World War II end?",
+    back: "1945",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 7,
+    category: "History",
+    subcategory: "Ancient Rome",
+    front: "Who was the first Roman Emperor?",
+    back: "Augustus (Octavian)",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  {
+    id: 8,
+    category: "Literature",
+    subcategory: "Shakespeare",
+    front: "Who wrote 'Romeo and Juliet'?",
+    back: "William Shakespeare",
+    type: "qa",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  }
 ];
 
-export { data };
+export { flashcardData };

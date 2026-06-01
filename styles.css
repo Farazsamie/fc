@@ -6,13 +6,14 @@
 
 /* BASE COLOR VARIABLES */
 :root {
-    --dark-bg: #181717;       /* main background */
-    --card-bg: #272422;       /* card + button background */
-    --accent-gray: #443b3b;   /* secondary dark gray */
+    --dark-bg: #0a0a0a;       /* main background - pure black */
+    --card-bg: #1a1a1a;       /* card + button background - dark gray */
+    --accent-gray: #333333;   /* secondary dark gray */
     --text-light: #e7e2e2;    /* universal light text */
-    --border-dark: #1d1c1c;   /* darker borders */
-    --input-bg: #2d2d2d;      /* input fields background */
-    --hover-gray: #1a1919;    /* hover state */
+    --border-dark: #000000;   /* darker borders */
+    --input-bg: #1a1a1a;      /* input fields background */
+    --hover-gray: #2d2d2d;    /* hover state */
+    --primary-color: #4a9eff; /* primary action color */
 }
 
 body {
@@ -99,7 +100,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     padding: 0.6rem 1.2rem;
     background: var(--card-bg);
     border: 1px solid var(--accent-gray);
-    border-radius: 1px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.9rem;
@@ -133,7 +134,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     background: var(--card-bg);
     border: 1px solid var(--accent-gray);
     padding: 1.5rem;
-    border-radius: 1px;
+    border-radius: 16px;
     margin-bottom: 1.5rem;
 }
 
@@ -155,7 +156,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     background: var(--input-bg);
     border: 1px solid var(--accent-gray);
     padding: 1.5rem;
-    border-radius: 1px;
+    border-radius: 16px;
     margin-bottom: 1rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -188,7 +189,7 @@ body, h1, h2, h3, h4, h5, h6, p, div, button, label, textarea, input {
     background: var(--card-bg);
     border: 1px solid var(--accent-gray);
     padding: 2rem;
-    border-radius: 1px;
+    border-radius: 16px;
     max-width: 600px;
 }
 
@@ -222,7 +223,7 @@ select {
     background: var(--input-bg);
     border: 1px solid var(--border-dark);
     color: var(--text-light);
-    border-radius: 1px;
+    border-radius: 8px;
     font-family: inherit;
     font-size: 0.95rem;
     transition: all 0.2s;
@@ -250,7 +251,7 @@ button {
     padding: 0.75rem 1.25rem;
     background: var(--card-bg);
     border: 1px solid var(--accent-gray);
-    border-radius: 1px;
+    border-radius: 12px;
     color: var(--text-light);
     cursor: pointer;
     transition: all 0.2s;
@@ -335,7 +336,7 @@ button.danger:hover {
 .modal-content {
     background: var(--card-bg);
     padding: 2rem;
-    border-radius: 1px;
+    border-radius: 16px;
     border: 1px solid var(--accent-gray);
     max-width: 500px;
     width: 90%;
@@ -387,7 +388,7 @@ button.danger:hover {
     background: var(--input-bg);
     border: 1px solid var(--accent-gray);
     padding: 1.5rem;
-    border-radius: 1px;
+    border-radius: 16px;
     margin-bottom: 1rem;
 }
 
@@ -445,6 +446,54 @@ button.danger:hover {
     display: flex;
     gap: 0.75rem;
     margin-bottom: 1.5rem;
+}
+
+/* Sidebar styles */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sidebar-section {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-gray);
+    border-radius: 16px;
+    padding: 1.5rem;
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.flashcard {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 2px solid var(--accent-gray);
+    border-radius: 20px;
+    padding: 60px 40px;
+    min-height: 300px;
+    cursor: pointer;
+    transition: all 0.6s ease;
+    position: relative;
+}
+
+.flashcard:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.2);
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
 }
 
 .search-box input {

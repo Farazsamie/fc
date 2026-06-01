@@ -620,12 +620,6 @@
                 btn.disabled = false;
             }
         }
-                alert('✗ Error: ' + error.message);
-            } finally {
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        }
 
         function disableCloudSyncFirebase() {
             if (confirm('Disable cloud sync? Your local data will be preserved.')) {

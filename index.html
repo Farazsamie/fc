@@ -32,13 +32,13 @@
                     <div class="form-group">
                         <label>Category</label>
                         <select id="parentCategoryInput" onchange="updateSubcategoryDropdown()" style="width: 100%;">
-                            <option value="">-- All Categories --</option>
+                            <option value="">- All Categories -</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Subcategory</label>
                         <select id="subcategoryInput" onchange="loadCards()" style="width: 100%;">
-                            <option value="">-- All Subcategories --</option>
+                            <option value="">- All Subcategories -</option>
                         </select>
                     </div>
                 </div>
@@ -68,13 +68,13 @@
                             position: relative;
                             transform-style: preserve-3d;
                         ">
-                            <div style="position: absolute; top: 20px; right: 20px; color: var(--accent-gray); font-size: 0.85rem;" id="flipHint">Click to flip</div>
-                            <div id="cardFront" style="font-size: 1.3rem; font-weight: 500; line-height: 1.8;">Loading...</div>
+                            <div style="position: absolute; top: 20px; right: 20px; color: var(--accent-gray); font-size: 0.85rem;" id="flipHint">flip</div>
+                            <div id="cardFront" style="font-size: 1.3rem; font-weight: 500; line-height: 1.8;">Loading</div>
                             <div id="cardBack" style="
                                 display: none;
                                 font-size: 1.1rem;
                                 line-height: 1.8;
-                                color: #00d4ff;
+                                color: #2e2e2e;
                                 margin-top: 20px;
                                 padding-top: 20px;
                                 border-top: 2px solid var(--accent-gray);

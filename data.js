@@ -1,4 +1,18 @@
 // Parent Categories
+
+// {
+//     id: 0,
+//     categoryId: 'cfa-level1',
+//     subcategoryId: 'cfa-l1-',
+//     type: 'multiple-choice', // flashcard or multiple-choice
+//     front: " ",
+//     options: ['', '', ''],
+//     correctAnswer: 'A', // Index of correct option
+//     back: " ",
+//     correctAnswers: 0,
+//     incorrectAnswers: 0
+//   },
+  
 const parentCategories = [
   {
     id: 'cfa-level1',
@@ -415,7 +429,30 @@ const flashcardData = [
  
 
  
+
+
+
+
+
+
  
+  {
+    id: 31,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate? Standards of conduct:",
+    options: ['are a necessary component of any code of ethics.', 'serve as a general guide regarding proper conduct by members of a group.', 'serve as benchmarks for the minimally acceptable behavior required of members of a group.'],
+    correctAnswer: 'C', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+
+
+
+
 ];
 
 export { flashcardData, parentCategories, subcategories };

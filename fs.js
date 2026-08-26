@@ -162,12 +162,5 @@ function setupEventListeners() {
   if (subcategorySelect) subcategorySelect.addEventListener('change', loadCards);
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-
 // Export for use in other scripts
 export { flashcardData, currentCardIndex, filteredCards, parentCategories, subcategories };

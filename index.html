@@ -113,6 +113,22 @@
                                 flex: 1;
                                 min-width: 150px;
                             "> Correct</button>
+                            <button id="resetStatsBtn" class="btn secondary" onclick="resetStats()" style="
+                                padding: 14px 20px;
+                                border-radius: 12px;
+                                flex: 1;
+                                min-width: 150px;
+                            "> Reset</button>
+                        </div>
+                        <div id="easePrompt" style="display: none; margin-bottom: 20px; text-align: center;">
+                            <div style="margin-bottom: 10px;">How easy was this question? 1 = hard, 5 = easy</div>
+                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                <button class="ease-btn" onclick="chooseEase(1)">1</button>
+                                <button class="ease-btn" onclick="chooseEase(2)">2</button>
+                                <button class="ease-btn" onclick="chooseEase(3)">3</button>
+                                <button class="ease-btn" onclick="chooseEase(4)">4</button>
+                                <button class="ease-btn" onclick="chooseEase(5)">5</button>
+                            </div>
                         </div>
 
                         <!-- Stats -->
@@ -149,18 +165,12 @@
         window.parentCategories = parentCategories;
         window.subcategories = subcategories;
 
-        // Make functions available globally
-        window.previousCard = previousCard;
-        window.nextCard = nextCard;
-        window.markCorrect = markCorrect;
-        window.markIncorrect = markIncorrect;
-        window.loadCards = loadCards;
-        window.updateSubcategoryDropdown = updateSubcategoryDropdown;
-
         // State
         let currentIndex = 0;
         let cardsToStudy = [];
         let isFlipped = false;
+        let pendingAssessment = null;
+        const reviewDelays = { 1: 1, 2: 2, 3: 4, 4: 7, 5: 12 };
 
         // DOM elements
         const cardFront = document.getElementById('cardFront');
@@ -258,8 +268,11 @@
                         font-size: 1rem;
                         text-align: left;
                         transition: all 0.3s ease;
-                    " onclick="selectOption(${index}, ${card.correctAnswer})">${option}</button>
+                    ">${option}</button>
                 `).join('');
+                cardOptions.querySelectorAll('.option-btn').forEach((button, index) => {
+                    button.addEventListener('click', () => selectOption(index, card.correctAnswer));
+                });
                 cardOptions.style.display = 'block';
             } else {
                 // Traditional flashcard
@@ -272,7 +285,7 @@
             isFlipped = false;
             
             // Re-render MathJax
-            if (window.MathJax) {
+            if (window.MathJax && typeof MathJax.typesetPromise === 'function') {
                 MathJax.typesetPromise().catch(err => console.log('MathJax error:', err));
             }
             
@@ -281,8 +294,11 @@
         }
         
         // Handle multiple choice selection
-        function selectOption(selectedIndex, correctIndex) {
+        function selectOption(selectedIndex, correctAnswer) {
             const card = cardsToStudy[currentIndex];
+            const correctIndex = typeof correctAnswer === 'number'
+                ? correctAnswer
+                : card.options.indexOf(correctAnswer);
             const buttons = document.querySelectorAll('.option-btn');
             
             buttons.forEach((btn, idx) => {
@@ -303,11 +319,6 @@
             cardOptions.innerHTML += `<div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid var(--accent-gray); color: #00d4ff; font-size: 0.95rem;">${card.back}</div>`;
             
             // Mark as correct or incorrect
-            if (selectedIndex === correctIndex) {
-                card.correctAnswers++;
-            } else {
-                card.incorrectAnswers++;
-            }
         }
 
         // Update button states
@@ -354,23 +365,48 @@
 
         // Mark card
         function markCorrect() {
-            const card = cardsToStudy[currentIndex];
-            const originalCard = flashcardData.find(c => c.id === card.id);
-            if (originalCard) {
-                originalCard.correctAnswers++;
-            }
-            updateStats();
-            nextCard();
+            assessCard('correct');
         }
 
         function markIncorrect() {
+            assessCard('incorrect');
+        }
+
+        function assessCard(result) {
+            if (pendingAssessment) return;
             const card = cardsToStudy[currentIndex];
             const originalCard = flashcardData.find(c => c.id === card.id);
             if (originalCard) {
-                originalCard.incorrectAnswers++;
+                originalCard[result === 'correct' ? 'correctAnswers' : 'incorrectAnswers']++;
             }
+
+            pendingAssessment = { card, result };
+            document.getElementById('easePrompt').style.display = 'block';
+            document.getElementById('markCorrectBtn').disabled = true;
+            document.getElementById('markIncorrectBtn').disabled = true;
+        }
+
+        function chooseEase(rating) {
+            if (!pendingAssessment) return;
+            const card = pendingAssessment.card;
+            const repeatAt = Math.min(currentIndex + reviewDelays[rating], cardsToStudy.length);
+            cardsToStudy.splice(repeatAt, 0, card);
+
             updateStats();
-            nextCard();
+            pendingAssessment = null;
+            document.getElementById('easePrompt').style.display = 'none';
+            document.getElementById('markCorrectBtn').disabled = false;
+            document.getElementById('markIncorrectBtn').disabled = false;
+            currentIndex++;
+            displayCard();
+        }
+
+        function resetStats() {
+            flashcardData.forEach(card => {
+                card.correctAnswers = 0;
+                card.incorrectAnswers = 0;
+            });
+            updateStats();
         }
 
         // Update statistics
@@ -388,6 +424,17 @@
 
         // Initialize
         init();
+
+        // Inline HTML handlers must be registered after module declarations are initialized.
+        window.previousCard = previousCard;
+        window.nextCard = nextCard;
+        window.markCorrect = markCorrect;
+        window.markIncorrect = markIncorrect;
+        window.resetStats = resetStats;
+        window.chooseEase = chooseEase;
+        window.loadCards = loadCards;
+        window.updateSubcategoryDropdown = updateSubcategoryDropdown;
+        window.selectOption = selectOption;
     </script>
 </body>
 </html>
@@ -1031,7 +1078,7 @@
             }
         }
 
-        const app = new StudyApp();
+        let app;
         let currentCardId = null;
         let cardStartTime = null;
         let selectedSubcategoryId = null;
@@ -1835,6 +1882,7 @@
         function initApp() {
             try {
                 console.log('Initializing app...');
+                app = new StudyApp();
                 updateCategoriesNav();
                 updateParentCategoryDropdown();
 

@@ -611,16 +611,159 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "Which of the following organizational forms provides for the least owner liability of business debts?",
+    options: ['Sole proprietorship', 'General partnership', 'Private limited company'],
+    correctAnswer: 'Private limited company', // Index of correct option
+    back: " In both the sole proprietorship and general partnership forms of organization, the owners are personally liable for all debts assumed by the company. In a private limited company, owner (shareholder) liability is limited to the value of their ownership stake.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
 
     {
     id: 45,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Voting rights of a corporate issuer’s shareholders generally refer to which of the following?",
+    options: ['The ability to elect members of the company’s board of directors', 'The ability of the corporation to vote in political elections', 'The direct ability to elect a chief executive officer of the company'],
+    correctAnswer: 'The ability to elect members of the company’s board of directors', // Index of correct option
+    back: "The voting rights of shareholders generally allow them to elect board members as well as vote on other matters outlined in the company’s charter. The board of directors has the responsibility to hire (or retain) the company’s chief executive officer (CEO); thus, voting rights do not give shareholders the direct ability to hire the CEO. Despite the status of a corporation as a distinct legal entity, this status does not provide voting rights in political elections.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Explain how the following situation reflects double taxation on the corporate organizational form: The corporation pays a 21% tax rate on pre-tax income of USD100 million. The corporation distributes USD10 million to its shareholders. Individuals pay a 20% tax on dividend income.",
+    options: ['', '', ''],
+    correctAnswer: 'The corporation pays USD21 million in income taxes at the corporate level and, collectively, the shareholders pay USD2 million in individual income taxes on dividends received. In total, USD23 million in income taxes were paid on the pre-tax income of USD100 million. Effectively, the USD10 million paid as dividends was taxed twice, first as business income and again as personal income.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "True or false: The term “public” for a public corporate issuer means that the company is wholly or partially owned by a government.",
+    options: ['True', 'False', 'It depends on the jurisdiction'],
+    correctAnswer: 'False', // Index of correct option
+    back: "The statement is false because while a public corporate issuer could be owned partly by a government, this condition is not necessary. The term “public” refers only to the fact that a company’s equity securities are traded on an exchange and thus are available for investment by the public.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "A public company’s shares can be exchanged on a ________________, while a private company’s shares suffer from a lack of price ____________________.",
+    options: ['', '', ''],
+    correctAnswer: 'A public company’s shares can be exchanged on a stock exchange, while a private company’s shares suffer from a lack of price transparency.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Identify two features that distinguish a general partnership from a limited partnership.",
+    options: ['', '', ''],
+    correctAnswer: 'Owner–manager relationship: The management of a general partnership is typically shared by the general partners, while in a limited partnership, the general partner often exercises most managerial responsibilities. Owner liability of business debts and obligations: In a general partnership, the partners are personally legally liable for business debt and actions undertaken by the company. In a limited partnership, only the general partner faces personal liability; limited partners’ liability is limited to their investment in the partnership.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "If a company owner expects to have a significant need for financing, which of the following organizational forms is the least appropriate choice?",
+    options: ['Sole proprietorship', 'General partnership', 'Limited liability company'],
+    correctAnswer: 'Sole proprietorship', // Index of correct option
+    back: "A sole proprietorship is limited in financing to the owner’s funds and by the amount the owner can borrow personally. A partnership expands access to financing by adding owners, spreading risk, and adding borrowing capacity. The corporate form provides for the broadest access to financing because there are no limits to the number of shareholders and, with limited liability, shareholders are relatively more comfortable with the company borrowing.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Fill in the blanks in the following sentence: ________________ liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of ________________ taxation of distributed business income.",
+    options: ['', '', ''],
+    correctAnswer: 'Limited liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of double taxation of distributed business income.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "True or False: Partnerships are typically taxed at the entity level rather than at the individual partner level.",
+    options: ['True', 'False', 'Sometimes'],
+    correctAnswer: 'False', // Index of correct option
+    back: "Partnerships are typically pass-through entities, meaning that business income earned by the partnership is passed through to the partners according to the terms of partnership agreement, and each partner is taxed at the personal level.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Explain why the separation of ownership from management allows for corporate issuers to have greater access to capital.",
+    options: ['', '', ''],
+    correctAnswer: 'By separating ownership from management responsibilities, corporations can attract a broad range of owners, especially individuals and institutions, who do not want to be involved in management but would like to participate as investors.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Limited liability of shareholders refers to the fact that the ________________ amount shareholders may lose on their investment is the ________________ paid to buy the shares.",
+    options: ['', '', ''],
+    correctAnswer: 'Limited liability of shareholders refers to the fact that the maximum amount shareholders may lose on their investment is the price paid to buy the shares.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "In which of the following situations does the double taxation of the corporate organizational form matter the least?",
+    options: ['The company expects to pay all its after-tax income as a dividend to shareholders each year.', 'The company is expecting to reinvest all its after-tax profits each year into growth of the business.', '"The company’s shareholders reside in a tax jurisdiction with a high tax rate on dividend income."'],
+    correctAnswer: 'The company is expecting to reinvest all its after-tax profits each year into growth of the business.', // Index of correct option
+    back: "Reinvestment of all profits implies that the company pays no dividend to shareholders, and thus, no double taxation occurs.A is incorrect. Double taxation occurs because dividend income is taxed at both the corporate level and the shareholders’ personal levels. If all after-tax profits are distributed, shareholders are taxed twice on the business’s income.B is incorrect because a high tax rate on shareholders’ dividend income received would be a strong impetus to retain profits, find alternative means of distributing profits, or change the organizational form.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -644,6 +787,86 @@ const flashcardData = [
     correctAnswers: 0,
     incorrectAnswers: 0
   },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+
 
 
 

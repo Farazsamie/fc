@@ -421,7 +421,7 @@ const flashcardData = [
     type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following is the correct sequence of events for risk governance and management that focuses on the entire enterprise? Establishing:",
     options: ['Risk tolerance, then risk budgeting, and then risk exposures.', 'Risk exposures, then risk tolerance, and then risk budgeting.', 'Risk budgeting, then risk exposures, and then risk tolerance.'],
-    correctAnswer: 'A', // Index of correct option
+    correctAnswer: '', // Index of correct option
     back: "In establishing a risk management system, determining risk tolerance must happen before specific risks can be accepted or reduced. Risk tolerance defines the appetite for risk. Risk budgeting determine how or where the risk is taken and quantifies the tolerable risk by specific metrics. Risk exposures can then be measured and compared against the acceptable risk.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -449,7 +449,201 @@ const flashcardData = [
     incorrectAnswers: 0
   },
 
+  {
+    id: 32,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements best completes the following sentence? Professionals use their specialized knowledge and skills:",
+    options: ['in service to others.', 'to advance their careers.', 'for the exclusive benefit of their employers.'],
+    correctAnswer: 'in service to others.', // Index of correct option
+    back: "in service to others.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
 
+
+   {
+    id: 33,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate? A profession’s code of ethics:",
+    options: ['publicly communicates the shared principles and expected behaviors of a profession’s members.', 'includes standards of conduct or specific benchmarks for behavior.', 'ensures that all members of a profession will act ethically at all times.'],
+    correctAnswer: 'publicly communicates the shared principles and expected behaviors of a profession’s members.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id: 34,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following will most likely determine whether an individual will behave unethically?",
+    options: ['The person’s internal traits and intrinsic motivation', 'External factors, such as environmental or cultural elements', 'The person’s character'],
+    correctAnswer: 'External factors, such as environmental or cultural elements', // Index of correct option
+    back: "External factors, such as environmental or cultural elements",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 35,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate?",
+    options: ['Large financial rewards, such as bonuses, are the most powerful situational influences.', 'When decision-making focuses on short-term factors, the likelihood of ethical conduct increases.', 'Situational influences can motivate individuals to act in their short-term self-interests without recognizing the long-term risks or consequences for themselves and others.'],
+    correctAnswer: 'Situational influences can motivate individuals to act in their short-term self-interests without recognizing the long-term risks or consequences for themselves and others.', // Index of correct option
+    back: "Situational influences can motivate individuals to act in their short-term self-interests without recognizing the long-term risks or consequences for themselves and others.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 36,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate?",
+    options: ['All legal behavior is ethical behavior.', 'Some ethical behavior may be illegal.', 'Legal standards represent the highest standard.'],
+    correctAnswer: 'Some ethical behavior may be illegal.', // Index of correct option
+    back: "Some ethical behavior may be illegal.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 37,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate?",
+    options: ['New laws designed to reduce or eliminate conduct that adversely affects the markets can create opportunities for different, but similarly problematic, conduct.', 'Increased regulations are the most useful means to reduce unethical behavior by market participants.', 'Regulators quickly design and implement laws and regulations to address practices that adversely affect the fairness and efficiency of markets.'],
+    correctAnswer: 'New laws designed to reduce or eliminate conduct that adversely affects the markets can create opportunities for different, but similarly problematic, conduct.', // Index of correct option
+    back: "New laws designed to reduce or eliminate conduct that adversely affects the markets can create opportunities for different, but similarly problematic, conduct.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 38,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate? An ethical decision-making framework:",
+    options: ['is used to improve compliance with laws and regulations.', 'is a tool for analyzing the potential alternative actions and consequences of a decision.', 'is only beneficial when a firm lacks a code of ethics.'],
+    correctAnswer: 'is a tool for analyzing the potential alternative actions and consequences of a decision.', // Index of correct option
+    back: "An ethical decision-making framework is a tool for analyzing the potential alternative actions and consequences of a decision.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 39,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following is most accurate? Ethical decision-making frameworks:",
+    options: ['focus attention on short-term consequences.', 'raise awareness of different perspectives.', 'allocate more weight to those who will directly benefit from the decision.'],
+    correctAnswer: 'raise awareness of different perspectives.', // Index of correct option
+    back: "A is correct. Ethical decision-making frameworks raise awareness of different perspectives. The framework should consider short-term consequences, but they are not the focus of the framework. Similarly, the framework may allocate more weight to those who directly benefit from decisions, but this is not the primary goal of an ethical decision-making framework.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id: 40,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following is most accurate? Ethical decision-making frameworks:",
+    options: ['are not needed if behavior is legal.', 'identify who gains the most from a decision.', 'can help reduce unanticipated ethical lapses and unexpected consequences.'],
+    correctAnswer: 'can help reduce unanticipated ethical lapses and unexpected consequences.', // Index of correct option
+    back: "C is correct. Ethical decision-making frameworks can help avoid unanticipated ethical consequences. As it relates to A, ethics standards are often higher than legal standards so an ethical decision-making framework would be needed. Although B is accurate, identifying who gains most from the decision is a small component of the framework.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 41,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Using an ethical decision-making framework, which of the following duties would most likely take precedence in the scenario described? The financial adviser’s duty to his:",
+    options: ['colleagues.', 'client.', 'employer.'],
+    correctAnswer: 'client.', // Index of correct option
+    back: "Using an ethical decision-making framework, the financial adviser’s relationship with his client would most likely take precedence in this scenario. The adviser should put his client’s interests first. The exception to client interests taking precedence occurs when market integrity effects take precedence.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 42,
+    categoryId: 'cfa-level1',
+    subcategoryId: 'cfa-l1-ethics',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Using an ethical decision-making framework, the financial adviser would most likely:",
+    options: ['recommend that the elderly client invest at least some of his assets in the highly rated fund.', 'disclose the commission he would earn before recommending that the elderly client invest at least some of his assets in the highly rated fund.', 'research other investments that can provide steady income before making a recommendation to his elderly client.'],
+    correctAnswer: 'research other investments that can provide steady income before making a recommendation to his elderly client.', // Index of correct option
+    back: "Using an ethical decision-making framework, the financial adviser would identify the relevant facts, stakeholders, duties owed, and potential conflicts. In this scenario, the financial adviser owes a duty to his client as well as his employer. His client’s interests take precedence over all other interests. The bonus and his colleague’s desire to help his mother are situational influences. To navigate this situation, the financial adviser should seek additional information; he should research the risk and return parameters and fee structures of other investments that can provide steady income before making a recommendation to his client.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 43,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Fill in the two blanks below using the two of the following four possible terms below to complete: A _____________________ likely has the greatest access to financing, while a _____________________ likely has the least access to financing.",
+    options: ['sole proprietorship', 'public limited company (corporation)', 'limited partnership', 'general partnership'],
+    correctAnswer: 'A public limited company (corporation) likely has the greatest access to financing, while a sole proprietorship likely has the least access to financing.', // Index of correct option
+    back: "A primary difference across organizational forms is access to financing to fund investments. The sole proprietorship is limited to its individual owner’s ability to invest her own money and borrowing capacity as an individual. At the other end of the spectrum, a public limited company can access a broad array of outside investors by issuing debt and/or equity securities.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 44,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 45,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "",
+    options: ['', '', ''],
+    correctAnswer: '', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
 
 
 

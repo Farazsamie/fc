@@ -443,7 +443,7 @@ const flashcardData = [
     type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements is most accurate? Standards of conduct:",
     options: ['are a necessary component of any code of ethics.', 'serve as a general guide regarding proper conduct by members of a group.', 'serve as benchmarks for the minimally acceptable behavior required of members of a group.'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'serve as benchmarks for the minimally acceptable behavior required of members of a group.', // Index of correct option
     back: "serve as benchmarks for the minimally acceptable behavior required of members of a group.",
     correctAnswers: 0,
     incorrectAnswers: 0

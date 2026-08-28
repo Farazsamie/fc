@@ -767,9 +767,22 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
+    front: "Corporate issuers are characterized by all of the following except:",
+    options: ['The owners of the corporation are not legally distinct from the corporation.', 'Corporate income is taxed at both the corporate and personal levels.', 'Owners do not need to be involved in management of the company.'],
+    correctAnswer: 'The owners of the corporation are not legally distinct from the corporation.', // Index of correct option
+    back: "A corporation is a legally separate entity from its owners.A is incorrect because corporate income is taxed at both the corporate and personal levels unless the company pays zero dividends.B is incorrect because shareholders are not required to exercise management control over the company. While in some cases, a large shareholder may serve as senior management or be on the board of directors, most shareholders do not take on management responsibilities.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id: 46,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "primary features distinguishing public and private companies include",
     options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
+    correctAnswer: 'a. the ability to transfer ownership between investors,b. the process of issuing new shares, and c. registration and disclosure requirements. ', // Index of correct option
     back: "",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -780,10 +793,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "Accredited investors are the capital providers qualified by regulators to invest in public companies. Justify your answer.",
+    options: ['false', 'True', ''],
+    correctAnswer: 'false', // Index of correct option
+    back: "The statement is false. Accredited investors are judged by regulators to have the sophistication for understanding and assuming the risks that come with investing in private, not public, companies.  ",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -793,10 +806,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "A corporate issuer has the following attributes: It has no need for new equity financing, its debt needs are well satisfied through its existing credit facility with a bank, and it has a majority owner that exercises management control of the company. Is this corporate issuer more likely public or private?",
+    options: ['public', 'private', ''],
+    correctAnswer: 'private', // Index of correct option
+    back: "The lack of need for new equity capital implies less reason to have exchange-listed stock, as does the ability to operate the business with the current debt capacity available under its existing credit facility. The majority owner exercising management control could possibly imply either public or private status, although combined with the first two attributes, it is doubtful that such a company would be public.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -806,10 +819,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "Which of the following does not reflect a primary difference between an initial public offering (IPO) and a direct listing?",
+    options: ['Whether or not employees own shares in the private company', 'Whether or not the amount of capital raised', 'Whether or not the timeline for the listing process'],
+    correctAnswer: 'Whether or not employees own shares in the private company', // Index of correct option
+    back: "A is correct. A company with employee shareholders can go public with either an IPO or a direct listing; employee shareownership does not differ by the choice of transaction.C is incorrect. An IPO uses an underwriter to manage the process and underwrite the purchase of new shares, while a direct listing does not. B is incorrect. An IPO raises new capital for the listing company by issuing new shares to the public, while a direct listing does not; it lists only existing shares.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -819,10 +832,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "Which of the following statements does not provide an argument for using a derivative instrument?",
+    options: ['Derivatives typically have lower transaction costs than transacting directly in the underlying.', 'Large exposures to an underlying can be created with derivatives for a similar cash outlay.', 'Issuers may offset the financial market exposure associated with a commercial transaction.'],
+    correctAnswer: 'Large exposures to an underlying can be created with derivatives for a similar cash outlay.', // Index of correct option
+    back: "Derivative contracts create an exposure to the underlying with a small cash outlay, so this is the statement that does not provide an argument for using a derivative instrument. Statements A and B are statements that are valid arguments for using derivatives.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -832,10 +845,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "2. True or False: Debtholders, unlike equity holders, have symmetric potential downside losses and upside gains.",
+    options: ['True.', 'False.', 'It depends on the specific terms of the debt agreement.'],
+    correctAnswer: 'False.', // Index of correct option
+    back: "B is correct; the statement is false. Both debtholders and equity holders have asymmetric potential payoffs. For debtholders, potential upside gains are limited to interest and principal repayments, regardless of how high the value of the firm rises. In contrast, if the value of the firm falls below the value of its debt, debtholders can lose up to their initial investment.For equity holders, equity value is determined as the value of the firm less the value of its debt. Potential upside gains to shareholders are limited only by the future value of the firm, while shareholder losses, like those of debtholders, are limited to their initial investment.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -845,30 +858,13 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
+    front: "3. Interest payments to debtholders are:",
+    options: ['at the discretion of the board.', 'deductible for corporate income tax purposes.', 'residual payments.'],
+    correctAnswer: 'deductible for corporate income tax purposes.', // Index of correct option
+    back: "C is correct. Interest payments on debt are tax deductible for the firm. A is incorrect. Debtholders have priority claims on the cash flows of the firm over shareholders. B is incorrect. Interest payments are contractual, not discretionary like shareholder dividends.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
-
-    {
-    id: 46,
-    categoryId: 'cfa-level1',
-    subcategoryId: '',
-    type: 'multiple-choice', // flashcard or multiple-choice
-    front: "",
-    options: ['', '', ''],
-    correctAnswer: '', // Index of correct option
-    back: "",
-    correctAnswers: 0,
-    incorrectAnswers: 0
-  },
-
-
-
-
 
 ];
 

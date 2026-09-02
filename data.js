@@ -866,6 +866,97 @@ const flashcardData = [
     incorrectAnswers: 0
   },
 
+  {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "In investment decisions, the risk premium:",
+    options: ['guarantees that expected returns meet actual returns.', 'compensates investors for uncertainty associated with returns.', 'ensures that risk-free investments deliver consistent returns over time.'],
+    correctAnswer: 'compensates investors for uncertainty associated with returns.', // Index of correct option
+    back: "The correct answer is B. The risk premium compensates for the risk associated with the variance between expected, ex ante, and actual, ex post, returns. It compensates for the uncertainty between expected and realized returns. The size of the compensation reflects the increased uncertainty about expected returns: The higher the uncertainty, the higher the risk premium. Answer A is incorrect. The risk premium cannot guarantee that expected returns will always meet realized returns. The risk premium compensates for the inherent uncertainty between expectations and outcomes. Answer C is incorrect. The risk premium is not intended to make risk-free investments deliver consistent returns over time. Risk-free investments do not face default or reinvestment risk.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "An investor purchases 1,000 shares at USD100 per share. After she receives a dividend of USD3 per share one year later, she sells the shares for USD120 per share. Her tax rate is 25% on capital gains and 15% on capital distributions. Her after-tax return for the year is closest to:",
+    options: [' ', ' ', ' '],
+    correctAnswer: '17.55%', // Index of correct option
+    back: "r net − tax = r price × (1− tax capital gains) + r distributions × (1 – tax distributions). a. First, the price return is calculated: r price = (p1-p0)/p0 = 120 -100/100 =20% b. Then, the capital distribution return is calculated: r dist = inc / p0 = 3/100 = 3% c. Finally, the respective after-tax returns are calculated: rprice × (1 – taxcapital gains) + rdistributions × (1 – taxdistributions) = 20.0% × (1 – 25%) + 3.0% × (1 – 15%) = 15.0% + 2.55% = 17.55%.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "A stock experiences a continuously compounded return of 10% for the first half of a year and 40% for the second half. Its continuously compounded return for the full year is closest to:",
+    options: [' ', ' ', ' '],
+    correctAnswer: '50%', // Index of correct option
+    back: "The correct response is A, 50.00%. Contiuously compounded returns are additive over time. For each period’s return, we directly add them: 10% for the first half and 40% for the second half, 10% + 40% = 50%. Answer B is incorrect. It does not consider the additive property of continuously compounded returns: 1.1 × 1.4 – 1 = 54%. This treats the returns as if they were realized simple returns for the period and ignores that they are continuously compounded. Answer C is incorrect. It first averages the continuously compounded returns, 10% + 40%  / 2 = 25% , before calculating the period returns, 1.252 – 1 = 56.25%.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "SolarTech Innovations’ shares showed the following total returns: Year 1: −10% Year 2: 15% Year 3: 20% Over the three-year period, SolarTech shares had a geometric annual return closest to:",
+    options: [' ', ' ', ' '],
+    correctAnswer: '7.49%', // Index of correct option
+    back: "[ (1 - 0.10) x (1 +. 0.15) x ( 1 + 0.20) ] ^ 1/3   - 1  = 7.49%",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Annualized returns are calculated by:",
+    options: ['adding all periodic returns within a year.', 'dividing the periodic returns by the number of periods in a year.', 'C. raising the sum of 1 plus the geometric average periodic return to the power of the number of periods in a year, then subtracting 1.'],
+    correctAnswer: 'C. raising the sum of 1 plus the geometric average periodic return to the power of the number of periods in a year, then subtracting 1.', // Index of correct option
+    back: "The correct response is C. Annualized returns are determined by raising the sum of 1 plus the periodic return to the power of the number of periods in a year, then subtracting 1, or rannualized = (1 + rperiod)c – 1. This approach incorporates the compounding effect of returns over multiple periods within a year. Answer A is incorrect. The approach fails to account for the compounding effects of returns, which is essential for accurately annualizing returns. Answer B is incorrect. This approach oversimplifies the calculation and does not accurately capture annualized returns. It neglects the compounding effect, a key aspect in the annualization of returns as seen in the ETF case.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the steps for clearing a credit default swap.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The counterparties are financial intermediaries that first execute the trade on an SEF (swap execution facility). Then, trade details are shared with a CCP; the novation process substitutes the original contract with another where the CCP steps into the trade and acts as the new counterparty for each original party. The CCP clears and settles the trade.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 47,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "4. Identify one potential risk concern about the central clearing of derivatives.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The central clearing mandate transfers the systemic risk of derivatives transactions from the counterparties, typically financial intermediaries, to the CCPs. One concern is the centralization and concentration of risks in CCPs. Careful oversight must occur to ensure that these risks are properly managed.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
 ];
 
 export { flashcardData, parentCategories, subcategories };

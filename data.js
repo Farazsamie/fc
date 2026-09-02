@@ -46,7 +46,7 @@ const flashcardData = [
     front: "Which of the following statements is most accurate? Ethics can be described as:",
     options: ['A set of moral principles that provide guidance for our behavior.', 'A commitment to upholding the law.', 'An individual’s personal opinion about right and wrong.'],
     correctAnswer: 'A set of moral principles that provide guidance for our behavior', // Index of correct option
-    back: "Ethics can be described as a set of moral principles that provide guidance for our behavior; these may be moral principles shared by a community or societal group.",
+    back: " Ethics can be described as a set of moral principles that provide guidance for our behavior; these may be moral principles shared by a community or societal group.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },

@@ -1,18 +1,4 @@
-// Parent Categories
 
-// {
-//     id: 0,
-//     categoryId: 'cfa-level1',
-//     subcategoryId: 'cfa-l1-',
-//     type: 'multiple-choice', // flashcard or multiple-choice
-//     front: " ",
-//     options: ['', '', ''],
-//     correctAnswer: 'A', // Index of correct option
-//     back: " ",
-//     correctAnswers: 0,
-//     incorrectAnswers: 0
-//   },
-  
 const parentCategories = [
   {
     id: 'cfa-level1',

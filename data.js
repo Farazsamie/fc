@@ -646,7 +646,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 47,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -659,7 +659,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 48,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -672,7 +672,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 49,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -685,7 +685,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 50,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -698,7 +698,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 51,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -711,7 +711,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 52,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -724,7 +724,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 53,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -737,7 +737,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 54,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -750,7 +750,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 55,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -763,7 +763,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 56,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -776,7 +776,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 57,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -789,7 +789,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 58,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -802,7 +802,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 59,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -815,7 +815,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 60,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -828,7 +828,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 61,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -841,7 +841,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 62,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -854,7 +854,7 @@ const flashcardData = [
   },
 
     {
-    id: 46,
+    id: 63,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -867,7 +867,7 @@ const flashcardData = [
   },
 
   {
-    id: 47,
+    id: 64,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -880,7 +880,7 @@ const flashcardData = [
   },
 
    {
-    id: 47,
+    id: 65,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -893,7 +893,7 @@ const flashcardData = [
   },
 
    {
-    id: 47,
+    id: 66,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -906,7 +906,7 @@ const flashcardData = [
   },
 
    {
-    id: 47,
+    id: 67,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -919,7 +919,7 @@ const flashcardData = [
   },
 
    {
-    id: 47,
+    id: 68,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -932,7 +932,7 @@ const flashcardData = [
   },
 
    {
-    id: 47,
+    id: 69,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
@@ -945,7 +945,7 @@ const flashcardData = [
   },
 
    {
-    id: 47,
+    id: 70,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice

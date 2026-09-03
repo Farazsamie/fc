@@ -808,7 +808,7 @@ const flashcardData = [
     front: "Which of the following does not reflect a primary difference between an initial public offering (IPO) and a direct listing?",
     options: ['Whether or not employees own shares in the private company', 'Whether or not the amount of capital raised', 'Whether or not the timeline for the listing process'],
     correctAnswer: 'Whether or not employees own shares in the private company', // Index of correct option
-    back: "A is correct. A company with employee shareholders can go public with either an IPO or a direct listing; employee shareownership does not differ by the choice of transaction.C is incorrect. An IPO uses an underwriter to manage the process and underwrite the purchase of new shares, while a direct listing does not. B is incorrect. An IPO raises new capital for the listing company by issuing new shares to the public, while a direct listing does not; it lists only existing shares.",
+    back: "A company with employee shareholders can go public with either an IPO or a direct listing; employee shareownership does not differ by the choice of transaction.C is incorrect. An IPO uses an underwriter to manage the process and underwrite the purchase of new shares, while a direct listing does not. B is incorrect. An IPO raises new capital for the listing company by issuing new shares to the public, while a direct listing does not; it lists only existing shares.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -819,8 +819,8 @@ const flashcardData = [
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements does not provide an argument for using a derivative instrument?",
-    options: ['Derivatives typically have lower transaction costs than transacting directly in the underlying.', 'Large exposures to an underlying can be created with derivatives for a similar cash outlay.', 'Issuers may offset the financial market exposure associated with a commercial transaction.'],
-    correctAnswer: 'Large exposures to an underlying can be created with derivatives for a similar cash outlay.', // Index of correct option
+    options: ['Derivatives typically have lower transaction costs than transacting directly in the underlying.', 'Large exposures to an underlying can be created with derivatives for a similar cash outlay', 'Issuers may offset the financial market exposure associated with a commercial transaction.'],
+    correctAnswer: 'Large exposures to an underlying can be created with derivatives for a similar cash outlay', // Index of correct option
     back: "Derivative contracts create an exposure to the underlying with a small cash outlay, so this is the statement that does not provide an argument for using a derivative instrument. Statements A and B are statements that are valid arguments for using derivatives.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -831,9 +831,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "2. True or False: Debtholders, unlike equity holders, have symmetric potential downside losses and upside gains.",
-    options: ['True.', 'False.', 'It depends on the specific terms of the debt agreement.'],
-    correctAnswer: 'False.', // Index of correct option
+    front: "True or False: Debtholders, unlike equity holders, have symmetric potential downside losses and upside gains.",
+    options: ['True', 'False', 'It depends on the specific terms of the debt agreement.'],
+    correctAnswer: 'False', // Index of correct option
     back: "B is correct; the statement is false. Both debtholders and equity holders have asymmetric potential payoffs. For debtholders, potential upside gains are limited to interest and principal repayments, regardless of how high the value of the firm rises. In contrast, if the value of the firm falls below the value of its debt, debtholders can lose up to their initial investment.For equity holders, equity value is determined as the value of the firm less the value of its debt. Potential upside gains to shareholders are limited only by the future value of the firm, while shareholder losses, like those of debtholders, are limited to their initial investment.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -844,9 +844,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "3. Interest payments to debtholders are:",
-    options: ['at the discretion of the board.', 'deductible for corporate income tax purposes.', 'residual payments.'],
-    correctAnswer: 'deductible for corporate income tax purposes.', // Index of correct option
+    front: "Interest payments to debtholders are:",
+    options: ['at the discretion of the board.', 'deductible for corporate income tax purposes', 'residual payments.'],
+    correctAnswer: 'deductible for corporate income tax purposes', // Index of correct option
     back: "C is correct. Interest payments on debt are tax deductible for the firm. A is incorrect. Debtholders have priority claims on the cash flows of the firm over shareholders. B is incorrect. Interest payments are contractual, not discretionary like shareholder dividends.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -858,8 +858,8 @@ const flashcardData = [
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
     front: "In investment decisions, the risk premium:",
-    options: ['guarantees that expected returns meet actual returns.', 'compensates investors for uncertainty associated with returns.', 'ensures that risk-free investments deliver consistent returns over time.'],
-    correctAnswer: 'compensates investors for uncertainty associated with returns.', // Index of correct option
+    options: ['guarantees that expected returns meet actual returns.', 'compensates investors for uncertainty associated with returns', 'ensures that risk-free investments deliver consistent returns over time.'],
+    correctAnswer: 'compensates investors for uncertainty associated with returns', // Index of correct option
     back: "The correct answer is B. The risk premium compensates for the risk associated with the variance between expected, ex ante, and actual, ex post, returns. It compensates for the uncertainty between expected and realized returns. The size of the compensation reflects the increased uncertainty about expected returns: The higher the uncertainty, the higher the risk premium. Answer A is incorrect. The risk premium cannot guarantee that expected returns will always meet realized returns. The risk premium compensates for the inherent uncertainty between expectations and outcomes. Answer C is incorrect. The risk premium is not intended to make risk-free investments deliver consistent returns over time. Risk-free investments do not face default or reinvestment risk.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -910,8 +910,8 @@ const flashcardData = [
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
     front: "Annualized returns are calculated by:",
-    options: ['adding all periodic returns within a year.', 'dividing the periodic returns by the number of periods in a year.', 'C. raising the sum of 1 plus the geometric average periodic return to the power of the number of periods in a year, then subtracting 1.'],
-    correctAnswer: 'C. raising the sum of 1 plus the geometric average periodic return to the power of the number of periods in a year, then subtracting 1.', // Index of correct option
+    options: ['adding all periodic returns within a year.', 'dividing the periodic returns by the number of periods in a year.', 'raising the sum of 1 plus the geometric average periodic return to the power of the number of periods in a year, then subtracting 1.'],
+    correctAnswer: 'raising the sum of 1 plus the geometric average periodic return to the power of the number of periods in a year, then subtracting 1.', // Index of correct option
     back: "The correct response is C. Annualized returns are determined by raising the sum of 1 plus the periodic return to the power of the number of periods in a year, then subtracting 1, or rannualized = (1 + rperiod)c – 1. This approach incorporates the compounding effect of returns over multiple periods within a year. Answer A is incorrect. The approach fails to account for the compounding effects of returns, which is essential for accurately annualizing returns. Answer B is incorrect. This approach oversimplifies the calculation and does not accurately capture annualized returns. It neglects the compounding effect, a key aspect in the annualization of returns as seen in the ETF case.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -922,7 +922,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Describe the steps for clearing a credit default swap.",
+    front: "Describe the steps for clearing a credit default swap",
     options: [' ', ' ', ' '],
     correctAnswer: 'The counterparties are financial intermediaries that first execute the trade on an SEF (swap execution facility). Then, trade details are shared with a CCP; the novation process substitutes the original contract with another where the CCP steps into the trade and acts as the new counterparty for each original party. The CCP clears and settles the trade.', // Index of correct option
     back: " ",
@@ -935,7 +935,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "4. Identify one potential risk concern about the central clearing of derivatives.",
+    front: "Identify one potential risk concern about the central clearing of derivatives.",
     options: [' ', ' ', ' '],
     correctAnswer: 'The central clearing mandate transfers the systemic risk of derivatives transactions from the counterparties, typically financial intermediaries, to the CCPs. One concern is the centralization and concentration of risks in CCPs. Careful oversight must occur to ensure that these risks are properly managed.', // Index of correct option
     back: "",

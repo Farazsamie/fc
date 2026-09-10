@@ -413,15 +413,6 @@ const flashcardData = [
     incorrectAnswers: 0
   },
  
-
- 
-
-
-
-
-
-
- 
   {
     id: 31,
     categoryId: 'cfa-level1',
@@ -943,6 +934,317 @@ const flashcardData = [
     incorrectAnswers: 0
   },
 
+  {
+    id: 71,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A domestic corporate issuer seeking to finance operations in a foreign market would most likely issue:",
+    options: ['foreign bonds', 'domestic bonds', 'Treasury bonds'],
+    correctAnswer: 'foreign bonds', // Index of correct option
+    back: "Corporate issuers often match the currency of their bond financing cash flows with that of their foreign operations using foreign bonds. The use of domestic bonds would not match the currency of the issuer’s foreign operations. A second possibility would be to issue a domestic bond and then use a swap to obtain the desired foreign currency exposure. However, this method is beyond the scope of this lesson and will be introduced later. Treasury bonds are issued by sovereign issuers.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 72,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A bond issued by a South African company denominated in British pounds sold exclusively to investors who are legally domiciled in the United Kingdom would most likely be classified as:",
+    options: ['foreign', 'Eurobond', 'domestic'],
+    correctAnswer: 'foreign', // Index of correct option
+    back: "Bonds sold in a country (United Kingdom) and denominated in that country’s currency (British pounds) by an entity from another country (South Africa) are referred to as foreign bonds.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 73,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Fill in the blanks. An unregulated bond issued in domestic currency outside the issuer’s national borders is known as a _______________. A bond issued simultaneously in the Eurobond market and in at least one domestic bond market is known as a ____________ bond.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "An unregulated bond issued in domestic currency outside the issuer’s national borders is known as a Eurobond. A bond issued simultaneously in the Eurobond market and in at least one domestic bond market is known as a global bond.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 74,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Identify the following statement as true or false: A bond’s coupon payment is most likely to be taxed as ordinary income.",
+    options: ['True', 'False', ' '],
+    correctAnswer: 'True', // Index of correct option
+    back: "True. Bond interest is usually taxed at the ordinary income tax rate, which is typically the same tax rate that an individual would pay on wage or salary income.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 75,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "An issuer that would like to conserve near-term cash outflows would most likely issue a:",
+    options: ['putable bond', 'callable bond', 'convertible bond'],
+    correctAnswer: 'convertible bond', // Index of correct option
+    back: "All else equal, an issuer would have the lowest interest payments on a convertible bond. Bondholders are often willing to accept a yield-to-maturity that is very low (or even zero) in exchange for conversion rights. Putable bonds offer lower yields than callable bonds because the put option is a benefit to the bondholder while the call option is a benefit to the issuer. However, the yields on callable and putable bonds are high compared to yields on convertibles.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 76,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A convertible bond will closely track its conversion value if the issuer’s share price is:",
+    options: ['below the conversion price', ' above the conversion price.', 'equal to the conversion price'],
+    correctAnswer: ' above the conversion price.', // Index of correct option
+    back: "In general, a convertible bond’s price will vary with that of the issuer’s shares. If the issuer’s share price far exceeds the conversion price, the bond’s price will more closely track its conversion value. If the share price is well below the conversion price, the convertible bond’s price will approach that of a non-convertible bond. In this case, the convertible bond would have a mix of price properties between that of a non-convertible bond and a convertible bond.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 77,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Callable and putable bond prices with the same coupon rate will behave most like an option-free equivalent bond when their YTMs are, respectively:",
+    options: ['below the coupon rate and above the coupon rate.', 'above the coupon rate and below the coupon rate.', 'both near the coupon rate.'],
+    correctAnswer: 'above the coupon rate and below the coupon rate.', // Index of correct option
+    back: "If a callable bond’s YTM rises above its coupon rate, the call feature is less valuable and a callable bond behaves much like a non-callable bond with respect to price movements due to interest rate changes. If a putable bond’s YTM is less than its coupon rate, the put feature is less valuable and the putable bond’s price behaves like an option-free equivalent bond with respect to interest rate changes. This is the reverse of the correct relationship. If their YTMs are both near the coupon rate, both bonds will be near their price limits where the call and put features would be exercised. Their price changes would be lower in magnitude relative to a non-callable bond.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 78,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "All else equal, the bond with the greatest benefit to the issuer is a bond with:",
+    options: ['a make-whole call provision.', 'no contingency provisions.', 'a fixed-price call provision.'],
+    correctAnswer: 'a fixed-price call provision.', // Index of correct option
+    back: "Fixed-price calls grant the issuer the right to buy back the bond at a predetermined price in the future, which is a benefit to the issuer if interest rates fall. A bond with no contingency provisions is an option-free bond and is not as beneficial to the issuer as a bond with a fixed-price call provision. A make-whole call is a contingency feature under which issuers can buy bonds back at a price usually based on the yield-to-maturity of a sovereign bond of similar maturity plus a predetermined spread. Make-whole calls are rarely executed and have little economic impact on issuers or investors.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 79,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe how a decrease in the consumer price index would affect the next coupon payment of a capital-indexed inflation-linked bond.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The principal of capital-indexed inflation-linked bonds is adjusted using a price index, with coupon payments calculated using a fixed coupon rate and the adjusted principal. A decrease in the consumer price index (or deflation) will cause the principal of a capital-indexed inflation-linked bond to be adjusted downward in the next period and result in a lower coupon payment.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 80,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Compared to a bullet bond, an otherwise identical amortizing bond would most likely have:",
+    options: ['lower credit risk.', 'lower reinvestment risk.', 'lower near-term cash flows.'],
+    correctAnswer: 'lower credit risk.', // Index of correct option
+    back: "Compared to a bullet bond, an otherwise identical amortizing bond would have early principal repayments each period instead of all principal paid at maturity, lowering exposure to the issuers credit risk. However, larger periodic payments increase reinvestment risk.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 81,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Compared to a bond with an original issue discount (OID) tax provision, an otherwise identical bond without this provision would most likely have:",
+    options: ['higher taxes due at maturity.', 'the same taxes due at maturity.', 'lower taxes due at maturity.'],
+    correctAnswer: 'higher taxes due at maturity.', // Index of correct option
+    back: "Under the OID tax provision, the investor will recognize a prorated portion of the OID as taxable income each year and pay no capital gains tax upon maturity. Investors without an OID tax provision will recognize no taxable income until maturity, upon which they will face capital gains tax on the OID (provided there is capital gains tax in their jurisdiction).",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 82,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: " A put provision embedded in a fixed-income security:",
+    options: ['leads to a lower value compared to a bullet bond.', 'is a benefit to the bondholders.', 'increases the likelihood that its issuer will be acquired.'],
+    correctAnswer: 'is a benefit to the bondholders.', // Index of correct option
+    back: "A put provision gives bondholders the right to sell the bonds back to the issuer at a pre-determined price on specified dates. The put provision is a benefit to bondholders because it can protect them from the risk of the price of the bond falling from, for example, rising interest rates. As put provisions are beneficial to investors, putable bonds are priced at a premium, not a discount, relative to option-free counterparts. Put provisions can deter acquirers because the exercise of putable bonds results in an immediate claim on cash, making the acquisition more expensive. Issuing bonds with put provisions is a strategy employed by some firms to deter unfriendly takeovers known as a “poison puts.”",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 83,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A call provision embedded in a fixed-income security:",
+    options: ['grants the bondholder some degree of inflation protection.', 'gives the bondholder the right but not an obligation to sell the bond.', ' is a benefit to the issuer.'],
+    correctAnswer: 'is a benefit to the issuer.', // Index of correct option
+    back: "A call provision gives the issuer the right to redeem all or part of the bond at a pre-determined price on specified dates. It is a benefit to the issuer because if market interest rates fall, the issuer can replace the callable bond with one with a lower interest rate. It also gives the issuer added flexibility if it has excess cash or wishes to change its capital structure in the future. This describes a putable bond, not a callable bond. If a callable bond is called, the bondholder is obliged to sell it to the issuer according to the specified terms. A call provision does not grant the bondholder inflation protection. A call would be exercised by the issuer if interest rates fall.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 84,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Gordon, an analyst of household products companies, is employed by a research boutique, Picador & Co. Based on information that she has gathered during a trip through Latin America, she believes that Hygene, Inc., a major marketer of personal care products, has generated better-than-expected sales from its new product initiatives in South America. After modestly boosting her projections for revenue and for gross profit margin in her worksheet models for Hygene, Gordon estimates that her earnings projection of US$2.00 per diluted share for the current year may be as much as 5% too low. She contacts the chief financial officer (CFO) of Hygene to try to gain confirmation of her findings from her trip and to get feedback regarding her revised models. The CFO declines to comment and reiterates management’s most recent guidance of US$1.95–US$2.05 for the year. Gordon decides to try to force a comment from the company by telling Picador & Co. clients who follow a momentum investment style that consensus earnings projections for Hygene are much too low; she explains that she is considering raising her published estimate by an ambitious US$0.15–US$2.15 per share. She believes that when word of an unrealistically high earnings projection filters back to Hygene’s investor relations department, the company will feel compelled to update its earnings guidance. Meanwhile, Gordon hopes that she is correct at least with respect to the earnings direction and that she will help clients who act on her insights to profit from a quick gain by trading on her advice.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "By exaggerating her earnings projections in order to try to fuel a quick gain in Hygene’s stock price, Gordon is in violation of Standard II(B). However, it would have been acceptable for Gordon to write a report that framed her earnings projection in a range of possible outcomes and outlined clearly the assumptions used in her Hygene models that took into consideration the findings from her trip through Latin America.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 85,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Fill in the blanks. Covenant violations provide bondholders recourse in several possible ways, including a change in _________ terms, such as an increase in a bond’s interest rate or security, ___________ debt payments, or ___________ of the debt agreement.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Covenant violations provide bondholders recourse in several possible ways, including a change in financial terms, such as an increase in a bond’s interest rate or security, accelerated debt payments, or termination of the debt agreement.', // Index of correct option
+    back: "",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id: 86,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the difference between affirmative and negative bond covenants.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "Affirmative covenants specify what issuers are required to do, whereas negative covenants specify what issuers are prohibited from doing.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 87,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the source of repayment for asset-backed securities.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The source of repayment for asset-backed securities are cash flows from the group of loans or receivables owned by the special purpose issuer.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 88,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Explain the difference in the sources of repayment for a secured and an unsecured corporate bond.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The sole source of repayment for unsecured corporate bonds is typically operating cash flows of the issuer, while secured corporate bonds also include specific assets as a secondary source of debt repayment in addition to the issuer’s operating cash flows.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 89,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Fill in the blanks. A downward-sloping yield curve indicates that yields-to-maturity on an issuer’s longer-term bonds are __________ than yields-to-maturity on that issuer’s shorter-term bonds.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "A downward-sloping yield curve indicates that yields-to-maturity on an issuer’s longer-term bonds are lower than yields-to-maturity on that issuer’s shorter-term bonds.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 90,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Fill in the blanks. The current yield is equal to a bond’s annual _____ divided by the bond’s price expressed as a percentage. If the bond’s price were to fall, we would expect the current yield to ____.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The current yield is equal to a bond’s annual coupon divided by the bond’s price expressed as a percentage. If the bond’s price were to fall, we would expect the current yield to rise.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 91,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the purpose of a pari passu clause in a bond indenture.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "A pari passu (“equal footing”) clause ensures that a debt obligation is treated the same as the borrower’s other senior debt instruments.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 92,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following is the appropriate order of claims in liquidation, by type of bond, in order of highest to lowest?",
+    options: ['Senior unsecured, senior secured, junior', 'Senior secured, senior unsecured, junior', 'Junior, senior secured, senior unsecured'],
+    correctAnswer: 'Senior secured, senior unsecured, junior', // Index of correct option
+    back: "C is correct. Senior secured debts would be the highest-priority claims to be satisfied. Senior unsecured debts would be the next to receive allocations of the liquidated asset value, and junior debts would be the lowest-priority claims to be satisfied.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 93,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A sovereign bond is usually a safer investment than a corporate bond of similar maturity issued within a country because:",
+    options: ['sovereign bonds are secured by high-quality collateral, such as property and equipment.', 'corporate bonds are subject to inflation risk.', 'sovereign bonds are backed by taxation and fiscal power of the issuing government.'],
+    correctAnswer: 'sovereign bonds are backed by taxation and fiscal power of the issuing government.', // Index of correct option
+    back: "Sovereign bonds are backed by a national government’s taxation and fiscal power and thus usually represent the highest-credit-quality bonds in each geographic market. X is incorrect because sovereign bonds, unless specifically indexed to inflation, are also subject to inflation risk. X is incorrect because sovereign bonds are typically not secured by collateral; this is more commonly a feature of corporate bonds and asset-backed securities.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+     {
+    id: 94,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "The annual coupon amount for a fixed-rate bond is calculated by:",
+    options: ['multiplying its yield by the par value of the bond.', 'Multiplying its coupon rate by the par value of the bond.', 'Multiplying its coupon rate by the price of the bond.'],
+    correctAnswer: 'Multiplying its coupon rate by the par value of the bond.', // Index of correct option
+    back: "On each interest payment date, a fixed-rate bond issuer pays investors a coupon payment equal to the bond’s coupon rate times its par value. For periods shorter than a year, the annual coupon amount is divided into smaller equal periodic payments. For example, a bond with a par value of 100 and a coupon rate of 6% paid quarterly would pay coupon payments of (0.06 x 100)/4 = 1.5, four times per year.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
 ];
 
 export { flashcardData, parentCategories, subcategories };

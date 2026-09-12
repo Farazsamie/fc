@@ -1245,6 +1245,253 @@ const flashcardData = [
     correctAnswers: 0,
     incorrectAnswers: 0
   },
+
+   {
+    id:95,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following words makes the following statement correct? Market participants use derivative agreements to exchange cash flows in the future based on a(n) _________________.",
+    options: ['Hedge', 'Option', 'Underlying'],
+    correctAnswer: 'Underlying', // Index of correct option
+    back: "Market participants use derivative agreements to exchange cash flows in the future based on an underlying. B is incorrect because option refers to a specific derivative contract type. C is incorrect because hedge refers to a specific purpose of using a derivative contract.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:96,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following is a significant difference between exchange-traded derivative (ETD) and over the counter (OTC) derivative contracts?",
+    options: ['ETDs create counterparty credit risk for derivative users, while OTC derivatives do not.', 'ETDs are standardized contracts, while OTC derivatives are customized.', 'ETDs have higher transaction costs compared to OTC derivatives.'],
+    correctAnswer: 'ETDs are standardized contracts, while OTC derivatives are customized.', // Index of correct option
+    back: "Exchanges standardize contracts to facilitate trading volume. However, users often require specific customized features, and the OTC market can accommodate these needs. A is incorrect because exchanges bear the counterparty credit risk of derivatives. C is incorrect because ETDs have lower transaction costs compared to OTC derivatives.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:97,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: " If a corporate issuer enters into a centrally cleared OTC derivative contract, which of the following risks is likely of most concern to the issuer and other participants in this market?",
+    options: ['Counterparty credit risk', 'Systemic risk', 'Interest rate risk'],
+    correctAnswer: 'Systemic risk', // Index of correct option
+    back: "Because all the credit risk is taken on by the CCP, all participants in this market are most concerned that the CCP is able to satisfy its obligations to all contracts. A is incorrect because interest rate risk is an underlying risk that can be hedged or managed with certain OTC derivative contracts. B is incorrect because the CCP assumes the credit risk from all parties to the contracts.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:98,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: " Identify one reason why an issuer may use a derivative instrument.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'An issuer may use a derivative to offset the financial market exposure associated with a commercial transaction. An issuer may also use a derivative to offset or neutralize existing or anticipated exposure to an underlying.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:99,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Determine the correct answers to fill in the blanks: Equities are an example of a derivative ____________, and a _______________ is a legal entity entering a derivative contract.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Equities are an example of a derivative underlying, and a counterparty is a legal entity entering a derivative contract.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:100,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the use of a derivative for hedging purposes.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Use of a derivative for hedging purposes involves offsetting or neutralizing an existing or anticipated exposure to an underlying, referred to as hedging.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:101,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Explain the settlement of a forward contract.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'A forward contract is a firm commitment. This contract results in a settlement payment on the maturity date equal to the difference between the current market price and a pre-agreed forward price.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:102,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe how and why an underlying may be used in employee compensation.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Derivatives with an equity underlying, in particular the stock of a particular issuer, may be included in the compensation of that company’s employees. Stock options are granted to provide incentives to work toward stronger corporate performance in the expectation of a higher stock price, which will cause the options to increase in value.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:103,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Explain how a UK-based importer of goods from the euro zone might use a derivative with a currency underlying to mitigate risk.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'A UK-based importer of goods from the euro zone will likely pay EUR for goods that she intends to sell for GBP. To address this currency mismatch, she may consider entering a firm commitment to purchase EUR in exchange for GBP at a pre-determined price in the future based upon terms matching the import contract to offset risk to changes in the underlying spot exchange rate (i.e., GBP depreciation against EUR)', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:104,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Taylor, a mining analyst with Bronson Brokers, is invited by Precision Metals to join a group of his peers in a tour of mining facilities in several western US states. The company arranges for chartered group flights from site to site and for modest accommodations in Spartan Motels, the only chain with accommodations near the mines, for three nights. Taylor allows Precision Metals to pick up his tab, as do the other analysts, with one exception—Adams, an employee of a large trust company who insists on following his company’s policy and paying for his hotel room himself.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The policy of the company where Adams works complies closely with Standard I(B) by avoiding even the appearance of a conflict of interest, but Taylor and the other analysts did not necessarily violate Standard I(B). In general, when allowing companies to pay for travel and/or accommodations in these circumstances, members and candidates must use their judgment. They must be on guard that such arrangements do not impinge on a member’s or candidate’s independence and objectivity. In this example, the trip was strictly for business and Taylor was not accepting irrelevant or lavish hospitality. The itinerary required chartered flights, for which analysts were not expected to pay. The accommodations were modest. In the final analysis, members and candidates must consider both whether they can remain objective and whether their integrity might be perceived by their clients to have been compromised.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:105,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Dillon, an analyst in the corporate finance department of an investment services firm, is making a presentation to a potential new business client that includes the promise that her firm will provide full research coverage of the potential client.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Dillon may agree to provide research coverage, but she must not commit her firm’s research department to providing a favorable recommendation. The firm’s recommendation (favorable, neutral, or unfavorable) must be based on an independent and objective investigation and analysis of the company and its securities.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:106,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Fritz is an equity analyst at Hilton Brokerage who covers the mining industry. He has concluded that the stock of Metals & Mining is overpriced at its current level, but he is concerned that a negative research report will hurt the good relationship between Metals & Mining and the investment banking division of his firm. In fact, a senior manager of Hilton Brokerage just sent him a copy of a proposal his firm made to Metals & Mining to underwrite a debt offering. Fritz needs to produce a report right away and is concerned about issuing a less-than-favorable rating.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Fritz’s analysis of Metals & Mining must be objective and based solely on consideration of company fundamentals. Any pressure from other divisions of his firm is inappropriate. This conflict could have been eliminated if, in anticipation of the offering, Hilton Brokerage had placed Metals & Mining on a restricted list.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:107,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Fritz is an equity analyst at Hilton Brokerage who covers the mining industry. Fritz has concluded that Metals & Mining stock is overvalued at its current level, but he is concerned that a negative research report might jeopardize a close rapport that he has nurtured over the years with Metals & Mining’s CEO, chief financial officer, and investment relations officer. Fritz is concerned that a negative report might also result in management retaliation—for instance, cutting him off from participating in conference calls when a quarterly earnings release is made, denying him the ability to ask questions on such calls, and/or denying him access to top management for arranging group meetings between Hilton Brokerage clients and top Metals & Mining managers.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Fritz’s analysis must be objective and based solely on consideration of company fundamentals. Any pressure from Metals & Mining is inappropriate. To support the integrity of his conclusions, Fritz should fully document his work, including how his investment recommendation is based on relative valuation.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:108,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "In her role supporting the sales effort of a corporate bond department, Warner offers credit guidance to fixed-income investors. Her compensation is closely linked to the performance of the corporate bond department. Near the quarter’s end, Warner’s firm has a large inventory position in the bonds of Milton, Ltd., and has been unable to sell the bonds because of Milton’s recent announcement of an operating problem. Salespeople have asked her to contact large clients to push the bonds.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Unethical sales practices create significant potential violations of the Code and Standards. Warner’s opinion of the Milton bonds must not be affected by internal pressure or compensation. In this case, Warner must refuse to push the Milton bonds unless she is able to justify that the market price has already adjusted for the operating problem.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:109,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Jorund, a securities analyst following airline stocks, is a rising star at her firm. Her boss has been carrying a “buy” recommendation on International Airlines and asks Jorund to take over coverage of the airline. He tells Jorund that under no circumstances should the prevailing buy recommendation be changed.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Jorund must be independent and objective in her analysis of International Airlines. If she believes that her boss’s instructions have compromised her, she has two options: She can tell her boss that she cannot cover the company under these constraints, or she can take over coverage of the company, reach her own independent conclusions, and if they conflict with her boss’s opinion, share the conclusions with her boss or other supervisors in the firm so that they can make appropriate recommendations. Jorund must issue only recommendations that reflect her independent and objective opinion.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:110,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Grant directs a large amount of his commission business to a New York–based brokerage house. In appreciation for all the business, the brokerage house gives Grant two tickets to the World Cup in South Africa, two nights at a nearby resort, several meals, and transportation via limousine to the game.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Grant violated Standard I(B) because accepting these substantial gifts may impede his independence and objectivity. Members and candidates must not solicit or accept gifts, contributions, or other compensation that affects their independence and objectivity or that reasonably could be expected to influence their decision-making process. Best practice is to avoid situations that might cause or be perceived to cause a loss of independence or objectivity in recommending investments or taking investment action. By accepting the trip, Grant created a conflict of interest and opened himself up to the accusation that he may give the broker favored treatment in return. At a minimum, Grant must disclose this conflict to his employer and clients.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:111,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Green manages the portfolio of Knowlden, a client of Tisbury Investments. Green achieves an annual return for Knowlden that is consistently better than that of the benchmark she and the client previously agreed to. As a reward, Knowlden offers Green two tickets to Wimbledon and the use of Knowlden’s flat in London for a week. Green discloses this gift to her supervisor at Tisbury.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Green is in compliance with Standard I(B) because she disclosed the gift from one of her clients. Members and candidates may accept bonuses or gifts from clients as long as they disclose them to their employer because gifts in a client relationship are deemed less likely to affect a member’s or candidate’s objectivity and independence than gifts in other situations. Disclosure is required, however, so that supervisors can monitor such situations to guard against employees favoring a gift-giving client to the detriment of other fee-paying clients (such as by allocating a greater proportion of IPO stock to the gift-giving client’s portfolio).', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:112,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "____________ make permanent capital available to issuers. (debtholders, shareholders)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Shareholders make permanent capital available to issuers. Debtholders is incorrect. Debt has a finite maturity, though it can be far in the future.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:113,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "____________ have a residual claim against a firm’s cash flows. (debtholders, shareholders)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
 ];
 
 export { flashcardData, parentCategories, subcategories };

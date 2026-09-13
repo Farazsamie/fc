@@ -213,16 +213,24 @@
             loadCards();
         }
 
+        function shuffleCards(cards) {
+            for (let index = cards.length - 1; index > 0; index--) {
+                const randomIndex = Math.floor(Math.random() * (index + 1));
+                [cards[index], cards[randomIndex]] = [cards[randomIndex], cards[index]];
+            }
+            return cards;
+        }
+
         // Load cards based on filters
         function loadCards() {
             const selectedCategory = categorySelect.value;
             const selectedSubcategory = subcategorySelect.value;
             
-            cardsToStudy = flashcardData.filter(card => {
+            cardsToStudy = shuffleCards(flashcardData.filter(card => {
                 if (selectedCategory && card.categoryId !== selectedCategory) return false;
                 if (selectedSubcategory && card.subcategoryId !== selectedSubcategory) return false;
                 return true;
-            });
+            }));
             
             currentIndex = 0;
             isFlipped = false;

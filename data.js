@@ -1492,6 +1492,370 @@ const flashcardData = [
     correctAnswers: 0,
     incorrectAnswers: 0
   },
+
+  {
+    id:114,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "____________ have a residual claim against a firm’s cash flows. (debtholders, shareholders)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:115,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "The shareholder theory of corporate governance is _______________ than the stakeholder theory. (narrower, broader)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The shareholder theory of corporate governance is narrower than the stakeholder theory. Stakeholders are groups and individuals with a vested interest in a firm’s success and include, but are not limited to, shareholders.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:116,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "ESG considerations are an explicit objective in the _____________ theory of corporate governance. (shareholder, stakeholder)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'ESG considerations are an explicit objective in the stakeholder theory of corporate governance. The stakeholder theory seeks to balance the interests of shareholders with the interests of a broader group that relate to ESG considerations.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:117,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "The estimated impact of ESG factors on corporate issuers’ financial and share price performance has _________________ over time. (decreased, remained the same, increased)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The estimated impact of ESG factors on corporate issuers’ financial and share price performance has increased over time. This impact is the result of changing consumer and investor preferences, increased regulations and taxes related to ESG factors, and the rising threat of climate change.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:118,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "ESG factors are increasingly recognized as _______________ by analysts. (quantifiable, qualitative)",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'ESG factors are increasingly recognized as quantifiable by analysts. Historically, ESG factors were considered negative externalities with no direct effect on firms’ financial statements. Increasingly, analysts are quantifying the effects of ESG factors and including them in firm valuation and investment decision-making.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:119,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Corporate equity and debt holders share the same investor perspective with respect to:",
+    options: ['investment risk.', 'maximum loss.', 'return potential.'],
+    correctAnswer: 'maximum loss.', // Index of correct option
+    back: "For both equity and debt holders, their initial investment represents their maximum possible loss. The return potential is theoretically unlimited for equity holders, while it is capped for debtholders. Equity holders are exposed to a higher level of investment risk, as they hold a residual claim on the firm’s cash flows that is lower in priority to the debtholders’ claim.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:120,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following groups has a residual claim on an issuer’s cash flows?",
+    options: ['Employees', 'Debtholders', 'Shareholders'],
+    correctAnswer: 'Shareholders', // Index of correct option
+    back: "Shareholders are residual claimants to a firm’s cash flows and receive discretionary distributions after priority claims (e.g., employee compensation, supplier payments, interest expenses, and taxes) are met.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:121,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Which is more sensitive to changes in firm value: debt or equity? Explain your answer.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Equity is more sensitive to changes in firm value, because debtholders have fixed, priority claims while equity holders have residual claims whose value is contingent on future firm profits. On the one hand, if firm value increases, residual value accrues to shareholders while debtholder payments do not change. On the other hand, reductions in firm value fall first on equity holders. If firm value falls below debt value and the firm is declared insolvent, equity holders typically receive nothing and debtholders take control of the firm and often seek to liquidate its assets.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:122,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "All of the following are characteristics of debt except:",
+    options: ['priority in payment.', 'limited liability.', 'unlimited return.'],
+    correctAnswer: 'unlimited return.', // Index of correct option
+    back: "B is correct. Shareholders, not debtholders, have the potential for unlimited return. A is incorrect. Debtholders and shareholders both have limited liability. C is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:123,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: " All else being equal, a jurisdiction increasing its corporate income tax rate would most likely lead to ____________________ (lower/higher/the same) use of debt financing by issuers.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Higher. An increase in the corporate income tax rate would likely result in a higher mix of debt. Interest payments on debt are tax deductible, so an increase in the tax rate would reduce the after-tax cost of debt financing, all else being equal, thus making debt financing relatively more attractive than equity financing.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:124,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the risk transfer process in OTC derivative markets.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'OTC dealers, known as market makers, typically enter into offsetting transactions with one another to transfer the risk of derivative contracts entered with end users.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:125,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Determine the correct answers to fill in the blanks: ____________ involves the payment of final amounts and/or delivery of securities or physical commodities, while __________ is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Settlement involves the payment of final amounts and/or delivery of securities or physical commodities, while clearing is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:126,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Identify which of the following choices is most likely an alternative investment:",
+    options: ['An investment in a hedge fund focused on traditional assets', 'Shares in a manufacturing firm traded on the Bursa Malaysia exchange', 'A euro foreign exchange future purchased on the Chicago Mercantile exchange'],
+    correctAnswer: 'An investment in a hedge fund focused on traditional assets', // Index of correct option
+    back: "An investment in a hedge fund, even one that purchases traditional exchange-traded assets, is considered an alternative investment. B is incorrect because shares traded on a public exchange, such as the Bursa Malaysia exchange, are considered traditional, not alternative, investments. C is incorrect because a euro foreign exchange future purchased on a public exchange, such as the Chicago Mercantile exchange, is considered a traditional, not an alternative, investment.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:127,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "An advantage of investing in alternative investments most likely is:",
+    options: ['higher expected returns', 'low investment fees.', 'high liquidity.'],
+    correctAnswer: 'higher expected returns', // Index of correct option
+    back: "Investors are often attracted to alternative investments seeking greater diversification and/or higher expected returns. A is incorrect because investors usually face longer investment periods, reduced liquidity, and less efficient markets with alternative investments than with more traditional assets. B is incorrect because alternative investments often carry higher fees, including performance and/or incentive fees.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:128,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Investors with limited experience most likely enter into alternative investments through:",
+    options: ['co-investing', 'direct investing', 'fund investing.'],
+    correctAnswer: 'fund investing.', // Index of correct option
+    back: "Investors with limited resources and/or experience generally enter into alternative investments through fund investing, where the investor contributes capital to a fund and the fund identifies, selects, and makes investments on the investor’s behalf. A is incorrect because co-investing is more appropriate for investors who already have some experience investing in funds; in co-investing, the investor invests in assets indirectly through the fund but also possesses rights (known as co-investment rights) to invest directly in the same assets. C is incorrect because direct investing, which occurs when an investor makes a direct investment in an asset without the use of an intermediary, is typically reserved for larger and more sophisticated investors.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:129,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "When an investor invests in an asset without the use of an intermediary, it is called:",
+    options: ['"co-investing.', 'direct investing.', '"fund investing.'],
+    correctAnswer: 'direct investing.', // Index of correct option
+    back: "In direct investing, an investor makes a direct investment in an asset without the use of an intermediary. A is incorrect because in co-investing, an investor invests in assets indirectly through a fund but also possesses rights (known as co-investment rights) to invest directly in the same assets. B is incorrect because for fund investing, an investor contributes capital to a fund and the fund, not the investor, identifies, selects, and makes investments on the investor’s behalf.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:130,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which statement regarding alternative investment partnership structures is most accurate?",
+    options: ['The fund manager has limited liability for anything that goes wrong.', 'The fund manager is a limited partner, and investors are general partners.', 'Investors’ upfront cash outflow can be a small portion of their total commitment to the partnership.'],
+    correctAnswer: 'Investors’ upfront cash outflow can be a small portion of their total commitment to the partnership.', // Index of correct option
+    back: "Limited partners (LPs) are outside investors who own a fractional interest in the partnership based on the amount of their initial investment and the terms set out in the partnership documentation. LPs commit to future investments, and their upfront cash outflow can be a small portion of their total commitment to the fund. A is incorrect because the fund manager is the fund’s general partner (GP) who runs the business and theoretically bears unlimited liability for anything that goes wrong. B is incorrect because the fund manager is the fund’s general partner, not a limited partner, and the investors are the limited partners.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:131,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "After failing to meet the hurdle rate, which of the following would a general partner still most likely receive as compensation?",
+    options: ['Carried interest', 'Management fee', 'Committed capital'],
+    correctAnswer: 'Management fee', // Index of correct option
+    back: "Alternative investment funds are usually structured with a management fee typically ranging from 1% to 2% of assets under management (e.g., for hedge funds) or 1% to 2% of committed capital (e.g., for private equity funds). (Committed capital is the total amount of money that the limited partners have committed to the fund’s future investments.) A performance fee (also referred to as an incentive fee, carried interest, or carry) is applied based on excess returns. The partnership agreement usually specifies that the performance fee is earned only after the fund achieves a return known as a “hurdle rate.” The hurdle rate is a minimum rate of return that the general partner must exceed in order to earn the performance fee. A is incorrect because “carried interest” is another name for a performance fee, which is earned only after the fund achieves its hurdle rate. C is incorrect because committed capital is the total amount of money that the limited partners have committed to the fund’s future investments, not a fee to the general partner.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:131,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Compensation structures for alternative investments most likely are:",
+    options: ['less complex than those of traditional investments.', 'equally complex as those of traditional investments.', 'more complex than those of traditional investments.'],
+    correctAnswer: 'more complex than those of traditional investments.', // Index of correct option
+    back: " The illiquidity, complexity, and long-term nature of alternative investments require more complex structures to bridge potential gaps between manager and investor interests. Alternative investment structures may explicitly address both the roles and responsibilities of investors and managers to address these gaps. In addition, alternative investment structures tailor the distribution of returns between these two parties to minimize the divergence of incentives between manager and investor. A is incorrect because the compensation structures for alternative investments are more complex, not less complex, than those for traditional investments. B is incorrect because the compensation structures for alternative investments are more complex than, not equally complex as, those for traditional investments.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:132,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Identify the following statement as true or false: Limited partners (LPs) are involved in the management of the alternative investment fund in which they invest; they assist the general partner (GP) in the operations and decisions of the fund.",
+    options: ['TRUE', 'FALSE', ' '],
+    correctAnswer: 'FALSE', // Index of correct option
+    back: "False. LPs play passive roles and are not involved in the management of the fund (although co-investment rights allow LPs to make additional direct investments in the portfolio companies); the operations and decisions of the fund are controlled solely by the GP.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:133,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Determine the correct answers to fill in the blanks: A ____________agrees to manage a fund’s operations under an agreed standard of care and to perform such activities as buying or selling assets, borrowing funds, establishing reserves, or entering into contracts on behalf of the fund. A ____________________ establishes the terms of a limited partnership and governs the actions and decisions of the limited partnership.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'A general partner agrees to manage a fund’s operations under an agreed standard of care and to perform such activities as buying or selling assets, borrowing funds, establishing reserves, or entering into contracts on behalf of the fund. A limited partnership agreement (LPA) establishes the terms of a limited partnership and governs the actions and decisions of the limited partnership.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:134,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: " The coupon rate for a floating rate note (FRN) is composed of a market reference rate and:",
+    options: ['a credit rating.', 'an issuer-specific spread.', 'The yield on a fixed-rate benchmark bond.'],
+    correctAnswer: 'an issuer-specific spread.', // Index of correct option
+    back: "An FRN coupon rate comprises a market reference rate (MRR) and an issuer-specific spread that is usually constant and set at the time of issuance, while the MRR resets periodically based on market factors. As the MRR changes, the FRN coupon rate and interest payment change accordingly. Incorrect. While the issuer’s credit rating may be a determinant of an FRN’s spread over the MRR, a credit rating is a letter-grade assessment of credit risk and is not directly involved in the calculation of the coupon rate. Incorrect. The yield on a fixed-rate benchmark bond would reflect top-down factors that determine interest rates, such as real growth and expected inflation, which are already considered in the MRR.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:135,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: " Referring to the Auchan Holding example in this lesson, calculate the amount of the tax disadvantage (in euros) Auchan has in its corporate form compared to if it were organized as a limited partnership. Recall that Auchan’s pre-tax profit was €838 million, the corporate tax rate was 31.5%, the personal income tax rate was 30%, and all after-tax profits were distributed.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'If Auchan were organized as a limited partnership, its pre-tax profit would be passed through to the owner(s) and taxes would only be paid at the personal level. Thus, total taxes paid would be €251.4 million (= €838 million × 0.30), or €184.8 million lower than total taxes paid under the corporate organizational form, and this tax of €251.4 million would be paid regardless of whether the partnership distributed the profit to partners.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:136,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "1. In September 2017, Sea Ltd, the Singapore-based technology company, filed a registration statement with the US SEC to register its initial public offering of securities (American Depositary Shares, each representing one Class A Ordinary Share) on the New York Stock Exchange. In addition to a large amount of financial information, the registration statement provided over 50 pages of discussion on Sea Ltd.’s business and industry.",
+    options: ['"A. Underwriters’ fairness opinion of the offering', '"B. Assessment of risk factors involved in the business', '"C. Projected cash flows and earnings for the business'],
+    correctAnswer: '"B. Assessment of risk factors involved in the business', // Index of correct option
+    back: "B is correct. Information provided by companies in registration statements typically includes disclosures about the securities being offered for sale; the relationship of these new securities to the issuer’s other capital securities; the information typically provided in the annual filings; recent audited financial statements; and risk factors involved in the business. Companies provide information useful in developing projected cash flows and earnings but do not typically include these in the registration statement, nor do they provide opinions of the underwriters.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:137,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A public company acquires a private company. Is the acquired company public or private after the acquisition? Explain the rationale for your choice.",
+    options: ['Private', 'Public', 'Neither'],
+    correctAnswer: 'Public', // Index of correct option
+    back: "Even though the acquired company will not have its own shares, the shareholders of the acquirer own the formerly private company, though the percentage of assets of the combined company attributable to the acquired company may be small. The acquirer’s board of directors and management now operate the newly acquired company.",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:138,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Identify a major reason why a national government would be a 100% shareholder in a corporate issuer, and discuss two factors that may cause a national government to reduce its ownership in a state-owned company.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'A national government may choose to be the 100% owner of a company that provides public goods to the national economy, such as infrastructure and public safety, that would either not be provided by private means or be delivered inequitably or inefficiently. In some cases, a country may have natural resources, such as crude oil, and the national government may use a wholly owned corporation for production and to invest profits in ways that benefit its country. Two possible reasons that a country may reduce its ownership in a state-owned company include (1) opportunities to bring in foreign capital and diversify the country’s economy, such as the case highlighted by the Saudi Aramco example, and (2) a push for privatization and deregulation to potentially lower costs through competition and motivate innovation, as highlighted by the postal services examples.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:139,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Herrero recently left his job as a research analyst for a large investment adviser. While looking for a new position, he was hired as a contractor by an investor relations firm to write a research report on one of its clients, a small educational software company. The investor relations firm hopes to generate investor interest in the technology company. The firm will pay Herrero a flat fee plus a bonus if any new investors buy stock in the company as a result of Herrero’s report.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'If Herrero accepts this payment arrangement, he will be in violation of Standard I(B) because the compensation arrangement can reasonably be expected to compromise his independence and objectivity. Herrero will receive a bonus for attracting investors, which provides an incentive to draft a positive report regardless of the facts and to ignore or play down any negative information about the company. Herrero should accept only a flat fee that is not tied to the conclusions or recommendations of the report. Issuer-paid research that is objective and unbiased is acceptable under certain circumstances as long as the analyst takes steps to maintain his or her objectivity and includes in the report proper disclosures regarding potential conflicts of interest.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:140,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Scott is a performance analyst who is responsible for analyzing the performance of external managers for her firm. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned about pointing out the composite change.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Scott is a performance analyst who is responsible for analyzing the performance of external managers for her firm. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned about pointing out the composite change.', // Index of correct option
+    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
 ];
 
 export { flashcardData, parentCategories, subcategories };

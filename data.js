@@ -1827,7 +1827,6 @@ const flashcardData = [
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "A national government may choose to be the 100% owner of a company that provides public goods to the national economy, such as infrastructure and public safety, that would either not be provided by private means or be delivered inequitably or inefficiently. In some cases, a country may have natural resources, such as crude oil, and the national government may use a wholly owned corporation for production and to invest profits in ways that benefit its country. Two possible reasons that a country may reduce its ownership in a state-owned company include (1) opportunities to bring in foreign capital and diversify the country’s economy, such as the case highlighted by the Saudi Aramco example, and (2) a push for privatization and deregulation to potentially lower costs through competition and motivate innovation, as highlighted by the postal services examples.", // Index of correct option
-    back: " ",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1841,7 +1840,6 @@ const flashcardData = [
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "If Herrero accepts this payment arrangement, he will be in violation of Standard I(B) because the compensation arrangement can reasonably be expected to compromise his independence and objectivity. Herrero will receive a bonus for attracting investors, which provides an incentive to draft a positive report regardless of the facts and to ignore or play down any negative information about the company. Herrero should accept only a flat fee that is not tied to the conclusions or recommendations of the report. Issuer-paid research that is objective and unbiased is acceptable under certain circumstances as long as the analyst takes steps to maintain his or her objectivity and includes in the report proper disclosures regarding potential conflicts of interest.", // Index of correct option
-    back: " ",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1855,7 +1853,71 @@ const flashcardData = [
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Scott is a performance analyst who is responsible for analyzing the performance of external managers for her firm. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned about pointing out the composite change.", // Index of correct option
-    back: " ",
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:140,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "What is SOFR?",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "SOFR = Secured Overnight Financing Rate. It's a widely used benchmark interest rate in U.S. dollar financial markets. SOFR = a market-based reference rate that can change over time.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+    {
+    id:140,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Identify the two defining properties of probability, including mutually exclusive and exhaustive events, and compare and contrast empirical, subjective, and a priori probabilities.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The two properties of probability are as follows: The sum of the probabilities of all possible mutually exclusive events is 1. The probability of any event cannot be greater than 1 or less than 0. A priori probability measures predetermined probabilities based on well-defined inputs; empirical probability measures probability from observations or experiments; and subjective probability is an informed guess.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:140,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Explain an interest rate as the sum of a real risk-free rate and premiums that compensate investors for bearing distinct types of risk.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The real risk-free rate is a theoretical rate on a single-period loan when there is no expectation of inflation. Nominal risk-free rate = real risk-free rate + expected inflation rate. Securities may have several risks, and each increases the required rate of return. These include default risk, liquidity risk, and maturity risk. The required rate of return on a security = real risk-free rate + expected inflation + default risk premium + liquidity premium + maturity risk premium.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:140,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Calculate and interpret the future value (FV) and present value (PV) of a single sum of money, an ordinary annuity, an annuity due, a perpetuity (PV only), and a series of unequal cash flows.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "Future value: FV = PV(1 + I/Y)N Present value: PV = FV / (1 + I/Y)N An annuity is a series of equal cash flows that occurs at evenly spaced intervals over time. Ordinary annuity cash flows occur at the end of each time period. Annuity due cash flows occur at the beginning of each time period. Perpetuities are annuities with infinite lives (perpetual annuities): PVperpetuity = PMT/I/Y The present (future) value of any series of cash flows is equal to the sum of the present (future) values of the individual cash flows.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:140,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: " ",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },

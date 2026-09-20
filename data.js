@@ -616,8 +616,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Explain how the following situation reflects double taxation on the corporate organizational form: The corporation pays a 21% tax rate on pre-tax income of USD100 million. The corporation distributes USD10 million to its shareholders. Individuals pay a 20% tax on dividend income.",
     options: ['', '', ''],
-    correctAnswer: 'The corporation pays USD21 million in income taxes at the corporate level and, collectively, the shareholders pay USD2 million in individual income taxes on dividends received. In total, USD23 million in income taxes were paid on the pre-tax income of USD100 million. Effectively, the USD10 million paid as dividends was taxed twice, first as business income and again as personal income.', // Index of correct option
-    back: "",
+    correctAnswer: '', // Index of correct option
+    back: "The corporation pays USD21 million in income taxes at the corporate level and, collectively, the shareholders pay USD2 million in individual income taxes on dividends received. In total, USD23 million in income taxes were paid on the pre-tax income of USD100 million. Effectively, the USD10 million paid as dividends was taxed twice, first as business income and again as personal income.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -643,7 +643,7 @@ const flashcardData = [
     front: "A public company’s shares can be exchanged on a ________________, while a private company’s shares suffer from a lack of price ____________________.",
     options: ['', '', ''],
     correctAnswer: 'A public company’s shares can be exchanged on a stock exchange, while a private company’s shares suffer from a lack of price transparency.', // Index of correct option
-    back: "",
+    back: "A public company’s shares can be exchanged on a stock exchange, while a private company’s shares suffer from a lack of price transparency.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -656,7 +656,7 @@ const flashcardData = [
     front: "Identify two features that distinguish a general partnership from a limited partnership.",
     options: ['', '', ''],
     correctAnswer: 'Owner–manager relationship: The management of a general partnership is typically shared by the general partners, while in a limited partnership, the general partner often exercises most managerial responsibilities. Owner liability of business debts and obligations: In a general partnership, the partners are personally legally liable for business debt and actions undertaken by the company. In a limited partnership, only the general partner faces personal liability; limited partners’ liability is limited to their investment in the partnership.', // Index of correct option
-    back: "",
+    back: "Owner–manager relationship: The management of a general partnership is typically shared by the general partners, while in a limited partnership, the general partner often exercises most managerial responsibilities. Owner liability of business debts and obligations: In a general partnership, the partners are personally legally liable for business debt and actions undertaken by the company. In a limited partnership, only the general partner faces personal liability; limited partners’ liability is limited to their investment in the partnership.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -682,7 +682,7 @@ const flashcardData = [
     front: "Fill in the blanks in the following sentence: ________________ liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of ________________ taxation of distributed business income.",
     options: ['', '', ''],
     correctAnswer: 'Limited liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of double taxation of distributed business income.', // Index of correct option
-    back: "",
+    back: "Limited liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of double taxation of distributed business income.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -707,8 +707,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Explain why the separation of ownership from management allows for corporate issuers to have greater access to capital.",
     options: ['', '', ''],
-    correctAnswer: 'By separating ownership from management responsibilities, corporations can attract a broad range of owners, especially individuals and institutions, who do not want to be involved in management but would like to participate as investors.', // Index of correct option
-    back: "",
+    correctAnswer: '', // Index of correct option
+    back: "By separating ownership from management responsibilities, corporations can attract a broad range of owners, especially individuals and institutions, who do not want to be involved in management but would like to participate as investors. The separation of ownership from management allows corporations to attract a broad range of owners, especially individuals and institutions, who do not want to be involved in management but would like to participate as investors.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -759,8 +759,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "primary features distinguishing public and private companies include",
     options: ['', '', ''],
-    correctAnswer: 'a. the ability to transfer ownership between investors,b. the process of issuing new shares, and c. registration and disclosure requirements. ', // Index of correct option
-    back: "",
+    correctAnswer: '', // Index of correct option
+    back: "a. the ability to transfer ownership between investors,b. the process of issuing new shares, and c. registration and disclosure requirements. ",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -860,9 +860,9 @@ const flashcardData = [
     id: 65,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: 'flashcard', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "An investor purchases 1,000 shares at USD100 per share. After she receives a dividend of USD3 per share one year later, she sells the shares for USD120 per share. Her tax rate is 25% on capital gains and 15% on capital distributions. Her after-tax return for the year is closest to:",
-    options: [' ', ' ', ' '],
+    options: ['17.55%', '15.00%', '20.00%'],
     correctAnswer: '17.55%', // Index of correct option
     back: "r net − tax = r price × (1− tax capital gains) + r distributions × (1 – tax distributions). a. First, the price return is calculated: r price = (p1-p0)/p0 = 120 -100/100 =20% b. Then, the capital distribution return is calculated: r dist = inc / p0 = 3/100 = 3% c. Finally, the respective after-tax returns are calculated: rprice × (1 – taxcapital gains) + rdistributions × (1 – taxdistributions) = 20.0% × (1 – 25%) + 3.0% × (1 – 15%) = 15.0% + 2.55% = 17.55%.",
     correctAnswers: 0,
@@ -873,10 +873,10 @@ const flashcardData = [
     id: 66,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: 'flashcard', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "A stock experiences a continuously compounded return of 10% for the first half of a year and 40% for the second half. Its continuously compounded return for the full year is closest to:",
-    options: [' ', ' ', ' '],
-    correctAnswer: '50%', // Index of correct option
+    options: ['50.00%', '54.00%', '56.25%'],
+    correctAnswer: '50.00%', // Index of correct option
     back: "The correct response is A, 50.00%. Contiuously compounded returns are additive over time. For each period’s return, we directly add them: 10% for the first half and 40% for the second half, 10% + 40% = 50%. Answer B is incorrect. It does not consider the additive property of continuously compounded returns: 1.1 × 1.4 – 1 = 54%. This treats the returns as if they were realized simple returns for the period and ignores that they are continuously compounded. Answer C is incorrect. It first averages the continuously compounded returns, 10% + 40%  / 2 = 25% , before calculating the period returns, 1.252 – 1 = 56.25%.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -886,9 +886,9 @@ const flashcardData = [
     id: 67,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: 'flashcard', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "SolarTech Innovations’ shares showed the following total returns: Year 1: −10% Year 2: 15% Year 3: 20% Over the three-year period, SolarTech shares had a geometric annual return closest to:",
-    options: [' ', ' ', ' '],
+    options: ['7.49%', '8.00%', '9.00%'],
     correctAnswer: '7.49%', // Index of correct option
     back: "[ (1 - 0.10) x (1 +. 0.15) x ( 1 + 0.20) ] ^ 1/3   - 1  = 7.49%",
     correctAnswers: 0,
@@ -915,8 +915,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Describe the steps for clearing a credit default swap",
     options: [' ', ' ', ' '],
-    correctAnswer: 'The counterparties are financial intermediaries that first execute the trade on an SEF (swap execution facility). Then, trade details are shared with a CCP; the novation process substitutes the original contract with another where the CCP steps into the trade and acts as the new counterparty for each original party. The CCP clears and settles the trade.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "The counterparties are financial intermediaries that first execute the trade on an SEF (swap execution facility). Then, trade details are shared with a CCP; the novation process substitutes the original contract with another where the CCP steps into the trade and acts as the new counterparty for each original party. The CCP clears and settles the trade.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -928,8 +928,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Identify one potential risk concern about the central clearing of derivatives.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'The central clearing mandate transfers the systemic risk of derivatives transactions from the counterparties, typically financial intermediaries, to the CCPs. One concern is the centralization and concentration of risks in CCPs. Careful oversight must occur to ensure that these risks are properly managed.', // Index of correct option
-    back: "",
+    correctAnswer: '', // Index of correct option
+    back: "The central clearing mandate transfers the systemic risk of derivatives transactions from the counterparties, typically financial intermediaries, to the CCPs. One concern is the centralization and concentration of risks in CCPs. Careful oversight must occur to ensure that these risks are properly managed.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1123,8 +1123,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Fill in the blanks. Covenant violations provide bondholders recourse in several possible ways, including a change in _________ terms, such as an increase in a bond’s interest rate or security, ___________ debt payments, or ___________ of the debt agreement.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Covenant violations provide bondholders recourse in several possible ways, including a change in financial terms, such as an increase in a bond’s interest rate or security, accelerated debt payments, or termination of the debt agreement.', // Index of correct option
-    back: "",
+    correctAnswer: '', // Index of correct option
+    back: "Covenant violations provide bondholders recourse in several possible ways, including a change in financial terms, such as an increase in a bond’s interest rate or security, accelerated debt payments, or termination of the debt agreement.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1305,8 +1305,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Determine the correct answers to fill in the blanks: Equities are an example of a derivative ____________, and a _______________ is a legal entity entering a derivative contract.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Equities are an example of a derivative underlying, and a counterparty is a legal entity entering a derivative contract.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Equities are an example of a derivative underlying, and a counterparty is a legal entity entering a derivative contract.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1318,8 +1318,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Describe the use of a derivative for hedging purposes.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Use of a derivative for hedging purposes involves offsetting or neutralizing an existing or anticipated exposure to an underlying, referred to as hedging.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Use of a derivative for hedging purposes involves offsetting or neutralizing an existing or anticipated exposure to an underlying, referred to as hedging.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1331,8 +1331,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Explain the settlement of a forward contract.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'A forward contract is a firm commitment. This contract results in a settlement payment on the maturity date equal to the difference between the current market price and a pre-agreed forward price.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "A forward contract is a firm commitment. This contract results in a settlement payment on the maturity date equal to the difference between the current market price and a pre-agreed forward price.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1344,8 +1344,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Describe how and why an underlying may be used in employee compensation.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Derivatives with an equity underlying, in particular the stock of a particular issuer, may be included in the compensation of that company’s employees. Stock options are granted to provide incentives to work toward stronger corporate performance in the expectation of a higher stock price, which will cause the options to increase in value.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Derivatives with an equity underlying, in particular the stock of a particular issuer, may be included in the compensation of that company’s employees. Stock options are granted to provide incentives to work toward stronger corporate performance in the expectation of a higher stock price, which will cause the options to increase in value.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1357,8 +1357,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Explain how a UK-based importer of goods from the euro zone might use a derivative with a currency underlying to mitigate risk.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'A UK-based importer of goods from the euro zone will likely pay EUR for goods that she intends to sell for GBP. To address this currency mismatch, she may consider entering a firm commitment to purchase EUR in exchange for GBP at a pre-determined price in the future based upon terms matching the import contract to offset risk to changes in the underlying spot exchange rate (i.e., GBP depreciation against EUR)', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "A UK-based importer of goods from the euro zone will likely pay EUR for goods that she intends to sell for GBP. To address this currency mismatch, she may consider entering a firm commitment to purchase EUR in exchange for GBP at a pre-determined price in the future based upon terms matching the import contract to offset risk to changes in the underlying spot exchange rate (i.e., GBP depreciation against EUR)",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1370,8 +1370,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Taylor, a mining analyst with Bronson Brokers, is invited by Precision Metals to join a group of his peers in a tour of mining facilities in several western US states. The company arranges for chartered group flights from site to site and for modest accommodations in Spartan Motels, the only chain with accommodations near the mines, for three nights. Taylor allows Precision Metals to pick up his tab, as do the other analysts, with one exception—Adams, an employee of a large trust company who insists on following his company’s policy and paying for his hotel room himself.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'The policy of the company where Adams works complies closely with Standard I(B) by avoiding even the appearance of a conflict of interest, but Taylor and the other analysts did not necessarily violate Standard I(B). In general, when allowing companies to pay for travel and/or accommodations in these circumstances, members and candidates must use their judgment. They must be on guard that such arrangements do not impinge on a member’s or candidate’s independence and objectivity. In this example, the trip was strictly for business and Taylor was not accepting irrelevant or lavish hospitality. The itinerary required chartered flights, for which analysts were not expected to pay. The accommodations were modest. In the final analysis, members and candidates must consider both whether they can remain objective and whether their integrity might be perceived by their clients to have been compromised.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "The policy of the company where Adams works complies closely with Standard I(B) by avoiding even the appearance of a conflict of interest, but Taylor and the other analysts did not necessarily violate Standard I(B). In general, when allowing companies to pay for travel and/or accommodations in these circumstances, members and candidates must use their judgment. They must be on guard that such arrangements do not impinge on a member’s or candidate’s independence and objectivity. In this example, the trip was strictly for business and Taylor was not accepting irrelevant or lavish hospitality. The itinerary required chartered flights, for which analysts were not expected to pay. The accommodations were modest. In the final analysis, members and candidates must consider both whether they can remain objective and whether their integrity might be perceived by their clients to have been compromised.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1383,8 +1383,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Dillon, an analyst in the corporate finance department of an investment services firm, is making a presentation to a potential new business client that includes the promise that her firm will provide full research coverage of the potential client.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Dillon may agree to provide research coverage, but she must not commit her firm’s research department to providing a favorable recommendation. The firm’s recommendation (favorable, neutral, or unfavorable) must be based on an independent and objective investigation and analysis of the company and its securities.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Dillon may agree to provide research coverage, but she must not commit her firm’s research department to providing a favorable recommendation. The firm’s recommendation (favorable, neutral, or unfavorable) must be based on an independent and objective investigation and analysis of the company and its securities.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1396,8 +1396,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Fritz is an equity analyst at Hilton Brokerage who covers the mining industry. He has concluded that the stock of Metals & Mining is overpriced at its current level, but he is concerned that a negative research report will hurt the good relationship between Metals & Mining and the investment banking division of his firm. In fact, a senior manager of Hilton Brokerage just sent him a copy of a proposal his firm made to Metals & Mining to underwrite a debt offering. Fritz needs to produce a report right away and is concerned about issuing a less-than-favorable rating.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Fritz’s analysis of Metals & Mining must be objective and based solely on consideration of company fundamentals. Any pressure from other divisions of his firm is inappropriate. This conflict could have been eliminated if, in anticipation of the offering, Hilton Brokerage had placed Metals & Mining on a restricted list.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Fritz’s analysis of Metals & Mining must be objective and based solely on consideration of company fundamentals. Any pressure from other divisions of his firm is inappropriate. This conflict could have been eliminated if, in anticipation of the offering, Hilton Brokerage had placed Metals & Mining on a restricted list.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1406,11 +1406,11 @@ const flashcardData = [
     id:107,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Fritz is an equity analyst at Hilton Brokerage who covers the mining industry. Fritz has concluded that Metals & Mining stock is overvalued at its current level, but he is concerned that a negative research report might jeopardize a close rapport that he has nurtured over the years with Metals & Mining’s CEO, chief financial officer, and investment relations officer. Fritz is concerned that a negative report might also result in management retaliation—for instance, cutting him off from participating in conference calls when a quarterly earnings release is made, denying him the ability to ask questions on such calls, and/or denying him access to top management for arranging group meetings between Hilton Brokerage clients and top Metals & Mining managers.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Fritz’s analysis must be objective and based solely on consideration of company fundamentals. Any pressure from Metals & Mining is inappropriate. To support the integrity of his conclusions, Fritz should fully document his work, including how his investment recommendation is based on relative valuation.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Fritz’s analysis must be objective and based solely on consideration of company fundamentals. Any pressure from Metals & Mining is inappropriate. To support the integrity of his conclusions, Fritz should fully document his work, including how his investment recommendation is based on relative valuation.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1419,11 +1419,11 @@ const flashcardData = [
     id:108,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "In her role supporting the sales effort of a corporate bond department, Warner offers credit guidance to fixed-income investors. Her compensation is closely linked to the performance of the corporate bond department. Near the quarter’s end, Warner’s firm has a large inventory position in the bonds of Milton, Ltd., and has been unable to sell the bonds because of Milton’s recent announcement of an operating problem. Salespeople have asked her to contact large clients to push the bonds.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Unethical sales practices create significant potential violations of the Code and Standards. Warner’s opinion of the Milton bonds must not be affected by internal pressure or compensation. In this case, Warner must refuse to push the Milton bonds unless she is able to justify that the market price has already adjusted for the operating problem.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Unethical sales practices create significant potential violations of the Code and Standards. Warner’s opinion of the Milton bonds must not be affected by internal pressure or compensation. In this case, Warner must refuse to push the Milton bonds unless she is able to justify that the market price has already adjusted for the operating problem.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1435,8 +1435,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Jorund, a securities analyst following airline stocks, is a rising star at her firm. Her boss has been carrying a “buy” recommendation on International Airlines and asks Jorund to take over coverage of the airline. He tells Jorund that under no circumstances should the prevailing buy recommendation be changed.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Jorund must be independent and objective in her analysis of International Airlines. If she believes that her boss’s instructions have compromised her, she has two options: She can tell her boss that she cannot cover the company under these constraints, or she can take over coverage of the company, reach her own independent conclusions, and if they conflict with her boss’s opinion, share the conclusions with her boss or other supervisors in the firm so that they can make appropriate recommendations. Jorund must issue only recommendations that reflect her independent and objective opinion.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Jorund must be independent and objective in her analysis of International Airlines. If she believes that her boss’s instructions have compromised her, she has two options: She can tell her boss that she cannot cover the company under these constraints, or she can take over coverage of the company, reach her own independent conclusions, and if they conflict with her boss’s opinion, share the conclusions with her boss or other supervisors in the firm so that they can make appropriate recommendations. Jorund must issue only recommendations that reflect her independent and objective opinion.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1448,8 +1448,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Grant directs a large amount of his commission business to a New York–based brokerage house. In appreciation for all the business, the brokerage house gives Grant two tickets to the World Cup in South Africa, two nights at a nearby resort, several meals, and transportation via limousine to the game.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Grant violated Standard I(B) because accepting these substantial gifts may impede his independence and objectivity. Members and candidates must not solicit or accept gifts, contributions, or other compensation that affects their independence and objectivity or that reasonably could be expected to influence their decision-making process. Best practice is to avoid situations that might cause or be perceived to cause a loss of independence or objectivity in recommending investments or taking investment action. By accepting the trip, Grant created a conflict of interest and opened himself up to the accusation that he may give the broker favored treatment in return. At a minimum, Grant must disclose this conflict to his employer and clients.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Grant violated Standard I(B) because accepting these substantial gifts may impede his independence and objectivity. Members and candidates must not solicit or accept gifts, contributions, or other compensation that affects their independence and objectivity or that reasonably could be expected to influence their decision-making process. Best practice is to avoid situations that might cause or be perceived to cause a loss of independence or objectivity in recommending investments or taking investment action. By accepting the trip, Grant created a conflict of interest and opened himself up to the accusation that he may give the broker favored treatment in return. At a minimum, Grant must disclose this conflict to his employer and clients.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1461,8 +1461,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Green manages the portfolio of Knowlden, a client of Tisbury Investments. Green achieves an annual return for Knowlden that is consistently better than that of the benchmark she and the client previously agreed to. As a reward, Knowlden offers Green two tickets to Wimbledon and the use of Knowlden’s flat in London for a week. Green discloses this gift to her supervisor at Tisbury.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Green is in compliance with Standard I(B) because she disclosed the gift from one of her clients. Members and candidates may accept bonuses or gifts from clients as long as they disclose them to their employer because gifts in a client relationship are deemed less likely to affect a member’s or candidate’s objectivity and independence than gifts in other situations. Disclosure is required, however, so that supervisors can monitor such situations to guard against employees favoring a gift-giving client to the detriment of other fee-paying clients (such as by allocating a greater proportion of IPO stock to the gift-giving client’s portfolio).', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Green is in compliance with Standard I(B) because she disclosed the gift from one of her clients. Members and candidates may accept bonuses or gifts from clients as long as they disclose them to their employer because gifts in a client relationship are deemed less likely to affect a member’s or candidate’s objectivity and independence than gifts in other situations. Disclosure is required, however, so that supervisors can monitor such situations to guard against employees favoring a gift-giving client to the detriment of other fee-paying clients (such as by allocating a greater proportion of IPO stock to the gift-giving client’s portfolio).",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1474,8 +1474,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "____________ make permanent capital available to issuers. (debtholders, shareholders)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Shareholders make permanent capital available to issuers. Debtholders is incorrect. Debt has a finite maturity, though it can be far in the future.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Shareholders make permanent capital available to issuers. Debtholders is incorrect. Debt has a finite maturity, though it can be far in the future.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1487,8 +1487,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "____________ have a residual claim against a firm’s cash flows. (debtholders, shareholders)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1500,8 +1500,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "____________ have a residual claim against a firm’s cash flows. (debtholders, shareholders)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1513,8 +1513,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "The shareholder theory of corporate governance is _______________ than the stakeholder theory. (narrower, broader)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'The shareholder theory of corporate governance is narrower than the stakeholder theory. Stakeholders are groups and individuals with a vested interest in a firm’s success and include, but are not limited to, shareholders.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "The shareholder theory of corporate governance is narrower than the stakeholder theory. Stakeholders are groups and individuals with a vested interest in a firm’s success and include, but are not limited to, shareholders.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1526,8 +1526,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "ESG considerations are an explicit objective in the _____________ theory of corporate governance. (shareholder, stakeholder)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'ESG considerations are an explicit objective in the stakeholder theory of corporate governance. The stakeholder theory seeks to balance the interests of shareholders with the interests of a broader group that relate to ESG considerations.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "ESG considerations are an explicit objective in the stakeholder theory of corporate governance. The stakeholder theory seeks to balance the interests of shareholders with the interests of a broader group that relate to ESG considerations.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1536,11 +1536,11 @@ const flashcardData = [
     id:117,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: 'multiple-choice', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "The estimated impact of ESG factors on corporate issuers’ financial and share price performance has _________________ over time. (decreased, remained the same, increased)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'The estimated impact of ESG factors on corporate issuers’ financial and share price performance has increased over time. This impact is the result of changing consumer and investor preferences, increased regulations and taxes related to ESG factors, and the rising threat of climate change.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "The estimated impact of ESG factors on corporate issuers’ financial and share price performance has increased over time. This impact is the result of changing consumer and investor preferences, increased regulations and taxes related to ESG factors, and the rising threat of climate change.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1552,8 +1552,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "ESG factors are increasingly recognized as _______________ by analysts. (quantifiable, qualitative)",
     options: [' ', ' ', ' '],
-    correctAnswer: 'ESG factors are increasingly recognized as quantifiable by analysts. Historically, ESG factors were considered negative externalities with no direct effect on firms’ financial statements. Increasingly, analysts are quantifying the effects of ESG factors and including them in firm valuation and investment decision-making.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "ESG factors are increasingly recognized as quantifiable by analysts. Historically, ESG factors were considered negative externalities with no direct effect on firms’ financial statements. Increasingly, analysts are quantifying the effects of ESG factors and including them in firm valuation and investment decision-making.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1591,8 +1591,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Which is more sensitive to changes in firm value: debt or equity? Explain your answer.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Equity is more sensitive to changes in firm value, because debtholders have fixed, priority claims while equity holders have residual claims whose value is contingent on future firm profits. On the one hand, if firm value increases, residual value accrues to shareholders while debtholder payments do not change. On the other hand, reductions in firm value fall first on equity holders. If firm value falls below debt value and the firm is declared insolvent, equity holders typically receive nothing and debtholders take control of the firm and often seek to liquidate its assets.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Equity is more sensitive to changes in firm value, because debtholders have fixed, priority claims while equity holders have residual claims whose value is contingent on future firm profits. On the one hand, if firm value increases, residual value accrues to shareholders while debtholder payments do not change. On the other hand, reductions in firm value fall first on equity holders. If firm value falls below debt value and the firm is declared insolvent, equity holders typically receive nothing and debtholders take control of the firm and often seek to liquidate its assets.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1617,8 +1617,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: " All else being equal, a jurisdiction increasing its corporate income tax rate would most likely lead to ____________________ (lower/higher/the same) use of debt financing by issuers.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Higher. An increase in the corporate income tax rate would likely result in a higher mix of debt. Interest payments on debt are tax deductible, so an increase in the tax rate would reduce the after-tax cost of debt financing, all else being equal, thus making debt financing relatively more attractive than equity financing.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Higher. An increase in the corporate income tax rate would likely result in a higher mix of debt. Interest payments on debt are tax deductible, so an increase in the tax rate would reduce the after-tax cost of debt financing, all else being equal, thus making debt financing relatively more attractive than equity financing.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1630,8 +1630,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Describe the risk transfer process in OTC derivative markets.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'OTC dealers, known as market makers, typically enter into offsetting transactions with one another to transfer the risk of derivative contracts entered with end users.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "OTC dealers, known as market makers, typically enter into offsetting transactions with one another to transfer the risk of derivative contracts entered with end users.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1643,8 +1643,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Determine the correct answers to fill in the blanks: ____________ involves the payment of final amounts and/or delivery of securities or physical commodities, while __________ is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Settlement involves the payment of final amounts and/or delivery of securities or physical commodities, while clearing is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "Settlement involves the payment of final amounts and/or delivery of securities or physical commodities, while clearing is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1760,8 +1760,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Determine the correct answers to fill in the blanks: A ____________agrees to manage a fund’s operations under an agreed standard of care and to perform such activities as buying or selling assets, borrowing funds, establishing reserves, or entering into contracts on behalf of the fund. A ____________________ establishes the terms of a limited partnership and governs the actions and decisions of the limited partnership.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'A general partner agrees to manage a fund’s operations under an agreed standard of care and to perform such activities as buying or selling assets, borrowing funds, establishing reserves, or entering into contracts on behalf of the fund. A limited partnership agreement (LPA) establishes the terms of a limited partnership and governs the actions and decisions of the limited partnership.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "A general partner agrees to manage a fund’s operations under an agreed standard of care and to perform such activities as buying or selling assets, borrowing funds, establishing reserves, or entering into contracts on behalf of the fund. A limited partnership agreement (LPA) establishes the terms of a limited partnership and governs the actions and decisions of the limited partnership.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1786,8 +1786,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: " Referring to the Auchan Holding example in this lesson, calculate the amount of the tax disadvantage (in euros) Auchan has in its corporate form compared to if it were organized as a limited partnership. Recall that Auchan’s pre-tax profit was €838 million, the corporate tax rate was 31.5%, the personal income tax rate was 30%, and all after-tax profits were distributed.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'If Auchan were organized as a limited partnership, its pre-tax profit would be passed through to the owner(s) and taxes would only be paid at the personal level. Thus, total taxes paid would be €251.4 million (= €838 million × 0.30), or €184.8 million lower than total taxes paid under the corporate organizational form, and this tax of €251.4 million would be paid regardless of whether the partnership distributed the profit to partners.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: "If Auchan were organized as a limited partnership, its pre-tax profit would be passed through to the owner(s) and taxes would only be paid at the personal level. Thus, total taxes paid would be €251.4 million (= €838 million × 0.30), or €184.8 million lower than total taxes paid under the corporate organizational form, and this tax of €251.4 million would be paid regardless of whether the partnership distributed the profit to partners.",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1825,7 +1825,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Identify a major reason why a national government would be a 100% shareholder in a corporate issuer, and discuss two factors that may cause a national government to reduce its ownership in a state-owned company.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'A national government may choose to be the 100% owner of a company that provides public goods to the national economy, such as infrastructure and public safety, that would either not be provided by private means or be delivered inequitably or inefficiently. In some cases, a country may have natural resources, such as crude oil, and the national government may use a wholly owned corporation for production and to invest profits in ways that benefit its country. Two possible reasons that a country may reduce its ownership in a state-owned company include (1) opportunities to bring in foreign capital and diversify the country’s economy, such as the case highlighted by the Saudi Aramco example, and (2) a push for privatization and deregulation to potentially lower costs through competition and motivate innovation, as highlighted by the postal services examples.', // Index of correct option
+    correctAnswer: '', // Index of correct option
+    back: "A national government may choose to be the 100% owner of a company that provides public goods to the national economy, such as infrastructure and public safety, that would either not be provided by private means or be delivered inequitably or inefficiently. In some cases, a country may have natural resources, such as crude oil, and the national government may use a wholly owned corporation for production and to invest profits in ways that benefit its country. Two possible reasons that a country may reduce its ownership in a state-owned company include (1) opportunities to bring in foreign capital and diversify the country’s economy, such as the case highlighted by the Saudi Aramco example, and (2) a push for privatization and deregulation to potentially lower costs through competition and motivate innovation, as highlighted by the postal services examples.", // Index of correct option
     back: " ",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -1838,7 +1839,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Herrero recently left his job as a research analyst for a large investment adviser. While looking for a new position, he was hired as a contractor by an investor relations firm to write a research report on one of its clients, a small educational software company. The investor relations firm hopes to generate investor interest in the technology company. The firm will pay Herrero a flat fee plus a bonus if any new investors buy stock in the company as a result of Herrero’s report.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'If Herrero accepts this payment arrangement, he will be in violation of Standard I(B) because the compensation arrangement can reasonably be expected to compromise his independence and objectivity. Herrero will receive a bonus for attracting investors, which provides an incentive to draft a positive report regardless of the facts and to ignore or play down any negative information about the company. Herrero should accept only a flat fee that is not tied to the conclusions or recommendations of the report. Issuer-paid research that is objective and unbiased is acceptable under certain circumstances as long as the analyst takes steps to maintain his or her objectivity and includes in the report proper disclosures regarding potential conflicts of interest.', // Index of correct option
+    correctAnswer: '', // Index of correct option
+    back: "If Herrero accepts this payment arrangement, he will be in violation of Standard I(B) because the compensation arrangement can reasonably be expected to compromise his independence and objectivity. Herrero will receive a bonus for attracting investors, which provides an incentive to draft a positive report regardless of the facts and to ignore or play down any negative information about the company. Herrero should accept only a flat fee that is not tied to the conclusions or recommendations of the report. Issuer-paid research that is objective and unbiased is acceptable under certain circumstances as long as the analyst takes steps to maintain his or her objectivity and includes in the report proper disclosures regarding potential conflicts of interest.", // Index of correct option
     back: " ",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -1851,7 +1853,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Scott is a performance analyst who is responsible for analyzing the performance of external managers for her firm. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned about pointing out the composite change.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Scott is a performance analyst who is responsible for analyzing the performance of external managers for her firm. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned about pointing out the composite change.', // Index of correct option
+    correctAnswer: '', // Index of correct option
+    back: "Scott is a performance analyst who is responsible for analyzing the performance of external managers for her firm. While completing her quarterly analysis, Scott notices a change in one manager’s reported composite construction. The change concealed the bad performance of a particularly large account by placing that account into a new residual composite. This change allowed the manager to remain at the top of the list of manager performance. Scott knows her firm has a large allocation to this manager, and the fund’s manager is a close personal friend of the CEO. She needs to deliver her final report but is concerned about pointing out the composite change.", // Index of correct option
     back: " ",
     correctAnswers: 0,
     incorrectAnswers: 0

@@ -1858,7 +1858,7 @@ const flashcardData = [
   },
 
   {
-    id:140,
+    id:141,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -1871,7 +1871,7 @@ const flashcardData = [
   },
 
     {
-    id:140,
+    id:142,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -1884,7 +1884,7 @@ const flashcardData = [
   },
 
   {
-    id:140,
+    id:143,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -1897,7 +1897,7 @@ const flashcardData = [
   },
 
   {
-    id:140,
+    id:144,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -1910,7 +1910,254 @@ const flashcardData = [
   },
 
   {
-    id:140,
+    id:145,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "All else equal, in the fiscal year when long-lived equipment is purchased:",
+    options: ['cash from operations decreases.', 'depreciation expense increases', 'net income is reduced by the amount of the purchase'],
+    correctAnswer: 'depreciation expense increases', // Index of correct option
+    back: "In the fiscal year when long-lived equipment is purchased, the assets on the balance sheet increase and depreciation expense on the income statement increases because of the new long-lived asset.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:146,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "For the year ended 31 December 2018, Shopalot Company had net income of USD1,950,000. The company had 1,500,000 shares of common stock outstanding, no preferred stock, and no convertible financial instruments. What is Shopalot’s basic EPS?",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Shopalot’s basic EPS is USD1.30 (USD1,950,000 divided by 1,500,000 shares).', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:147,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "For the year ended 31 December 2018, Bright-Warm Utility Company (fictitious) had net income of USD1,750,000. The company had an average of 500,000 shares of common stock outstanding, 20,000 shares of convertible preferred, and no other potentially dilutive securities. Each share of preferred pays a dividend of USD10 per share, and each is convertible into five shares of the company’s common stock. Calculate the company’s basic and diluted EPS.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'If the 20,000 shares of convertible preferred had each converted into five shares of the company’s common stock, the company would have had an additional 100,000 shares of common stock (five shares of common for each of the 20,000 shares of preferred). If the conversion had taken place, the company would not have paid preferred dividends of USD200,000 (USD10 per share for each of the 20,000 shares of preferred). As shown in Exhibit 14, the company’s basic EPS was USD3.10 and its diluted EPS was USD2.92.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:148,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Oppnox Company (fictitious) reported net income of USD750,000 for the year ended 31 December 2018. The company had a weighted average of 690,000 shares of common stock outstanding. In addition, the company has only one potentially dilutive security: USD50,000 of 6 percent convertible bonds, convertible into a total of 10,000 shares. Assuming a tax rate of 30 percent, calculate Oppnox’s basic and diluted EPS.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'If the debt securities had been converted, the debt securities would no longer be outstanding and instead, an additional 10,000 shares of common stock would be outstanding. Also, if the debt securities had been converted, the company would not have paid interest of USD3,000 on the debt, so net income available to common shareholders would have increased by USD2,100 [= USD3,000(1 – 0.30)] on an after-tax basis. Exhibit 15 illustrates the calculation of diluted EPS using the if-converted method for convertible debt.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:149,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Hihotech Company (fictitious) reported net income of USD2.3 million for the year ended 30 June 2018 and had a weighted average of 800,000 common shares outstanding. At the beginning of the fiscal year, the company has outstanding 30,000 options with an exercise price of USD35. No other potentially dilutive financial instruments are outstanding. Over the fiscal year, the company’s market price has averaged USD55 per share. Calculate the company’s basic and diluted EPS.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'Using the treasury stock method, we first calculate that the company would have received USD1,050,000 (USD35 for each of the 30,000 options exercised) if all the options had been exercised. The options would no longer be outstanding; instead, 30,000 shares of common stock would be outstanding. Under the treasury stock method, we assume that shares would be repurchased with the cash received upon exercise of the options. At an average market price of USD55 per share, the USD1,050,000 proceeds from option exercise, the company could have repurchased 19,091 shares. Therefore, the incremental number of shares issued is 10,909 (calculated as 30,000 minus 19,091). For the diluted EPS calculation, no change is made to the numerator. As shown in Exhibit 16, the company’s basic EPS was USD2.88 and the diluted EPS was USD2.84.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:150,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "For the year ended 31 December 2018, Dim-Cool Utility Company (fictitious) had net income of USD1,750,000. The company had an average of 500,000 shares of common stock outstanding, 20,000 shares of convertible preferred, and no other potentially dilutive securities. Each share of preferred pays a dividend of USD10 per share, and each is convertible into three shares of the company’s common stock. What was the company’s basic and diluted EPS?",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'If the 20,000 shares of convertible preferred had each converted into three shares of the company’s common stock, the company would have had an additional 60,000 shares of common stock (three shares of common for each of the 20,000 shares of preferred). If the conversion had taken place, the company would not have paid preferred dividends of USD200,000 (USD10 per share for each of the 20,000 shares of preferred). The effect of using the if-converted method would be EPS of USD3.13, as shown in Exhibit 17. Because this is greater than the company’s basic EPS of USD3.10, the securities are said to be antidilutive and the effect of their conversion would not be included in diluted EPS. Diluted EPS would be the same as basic EPS (i.e., USD3.10).', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:151,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "In which part of the investment life cycle of a private equity investment should investors generally expect a positive cash flow?",
+    options: ['Capital commitment', 'Capital deployment', 'Capital distribution'],
+    correctAnswer: 'Capital distribution', // Index of correct option
+    back: "In the initial capital commitment phase, fees and expenses are immediately incurred prior to capital deployment, and assets may generate little or no income during this first phase. In the capital deployment phase, cash outflows typically exceed inflows as funds are deployed. Only in the capital distribution phase can excess income be generated from the invested properties and substantial capital gains be realized upon the sale of assets.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:152,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Why is IRR preferred for performance measurement for alternative investments?",
+    options: ['IRR takes into account the timing of cash flows in long-lived alternative investments.', 'IRR is easy and intuitive to calculate.', 'IRR is commonly used for other asset classes.'],
+    correctAnswer: 'IRR takes into account the timing of cash flows in long-lived alternative investments.', // Index of correct option
+    back: "IRR is seldom used to measure investment performance of other asset classes with publicly quoted market prices. Although IRR is complicated to calculate and involves assumptions on opportunity costs and reinvestment rates, it is the best metric to evaluate long-lived alternative investments because it takes into account the unique timing of cash flows in the investment life cycle of alternative investments.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:153,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements regarding hedge fund fee structure is correct?",
+    options: ['The management and performance fee rates are always the same for all investors in the same fund.', 'The periodic returns of all investors in the same fund must be identical.', 'Hedge funds usually charge a performance fee based on a percentage of periodic return above a certain threshold.'],
+    correctAnswer: 'Hedge funds usually charge a performance fee based on a percentage of periodic return above a certain threshold.', // Index of correct option
+    back: "A hedge fund usually charges both a flat management fee and an additional performance fee based on a percentage of periodic fund returns. Periodic performance results may vary based on which investor has invested and when the investor invested into the fund. Besides, a particular investor may face significantly lower incentive fees if she invests more capital in a fund at an earlier phase or is willing to accept greater restrictions on redemptions.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:154,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A $100 million hedge fund charges all its investors a 2% management fee and a 20% performance fee if the periodic return, net of management fee, exceeds a 5% hard hurdle rate. All fees are deducted based on the end-of-year value. If the fund makes a gross return (before fees) of 8% for the year, what is the investor’s return, net of fees, closest to (ignoring any high-water mark provisions)?",
+    options: ['5.67%', '4.67%', '5.84%'],
+    correctAnswer: '5.67%', // Index of correct option
+    back: "B is correct. If the hedge fund makes 8% gross return for the year, its net asset value has grown to $108 million before any fees are deducted. Management fee = $108 × 2% = $2.16 million. Performance fee = [($108 – $2.16) – ($100 × $1.05%)] × 20% = $0.168 million. Net asset value after fee deduction = $108 – $2.16 – $0.168 = $105.672 million. Net investor return = ($105.672 – $100)/$100 = 5.67%.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:155,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "A €100 million private equity fund has a preferred return of 5% per annum, 20% carried interest with full catch-up, and standard clawback clauses. The fund realizes a gross gain of 50% in two years before it distributes all its capital back to its LPs. Ignoring management fees, the total carried interest to the GP for the two years is closest to:",
+    options: ['€8 million.', '€16 million.', '€10 million.'],
+    correctAnswer: '€10 million.', // Index of correct option
+    back: "After two years, the net asset value of the fund has grown to €100 million × 150% = €150 million shortly before distribution. The preferred return to the LPs for the two years totaled €100 million × 5% × 2 = €10 million. (Note that annual preferred return is typically not compounded.) Next, the GP is allowed full catch-up until the GP’s carried interest has caught up to the 20% of the total profit accounted for so far, or €2.5 million (€10 million/0.8 × 0.2). The remaining profit of 50 – 10 – 2.5 = €37.5 million is then split 80/20 between the LPs and GP; that is, the GP will get another €7.5 million (€37.5 million × 20%). Therefore, the total carried interest to the GP is 2.5 + 7.5 = €10 million, which is exactly 20% of the €50 million gain.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:156,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following is not a factor that makes comparison of performance between alternative investments and public securities difficult?",
+    options: ['The fair value of portfolio positions in alternative investments may not be readily available.', 'The use of leverage in alternative investments magnifies their risk and return measures.', 'Alternative investments charge higher fees.'],
+    correctAnswer: 'Alternative investments charge higher fees.', // Index of correct option
+    back: "Although an alternative investment may charge a higher fee, it is not the absolute fee level but the complexity of the fee arrangement that makes alternative investment appraisal unique compared to other common asset classes. Alternative investments often involve the use the of explicit leverage, which has the effect of magnified gains and losses. Alternative assets are often characterized by illiquidity with unobservable market prices, making performance appraisal over time and periodic comparison with common asset classes challenging.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:157,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Describe the J-curve effect in alternative investments.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The J-curve effect in alternative investments describes the initial negative return in the capital commitment phase followed by an acceleration of returns through the capital deployment phase. Returns often level off as capital is distributed to investors, investments are sold, and the fund is closed.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:158,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "If the market return of underlying portfolio positions is expected to be 10% and the fund manager adds 100% explicit leverage to its capital at a borrowing rate of 3%, what is the expected leveraged return?",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'rL = r + (Vb/Vc)(r – rb) = 0.10 + (100/100)(0.10 – 0.03) = 17%.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:159,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 1. What are the fees earned by AWJ if the incentive and management fees are calculated independently? What is an investor’s effective return given this fee structure?",
+    options: [' ', ' ', ' '],
+    correctAnswer: '$130 million × 2% = $2.6 million management fee. ($130 million − $100 million) × 20% = $6 million incentive fee. Total fees to AWJ Capital = $8.6 million.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:160,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 2. What are the fees earned by AWJ assuming that the incentive fee is calculated from the return net of the management fee? What is an investor’s net return given this fee structure?",
+    options: [' ', ' ', ' '],
+    correctAnswer: '$130 million × 2% = $2.6 million management fee.($130 million − $100 million − $2.6 million) × 20% = $5.48 million incentive fee.Total fees to AWJ Capital = $8.08 million.Investor return = ($130 million − $100 million − $8.08 million)/$100 million = 21.92%.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:161,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation.3. If the fee structure specifies a hurdle rate of 5% and the incentive fee is based on returns in excess of the hurdle rate, what are the fees earned by AWJ assuming the performance fee is calculated net of the management fee? What is an investor’s net return given this fee structure?",
+    options: [' ', ' ', ' '],
+    correctAnswer: '$130 million × 2% = $2.6 million management fee. ($130 million − $100 million − $5 million − $2.6 million) × 20% = $4.48 million incentive fee. Total fees to AWJ Capital = $7.08 million.  Investor return = ($130 million − $100 million − $7.08 million)/$100 million = 22.92%.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:162,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 4. In the second year, the fund value declines to $110 million. The fee structure is as specified for Question 1 but also includes the use of a high-water mark (computed net of fees). What are the fees earned by AWJ in the second year? What is an investor’s net return for the second year given this fee structure?",
+    options: [' ', ' ', ' '],
+    correctAnswer: '$110 million × 2% = $2.2 million management fee. No incentive fee because the fund has declined in value. Total fees to AWJ Capital = $2.2 million. Investor return = ($110 million − $2.2 million − $121.4 million)/$121.4 million = –11.20%.  The beginning capital position in the second year for the investors is $130 million − $8.6 million = $121.4 million. The ending capital position at the end of the second year is $110 million − $2.2 million = $107.8 million.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:163,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation.5. In the third year, the fund value increases to $128 million. The fee structure is as specified in Questions 1 and 4. What are the fees earned by AWJ in the third year? What is an investor’s net return for the third year given this fee structure?",
+    options: [' ', ' ', ' '],
+    correctAnswer: '$128 million × 2% = $2.56 million management fee. ($128 million − $121.4 million) × 20% = $1.32 million incentive fee. The $121.4 million represents the high-water mark established at the end of Year 1. Total fees to AWJ Capital = $3.88 million. Investor return = ($128 million − $3.88 million − $107.8 million)/$107.8 million = 15.14%. The ending capital position at the end of Year 3 is $124.12 million. This amount is the new high-water mark.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice

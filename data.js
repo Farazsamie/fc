@@ -54,7 +54,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-ethics',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Stewart has been hired by Goodner Industries, Inc., to manage its pension fund. Stewart’s duty of loyalty, prudence, and care is owed to:",
+    front: "^Stewart has been hired by Goodner Industries, Inc., to manage its pension fund. Stewart’s duty of loyalty, prudence, and care is owed to:",
     options: ['The management of Goodner.', 'The participants and beneficiaries of Goodner’s pension plan.', 'The shareholders of Goodner.'],
     correctAnswer: 'The participants and beneficiaries of Goodner’s pension plan.', // Index of correct option
     back: "Under Standard III(A) Loyalty, Prudence, and Care, members and candidates who manage a company’s pension fund owe these duties to the participants and beneficiaries of the pension plan, not the management of the company or the company’s shareholders.",
@@ -210,9 +210,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-financial-statement',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "In the current year, Michaels Company has a carrying amount of USD 3,500,000 and tax base of USD 5,000,000 for accounts receivable. Michaels will most likely recognize:",
+    front: "*In the current year, Michaels Company has a carrying amount of USD 3,500,000 and tax base of USD 5,000,000 for accounts receivable. Michaels will most likely recognize:",
     options: ['A deferred tax asset', 'A deferred tax liability', 'No deferred tax asset or liability'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'No deferred tax asset or liability', // Index of correct option
     back: "Because the carrying amount is less than the tax base for this asset, this difference is a temporary difference that will result in a deferred tax asset. B is incorrect because a deferred tax liability would apply if the carrying amount was greater than the asset base. C is incorrect because this is not a permanent difference thus there will be either a deferred tax asset or deferred tax liability.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -223,7 +223,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-equity-investments',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following statements about exchange-traded funds is most correct?",
+    front: "*Which of the following statements about exchange-traded funds is most correct?",
     options: ['Exchange-traded funds are not backed by any assets.', 'The investment companies that create exchange- traded funds are financial intermediaries.', 'The transaction costs of trading shares of exchange-traded funds are substantially greater than the combined costs of trading the underlying assets of the fund.'],
     correctAnswer: ' ', // Index of correct option
     back: "The investment companies that create exchange-traded funds (ETFs) are financial intermediaries. ETFs are securities that represent ownership in the assets held by the fund. The transaction costs of trading shares of ETFs are substantially lower than the combined costs of trading the underlying assets of the ETF.",
@@ -297,26 +297,13 @@ const flashcardData = [
   },
  
   {
-    id: 22,
-    categoryId: 'cfa-level1',
-    subcategoryId: 'cfa-l1-derivatives',
-    type: 'multiple-choice', // flashcard or multiple-choice
-    front: "If a corporate issuer enters into a centrally cleared OTC derivative contract, which of the following risks is likely of most concern to the issuer and other participants in this market?",
-    options: ['Interest rate risk', 'Counterparty credit risk', 'Systemic risk'],
-    correctAnswer: ' ', // Index of correct option
-    back: "Because all the credit risk is taken on by the CCP, all participants in this market are most concerned that the CCP is able to satisfy its obligations to all contracts. A is incorrect because interest rate risk is an underlying risk that can be hedged or managed with certain OTC derivative contracts. B is incorrect because the CCP assumes the credit risk from all parties to the contracts.",
-    correctAnswers: 0,
-    incorrectAnswers: 0
-  },
- 
-  {
     id: 23,
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-derivatives',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following responses is closest to the one-year futures price of a stock with a spot price (S0) of €125 and an annual dividend of €2.50 paid at maturity if the risk-free rate is 1%?",
+    front: "^Which of the following responses is closest to the one-year futures price of a stock with a spot price (S0) of €125 and an annual dividend of €2.50 paid at maturity if the risk-free rate is 1%?",
     options: ['€123.75', '€122.50', '€126.25'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: '€123.75', // Index of correct option
     back: "The no arbitrage futures price for an underlying asset with known benefits, such as a dividend, may be determined using the following equation: f0(T) = [S0 − PV0(I)] (1 + r)T. First, solve for the present value of the dividend PV0(I) as follows: €2.48 = (€2.50/1.01). Substitute PV0(I) into the original equation to solve for f0(T): f0(T) = €123.75 = (€125 − €2.48)(1.01). ",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -327,9 +314,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-derivatives',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following statements best describes a shareholder’s claim in terms of an option payoff?",
+    front: "^Which of the following statements best describes a shareholder’s claim in terms of an option payoff?",
     options: ['Shareholder payoff resembles the payoff of a put option on firm value.', 'Shareholder payoff resembles the payoff of a covered call option on firm value.', 'Shareholder payoff resembles the payoff of a call option on firm value.'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'Shareholder payoff resembles the payoff of a covered call option on firm value.', // Index of correct option
     back: "When considering shareholder claims in option terms, the shareholder payoff resembles a call option on firm value.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -340,9 +327,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-alternative-investments',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following statements most correctly describes why commodity investments are thought to provide a hedge against inflation?",
+    front: "*Which of the following statements most correctly describes why commodity investments are thought to provide a hedge against inflation?",
     options: ['The returns on commodity investing are driven by commodity price changes, and inflation partially reflects these changes.', 'Commodity prices increase after inflation rates increase.', 'Expectations of higher inflation cause commodity prices to increase.'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'The returns on commodity investing are driven by commodity price changes, and inflation partially reflects these changes.', // Index of correct option
     back: "Commodity prices are a significant portion of consumer prices because commodities include aspects of everyday life, such as food and energy, and thus consumer price inflation will incorporate the effects of commodity price changes. By investing in commodities, an investor is, at least partially, hedged against the inflation that occurs with rising commodity prices. B is incorrect because inflation and commodity prices do not move together, but instead, changes in the inflation rate lag behind changes in commodity prices. C is incorrect because in this case, commodity price increases occur before inflation changes.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -353,9 +340,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-alternative-investments',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following parties is responsible for the portfolio management of a fund of hedge funds?",
+    front: "^Which of the following parties is responsible for the portfolio management of a fund of hedge funds?",
     options: ['Accredited investor.', 'General partner.', 'Limited partner.'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'General partner.', // Index of correct option
     back: "The general partner is responsible for choosing the hedge funds in a fund of hedge funds. A and C are incorrect because they refer to customers or investors in the fund.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -405,9 +392,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-portfolio-management',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following is the correct sequence of events for risk governance and management that focuses on the entire enterprise? Establishing:",
+    front: "*Which of the following is the correct sequence of events for risk governance and management that focuses on the entire enterprise? Establishing:",
     options: ['Risk tolerance, then risk budgeting, and then risk exposures.', 'Risk exposures, then risk tolerance, and then risk budgeting.', 'Risk budgeting, then risk exposures, and then risk tolerance.'],
-    correctAnswer: '', // Index of correct option
+    correctAnswer: 'Risk tolerance, then risk budgeting, and then risk exposures.', // Index of correct option
     back: "In establishing a risk management system, determining risk tolerance must happen before specific risks can be accepted or reduced. Risk tolerance defines the appetite for risk. Risk budgeting determine how or where the risk is taken and quantifies the tolerable risk by specific metrics. Risk exposures can then be measured and compared against the acceptable risk.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -562,7 +549,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-ethics',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Using an ethical decision-making framework, the financial adviser would most likely:",
+    front: "^Using an ethical decision-making framework, the financial adviser would most likely:",
     options: ['recommend that the elderly client invest at least some of his assets in the highly rated fund.', 'disclose the commission he would earn before recommending that the elderly client invest at least some of his assets in the highly rated fund.', 'research other investments that can provide steady income before making a recommendation to his elderly client.'],
     correctAnswer: 'research other investments that can provide steady income before making a recommendation to his elderly client.', // Index of correct option
     back: "Using an ethical decision-making framework, the financial adviser would identify the relevant facts, stakeholders, duties owed, and potential conflicts. In this scenario, the financial adviser owes a duty to his client as well as his employer. His client’s interests take precedence over all other interests. The bonus and his colleague’s desire to help his mother are situational influences. To navigate this situation, the financial adviser should seek additional information; he should research the risk and return parameters and fee structures of other investments that can provide steady income before making a recommendation to his client.",
@@ -574,8 +561,8 @@ const flashcardData = [
     id: 43,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Fill in the two blanks below using the two of the following four possible terms below to complete: A _____________________ likely has the greatest access to financing, while a _____________________ likely has the least access to financing.",
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "^Fill in the two blanks below using the two of the following four possible terms below to complete: A _____________________ likely has the greatest access to financing, while a _____________________ likely has the least access to financing.",
     options: ['sole proprietorship', 'public limited company (corporation)', 'limited partnership', 'general partnership'],
     correctAnswer: 'A public limited company (corporation) likely has the greatest access to financing, while a sole proprietorship likely has the least access to financing.', // Index of correct option
     back: "A primary difference across organizational forms is access to financing to fund investments. The sole proprietorship is limited to its individual owner’s ability to invest her own money and borrowing capacity as an individual. At the other end of the spectrum, a public limited company can access a broad array of outside investors by issuing debt and/or equity securities.",
@@ -666,7 +653,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "If a company owner expects to have a significant need for financing, which of the following organizational forms is the least appropriate choice?",
+    front: "^If a company owner expects to have a significant need for financing, which of the following organizational forms is the least appropriate choice?",
     options: ['Sole proprietorship', 'General partnership', 'Limited liability company'],
     correctAnswer: 'Sole proprietorship', // Index of correct option
     back: "A sole proprietorship is limited in financing to the owner’s funds and by the amount the owner can borrow personally. A partnership expands access to financing by adding owners, spreading risk, and adding borrowing capacity. The corporate form provides for the broadest access to financing because there are no limits to the number of shareholders and, with limited liability, shareholders are relatively more comfortable with the company borrowing.",
@@ -716,9 +703,9 @@ const flashcardData = [
     {
     id: 54,
     categoryId: 'cfa-level1',
-    subcategoryId: '',
+    subcategoryId: 'flashcard',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Limited liability of shareholders refers to the fact that the ________________ amount shareholders may lose on their investment is the ________________ paid to buy the shares.",
+    front: "^Limited liability of shareholders refers to the fact that the ________________ amount shareholders may lose on their investment is the ________________ paid to buy the shares.",
     options: ['', '', ''],
     correctAnswer: 'Limited liability of shareholders refers to the fact that the maximum amount shareholders may lose on their investment is the price paid to buy the shares.', // Index of correct option
     back: "",
@@ -874,7 +861,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A stock experiences a continuously compounded return of 10% for the first half of a year and 40% for the second half. Its continuously compounded return for the full year is closest to:",
+    front: "^A stock experiences a continuously compounded return of 10% for the first half of a year and 40% for the second half. Its continuously compounded return for the full year is closest to:",
     options: ['50.00%', '54.00%', '56.25%'],
     correctAnswer: '50.00%', // Index of correct option
     back: "The correct response is A, 50.00%. Contiuously compounded returns are additive over time. For each period’s return, we directly add them: 10% for the first half and 40% for the second half, 10% + 40% = 50%. Answer B is incorrect. It does not consider the additive property of continuously compounded returns: 1.1 × 1.4 – 1 = 54%. This treats the returns as if they were realized simple returns for the period and ignores that they are continuously compounded. Answer C is incorrect. It first averages the continuously compounded returns, 10% + 40%  / 2 = 25% , before calculating the period returns, 1.252 – 1 = 56.25%.",
@@ -939,7 +926,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A domestic corporate issuer seeking to finance operations in a foreign market would most likely issue:",
+    front: "^A domestic corporate issuer seeking to finance operations in a foreign market would most likely issue:",
     options: ['foreign bonds', 'domestic bonds', 'Treasury bonds'],
     correctAnswer: 'foreign bonds', // Index of correct option
     back: "Corporate issuers often match the currency of their bond financing cash flows with that of their foreign operations using foreign bonds. The use of domestic bonds would not match the currency of the issuer’s foreign operations. A second possibility would be to issue a domestic bond and then use a swap to obtain the desired foreign currency exposure. However, this method is beyond the scope of this lesson and will be introduced later. Treasury bonds are issued by sovereign issuers.",
@@ -1004,7 +991,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A convertible bond will closely track its conversion value if the issuer’s share price is:",
+    front: "^A convertible bond will closely track its conversion value if the issuer’s share price is:",
     options: ['below the conversion price', ' above the conversion price.', 'equal to the conversion price'],
     correctAnswer: ' above the conversion price.', // Index of correct option
     back: "In general, a convertible bond’s price will vary with that of the issuer’s shares. If the issuer’s share price far exceeds the conversion price, the bond’s price will more closely track its conversion value. If the share price is well below the conversion price, the convertible bond’s price will approach that of a non-convertible bond. In this case, the convertible bond would have a mix of price properties between that of a non-convertible bond and a convertible bond.",
@@ -1017,7 +1004,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Callable and putable bond prices with the same coupon rate will behave most like an option-free equivalent bond when their YTMs are, respectively:",
+    front: "^Callable and putable bond prices with the same coupon rate will behave most like an option-free equivalent bond when their YTMs are, respectively:",
     options: ['below the coupon rate and above the coupon rate.', 'above the coupon rate and below the coupon rate.', 'both near the coupon rate.'],
     correctAnswer: 'above the coupon rate and below the coupon rate.', // Index of correct option
     back: "If a callable bond’s YTM rises above its coupon rate, the call feature is less valuable and a callable bond behaves much like a non-callable bond with respect to price movements due to interest rate changes. If a putable bond’s YTM is less than its coupon rate, the put feature is less valuable and the putable bond’s price behaves like an option-free equivalent bond with respect to interest rate changes. This is the reverse of the correct relationship. If their YTMs are both near the coupon rate, both bonds will be near their price limits where the call and put features would be exercised. Their price changes would be lower in magnitude relative to a non-callable bond.",
@@ -1043,7 +1030,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Describe how a decrease in the consumer price index would affect the next coupon payment of a capital-indexed inflation-linked bond.",
+    front: "^Describe how a decrease in the consumer price index would affect the next coupon payment of a capital-indexed inflation-linked bond.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The principal of capital-indexed inflation-linked bonds is adjusted using a price index, with coupon payments calculated using a fixed coupon rate and the adjusted principal. A decrease in the consumer price index (or deflation) will cause the principal of a capital-indexed inflation-linked bond to be adjusted downward in the next period and result in a lower coupon payment.",
@@ -1108,7 +1095,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Gordon, an analyst of household products companies, is employed by a research boutique, Picador & Co. Based on information that she has gathered during a trip through Latin America, she believes that Hygene, Inc., a major marketer of personal care products, has generated better-than-expected sales from its new product initiatives in South America. After modestly boosting her projections for revenue and for gross profit margin in her worksheet models for Hygene, Gordon estimates that her earnings projection of US$2.00 per diluted share for the current year may be as much as 5% too low. She contacts the chief financial officer (CFO) of Hygene to try to gain confirmation of her findings from her trip and to get feedback regarding her revised models. The CFO declines to comment and reiterates management’s most recent guidance of US$1.95–US$2.05 for the year. Gordon decides to try to force a comment from the company by telling Picador & Co. clients who follow a momentum investment style that consensus earnings projections for Hygene are much too low; she explains that she is considering raising her published estimate by an ambitious US$0.15–US$2.15 per share. She believes that when word of an unrealistically high earnings projection filters back to Hygene’s investor relations department, the company will feel compelled to update its earnings guidance. Meanwhile, Gordon hopes that she is correct at least with respect to the earnings direction and that she will help clients who act on her insights to profit from a quick gain by trading on her advice.",
+    front: "^Gordon, an analyst of household products companies, is employed by a research boutique, Picador & Co. Based on information that she has gathered during a trip through Latin America, she believes that Hygene, Inc., a major marketer of personal care products, has generated better-than-expected sales from its new product initiatives in South America. After modestly boosting her projections for revenue and for gross profit margin in her worksheet models for Hygene, Gordon estimates that her earnings projection of US 2.00 per diluted share for the current year may be as much as 5% too low. She contacts the chief financial officer (CFO) of Hygene to try to gain confirmation of her findings from her trip and to get feedback regarding her revised models. The CFO declines to comment and reiterates management’s most recent guidance of US1.95–US2.05 for the year. Gordon decides to try to force a comment from the company by telling Picador & Co. clients who follow a momentum investment style that consensus earnings projections for Hygene are much too low; she explains that she is considering raising her published estimate by an ambitious US 0.15–US 2.15 per share. She believes that when word of an unrealistically high earnings projection filters back to Hygene’s investor relations department, the company will feel compelled to update its earnings guidance. Meanwhile, Gordon hopes that she is correct at least with respect to the earnings direction and that she will help clients who act on her insights to profit from a quick gain by trading on her advice.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "By exaggerating her earnings projections in order to try to fuel a quick gain in Hygene’s stock price, Gordon is in violation of Standard II(B). However, it would have been acceptable for Gordon to write a report that framed her earnings projection in a range of possible outcomes and outlined clearly the assumptions used in her Hygene models that took into consideration the findings from her trip through Latin America.",
@@ -1160,7 +1147,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Explain the difference in the sources of repayment for a secured and an unsecured corporate bond.",
+    front: "^Explain the difference in the sources of repayment for a secured and an unsecured corporate bond.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The sole source of repayment for unsecured corporate bonds is typically operating cash flows of the issuer, while secured corporate bonds also include specific assets as a secondary source of debt repayment in addition to the issuer’s operating cash flows.",
@@ -1212,7 +1199,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following is the appropriate order of claims in liquidation, by type of bond, in order of highest to lowest?",
+    front: "^Which of the following is the appropriate order of claims in liquidation, by type of bond, in order of highest to lowest?",
     options: ['Senior unsecured, senior secured, junior', 'Senior secured, senior unsecured, junior', 'Junior, senior secured, senior unsecured'],
     correctAnswer: 'Senior secured, senior unsecured, junior', // Index of correct option
     back: "C is correct. Senior secured debts would be the highest-priority claims to be satisfied. Senior unsecured debts would be the next to receive allocations of the liquidated asset value, and junior debts would be the lowest-priority claims to be satisfied.",
@@ -1225,7 +1212,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A sovereign bond is usually a safer investment than a corporate bond of similar maturity issued within a country because:",
+    front: "^A sovereign bond is usually a safer investment than a corporate bond of similar maturity issued within a country because:",
     options: ['sovereign bonds are secured by high-quality collateral, such as property and equipment.', 'corporate bonds are subject to inflation risk.', 'sovereign bonds are backed by taxation and fiscal power of the issuing government.'],
     correctAnswer: 'sovereign bonds are backed by taxation and fiscal power of the issuing government.', // Index of correct option
     back: "Sovereign bonds are backed by a national government’s taxation and fiscal power and thus usually represent the highest-credit-quality bonds in each geographic market. X is incorrect because sovereign bonds, unless specifically indexed to inflation, are also subject to inflation risk. X is incorrect because sovereign bonds are typically not secured by collateral; this is more commonly a feature of corporate bonds and asset-backed securities.",
@@ -1290,10 +1277,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: " Identify one reason why an issuer may use a derivative instrument.",
+    front: "^Identify one reason why an issuer may use a derivative instrument.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'An issuer may use a derivative to offset the financial market exposure associated with a commercial transaction. An issuer may also use a derivative to offset or neutralize existing or anticipated exposure to an underlying.', // Index of correct option
-    back: " ",
+    correctAnswer: '', // Index of correct option
+    back: " An issuer may use a derivative to offset the financial market exposure associated with a commercial transaction. An issuer may also use a derivative to offset or neutralize existing or anticipated exposure to an underlying",
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1303,7 +1290,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Determine the correct answers to fill in the blanks: Equities are an example of a derivative ____________, and a _______________ is a legal entity entering a derivative contract.",
+    front: "^Determine the correct answers to fill in the blanks: Equities are an example of a derivative ____________, and a _______________ is a legal entity entering a derivative contract.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Equities are an example of a derivative underlying, and a counterparty is a legal entity entering a derivative contract.",
@@ -1316,7 +1303,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Describe the use of a derivative for hedging purposes.",
+    front: "^Describe the use of a derivative for hedging purposes.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Use of a derivative for hedging purposes involves offsetting or neutralizing an existing or anticipated exposure to an underlying, referred to as hedging.",
@@ -1329,7 +1316,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Explain the settlement of a forward contract.",
+    front: "^Explain the settlement of a forward contract.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "A forward contract is a firm commitment. This contract results in a settlement payment on the maturity date equal to the difference between the current market price and a pre-agreed forward price.",
@@ -1342,7 +1329,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Describe how and why an underlying may be used in employee compensation.",
+    front: "^Describe how and why an underlying may be used in employee compensation.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Derivatives with an equity underlying, in particular the stock of a particular issuer, may be included in the compensation of that company’s employees. Stock options are granted to provide incentives to work toward stronger corporate performance in the expectation of a higher stock price, which will cause the options to increase in value.",
@@ -1355,7 +1342,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Explain how a UK-based importer of goods from the euro zone might use a derivative with a currency underlying to mitigate risk.",
+    front: "^Explain how a UK-based importer of goods from the euro zone might use a derivative with a currency underlying to mitigate risk.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "A UK-based importer of goods from the euro zone will likely pay EUR for goods that she intends to sell for GBP. To address this currency mismatch, she may consider entering a firm commitment to purchase EUR in exchange for GBP at a pre-determined price in the future based upon terms matching the import contract to offset risk to changes in the underlying spot exchange rate (i.e., GBP depreciation against EUR)",
@@ -1368,7 +1355,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Taylor, a mining analyst with Bronson Brokers, is invited by Precision Metals to join a group of his peers in a tour of mining facilities in several western US states. The company arranges for chartered group flights from site to site and for modest accommodations in Spartan Motels, the only chain with accommodations near the mines, for three nights. Taylor allows Precision Metals to pick up his tab, as do the other analysts, with one exception—Adams, an employee of a large trust company who insists on following his company’s policy and paying for his hotel room himself.",
+    front: "^Taylor, a mining analyst with Bronson Brokers, is invited by Precision Metals to join a group of his peers in a tour of mining facilities in several western US states. The company arranges for chartered group flights from site to site and for modest accommodations in Spartan Motels, the only chain with accommodations near the mines, for three nights. Taylor allows Precision Metals to pick up his tab, as do the other analysts, with one exception—Adams, an employee of a large trust company who insists on following his company’s policy and paying for his hotel room himself.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The policy of the company where Adams works complies closely with Standard I(B) by avoiding even the appearance of a conflict of interest, but Taylor and the other analysts did not necessarily violate Standard I(B). In general, when allowing companies to pay for travel and/or accommodations in these circumstances, members and candidates must use their judgment. They must be on guard that such arrangements do not impinge on a member’s or candidate’s independence and objectivity. In this example, the trip was strictly for business and Taylor was not accepting irrelevant or lavish hospitality. The itinerary required chartered flights, for which analysts were not expected to pay. The accommodations were modest. In the final analysis, members and candidates must consider both whether they can remain objective and whether their integrity might be perceived by their clients to have been compromised.",
@@ -1381,7 +1368,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Dillon, an analyst in the corporate finance department of an investment services firm, is making a presentation to a potential new business client that includes the promise that her firm will provide full research coverage of the potential client.",
+    front: "^Dillon, an analyst in the corporate finance department of an investment services firm, is making a presentation to a potential new business client that includes the promise that her firm will provide full research coverage of the potential client.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Dillon may agree to provide research coverage, but she must not commit her firm’s research department to providing a favorable recommendation. The firm’s recommendation (favorable, neutral, or unfavorable) must be based on an independent and objective investigation and analysis of the company and its securities.",
@@ -1420,7 +1407,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "In her role supporting the sales effort of a corporate bond department, Warner offers credit guidance to fixed-income investors. Her compensation is closely linked to the performance of the corporate bond department. Near the quarter’s end, Warner’s firm has a large inventory position in the bonds of Milton, Ltd., and has been unable to sell the bonds because of Milton’s recent announcement of an operating problem. Salespeople have asked her to contact large clients to push the bonds.",
+    front: "^In her role supporting the sales effort of a corporate bond department, Warner offers credit guidance to fixed-income investors. Her compensation is closely linked to the performance of the corporate bond department. Near the quarter’s end, Warner’s firm has a large inventory position in the bonds of Milton, Ltd., and has been unable to sell the bonds because of Milton’s recent announcement of an operating problem. Salespeople have asked her to contact large clients to push the bonds.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Unethical sales practices create significant potential violations of the Code and Standards. Warner’s opinion of the Milton bonds must not be affected by internal pressure or compensation. In this case, Warner must refuse to push the Milton bonds unless she is able to justify that the market price has already adjusted for the operating problem.",
@@ -1459,7 +1446,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Green manages the portfolio of Knowlden, a client of Tisbury Investments. Green achieves an annual return for Knowlden that is consistently better than that of the benchmark she and the client previously agreed to. As a reward, Knowlden offers Green two tickets to Wimbledon and the use of Knowlden’s flat in London for a week. Green discloses this gift to her supervisor at Tisbury.",
+    front: "^Green manages the portfolio of Knowlden, a client of Tisbury Investments. Green achieves an annual return for Knowlden that is consistently better than that of the benchmark she and the client previously agreed to. As a reward, Knowlden offers Green two tickets to Wimbledon and the use of Knowlden’s flat in London for a week. Green discloses this gift to her supervisor at Tisbury.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Green is in compliance with Standard I(B) because she disclosed the gift from one of her clients. Members and candidates may accept bonuses or gifts from clients as long as they disclose them to their employer because gifts in a client relationship are deemed less likely to affect a member’s or candidate’s objectivity and independence than gifts in other situations. Disclosure is required, however, so that supervisors can monitor such situations to guard against employees favoring a gift-giving client to the detriment of other fee-paying clients (such as by allocating a greater proportion of IPO stock to the gift-giving client’s portfolio).",
@@ -1485,7 +1472,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "____________ have a residual claim against a firm’s cash flows. (debtholders, shareholders)",
+    front: "^____________ have a residual claim against a firm’s cash flows. (debtholders, shareholders)",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Shareholders have a residual claim against a firm’s cash flows. Debtholders is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows and assets.",
@@ -1511,7 +1498,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "The shareholder theory of corporate governance is _______________ than the stakeholder theory. (narrower, broader)",
+    front: "^The shareholder theory of corporate governance is _______________ than the stakeholder theory. (narrower, broader)",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The shareholder theory of corporate governance is narrower than the stakeholder theory. Stakeholders are groups and individuals with a vested interest in a firm’s success and include, but are not limited to, shareholders.",
@@ -1550,7 +1537,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "ESG factors are increasingly recognized as _______________ by analysts. (quantifiable, qualitative)",
+    front: "^ESG factors are increasingly recognized as _______________ by analysts. (quantifiable, qualitative)",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "ESG factors are increasingly recognized as quantifiable by analysts. Historically, ESG factors were considered negative externalities with no direct effect on firms’ financial statements. Increasingly, analysts are quantifying the effects of ESG factors and including them in firm valuation and investment decision-making.",
@@ -1602,7 +1589,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "All of the following are characteristics of debt except:",
+    front: "^All of the following are characteristics of debt except:",
     options: ['priority in payment.', 'limited liability.', 'unlimited return.'],
     correctAnswer: 'unlimited return.', // Index of correct option
     back: "B is correct. Shareholders, not debtholders, have the potential for unlimited return. A is incorrect. Debtholders and shareholders both have limited liability. C is incorrect. Debtholders have a priority claim over shareholders to a firm’s cash flows.",
@@ -1615,7 +1602,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: " All else being equal, a jurisdiction increasing its corporate income tax rate would most likely lead to ____________________ (lower/higher/the same) use of debt financing by issuers.",
+    front: "^All else being equal, a jurisdiction increasing its corporate income tax rate would most likely lead to ____________________ (lower/higher/the same) use of debt financing by issuers.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Higher. An increase in the corporate income tax rate would likely result in a higher mix of debt. Interest payments on debt are tax deductible, so an increase in the tax rate would reduce the after-tax cost of debt financing, all else being equal, thus making debt financing relatively more attractive than equity financing.",
@@ -1641,7 +1628,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Determine the correct answers to fill in the blanks: ____________ involves the payment of final amounts and/or delivery of securities or physical commodities, while __________ is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.",
+    front: "^Determine the correct answers to fill in the blanks: ____________ involves the payment of final amounts and/or delivery of securities or physical commodities, while __________ is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Settlement involves the payment of final amounts and/or delivery of securities or physical commodities, while clearing is the process of verifying the execution of a transaction, exchange of payments, and recording the participants.",
@@ -1719,7 +1706,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "After failing to meet the hurdle rate, which of the following would a general partner still most likely receive as compensation?",
+    front: "^After failing to meet the hurdle rate, which of the following would a general partner still most likely receive as compensation?",
     options: ['Carried interest', 'Management fee', 'Committed capital'],
     correctAnswer: 'Management fee', // Index of correct option
     back: "Alternative investment funds are usually structured with a management fee typically ranging from 1% to 2% of assets under management (e.g., for hedge funds) or 1% to 2% of committed capital (e.g., for private equity funds). (Committed capital is the total amount of money that the limited partners have committed to the fund’s future investments.) A performance fee (also referred to as an incentive fee, carried interest, or carry) is applied based on excess returns. The partnership agreement usually specifies that the performance fee is earned only after the fund achieves a return known as a “hurdle rate.” The hurdle rate is a minimum rate of return that the general partner must exceed in order to earn the performance fee. A is incorrect because “carried interest” is another name for a performance fee, which is earned only after the fund achieves its hurdle rate. C is incorrect because committed capital is the total amount of money that the limited partners have committed to the fund’s future investments, not a fee to the general partner.",
@@ -1745,9 +1732,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Identify the following statement as true or false: Limited partners (LPs) are involved in the management of the alternative investment fund in which they invest; they assist the general partner (GP) in the operations and decisions of the fund.",
-    options: ['TRUE', 'FALSE', ' '],
-    correctAnswer: 'FALSE', // Index of correct option
+    front: "^Identify the following statement as true or false: Limited partners (LPs) are involved in the management of the alternative investment fund in which they invest; they assist the general partner (GP) in the operations and decisions of the fund.",
+    options: ['True', 'False', 'Neither'],
+    correctAnswer: 'False', // Index of correct option
     back: "False. LPs play passive roles and are not involved in the management of the fund (although co-investment rights allow LPs to make additional direct investments in the portfolio companies); the operations and decisions of the fund are controlled solely by the GP.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -1771,7 +1758,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: " The coupon rate for a floating rate note (FRN) is composed of a market reference rate and:",
+    front: " ^The coupon rate for a floating rate note (FRN) is composed of a market reference rate and:",
     options: ['a credit rating.', 'an issuer-specific spread.', 'The yield on a fixed-rate benchmark bond.'],
     correctAnswer: 'an issuer-specific spread.', // Index of correct option
     back: "An FRN coupon rate comprises a market reference rate (MRR) and an issuer-specific spread that is usually constant and set at the time of issuance, while the MRR resets periodically based on market factors. As the MRR changes, the FRN coupon rate and interest payment change accordingly. Incorrect. While the issuer’s credit rating may be a determinant of an FRN’s spread over the MRR, a credit rating is a letter-grade assessment of credit risk and is not directly involved in the calculation of the coupon rate. Incorrect. The yield on a fixed-rate benchmark bond would reflect top-down factors that determine interest rates, such as real growth and expected inflation, which are already considered in the MRR.",
@@ -1861,11 +1848,11 @@ const flashcardData = [
     id:141,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: "What is SOFR?",
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "^What is SOFR?",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
-    back: "SOFR = Secured Overnight Financing Rate. It's a widely used benchmark interest rate in U.S. dollar financial markets. SOFR = a market-based reference rate that can change over time.", // Index of correct option
+    back: "SOFR = Secured Overnight Financing Rate is a widely used benchmark for interest rate in dollar denominated financial markets as well as a market-based reference rate that can change over time.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1887,8 +1874,8 @@ const flashcardData = [
     id:143,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: "Explain an interest rate as the sum of a real risk-free rate and premiums that compensate investors for bearing distinct types of risk.",
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "^Explain an interest rate as the sum of a real risk-free rate and premiums that compensate investors for bearing distinct types of risk.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The real risk-free rate is a theoretical rate on a single-period loan when there is no expectation of inflation. Nominal risk-free rate = real risk-free rate + expected inflation rate. Securities may have several risks, and each increases the required rate of return. These include default risk, liquidity risk, and maturity risk. The required rate of return on a security = real risk-free rate + expected inflation + default risk premium + liquidity premium + maturity risk premium.", // Index of correct option
@@ -1940,10 +1927,10 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "For the year ended 31 December 2018, Bright-Warm Utility Company (fictitious) had net income of USD1,750,000. The company had an average of 500,000 shares of common stock outstanding, 20,000 shares of convertible preferred, and no other potentially dilutive securities. Each share of preferred pays a dividend of USD10 per share, and each is convertible into five shares of the company’s common stock. Calculate the company’s basic and diluted EPS.",
+    front: "^For the year ended 31 December 2018, Bright-Warm Utility Company (fictitious) had net income of USD1,750,000. The company had an average of 500,000 shares of common stock outstanding, 20,000 shares of convertible preferred, and no other potentially dilutive securities. Each share of preferred pays a dividend of USD10 per share, and each is convertible into five shares of the company’s common stock. Calculate the company’s basic and diluted EPS.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'If the 20,000 shares of convertible preferred had each converted into five shares of the company’s common stock, the company would have had an additional 100,000 shares of common stock (five shares of common for each of the 20,000 shares of preferred). If the conversion had taken place, the company would not have paid preferred dividends of USD200,000 (USD10 per share for each of the 20,000 shares of preferred). As shown in Exhibit 14, the company’s basic EPS was USD3.10 and its diluted EPS was USD2.92.', // Index of correct option
-    back: "", // Index of correct option
+    correctAnswer: '', // Index of correct option
+    back: "If the 20,000 shares of convertible preferred had each converted into five shares of the company’s common stock, the company would have had an additional 100,000 shares of common stock (five shares of common for each of the 20,000 shares of preferred). If the conversion had taken place, the company would not have paid preferred dividends of USD200,000 (USD10 per share for each of the 20,000 shares of preferred). As shown in Exhibit 14, the company’s basic EPS was USD3.10 and its diluted EPS was USD2.92.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -1968,8 +1955,8 @@ const flashcardData = [
     type: 'flashcard', // flashcard or multiple-choice
     front: "Hihotech Company (fictitious) reported net income of USD2.3 million for the year ended 30 June 2018 and had a weighted average of 800,000 common shares outstanding. At the beginning of the fiscal year, the company has outstanding 30,000 options with an exercise price of USD35. No other potentially dilutive financial instruments are outstanding. Over the fiscal year, the company’s market price has averaged USD55 per share. Calculate the company’s basic and diluted EPS.",
     options: [' ', ' ', ' '],
-    correctAnswer: 'Using the treasury stock method, we first calculate that the company would have received USD1,050,000 (USD35 for each of the 30,000 options exercised) if all the options had been exercised. The options would no longer be outstanding; instead, 30,000 shares of common stock would be outstanding. Under the treasury stock method, we assume that shares would be repurchased with the cash received upon exercise of the options. At an average market price of USD55 per share, the USD1,050,000 proceeds from option exercise, the company could have repurchased 19,091 shares. Therefore, the incremental number of shares issued is 10,909 (calculated as 30,000 minus 19,091). For the diluted EPS calculation, no change is made to the numerator. As shown in Exhibit 16, the company’s basic EPS was USD2.88 and the diluted EPS was USD2.84.', // Index of correct option
-    back: "", // Index of correct option
+    correctAnswer: '', // Index of correct option
+    back: "Using the treasury stock method, we first calculate that the company would have received USD1,050,000 (USD35 for each of the 30,000 options exercised) if all the options had been exercised. The options would no longer be outstanding; instead, 30,000 shares of common stock would be outstanding. Under the treasury stock method, we assume that shares would be repurchased with the cash received upon exercise of the options. At an average market price of USD55 per share, the USD1,050,000 proceeds from option exercise, the company could have repurchased 19,091 shares. Therefore, the incremental number of shares issued is 10,909 (calculated as 30,000 minus 19,091). For the diluted EPS calculation, no change is made to the numerator. As shown in Exhibit 16, the company’s basic EPS was USD2.88 and the diluted EPS was USD2.84.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -2005,7 +1992,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Why is IRR preferred for performance measurement for alternative investments?",
+    front: "^ Why is IRR preferred for performance measurement for alternative investments?",
     options: ['IRR takes into account the timing of cash flows in long-lived alternative investments.', 'IRR is easy and intuitive to calculate.', 'IRR is commonly used for other asset classes.'],
     correctAnswer: 'IRR takes into account the timing of cash flows in long-lived alternative investments.', // Index of correct option
     back: "IRR is seldom used to measure investment performance of other asset classes with publicly quoted market prices. Although IRR is complicated to calculate and involves assumptions on opportunity costs and reinvestment rates, it is the best metric to evaluate long-lived alternative investments because it takes into account the unique timing of cash flows in the investment life cycle of alternative investments.", // Index of correct option
@@ -2121,8 +2108,8 @@ const flashcardData = [
     id:161,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation.3. If the fee structure specifies a hurdle rate of 5% and the incentive fee is based on returns in excess of the hurdle rate, what are the fees earned by AWJ assuming the performance fee is calculated net of the management fee? What is an investor’s net return given this fee structure?",
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "^AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation.3. If the fee structure specifies a hurdle rate of 5% and the incentive fee is based on returns in excess of the hurdle rate, what are the fees earned by AWJ assuming the performance fee is calculated net of the management fee? What is an investor’s net return given this fee structure?",
     options: [' ', ' ', ' '],
     correctAnswer: '$130 million × 2% = $2.6 million management fee. ($130 million − $100 million − $5 million − $2.6 million) × 20% = $4.48 million incentive fee. Total fees to AWJ Capital = $7.08 million.  Investor return = ($130 million − $100 million − $7.08 million)/$100 million = 22.92%.', // Index of correct option
     back: "", // Index of correct option
@@ -2134,8 +2121,8 @@ const flashcardData = [
     id:162,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 4. In the second year, the fund value declines to $110 million. The fee structure is as specified for Question 1 but also includes the use of a high-water mark (computed net of fees). What are the fees earned by AWJ in the second year? What is an investor’s net return for the second year given this fee structure?",
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "^AWJ Capital is a hedge fund with 100 million of initial investment capital. It charges a 2 percent management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 4. In the second year, the fund value declines to $110 million. The fee structure is as specified for Question 1 but also includes the use of a high-water mark (computed net of fees). What are the fees earned by AWJ in the second year? What is an investor’s net return for the second year given this fee structure?",
     options: [' ', ' ', ' '],
     correctAnswer: '$110 million × 2% = $2.2 million management fee. No incentive fee because the fund has declined in value. Total fees to AWJ Capital = $2.2 million. Investor return = ($110 million − $2.2 million − $121.4 million)/$121.4 million = –11.20%.  The beginning capital position in the second year for the investors is $130 million − $8.6 million = $121.4 million. The ending capital position at the end of the second year is $110 million − $2.2 million = $107.8 million.', // Index of correct option
     back: "", // Index of correct option

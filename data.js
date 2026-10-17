@@ -80,9 +80,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-quantitative-methods',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Grupo Ignacia issued 10-year corporate bonds four years ago. The bonds pay an annualized coupon of 10.7 percent on a semiannual basis, and the current price of the bonds is MXN 97.50 per MXN 100 of par value. The YTM of the bonds is closest to:",
+    front: "^Grupo Ignacia issued 10-year corporate bonds four years ago. The bonds pay an annualized coupon of 10.7 percent on a semiannual basis, and the current price of the bonds is MXN 97.50 per MXN 100 of par value. The YTM of the bonds is closest to:",
     options: ['11.28 percent.', '11.50 percent.', '11.71 percent.'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: '11.28 percent.', // Index of correct option
     back: "The YTM is calculated by solving for the RATE spreadsheet function with the following inputs: number of periods of 12 (=6×2), coupon payments of 5.35 (=10.7/2), PV of −97.50, and FV of 100. The resulting solution for RATE of 5.64 percent is in semiannual terms, so multiply by 2 to calculate annualized YTM of 11.28 percent. B is incorrect, as 11.50 percent is the result if the number of periods used is eight, instead of 12. C is incorrect, as 11.71 percent is the result if the number of periods used is 6, instead of 12.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -197,9 +197,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-financial-statement',
     type: 'multiple-choice', // flashcard or multiple-choice 
-    front: "Eric’s Used Book Store prepares its financial statements in accordance with IFRS. later marked down to GBP 550,000. One of the books, however, was later discovered to be a rare collectible item, and the inventory is now worth an estimated GBP 3 million. The inventory is most likely reported on the balance sheet at: ",
+    front: "*Eric’s Used Book Store prepares its financial statements in accordance with IFRS. later marked down to GBP 550,000. One of the books, however, was later discovered to be a rare collectible item, and the inventory is now worth an estimated GBP 3 million. The inventory is most likely reported on the balance sheet at: ",
     options: ['GBP 550,000', 'GBP 1,000,000', 'GBP 3,000,000'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'GBP 1,000,000', // Index of correct option
     back: "Under IFRS, the reversal of write- downs is required if net realizable value increases. The inventory will be reported on the balance sheet at GBP 1,000,000. The inventory is reported at the lower of cost or net realizable value.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -249,7 +249,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-equity-investments',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "With respect to the efficient market hypothesis, if security prices reflect only past prices and trading volume information, then the market is:",
+    front: "*With respect to the efficient market hypothesis, if security prices reflect only past prices and trading volume information, then the market is:",
     options: ['Weak-form efficient.', 'Strong-form efficient', 'Semi-strong-form efficient'],
     correctAnswer: ' ', // Index of correct option
     back: "The weak-form efficient market hypothesis is defined as a market where security prices fully reflect all market data, which refers to all past price and trading volume information.",
@@ -275,9 +275,9 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-fixed-income',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Assume that today (t = 0) the current US five-year Treasury note trades at a price equal to the bond’s face value of USD 50,000,000. The security buyer takes delivery of the US Treasury note today and pays the security seller USD 50,000,000. Assume a repo term of 45 days (and 360 days in a year) and a repo rate of 0.375%. If the buyer agrees to return the five-year Treasury note 45 days from today (t = T) to the seller, the repurchase price is closest to:",
+    front: "^Assume that today (t = 0) the current US five-year Treasury note trades at a price equal to the bond’s face value of USD 50,000,000. The security buyer takes delivery of the US Treasury note today and pays the security seller USD 50,000,000. Assume a repo term of 45 days (and 360 days in a year) and a repo rate of 0.375%. If the buyer agrees to return the five-year Treasury note 45 days from today (t = T) to the seller, the repurchase price is closest to:",
     options: ['USD 50,015,625', 'USD 50,023,438', 'USD 50,187,500'],
-    correctAnswer: ' ', // Index of correct option
+    correctAnswer: 'USD 50,023,438', // Index of correct option
     back: "USD 50,023,438 is calculated as: USD 50,000,000 × [1 + (0.375% × 45/360)] = USD 50,023,438. In effect, the security seller borrows USD 50,000,000 on a short-term basis at a low cost, with interest (USD 23,438) paid at maturity, because the loan is collateralized by the US Treasury note. A is incorrect because a repo term of 30 days, as opposed to 45 days, is incorrectly used: USD 50,000,000 × [1 + (0.375% × 30/360)] = USD 50,015,625. C is incorrect because the repo term and number of days in a year are not used: USD 50,000,000 × (1 + 0.375%) = USD 50,187,500.",
     correctAnswers: 0,
     incorrectAnswers: 0
@@ -366,7 +366,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-portfolio-management',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "With respect to the portfolio management process, the asset allocation is determined in the:",
+    front: "*With respect to the portfolio management process, the asset allocation is determined in the:",
     options: ['Planning step.', 'Feedback step.', 'Execution step.'],
     correctAnswer: ' ', // Index of correct option
     back: "The client’s objectives and constraints are established in the investment policy statement and are used to determine the client’s target asset allocation, which occurs in the execution step of the portfolio management process.",
@@ -405,7 +405,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-ethics',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following statements is most accurate? Standards of conduct:",
+    front: "^Which of the following statements is most accurate? Standards of conduct:",
     options: ['are a necessary component of any code of ethics.', 'serve as a general guide regarding proper conduct by members of a group.', 'serve as benchmarks for the minimally acceptable behavior required of members of a group.'],
     correctAnswer: 'serve as benchmarks for the minimally acceptable behavior required of members of a group.', // Index of correct option
     back: "serve as benchmarks for the minimally acceptable behavior required of members of a group.",
@@ -432,7 +432,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-ethics',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following statements is most accurate? A profession’s code of ethics:",
+    front: "^Which of the following statements is most accurate? A profession’s code of ethics:",
     options: ['publicly communicates the shared principles and expected behaviors of a profession’s members.', 'includes standards of conduct or specific benchmarks for behavior.', 'ensures that all members of a profession will act ethically at all times.'],
     correctAnswer: 'publicly communicates the shared principles and expected behaviors of a profession’s members.', // Index of correct option
     back: "",
@@ -497,7 +497,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: 'cfa-l1-ethics',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Which of the following statements is most accurate? An ethical decision-making framework:",
+    front: "^Which of the following statements is most accurate? An ethical decision-making framework:",
     options: ['is used to improve compliance with laws and regulations.', 'is a tool for analyzing the potential alternative actions and consequences of a decision.', 'is only beneficial when a firm lacks a code of ethics.'],
     correctAnswer: 'is a tool for analyzing the potential alternative actions and consequences of a decision.', // Index of correct option
     back: "An ethical decision-making framework is a tool for analyzing the potential alternative actions and consequences of a decision.",
@@ -666,7 +666,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Fill in the blanks in the following sentence: ________________ liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of ________________ taxation of distributed business income.",
+    front: "^Fill in the blanks in the following sentence: ________________ liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of ________________ taxation of distributed business income.",
     options: ['', '', ''],
     correctAnswer: 'Limited liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of double taxation of distributed business income.', // Index of correct option
     back: "Limited liability is a benefit to the corporate organizational form, but the form does face a possible disadvantage because of double taxation of distributed business income.",
@@ -822,7 +822,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Interest payments to debtholders are:",
+    front: "^Interest payments to debtholders are:",
     options: ['at the discretion of the board.', 'deductible for corporate income tax purposes', 'residual payments.'],
     correctAnswer: 'deductible for corporate income tax purposes', // Index of correct option
     back: "C is correct. Interest payments on debt are tax deductible for the firm. A is incorrect. Debtholders have priority claims on the cash flows of the firm over shareholders. B is incorrect. Interest payments are contractual, not discretionary like shareholder dividends.",
@@ -874,7 +874,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "SolarTech Innovations’ shares showed the following total returns: Year 1: −10% Year 2: 15% Year 3: 20% Over the three-year period, SolarTech shares had a geometric annual return closest to:",
+    front: "^SolarTech Innovations’ shares showed the following total returns: Year 1: −10% Year 2: 15% Year 3: 20% Over the three-year period, SolarTech shares had a geometric annual return closest to:",
     options: ['7.49%', '8.00%', '9.00%'],
     correctAnswer: '7.49%', // Index of correct option
     back: "[ (1 - 0.10) x (1 +. 0.15) x ( 1 + 0.20) ] ^ 1/3   - 1  = 7.49%",
@@ -900,7 +900,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Describe the steps for clearing a credit default swap",
+    front: "^Describe the steps for clearing a credit default swap",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The counterparties are financial intermediaries that first execute the trade on an SEF (swap execution facility). Then, trade details are shared with a CCP; the novation process substitutes the original contract with another where the CCP steps into the trade and acts as the new counterparty for each original party. The CCP clears and settles the trade.",
@@ -939,7 +939,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A bond issued by a South African company denominated in British pounds sold exclusively to investors who are legally domiciled in the United Kingdom would most likely be classified as:",
+    front: "^A bond issued by a South African company denominated in British pounds sold exclusively to investors who are legally domiciled in the United Kingdom would most likely be classified as:",
     options: ['foreign', 'Eurobond', 'domestic'],
     correctAnswer: 'foreign', // Index of correct option
     back: "Bonds sold in a country (United Kingdom) and denominated in that country’s currency (British pounds) by an entity from another country (South Africa) are referred to as foreign bonds.",
@@ -1082,8 +1082,8 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A call provision embedded in a fixed-income security:",
-    options: ['grants the bondholder some degree of inflation protection.', 'gives the bondholder the right but not an obligation to sell the bond.', ' is a benefit to the issuer.'],
+    front: "^A call provision embedded in a fixed-income security:",
+    options: ['grants the bondholder some degree of inflation protection.', 'gives the bondholder the right but not an obligation to sell the bond.', 'is a benefit to the issuer.'],
     correctAnswer: 'is a benefit to the issuer.', // Index of correct option
     back: "A call provision gives the issuer the right to redeem all or part of the bond at a pre-determined price on specified dates. It is a benefit to the issuer because if market interest rates fall, the issuer can replace the callable bond with one with a lower interest rate. It also gives the issuer added flexibility if it has excess cash or wishes to change its capital structure in the future. This describes a putable bond, not a callable bond. If a callable bond is called, the bondholder is obliged to sell it to the issuer according to the specified terms. A call provision does not grant the bondholder inflation protection. A call would be exercised by the issuer if interest rates fall.",
     correctAnswers: 0,
@@ -1121,7 +1121,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Describe the difference between affirmative and negative bond covenants.",
+    front: "^Describe the difference between affirmative and negative bond covenants.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Affirmative covenants specify what issuers are required to do, whereas negative covenants specify what issuers are prohibited from doing.",
@@ -1160,7 +1160,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Fill in the blanks. A downward-sloping yield curve indicates that yields-to-maturity on an issuer’s longer-term bonds are __________ than yields-to-maturity on that issuer’s shorter-term bonds.",
+    front: "^Fill in the blanks. A downward-sloping yield curve indicates that yields-to-maturity on an issuer’s longer-term bonds are __________ than yields-to-maturity on that issuer’s shorter-term bonds.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "A downward-sloping yield curve indicates that yields-to-maturity on an issuer’s longer-term bonds are lower than yields-to-maturity on that issuer’s shorter-term bonds.",
@@ -1394,7 +1394,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Fritz is an equity analyst at Hilton Brokerage who covers the mining industry. Fritz has concluded that Metals & Mining stock is overvalued at its current level, but he is concerned that a negative research report might jeopardize a close rapport that he has nurtured over the years with Metals & Mining’s CEO, chief financial officer, and investment relations officer. Fritz is concerned that a negative report might also result in management retaliation—for instance, cutting him off from participating in conference calls when a quarterly earnings release is made, denying him the ability to ask questions on such calls, and/or denying him access to top management for arranging group meetings between Hilton Brokerage clients and top Metals & Mining managers.",
+    front: "^Fritz is an equity analyst at Hilton Brokerage who covers the mining industry. Fritz has concluded that Metals & Mining stock is overvalued at its current level, but he is concerned that a negative research report might jeopardize a close rapport that he has nurtured over the years with Metals & Mining’s CEO, chief financial officer, and investment relations officer. Fritz is concerned that a negative report might also result in management retaliation—for instance, cutting him off from participating in conference calls when a quarterly earnings release is made, denying him the ability to ask questions on such calls, and/or denying him access to top management for arranging group meetings between Hilton Brokerage clients and top Metals & Mining managers.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Fritz’s analysis must be objective and based solely on consideration of company fundamentals. Any pressure from Metals & Mining is inappropriate. To support the integrity of his conclusions, Fritz should fully document his work, including how his investment recommendation is based on relative valuation.",
@@ -1459,7 +1459,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "____________ make permanent capital available to issuers. (debtholders, shareholders)",
+    front: "^____________ make permanent capital available to issuers. (debtholders, shareholders)",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "Shareholders make permanent capital available to issuers. Debtholders is incorrect. Debt has a finite maturity, though it can be far in the future.",
@@ -1524,7 +1524,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "The estimated impact of ESG factors on corporate issuers’ financial and share price performance has _________________ over time. (decreased, remained the same, increased)",
+    front: "^The estimated impact of ESG factors on corporate issuers’ financial and share price performance has _________________ over time. (decreased, remained the same, increased)",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "The estimated impact of ESG factors on corporate issuers’ financial and share price performance has increased over time. This impact is the result of changing consumer and investor preferences, increased regulations and taxes related to ESG factors, and the rising threat of climate change.",
@@ -1550,7 +1550,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Corporate equity and debt holders share the same investor perspective with respect to:",
+    front: "^Corporate equity and debt holders share the same investor perspective with respect to:",
     options: ['investment risk.', 'maximum loss.', 'return potential.'],
     correctAnswer: 'maximum loss.', // Index of correct option
     back: "For both equity and debt holders, their initial investment represents their maximum possible loss. The return potential is theoretically unlimited for equity holders, while it is capped for debtholders. Equity holders are exposed to a higher level of investment risk, as they hold a residual claim on the firm’s cash flows that is lower in priority to the debtholders’ claim.",
@@ -1641,7 +1641,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Identify which of the following choices is most likely an alternative investment:",
+    front: "^Identify which of the following choices is most likely an alternative investment:",
     options: ['An investment in a hedge fund focused on traditional assets', 'Shares in a manufacturing firm traded on the Bursa Malaysia exchange', 'A euro foreign exchange future purchased on the Chicago Mercantile exchange'],
     correctAnswer: 'An investment in a hedge fund focused on traditional assets', // Index of correct option
     back: "An investment in a hedge fund, even one that purchases traditional exchange-traded assets, is considered an alternative investment. B is incorrect because shares traded on a public exchange, such as the Bursa Malaysia exchange, are considered traditional, not alternative, investments. C is incorrect because a euro foreign exchange future purchased on a public exchange, such as the Chicago Mercantile exchange, is considered a traditional, not an alternative, investment.",
@@ -1719,7 +1719,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "Compensation structures for alternative investments most likely are:",
+    front: "^Compensation structures for alternative investments most likely are:",
     options: ['less complex than those of traditional investments.', 'equally complex as those of traditional investments.', 'more complex than those of traditional investments.'],
     correctAnswer: 'more complex than those of traditional investments.', // Index of correct option
     back: " The illiquidity, complexity, and long-term nature of alternative investments require more complex structures to bridge potential gaps between manager and investor interests. Alternative investment structures may explicitly address both the roles and responsibilities of investors and managers to address these gaps. In addition, alternative investment structures tailor the distribution of returns between these two parties to minimize the divergence of incentives between manager and investor. A is incorrect because the compensation structures for alternative investments are more complex, not less complex, than those for traditional investments. B is incorrect because the compensation structures for alternative investments are more complex than, not equally complex as, those for traditional investments.",
@@ -1771,7 +1771,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: " Referring to the Auchan Holding example in this lesson, calculate the amount of the tax disadvantage (in euros) Auchan has in its corporate form compared to if it were organized as a limited partnership. Recall that Auchan’s pre-tax profit was €838 million, the corporate tax rate was 31.5%, the personal income tax rate was 30%, and all after-tax profits were distributed.",
+    front: " ^Calculate the amount of the tax disadvantage (in euros) Auchan has in its corporate form compared to if it were organized as a limited partnership. Recall that Auchan’s pre-tax profit was €838 million, the corporate tax rate was 31.5%, the personal income tax rate was 30%, and all after-tax profits were distributed.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "If Auchan were organized as a limited partnership, its pre-tax profit would be passed through to the owner(s) and taxes would only be paid at the personal level. Thus, total taxes paid would be €251.4 million (= €838 million × 0.30), or €184.8 million lower than total taxes paid under the corporate organizational form, and this tax of €251.4 million would be paid regardless of whether the partnership distributed the profit to partners.",
@@ -1823,7 +1823,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'flashcard', // flashcard or multiple-choice
-    front: "Herrero recently left his job as a research analyst for a large investment adviser. While looking for a new position, he was hired as a contractor by an investor relations firm to write a research report on one of its clients, a small educational software company. The investor relations firm hopes to generate investor interest in the technology company. The firm will pay Herrero a flat fee plus a bonus if any new investors buy stock in the company as a result of Herrero’s report.",
+    front: "^Herrero recently left his job as a research analyst for a large investment adviser. While looking for a new position, he was hired as a contractor by an investor relations firm to write a research report on one of its clients, a small educational software company. The investor relations firm hopes to generate investor interest in the technology company. The firm will pay Herrero a flat fee plus a bonus if any new investors buy stock in the company as a result of Herrero’s report.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
     back: "If Herrero accepts this payment arrangement, he will be in violation of Standard I(B) because the compensation arrangement can reasonably be expected to compromise his independence and objectivity. Herrero will receive a bonus for attracting investors, which provides an incentive to draft a positive report regardless of the facts and to ignore or play down any negative information about the company. Herrero should accept only a flat fee that is not tied to the conclusions or recommendations of the report. Issuer-paid research that is objective and unbiased is acceptable under certain circumstances as long as the analyst takes steps to maintain his or her objectivity and includes in the report proper disclosures regarding potential conflicts of interest.", // Index of correct option
@@ -1979,7 +1979,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "In which part of the investment life cycle of a private equity investment should investors generally expect a positive cash flow?",
+    front: "^In which part of the investment life cycle of a private equity investment should investors generally expect a positive cash flow?",
     options: ['Capital commitment', 'Capital deployment', 'Capital distribution'],
     correctAnswer: 'Capital distribution', // Index of correct option
     back: "In the initial capital commitment phase, fees and expenses are immediately incurred prior to capital deployment, and assets may generate little or no income during this first phase. In the capital deployment phase, cash outflows typically exceed inflows as funds are deployed. Only in the capital distribution phase can excess income be generated from the invested properties and substantial capital gains be realized upon the sale of assets.", // Index of correct option
@@ -2018,7 +2018,7 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
-    front: "A $100 million hedge fund charges all its investors a 2% management fee and a 20% performance fee if the periodic return, net of management fee, exceeds a 5% hard hurdle rate. All fees are deducted based on the end-of-year value. If the fund makes a gross return (before fees) of 8% for the year, what is the investor’s return, net of fees, closest to (ignoring any high-water mark provisions)?",
+    front: "^A $100 million hedge fund charges all its investors a 2% management fee and a 20% performance fee if the periodic return, net of management fee, exceeds a 5% hard hurdle rate. All fees are deducted based on the end-of-year value. If the fund makes a gross return (before fees) of 8% for the year, what is the investor’s return, net of fees, closest to (ignoring any high-water mark provisions)?",
     options: ['5.67%', '4.67%', '5.84%'],
     correctAnswer: '5.67%', // Index of correct option
     back: "B is correct. If the hedge fund makes 8% gross return for the year, its net asset value has grown to $108 million before any fees are deducted. Management fee = $108 × 2% = $2.16 million. Performance fee = [($108 – $2.16) – ($100 × $1.05%)] × 20% = $0.168 million. Net asset value after fee deduction = $108 – $2.16 – $0.168 = $105.672 million. Net investor return = ($105.672 – $100)/$100 = 5.67%.", // Index of correct option
@@ -2095,8 +2095,8 @@ const flashcardData = [
     id:160,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 2. What are the fees earned by AWJ assuming that the incentive fee is calculated from the return net of the management fee? What is an investor’s net return given this fee structure?",
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "^AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation. 2. What are the fees earned by AWJ assuming that the incentive fee is calculated from the return net of the management fee? What is an investor’s net return given this fee structure?",
     options: [' ', ' ', ' '],
     correctAnswer: '$130 million × 2% = $2.6 million management fee.($130 million − $100 million − $2.6 million) × 20% = $5.48 million incentive fee.Total fees to AWJ Capital = $8.08 million.Investor return = ($130 million − $100 million − $8.08 million)/$100 million = 21.92%.', // Index of correct option
     back: "", // Index of correct option

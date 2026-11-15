@@ -2148,6 +2148,319 @@ const flashcardData = [
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate?",
+    options: ['Government capital spending decisions are slow to plan, implement, and execute and hence are of little use for short-term economic stabilization.', 'Because indirect taxes cannot be changed quickly, they are of no use in fiscal policy.', 'Direct taxes are useful for discouraging alcohol consumption.'],
+    correctAnswer: 'Government capital spending decisions are slow to plan, implement, and execute and hence are of little use for short-term economic stabilization.', // Index of correct option
+    back: "C is correct. Capital spending is much slower to implement than changes in indirect taxes; and indirect taxes affect alcohol consumption more directly than direct taxes.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following is not an indirect tax?",
+    options: ['Excise duty', 'Value-added tax', 'Employment taxes'],
+    correctAnswer: 'Employment taxes', // Index of correct option
+    back: "C is correct. Both excise duty and value-added tax (VAT) are applied to prices, whereas taxes on employment apply to labor income and hence are not indirect taxes.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following is not a tool of fiscal policy?",
+    options: ['A rise in social transfer payments', 'The purchase of new equipment for the armed forces', 'An increase in deposit requirements for the buying of houses'],
+    correctAnswer: 'An increase in deposit requirements for the buying of houses', // Index of correct option
+    back: "C is correct. Rises in deposit requirements for house purchases are intended to reduce the demand for credit for house purchases and hence would be considered a tool of monetary policy. This is a policy used actively in several countries and is under consideration by regulators in other countries to constrain house price inflation.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which statement regarding fiscal deficits is most accurate?",
+    options: ['According to the Ricardian equivalence, deficits have a multiplicative effect on consumer spending.', 'Higher government spending may lead to higher interest rates and lower private sector investing.', 'Central bank actions that grow the money supply to address deflationary conditions decrease fiscal deficits.'],
+    correctAnswer: 'Higher government spending may lead to higher interest rates and lower private sector investing.', // Index of correct option
+    back: "B is correct. Government borrowing may compete with private sector borrowing for investment purposes.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "The most likely argument against high national debt levels is that:",
+    options: ['they create disincentives for economic activity.', 'they may finance investment in physical and human capital.', 'the debt is owed internally to fellow citizens.'],
+    correctAnswer: 'they create disincentives for economic activity.', // Index of correct option
+    back: "B is correct. The belief is that high levels of debt to GDP may lead to higher future tax rates, which may lead to disincentives to economic activity.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which one of the following is most likely a reason to not use fiscal deficits as an expansionary tool?",
+    options: ['They may crowd out private investment.', 'They may stimulate employment when there is substantial unemployment in an economy.', 'They may facilitate tax changes to reduce distortions in an economy.'],
+    correctAnswer: 'They may crowd out private investment.', // Index of correct option
+    back: "A is correct. A frequent argument against raises in fiscal deficits is that the additional borrowing to fund the deficit in financial markets will displace private sector borrowing for investment (i.e., crowding out).", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Fiscal expansions will most likely have the greatest impact on aggregate output when the economy is in which of the following states?",
+    options: ['Full employment', 'Near full employment', 'Considerable unemployment'],
+    correctAnswer: 'Considerable unemployment', // Index of correct option
+    back: "C is correct. When an economy is close to full employment, a fiscal expansion raising aggregate demand can have little impact on output because there are few spare unused resources (e.g., labor or idle factories); instead, there will be upward pressure on prices (i.e., inflation). The greatest impact on aggregate output will occur when there is considerable unemployment.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following is not associated with an expansionary fiscal policy?",
+    options: ['Cuts in personal income taxes', 'Rise in capital gains taxes', 'New capital spending by the government on road building'],
+    correctAnswer: 'Rise in capital gains taxes', // Index of correct option
+    back: "A is correct. A rise in capital gains taxes reduces income available for spending and hence reduces aggregate demand, other things being equal. Cutting income tax raises disposable income, while new road building raises employment and incomes; in both cases, aggregate demand rises and hence policy is expansionary.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "A “pay-as-you-go” rule, which requires that any tax cut or increase in entitlement spending be offset by an increase in other taxes or reduction in other entitlement spending, is an example of which fiscal policy stance?",
+    options: ['Expansionary', 'Contractionary', 'Neutral'],
+    correctAnswer: 'Neutral', // Index of correct option
+    back: "A is correct. A “pay-as-you-go” rule is a neutral policy because any increases in spending or reductions in revenues would be offset. Accordingly, there would be no net impact on the budget deficit/surplus.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following best represents a contractionary fiscal policy?",
+    options: ['Public spending on a high-speed railway', 'Freeze in discretionary government spending', 'Temporary suspension of payroll taxes'],
+    correctAnswer: 'Freeze in discretionary government spending', // Index of correct option
+    back: "C is correct. A freeze in discretionary government spending is an example of a contractionary fiscal policy.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "The least likely goal of a government’s fiscal policy is to:",
+    options: ['redistribute income and wealth.', 'influence aggregate national output.', 'ensure the stability of the purchasing power of its currency.'],
+    correctAnswer: 'ensure the stability of the purchasing power of its currency.', // Index of correct option
+    back: "C is correct. Ensuring stable purchasing power is a goal of monetary rather than fiscal policy. Fiscal policy involves the use of government spending and tax revenue to affect the overall level of aggregate demand in an economy and hence the level of economic activity.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following statements best describes fiscal policy? Fiscal policy:",
+    options: ['involves the use of government spending and taxation to influence economy activity.', 'is the attempt by governments to balance their budgets from one year to the next.', 'is used by governments to redistribute wealth and incomes.'],
+    correctAnswer: 'involves the use of government spending and taxation to influence economy activity.', // Index of correct option
+    back: "C is correct. Note that governments may wish to use fiscal policy to redistribute income and balance their budgets, but the overriding goal of fiscal policy is usually to influence a broader range of economic activity.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following statements best describes monetary policy? Monetary policy:",
+    options: ['involves the setting of medium-term targets for broad money aggregates.', 'seeks to influence the macroeconomy by influencing the quantity of money and credit in the economy.', 'involves the manipulation by a central bank of the government’s budget deficit.'],
+    correctAnswer: 'seeks to influence the macroeconomy by influencing the quantity of money and credit in the economy.', // Index of correct option
+    back: "C is correct, as monetary policy involves central bank activities directed toward influencing the quantity of money and credit. Choice A is incorrect because, although the setting of targets for monetary aggregates is a possible tool of monetary policy, monetary policy itself is concerned with influencing the overall, or macro, economy.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "In the morning business news, a financial analyst, Kevin Durbin, learned that average hourly earnings had increased last month. The most appropriate action for Durbin is to:",
+    options: ['examine other leading indicators to see any confirmation of a possible turning point for the economy.', 'use the news in his research report as a confirmation for his belief that the economy has recovered from a recession.', 'call his clients to inform them of a good trading opportunity today.'],
+    correctAnswer: 'examine other leading indicators to see any confirmation of a possible turning point for the economy.', // Index of correct option
+    back: "B is correct. Financial analysts need to synthesize the information from various indicators in order to gather a reliable reading of the economic trends.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "A diffusion index:",
+    options: ['is roughly analogous to the indexes used to measure industrial production.', 'measures growth.', 'reflects the consensus change in economic indicators.'],
+    correctAnswer: 'reflects the consensus change in economic indicators.', // Index of correct option
+    back: "B is correct. The diffusion indexes are constructed to reflect the common trends embedded in the movements of all the indicators included in such an index.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Leading, lagging, and coincident indicators are:",
+    options: ['based on historical cyclical observations.', 'based on Keynesian or Monetarist theory.', 'the same worldwide.'],
+    correctAnswer: 'based on historical cyclical observations.', // Index of correct option
+    back: "B is correct. The recognition of economic indicators is based on empirical observations for an economy.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "The reason analysts follow developments in the availability of credit is that:",
+    options: ['credit cycles are of same length and depth as business cycles.', 'loose private sector credit may contribute to the extent of asset price and real estate bubbles and subsequent crises.', 'loose credit helps reduce the extent of asset price and real estate bubbles.'],
+    correctAnswer: 'loose private sector credit may contribute to the extent of asset price and real estate bubbles and subsequent crises.', // Index of correct option
+    back: "A is correct. Studies have shown that loose credit conditions contribute to the extent of asset price and real estate bubbles that tend to be followed by crises.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "With which sector of the economy would analysts most commonly associate credit cycles?",
+    options: ['Construction and purchases of property', 'Exports', 'Food retail'],
+    correctAnswer: 'Construction and purchases of property', // Index of correct option
+    back: "B is correct. Credit cycles are associated with availability of credit, which is important in the financing of construction and the purchase of property.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Describe the relationship between the spot and forward price for an underlying asset if the risk-free rate is negative.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The relationship between the spot and forward rate for an asset with no additional costs or benefits of ownership other than the opportunity cost (risk-free rate) is equal to F0(T) = S0(1 + r)T. In a case where r < 0, (1 + r)T < 1 and therefore the forward price, F0(T), is below the spot price, S0, if the risk-free rate is negative.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Calculate the arbitrage profit if a spot asset with no additional costs or benefits trades at a spot price of 100, the three-month forward price for the underlying asset is 102, and the risk-free rate is 5%.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The forward price, F0(T) = S0(1 + r)T, at which no-arbitrage opportunities would exist is 101.23 (= 100(1.05)0.25). With an observed forward price of 102, the arbitrage opportunity would be to sell the forward contract and buy the underlying, borrowing at the risk-free rate to fund the purchase. The arbitrage profit is the difference between the observed forward price and the no-arbitrage forward price of 0.77 (= 102 – 101.23).", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Formulate a replication strategy for a three-month short forward commitment for 1,000 shares of a non-dividend-paying stock.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "The replication strategy for a three-month short forward commitment on a non-dividend-paying stock involves the short sale of 1,000 shares of stock at t = 0 and investment of proceeds at the risk-free rate, r. At time t = T, the short sale is covered at ST, and under the no-arbitrage condition of F0(T) = S0(1 + r)T, the return is equal to F0(T) – ST for both the short forward and the replication strategy.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Determine the correct answers to fill in the blanks: If the law of one price does not hold, a(n) _________ asset trades at the same time at _________ prices in different places.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "If the law of one price does not hold, a(n) identical asset trades at the same time at different prices in different places.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following statements best defines a convenience yield?",
+    options: ['Convenience yield reflects the preference that market participants exhibit for buying forward contracts to avoid having to pay cash up front.', 'Convenience yield reflects the preference that market participants exhibit for buying in the spot market to avoid having to pay for storage.', 'Convenience yield reflects the preference that market participants exhibit for buying in the spot market for non-cash reasons, including low inventories in the underlying cash market.'],
+    correctAnswer: 'Convenience yield reflects the preference that market participants exhibit for buying in the spot market for non-cash reasons, including low inventories in the underlying cash market.', // Index of correct option
+    back: "C is correct. The convenience yield is a non-cash benefit associated with owning an underlying physical commodity that arises under certain economic conditions, including low inventories of the underlying. A is incorrect because the statement suggests convenience yield is a cost of owning the underlying. B is incorrect because the statement is contradictory in that it states that convenience yield causes market participants to prefer spot markets but incorrectly attributes this to a cost of owning the underlying.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following statements correctly describes the relationship between a forward commitment price compared to the underlying spot price when the benefits of owning the underlying are greater than the costs of owning the underlying (including the opportunity interest costs)?",
+    options: ['Forward commitment price = spot price.', 'Forward commitment price > spot price.', 'Forward commitment price < spot price.'],
+    correctAnswer: 'Forward commitment price < spot price.', // Index of correct option
+    back: "B is correct. Greater benefits associated with the underlying will be associated with a higher spot price relative to the forward commitment price, and if these benefits are greater than the costs of owning the underlying, then the spot price will be greater than the forward commitment price. A is incorrect because this inequality would be true in the case of the costs exceeding the benefits. C is incorrect because an equality between the two prices describes the rare circumstance in which costs and benefits are exactly equal.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:164,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
     front: " ",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option

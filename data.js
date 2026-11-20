@@ -2157,7 +2157,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:165,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2170,7 +2170,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:166,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2183,7 +2183,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:167,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2196,7 +2196,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:168,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2209,7 +2209,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:169,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2222,7 +2222,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:170,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2235,7 +2235,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:171,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2248,7 +2248,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:172,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2261,7 +2261,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:173,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2275,7 +2275,7 @@ const flashcardData = [
 
 
   {
-    id:164,
+    id:174,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2288,7 +2288,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:175,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2301,7 +2301,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:176,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2314,7 +2314,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:177,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2327,7 +2327,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:178,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2340,7 +2340,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:179,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2353,7 +2353,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:180,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2366,7 +2366,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:181,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2379,7 +2379,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:182,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2392,7 +2392,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:183,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2405,7 +2405,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:184,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2418,7 +2418,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:185,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2431,7 +2431,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:186,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2444,7 +2444,7 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:187,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2457,7 +2457,215 @@ const flashcardData = [
   },
 
   {
-    id:164,
+    id:188,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "One disadvantage of the Herfindahl–Hirschman index is that the index:",
+    options: ['is difficult to compute.', 'fails to reflect the effect of mergers in the industry', 'fails to reflect low barriers to entry.'],
+    correctAnswer: 'fails to reflect low barriers to entry.', // Index of correct option
+    back: "B is correct. The Herfindahl–Hirschman index does not reflect low barriers to entry that may restrict the market power of companies currently in the market.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:189,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "The characteristic business cycle patterns of trough, expansion, peak, and contraction are:",
+    options: ['recurrent', 'of similar duration.', 'periodic.'],
+    correctAnswer: 'recurrent', // Index of correct option
+    back: "B is correct. The stages of the business cycle occur repeatedly over time.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:190,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "During the contraction phase of a business cycle, it is most likely that:",
+    options: [' inflation indicators are stable.', 'aggregate economic activity relative to potential output is decreasing.', 'investor preference for government securities declines.'],
+    correctAnswer: 'aggregate economic activity relative to potential output is decreasing.', // Index of correct option
+    back: "B is correct. The net trend during contraction is negative.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:191,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which factor is considered a macro risk affecting all investments?",
+    options: ['Industry sector trends', ' Inflation', 'Company-specific performance'],
+    correctAnswer: ' Inflation', // Index of correct option
+    back: "The correct answer is A: Inflation is a macro risk that impacts the entire economy and financial markets. It affects the performance of all investments by influencing real returns and purchasing power. Alternative B is incorrect: Industry sector trends represent unsystematic risks specific to particular industry sectors, not macro risks that affect the entire market. While sector trends can influence multiple companies within the same sector, their impact is not as widespread as macro risks including inflation, which affects all the financial markets. Alternative C is incorrect: Company-specific performance is considered a micro or unsystematic risk, affecting only the individual company’s stock or securities and not the entire market or economy.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:192,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Does the variability of annual returns relate to investment risk?",
+    options: ['No, there is no relationship.', 'Yes, greater variability indicates lower risk.', 'Yes, greater variability indicates higher risk.'],
+    correctAnswer: 'Yes, greater variability indicates higher risk.', // Index of correct option
+    back: "The correct answer is C: The range of annual returns is a measure of variability and volatility. A wider range in annual returns signifies greater fluctuations in value, implying higher risk and the possibility of greater rewards or losses. Alternative A is incorrect: There is a relationship between annual returns and investment risk. Alternative B is incorrect: A greater variability does not indicate lower risk, it indicates the opposite.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:193,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "For international bond investments, foreign exchange rates:",
+    options: ['have no impact on the bond’s returns.', 'determine the bond’s coupon rate.', 'affect the investor’s home currency return.'],
+    correctAnswer: 'affect the investor’s home currency return.', // Index of correct option
+    back: "The correct answer is C: Changes in exchange rates influence the realized returns of international investments when converting back to the investor’s home currency. As the relative value of the two currencies changes, the return the investor earns is also impacted by these changes. As the domestic currency depreciates against the foreign currency, the returns increase, and vice versa. Alternative A is incorrect: The bond’s coupon rate is predetermined and not directly affected by foreign exchange rates. Alternative B is incorrect: Foreign exchange rates can have a significant impact on the returns of international investments.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:194,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which type of return do investors most commonly receive when investing in debt instruments?",
+    options: ['Venture capital appreciation', 'Price distribution', 'Fixed capital distribution'],
+    correctAnswer: 'Fixed capital distribution', // Index of correct option
+    back: "The correct response is B: Debt instruments typically provide returns in the form of fixed capital distributions, such as regular interest payments, over the investment period. Alternative A is incorrect: While price appreciation can occur, most returns from debt instruments come from fixed interest payments. Alternative C is incorrect: Variable capital distributions are more commonly associated with equity and certain types of debt with variable coupon rates.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:195,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Based on historical data, which of the following assets has typically had the lowest average annual returns over time?",
+    options: ['US equities', 'US corporate bonds', 'US government bonds'],
+    correctAnswer: 'US government bonds', // Index of correct option
+    back: "The correct response is C: Historically, bonds have yielded lower average returns than equities. Corporate bonds tend to generate higher returns than government bonds. Government bonds, because of their relatively higher perceived safety, tend to generate the lowest annual returns. Answer A is incorrect: Historically, equities have yielded more than both corporate and government bonds. Answer B is incorrect: Historically, corporate bonds have yielded more than government bonds, but less than equities.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:196,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Identify the three primary return drivers of investing in timberland.",
+    options: [' ', ' ', ' '],
+    correctAnswer: 'The three primary return drivers of investing in timberland are (1) the biological growth of the timber to be harvested in the future, (2) the price of lumber, and (3) changes in the price of the land.', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:197,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following describes a non-cash benefit of holding a physical commodity rather than a derivative contract on the same commodity?",
+    options: ['Storage', 'Interest', 'Convenience yield'],
+    correctAnswer: 'Convenience yield', // Index of correct option
+    back: "B is correct. In market environments in which physical inventories of a commodity become low, investors in that commodity will prefer to hold the physical asset rather than a derivative contract with the asset as an underlying. The premium on the spot price resulting from this preference is called the convenience yield. A and C are both incorrect because interest and storage reflect costs associated with owning the physical commodity.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:198,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which type of investor is likely to prefer investing in commodities using exchange-traded products?",
+    options: ['Those seeking to gain access to dynamic commodity trading strategies', 'Those seeking simplified trading through a brokerage account', 'Those seeking expertise in a specific commodity sector'],
+    correctAnswer: 'Those seeking simplified trading through a brokerage account', // Index of correct option
+    back: "A is correct. Exchange-traded products allow investors to gain commodity exposure through a simple exchange-traded instrument that can be accessed via a brokerage account. B is incorrect because it describes investors who choose to use commodity trading advisors. C is incorrect because this type of investor will choose a specialized commodity fund for its expertise.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:199,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following natural resource investments is least likely to use the real estate investment trust (REIT) ownership structure?",
+    options: ['Farmland', 'Raw land', 'Timberland'],
+    correctAnswer: 'Raw land', // Index of correct option
+    back: "B is correct. Raw land is typically acquired through direct ownership or a partnership structure. Also, raw land has no inherent income stream and returns accrue purely from price appreciation, making the income pass-through REIT structure less relevant. Both A and C are incorrect because both farmland and timberland investments are included in REIT structures, as well as other ownership forms.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:200,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Which of the following asset characteristics is shared by both farmland and real estate investments?",
+    options: ['Both are illiquid investments.', 'Both are liquid investments.', 'Physical improvements are a primary focus of the investment value for both.'],
+    correctAnswer: 'Both are illiquid investments.', // Index of correct option
+    back: "B is correct. Farmland and real estate share a feature of illiquidity: It is costly to find a buyer when sale of the investment is desired. A is incorrect given that both are illiquid investments. C is incorrect because physical improvements are a focus of value only for real estate investments, not for farmland investments.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:201,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "A share repurchase differs from cash dividend payments because:",
+    options: ['repurchases may provide signals to the market about an issuer’s perception of share value, while dividends do not.', 'repurchases are not direct cash distributions to shareholders, unlike cash dividends.', 'repurchases decrease shareholder proportional ownership stakes while dividends do not.'],
+    correctAnswer: 'repurchases may provide signals to the market about an issuer’s perception of share value, while dividends do not.', // Index of correct option
+    back: "Choice C is correct. When an issuer repurchases its stock, investors may consider this to be a signal that management believes its stock is undervalued. Cash dividends provide no signal about the stock’s value (although an increase may signal management’s expectation of higher future earnings, and this signal requires more than simply the payment of dividends). Choice A is incorrect because the repurchase increases the proportional ownership of all shareholders who do not participate in the stock repurchase. Only shareholders who choose to sell might reduce their proportional ownership. Choice B is incorrect because repurchases are a cash distribution to shareholders. The difference is that only selling shareholders receive the distribution from repurchases.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:202,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "On which one of the following dates would a company’s stock price be expected to decline, holding all else equal?",
+    options: ['Dividend payment date', 'Ex-dividend date', 'Dividend declaration date'],
+    correctAnswer: 'Ex-dividend date', // Index of correct option
+    back: "Choice B is correct. On the ex-dividend date, the stock no longer provides the owner with the right to the upcoming dividend payment. As a result, the stock price declines on this date by approximately the amount of the cash dividend, assuming no other causes for the stock to move. Choice A is incorrect because the declaration date usually precedes the ex-dividend date by a few months. Choice C is incorrect because the payment date usually follows the ex-dividend date by about two weeks.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:203,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: "Identify the most accurate effect of a reverse stock split on a company’s stock.",
+    options: ['A reverse stock split is often used by a company that has successfully restructured its operations.', 'A reverse stock split increases a company’s stock price per share.', 'A reverse stock split increases the number of shares outstanding.'],
+    correctAnswer: 'A reverse stock split increases a company’s stock price per share.', // Index of correct option
+    back: "Choice C is correct. A reverse stock split reduces the number of shares outstanding while increasing the stock price per share such that the market value of the company’s equity does not change. Each shareholder maintains the same proportional ownership following the reverse split. Choice A is incorrect because the number of shares outstanding increases in a stock split, not a reverse split. Choice B is incorrect because a reverse stock split is more likely with a company that is initiating a restructuring rather than with one that has just completed a successful restructuring.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+   {
+    id:204,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2468,6 +2676,60 @@ const flashcardData = [
     correctAnswers: 0,
     incorrectAnswers: 0
   },
+
+   {
+    id:205,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: " ",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+
+   {
+    id:206,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: " ",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:207,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: " ",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:208,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: '', // flashcard or multiple-choice
+    front: " ",
+    options: [' ', ' ', ' '],
+    correctAnswer: '', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+  
 ];
 
 export { flashcardData, parentCategories, subcategories };

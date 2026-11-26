@@ -561,7 +561,7 @@ const flashcardData = [
     id: 43,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: 'flashcard', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "^Fill in the two blanks below using the two of the following four possible terms below to complete: A _____________________ likely has the greatest access to financing, while a _____________________ likely has the least access to financing.",
     options: ['sole proprietorship', 'public limited company (corporation)', 'limited partnership', 'general partnership'],
     correctAnswer: 'A public limited company (corporation) likely has the greatest access to financing, while a sole proprietorship likely has the least access to financing.', // Index of correct option
@@ -704,7 +704,7 @@ const flashcardData = [
     id: 54,
     categoryId: 'cfa-level1',
     subcategoryId: 'flashcard',
-    type: 'multiple-choice', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "^Limited liability of shareholders refers to the fact that the ________________ amount shareholders may lose on their investment is the ________________ paid to buy the shares.",
     options: ['', '', ''],
     correctAnswer: 'Limited liability of shareholders refers to the fact that the maximum amount shareholders may lose on their investment is the price paid to buy the shares.', // Index of correct option
@@ -1715,7 +1715,7 @@ const flashcardData = [
   },
 
   {
-    id:131,
+    id:209,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: 'multiple-choice', // flashcard or multiple-choice
@@ -1861,7 +1861,7 @@ const flashcardData = [
     id:142,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Identify the two defining properties of probability, including mutually exclusive and exhaustive events, and compare and contrast empirical, subjective, and a priori probabilities.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
@@ -1887,7 +1887,7 @@ const flashcardData = [
     id:144,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Calculate and interpret the future value (FV) and present value (PV) of a single sum of money, an ordinary annuity, an annuity due, a perpetuity (PV only), and a series of unequal cash flows.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
@@ -1965,7 +1965,7 @@ const flashcardData = [
     id:150,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "For the year ended 31 December 2018, Dim-Cool Utility Company (fictitious) had net income of USD1,750,000. The company had an average of 500,000 shares of common stock outstanding, 20,000 shares of convertible preferred, and no other potentially dilutive securities. Each share of preferred pays a dividend of USD10 per share, and each is convertible into three shares of the company’s common stock. What was the company’s basic and diluted EPS?",
     options: [' ', ' ', ' '],
     correctAnswer: 'If the 20,000 shares of convertible preferred had each converted into three shares of the company’s common stock, the company would have had an additional 60,000 shares of common stock (three shares of common for each of the 20,000 shares of preferred). If the conversion had taken place, the company would not have paid preferred dividends of USD200,000 (USD10 per share for each of the 20,000 shares of preferred). The effect of using the if-converted method would be EPS of USD3.13, as shown in Exhibit 17. Because this is greater than the company’s basic EPS of USD3.10, the securities are said to be antidilutive and the effect of their conversion would not be included in diluted EPS. Diluted EPS would be the same as basic EPS (i.e., USD3.10).', // Index of correct option
@@ -2030,7 +2030,7 @@ const flashcardData = [
     id:155,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "A €100 million private equity fund has a preferred return of 5% per annum, 20% carried interest with full catch-up, and standard clawback clauses. The fund realizes a gross gain of 50% in two years before it distributes all its capital back to its LPs. Ignoring management fees, the total carried interest to the GP for the two years is closest to:",
     options: ['€8 million.', '€16 million.', '€10 million.'],
     correctAnswer: '€10 million.', // Index of correct option
@@ -2134,7 +2134,7 @@ const flashcardData = [
     id:163,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "AWJ Capital is a hedge fund with $100 million of initial investment capital. It charges a 2% management fee based on year-end AUM and a 20% incentive fee. In its first year, AWJ Capital has a 30% return. Assume management fees are calculated using end-of-period valuation.5. In the third year, the fund value increases to $128 million. The fee structure is as specified in Questions 1 and 4. What are the fees earned by AWJ in the third year? What is an investor’s net return for the third year given this fee structure?",
     options: [' ', ' ', ' '],
     correctAnswer: '$128 million × 2% = $2.56 million management fee. ($128 million − $121.4 million) × 20% = $1.32 million incentive fee. The $121.4 million represents the high-water mark established at the end of Year 1. Total fees to AWJ Capital = $3.88 million. Investor return = ($128 million − $3.88 million − $107.8 million)/$107.8 million = 15.14%. The ending capital position at the end of Year 3 is $124.12 million. This amount is the new high-water mark.', // Index of correct option
@@ -2147,7 +2147,7 @@ const flashcardData = [
     id:164,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements is most accurate?",
     options: ['Government capital spending decisions are slow to plan, implement, and execute and hence are of little use for short-term economic stabilization.', 'Because indirect taxes cannot be changed quickly, they are of no use in fiscal policy.', 'Direct taxes are useful for discouraging alcohol consumption.'],
     correctAnswer: 'Government capital spending decisions are slow to plan, implement, and execute and hence are of little use for short-term economic stabilization.', // Index of correct option
@@ -2160,7 +2160,7 @@ const flashcardData = [
     id:165,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following is not an indirect tax?",
     options: ['Excise duty', 'Value-added tax', 'Employment taxes'],
     correctAnswer: 'Employment taxes', // Index of correct option
@@ -2173,7 +2173,7 @@ const flashcardData = [
     id:166,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following is not a tool of fiscal policy?",
     options: ['A rise in social transfer payments', 'The purchase of new equipment for the armed forces', 'An increase in deposit requirements for the buying of houses'],
     correctAnswer: 'An increase in deposit requirements for the buying of houses', // Index of correct option
@@ -2186,7 +2186,7 @@ const flashcardData = [
     id:167,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which statement regarding fiscal deficits is most accurate?",
     options: ['According to the Ricardian equivalence, deficits have a multiplicative effect on consumer spending.', 'Higher government spending may lead to higher interest rates and lower private sector investing.', 'Central bank actions that grow the money supply to address deflationary conditions decrease fiscal deficits.'],
     correctAnswer: 'Higher government spending may lead to higher interest rates and lower private sector investing.', // Index of correct option
@@ -2199,7 +2199,7 @@ const flashcardData = [
     id:168,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "The most likely argument against high national debt levels is that:",
     options: ['they create disincentives for economic activity.', 'they may finance investment in physical and human capital.', 'the debt is owed internally to fellow citizens.'],
     correctAnswer: 'they create disincentives for economic activity.', // Index of correct option
@@ -2212,7 +2212,7 @@ const flashcardData = [
     id:169,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which one of the following is most likely a reason to not use fiscal deficits as an expansionary tool?",
     options: ['They may crowd out private investment.', 'They may stimulate employment when there is substantial unemployment in an economy.', 'They may facilitate tax changes to reduce distortions in an economy.'],
     correctAnswer: 'They may crowd out private investment.', // Index of correct option
@@ -2225,7 +2225,7 @@ const flashcardData = [
     id:170,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Fiscal expansions will most likely have the greatest impact on aggregate output when the economy is in which of the following states?",
     options: ['Full employment', 'Near full employment', 'Considerable unemployment'],
     correctAnswer: 'Considerable unemployment', // Index of correct option
@@ -2238,7 +2238,7 @@ const flashcardData = [
     id:171,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following is not associated with an expansionary fiscal policy?",
     options: ['Cuts in personal income taxes', 'Rise in capital gains taxes', 'New capital spending by the government on road building'],
     correctAnswer: 'Rise in capital gains taxes', // Index of correct option
@@ -2251,7 +2251,7 @@ const flashcardData = [
     id:172,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "A “pay-as-you-go” rule, which requires that any tax cut or increase in entitlement spending be offset by an increase in other taxes or reduction in other entitlement spending, is an example of which fiscal policy stance?",
     options: ['Expansionary', 'Contractionary', 'Neutral'],
     correctAnswer: 'Neutral', // Index of correct option
@@ -2264,7 +2264,7 @@ const flashcardData = [
     id:173,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following best represents a contractionary fiscal policy?",
     options: ['Public spending on a high-speed railway', 'Freeze in discretionary government spending', 'Temporary suspension of payroll taxes'],
     correctAnswer: 'Freeze in discretionary government spending', // Index of correct option
@@ -2278,7 +2278,7 @@ const flashcardData = [
     id:174,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "The least likely goal of a government’s fiscal policy is to:",
     options: ['redistribute income and wealth.', 'influence aggregate national output.', 'ensure the stability of the purchasing power of its currency.'],
     correctAnswer: 'ensure the stability of the purchasing power of its currency.', // Index of correct option
@@ -2291,7 +2291,7 @@ const flashcardData = [
     id:175,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements best describes fiscal policy? Fiscal policy:",
     options: ['involves the use of government spending and taxation to influence economy activity.', 'is the attempt by governments to balance their budgets from one year to the next.', 'is used by governments to redistribute wealth and incomes.'],
     correctAnswer: 'involves the use of government spending and taxation to influence economy activity.', // Index of correct option
@@ -2304,7 +2304,7 @@ const flashcardData = [
     id:176,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements best describes monetary policy? Monetary policy:",
     options: ['involves the setting of medium-term targets for broad money aggregates.', 'seeks to influence the macroeconomy by influencing the quantity of money and credit in the economy.', 'involves the manipulation by a central bank of the government’s budget deficit.'],
     correctAnswer: 'seeks to influence the macroeconomy by influencing the quantity of money and credit in the economy.', // Index of correct option
@@ -2317,7 +2317,7 @@ const flashcardData = [
     id:177,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "In the morning business news, a financial analyst, Kevin Durbin, learned that average hourly earnings had increased last month. The most appropriate action for Durbin is to:",
     options: ['examine other leading indicators to see any confirmation of a possible turning point for the economy.', 'use the news in his research report as a confirmation for his belief that the economy has recovered from a recession.', 'call his clients to inform them of a good trading opportunity today.'],
     correctAnswer: 'examine other leading indicators to see any confirmation of a possible turning point for the economy.', // Index of correct option
@@ -2330,7 +2330,7 @@ const flashcardData = [
     id:178,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "A diffusion index:",
     options: ['is roughly analogous to the indexes used to measure industrial production.', 'measures growth.', 'reflects the consensus change in economic indicators.'],
     correctAnswer: 'reflects the consensus change in economic indicators.', // Index of correct option
@@ -2343,7 +2343,7 @@ const flashcardData = [
     id:179,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Leading, lagging, and coincident indicators are:",
     options: ['based on historical cyclical observations.', 'based on Keynesian or Monetarist theory.', 'the same worldwide.'],
     correctAnswer: 'based on historical cyclical observations.', // Index of correct option
@@ -2356,7 +2356,7 @@ const flashcardData = [
     id:180,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "The reason analysts follow developments in the availability of credit is that:",
     options: ['credit cycles are of same length and depth as business cycles.', 'loose private sector credit may contribute to the extent of asset price and real estate bubbles and subsequent crises.', 'loose credit helps reduce the extent of asset price and real estate bubbles.'],
     correctAnswer: 'loose private sector credit may contribute to the extent of asset price and real estate bubbles and subsequent crises.', // Index of correct option
@@ -2369,7 +2369,7 @@ const flashcardData = [
     id:181,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "With which sector of the economy would analysts most commonly associate credit cycles?",
     options: ['Construction and purchases of property', 'Exports', 'Food retail'],
     correctAnswer: 'Construction and purchases of property', // Index of correct option
@@ -2382,7 +2382,7 @@ const flashcardData = [
     id:182,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Describe the relationship between the spot and forward price for an underlying asset if the risk-free rate is negative.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
@@ -2395,7 +2395,7 @@ const flashcardData = [
     id:183,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Calculate the arbitrage profit if a spot asset with no additional costs or benefits trades at a spot price of 100, the three-month forward price for the underlying asset is 102, and the risk-free rate is 5%.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
@@ -2408,7 +2408,7 @@ const flashcardData = [
     id:184,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Formulate a replication strategy for a three-month short forward commitment for 1,000 shares of a non-dividend-paying stock.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
@@ -2421,7 +2421,7 @@ const flashcardData = [
     id:185,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Determine the correct answers to fill in the blanks: If the law of one price does not hold, a(n) _________ asset trades at the same time at _________ prices in different places.",
     options: [' ', ' ', ' '],
     correctAnswer: '', // Index of correct option
@@ -2434,7 +2434,7 @@ const flashcardData = [
     id:186,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements best defines a convenience yield?",
     options: ['Convenience yield reflects the preference that market participants exhibit for buying forward contracts to avoid having to pay cash up front.', 'Convenience yield reflects the preference that market participants exhibit for buying in the spot market to avoid having to pay for storage.', 'Convenience yield reflects the preference that market participants exhibit for buying in the spot market for non-cash reasons, including low inventories in the underlying cash market.'],
     correctAnswer: 'Convenience yield reflects the preference that market participants exhibit for buying in the spot market for non-cash reasons, including low inventories in the underlying cash market.', // Index of correct option
@@ -2447,7 +2447,7 @@ const flashcardData = [
     id:187,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following statements correctly describes the relationship between a forward commitment price compared to the underlying spot price when the benefits of owning the underlying are greater than the costs of owning the underlying (including the opportunity interest costs)?",
     options: ['Forward commitment price = spot price.', 'Forward commitment price > spot price.', 'Forward commitment price < spot price.'],
     correctAnswer: 'Forward commitment price < spot price.', // Index of correct option
@@ -2460,7 +2460,7 @@ const flashcardData = [
     id:188,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "One disadvantage of the Herfindahl–Hirschman index is that the index:",
     options: ['is difficult to compute.', 'fails to reflect the effect of mergers in the industry', 'fails to reflect low barriers to entry.'],
     correctAnswer: 'fails to reflect low barriers to entry.', // Index of correct option
@@ -2473,7 +2473,7 @@ const flashcardData = [
     id:189,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "The characteristic business cycle patterns of trough, expansion, peak, and contraction are:",
     options: ['recurrent', 'of similar duration.', 'periodic.'],
     correctAnswer: 'recurrent', // Index of correct option
@@ -2486,7 +2486,7 @@ const flashcardData = [
     id:190,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "During the contraction phase of a business cycle, it is most likely that:",
     options: [' inflation indicators are stable.', 'aggregate economic activity relative to potential output is decreasing.', 'investor preference for government securities declines.'],
     correctAnswer: 'aggregate economic activity relative to potential output is decreasing.', // Index of correct option
@@ -2499,7 +2499,7 @@ const flashcardData = [
     id:191,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which factor is considered a macro risk affecting all investments?",
     options: ['Industry sector trends', ' Inflation', 'Company-specific performance'],
     correctAnswer: ' Inflation', // Index of correct option
@@ -2512,7 +2512,7 @@ const flashcardData = [
     id:192,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Does the variability of annual returns relate to investment risk?",
     options: ['No, there is no relationship.', 'Yes, greater variability indicates lower risk.', 'Yes, greater variability indicates higher risk.'],
     correctAnswer: 'Yes, greater variability indicates higher risk.', // Index of correct option
@@ -2525,7 +2525,7 @@ const flashcardData = [
     id:193,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "For international bond investments, foreign exchange rates:",
     options: ['have no impact on the bond’s returns.', 'determine the bond’s coupon rate.', 'affect the investor’s home currency return.'],
     correctAnswer: 'affect the investor’s home currency return.', // Index of correct option
@@ -2538,7 +2538,7 @@ const flashcardData = [
     id:194,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which type of return do investors most commonly receive when investing in debt instruments?",
     options: ['Venture capital appreciation', 'Price distribution', 'Fixed capital distribution'],
     correctAnswer: 'Fixed capital distribution', // Index of correct option
@@ -2551,7 +2551,7 @@ const flashcardData = [
     id:195,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Based on historical data, which of the following assets has typically had the lowest average annual returns over time?",
     options: ['US equities', 'US corporate bonds', 'US government bonds'],
     correctAnswer: 'US government bonds', // Index of correct option
@@ -2564,7 +2564,7 @@ const flashcardData = [
     id:196,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'flashcard', // flashcard or multiple-choice
     front: "Identify the three primary return drivers of investing in timberland.",
     options: [' ', ' ', ' '],
     correctAnswer: 'The three primary return drivers of investing in timberland are (1) the biological growth of the timber to be harvested in the future, (2) the price of lumber, and (3) changes in the price of the land.', // Index of correct option
@@ -2577,7 +2577,7 @@ const flashcardData = [
     id:197,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following describes a non-cash benefit of holding a physical commodity rather than a derivative contract on the same commodity?",
     options: ['Storage', 'Interest', 'Convenience yield'],
     correctAnswer: 'Convenience yield', // Index of correct option
@@ -2590,7 +2590,7 @@ const flashcardData = [
     id:198,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which type of investor is likely to prefer investing in commodities using exchange-traded products?",
     options: ['Those seeking to gain access to dynamic commodity trading strategies', 'Those seeking simplified trading through a brokerage account', 'Those seeking expertise in a specific commodity sector'],
     correctAnswer: 'Those seeking simplified trading through a brokerage account', // Index of correct option
@@ -2603,7 +2603,7 @@ const flashcardData = [
     id:199,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following natural resource investments is least likely to use the real estate investment trust (REIT) ownership structure?",
     options: ['Farmland', 'Raw land', 'Timberland'],
     correctAnswer: 'Raw land', // Index of correct option
@@ -2616,7 +2616,7 @@ const flashcardData = [
     id:200,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Which of the following asset characteristics is shared by both farmland and real estate investments?",
     options: ['Both are illiquid investments.', 'Both are liquid investments.', 'Physical improvements are a primary focus of the investment value for both.'],
     correctAnswer: 'Both are illiquid investments.', // Index of correct option
@@ -2629,7 +2629,7 @@ const flashcardData = [
     id:201,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "A share repurchase differs from cash dividend payments because:",
     options: ['repurchases may provide signals to the market about an issuer’s perception of share value, while dividends do not.', 'repurchases are not direct cash distributions to shareholders, unlike cash dividends.', 'repurchases decrease shareholder proportional ownership stakes while dividends do not.'],
     correctAnswer: 'repurchases may provide signals to the market about an issuer’s perception of share value, while dividends do not.', // Index of correct option
@@ -2642,7 +2642,7 @@ const flashcardData = [
     id:202,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "On which one of the following dates would a company’s stock price be expected to decline, holding all else equal?",
     options: ['Dividend payment date', 'Ex-dividend date', 'Dividend declaration date'],
     correctAnswer: 'Ex-dividend date', // Index of correct option
@@ -2655,7 +2655,7 @@ const flashcardData = [
     id:203,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
+    type: 'multiple-choice', // flashcard or multiple-choice
     front: "Identify the most accurate effect of a reverse stock split on a company’s stock.",
     options: ['A reverse stock split is often used by a company that has successfully restructured its operations.', 'A reverse stock split increases a company’s stock price per share.', 'A reverse stock split increases the number of shares outstanding.'],
     correctAnswer: 'A reverse stock split increases a company’s stock price per share.', // Index of correct option
@@ -2668,11 +2668,11 @@ const flashcardData = [
     id:204,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: " ",
-    options: [' ', ' ', ' '],
-    correctAnswer: '', // Index of correct option
-    back: "", // Index of correct option
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following is the most likely example of a tool of fiscal policy?",
+    options: ['Public financing of a power plant', 'Regulation of the payment system', 'Central bank’s purchase of government bonds'],
+    correctAnswer: 'Public financing of a power plant', // Index of correct option
+    back: "A is correct. Public financing of a power plant could be described as a fiscal policy tool to stimulate investment.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -2681,11 +2681,11 @@ const flashcardData = [
     id:205,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: " ",
-    options: [' ', ' ', ' '],
-    correctAnswer: '', // Index of correct option
-    back: "", // Index of correct option
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is least accurate?",
+    options: ['Economic models always offer an unambiguous guide to the future path of the economy.', 'The economic data available to policy makers have a considerable time lag.', 'Surprise changes in exogenous economic variables make it difficult to use fiscal policy as a stabilization tool.'],
+    correctAnswer: 'Economic models always offer an unambiguous guide to the future path of the economy.', // Index of correct option
+    back: "B is correct. Economic forecasts from models will always have an element of uncertainty attached to them and thus are not unambiguous or precise in their prescriptions. Once a fiscal policy decision has been made and implemented, unforeseen changes in other variables may affect the economy in ways that would lead to changes in the fiscal policy if we had perfect foresight. Note that it is true that official economic data may be available with substantial time lags, making fiscal judgments more difficult.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -2695,11 +2695,11 @@ const flashcardData = [
     id:206,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: " ",
-    options: [' ', ' ', ' '],
-    correctAnswer: '', // Index of correct option
-    back: "", // Index of correct option
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is least accurate?",
+    options: ['In the context of implementing fiscal policy, the recognition lag is often referred to as “driving while looking in the rearview mirror.”', 'Discretionary fiscal changes are aimed at stabilizing an economy.', 'Automatic fiscal stabilizers include new plans for additional road building by the government.'],
+    correctAnswer: 'Automatic fiscal stabilizers include new plans for additional road building by the government.', // Index of correct option
+    back: "B is correct. New plans for road building are discretionary and not automatic.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
@@ -2708,17 +2708,134 @@ const flashcardData = [
     id:207,
     categoryId: 'cfa-level1',
     subcategoryId: '',
-    type: '', // flashcard or multiple-choice
-    front: " ",
-    options: [' ', ' ', ' '],
-    correctAnswer: '', // Index of correct option
-    back: "", // Index of correct option
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements regarding a fiscal stimulus is most accurate?",
+    options: ['Different statistical models will predict different impacts for a fiscal stimulus.', 'Accommodative monetary policy reduces the impact of a fiscal stimulus.', 'It is always possible to precisely predict the impact of a fiscal stimulus on employment.'],
+    correctAnswer: 'Different statistical models will predict different impacts for a fiscal stimulus.', // Index of correct option
+    back: "B is correct. Different models embrace differing views on how the economy works, including differing views on the impact of fiscal stimuli.", // Index of correct option
     correctAnswers: 0,
     incorrectAnswers: 0
   },
 
   {
     id:208,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which of the following statements is most accurate?",
+    options: ['An increase in the budget deficit is usually expansionary.', 'An increase in government spending is always expansionary.', 'The structural deficit is always larger than the deficit below full employment.'],
+    correctAnswer: 'An increase in the budget deficit is usually expansionary.', // Index of correct option
+    back: "A is correct. Note that increases in government spending may be accompanied by even bigger rises in tax receipts and hence may not be expansionary.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:210,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Which one of the following statements about regular cash dividends is most correct?",
+    options: ['A company is legally required to pay a regular cash dividend to shareholders if the company is profitable.', 'A company with significant growth potential is likely to pay a large portion of its earnings as regular cash dividends.', 'A company’s management team and its board of directors make discretionary choices about regular cash dividend payments.'],
+    correctAnswer: 'A company’s management team and its board of directors make discretionary choices about regular cash dividend payments.', // Index of correct option
+    back: "Choice C is correct. Regular cash dividend payments reflect discretionary decision making by a company’s management team and board as to whether regular cash dividend payments are an appropriate use of corporate cash. Choice A is incorrect because cash dividend payments to shareholders are not a legal obligation regardless of a company’s profitability. Choice B is incorrect because a company with significant growth potential is likely to reinvest more of its profits, leaving a smaller portion for potential cash dividend payments to shareholders.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:211,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "Investors may prefer a company to repurchase shares instead of paying a cash dividend of similar size if:",
+    options: ['the company has relatively little variation in investment opportunities.', 'repurchasing shares reduces the company’s shares outstanding.', 'tax rates on capital gains income are lower than those on dividend income.'],
+    correctAnswer: 'tax rates on capital gains income are lower than those on dividend income.', // Index of correct option
+    back: "Choice A is correct. Investors facing higher tax rates on dividend income may prefer to receive cash distributions by selling shares and paying taxes at lower capital gains tax rates. Choice B is incorrect because a company automatically reduces shares outstanding by repurchasing shares, which should have no effect on whether investors would prefer repurchases over dividends. Choice C is incorrect because a company with little variation in investment opportunities does not require the greater flexibility associated with repurchases versus cash dividends.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:212,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'flashcard', // flashcard or multiple-choice
+    front: "Calculate the coupon payment on a 2.5% coupon bond with GBP100,000 par value and a semiannual payment frequency.",
+    options: [' ', ' ', ' '],
+    correctAnswer: '"The correct answer is GBP1,250. The annual coupon on a bond is calculated by multiplying the coupon rate and the par value. For this bond, the coupon rate of 2.5% and par value of GBP100,000 results in a GBP2,500 annual coupon. However, since the payment frequency is semiannual (twice a year), each coupon payment is GBP1,250."', // Index of correct option
+    back: "", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:213,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "An investor that is more sensitive to an issuer’s credit risk than to reinvesting risk would most likely invest in a:",
+    options: ['fully amortizing bond.', 'bullet bond.', 'partially amortizing bond.'],
+    correctAnswer: 'fully amortizing bond.', // Index of correct option
+    back: "Investors receive higher near-term cash flows on amortizing debt versus bullet bonds and face lower credit risk because the borrower’s liability is reduced over time. However, investors also face the risk of reinvesting the higher near-term cash flows at prevailing market interest rates, which can fluctuate. This effect is larger for fully amortizing bonds versus partially amortizing bonds.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:214,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "A common problem with hedge fund indexes is the upward bias due to:",
+    options: ['both backfill and survivorship bias.', 'survivorship bias only.', 'backfill bias only.'],
+    correctAnswer: 'both backfill and survivorship bias.', // Index of correct option
+    back: "C is correct. Both backfill bias and survivorship bias are common in hedge fund indexes.Survivorship bias refers to the selection bias in the index due to the exclusion of failed funds from a given benchmark. It leads to overly optimistic return expectations. Backfill bias refers to hedge funds including only the most successful funds in an index a few years after inception. The subsequent inclusion or “backfilling” of prior performance data on a selective basis serves to increase average reported returns. Both of these biases result in an upward bias in hedge fund indexes because they may reflect not actual average hedge fund performance but, rather, only the returns of those funds that initially performed best and/or have not failed.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:215,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "An agricultural firm operating in a perfectly competitive market supplies wheat to manufacturers of consumer food products and animal feeds. If the firm were able to expand its production and unit sales by 10%, the most likely result would be:",
+    options: ['a less than 10% increase in total revenue.', 'a 10% increase in average revenue.', 'a 10% increase in total revenue.'],
+    correctAnswer: 'a 10% increase in total revenue.', // Index of correct option
+    back: "In a perfectly competitive market, an increase in supply by a single firm will not affect price. Therefore, an increase in units sold by the firm will be matched proportionately by an increase in revenue.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:216,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: "The marginal revenue per unit sold for a firm doing business under conditions of perfect competition will most likely be:",
+    options: ['less than average revenue.', 'equal to average revenue.', 'greater than average revenue.'],
+    correctAnswer: 'equal to average revenue.', // Index of correct option
+    back: "A is correct. Under perfect competition, a firm is a price taker at any quantity supplied to the market, and AR = MR = Price.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:217,
+    categoryId: 'cfa-level1',
+    subcategoryId: '',
+    type: 'multiple-choice', // flashcard or multiple-choice
+    front: " A profit maximum is least likely to occur when:",
+    options: ['average total cost is minimized.', 'marginal revenue is equal to marginal cost.', 'the difference between total revenue and total cost is maximized.'],
+    correctAnswer: 'average total cost is minimized.', // Index of correct option
+    back: "The quantity at which average total cost is minimized does not necessarily correspond to a profit maximum.", // Index of correct option
+    correctAnswers: 0,
+    incorrectAnswers: 0
+  },
+
+  {
+    id:218,
     categoryId: 'cfa-level1',
     subcategoryId: '',
     type: '', // flashcard or multiple-choice
@@ -2729,6 +2846,8 @@ const flashcardData = [
     correctAnswers: 0,
     incorrectAnswers: 0
   },
+
+  
   
 ];
 
